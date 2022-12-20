@@ -1,0 +1,173 @@
+{
+  "main": {
+    "id": "763ba90793157027",
+    "type": "split",
+    "children": [
+      {
+        "id": "e5443ad3a6e75ab1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c9ce575985d3c263",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {}
+            }
+          },
+          {
+            "id": "befdd631ae755956",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "678ba5c73db7b160",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Software/Create a 2d map to update robots and shelves locations @1.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "b0624802ab46c9de",
+    "type": "split",
+    "children": [
+      {
+        "id": "dc8b64e1a2ffd8c0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f960ef9146ac4e49",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "03b8df5ea5df7b08",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ee0084702b54d5a2",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 338.5
+  },
+  "right": {
+    "id": "7d9e7c0f3b60e5a0",
+    "type": "split",
+    "children": [
+      {
+        "id": "6da9e075c1a45e70",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "52fd1340b40f0924",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "de9ed20155449eeb",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "36ed6e4c6e749715",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "2d9101fe6dfe66f9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "active": "befdd631ae755956",
+  "lastOpenFiles": [
+    "Software/Create a 2d map to update robots and shelves locations @1.md",
+    "README.md",
+    "Software/Software.md",
+    "Software/Create a 2d map to update robots and shelves locations from database @2.md",
+    "Software/backeend for a dashboard web application @6.md",
+    "Embedded/Embedded.md",
+    "Embedded/Arduino Encoders code @12.md",
+    "DevOps/Devops.md",
+    "DevOps/CI-CD pipeline for the web application @25.md",
+    "Data/Data.md"
+  ]
+}
