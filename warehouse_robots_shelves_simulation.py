@@ -58,6 +58,42 @@ class Map2D():
 
 
 
+
+class Robot():
+    """
+    Robot class creates robots for the warehouse.
+
+    :param id: (string) id for the robot to distinguish between robots 
+    :param intial_location: (list) [x, y]
+    :param intial_orientation: (string) robot's intial_orientation (up, down, right, left)
+    :param speed: (float) robot speed
+    :param map_size: (list) [map_size_x, map_size_y]
+
+    :param 
+    """
+    def __init__(self, id, intial_location, intial_orientation, speed, map_size):
+        
+        self.id = None
+        self.speed = speed
+        # active_order_status: (boolean) if robot is delivering an order (paired with a shelf) it's true
+        self.active_order_status = False 
+        # paired_with_shelf_status: (boolean) if robot is paired with a shelf it's true
+        self.paired_with_shelf_status = False
+        self.paired_with_shelf = None
+        self.battery_precentage = 100
+        # cost: (float) robot's path cost from its current location to the shelf location
+        self.cost = None
+        self.orientation = intial_orientation
+        self.map_size = map_size
+
+        self.prev_location = intial_location
+        self.current_location = intial_location
+        self.locations = [self.prev_location, self.current_location]
+
+
+
+
+
 # test the Map2D class
 if __name__ == "__main__":
     map_size_x = 10
