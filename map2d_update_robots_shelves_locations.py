@@ -4,6 +4,13 @@ import string
 
 
 class Map2D():
+    """
+    Map2D class creates the 2d map with 2d numpy array, and because it's based on numpy 2d array
+    the location's coordinates are based on numpy convention in indexing.
+
+    :param size_x: width of the 2d grid
+    :param size_x: height of the 2d grid
+    """
     def __init__(self, size_x, size_y):
         self.size_x = size_x
         self.size_y = size_y
@@ -13,8 +20,36 @@ class Map2D():
 
 
 
+    def update_objects_locations(self, object_locations):
+        """
+        update_objects_locations function updates the locations of objects(robots or shelves) in the 2 grid.
+        
+        :param object_locations: dictionary of objects, each object has 2 attributes, the object name
+                                 and a list of the object previous location and current location. 
+                                 example: dict {R1:[prev_location, crrent_location], R2:[prev_location, crrent_location],.., Rn:[prev_location, crrent_location]}
+        """
+
+        for object_id, locations in object_locations.items():
+            prev_location = locations[0]
+            crrent_location = locations[1]
+
+            # erase prev location
+            pos_x = prev_location[0]
+            pos_y = prev_location[1]
+            self.map[pos_x][pos_y] = 0
+
+
+            # add new location
+            pos_x = crrent_location[0]
+            pos_y = crrent_location[1]
+            self.map[pos_x][pos_y] = object_id
+
+
 
     def show_map(self):
+        """
+        show_map function prints the 2d grid to visualize the movement of objects.
+        """
         letters_seqence = string.ascii_uppercase[0:self.size_x]
         print(pd.DataFrame(self.map,columns=list(letters_seqence),index=list(letters_seqence)))
             
