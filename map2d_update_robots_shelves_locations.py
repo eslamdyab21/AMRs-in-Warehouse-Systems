@@ -66,6 +66,7 @@ if __name__ == "__main__":
     map = Map2D(size_x=map_size_x, size_y=map_size_y)
     map.show_map()
 
+
     map.update_objects_locations({'S1':[[2,5],[2,5]], 'S2':[[0,0],[0,0]]})
     map.show_map()
 
