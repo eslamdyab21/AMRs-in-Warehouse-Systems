@@ -14,7 +14,7 @@ class Map2D():
     def __init__(self, size_x, size_y):
         self.size_x = size_x
         self.size_y = size_y
-        self.map = np.zeros((size_x, size_y))
+        self.map = np.zeros((size_y, size_x))
         self.map = self.map.astype('int')
         self.map = self.map.astype('object')
 
@@ -50,7 +50,29 @@ class Map2D():
         """
         show_map function prints the 2d grid to visualize the movement of objects.
         """
-        letters_seqence = string.ascii_uppercase[0:self.size_x]
-        print(pd.DataFrame(self.map,columns=list(letters_seqence),index=list(letters_seqence)))
+        letters_seqence_columns = string.ascii_uppercase[0:self.size_x]
+        letters_seqence_rows = string.ascii_uppercase[0:self.size_y]
+        print(pd.DataFrame(self.map,columns=list(letters_seqence_columns),index=list(letters_seqence_rows)))
             
         print('---------------------------------------')
+
+
+
+# test the Map2D class
+if __name__ == "__main__":
+    map_size_x = 10
+    map_size_y = 5
+
+    map = Map2D(size_x=map_size_x, size_y=map_size_y)
+    map.show_map()
+
+    map.update_objects_locations({'S1':[[2,5],[2,5]], 'S2':[[0,0],[0,0]]})
+    map.show_map()
+
+    map.update_objects_locations({'R1':[[2,2],[2,3]], 'R2':[[0,3],[0,2]]})
+    map.show_map()
+
+    map.update_objects_locations({'R1':[[2,3],[2,4]], 'R2':[[0,2],[0,1]]})
+    map.show_map()
+
+    
