@@ -73,7 +73,7 @@ class Robot():
     """
     def __init__(self, id, intial_location, intial_orientation, speed, map_size):
         
-        self.id = None
+        self.id = id
         self.speed = speed
         # active_order_status: (boolean) if robot is delivering an order (paired with a shelf) it's true
         self.active_order_status = False 
@@ -91,15 +91,42 @@ class Robot():
         self.locations = [self.prev_location, self.current_location]
 
 
+    def move_forward(self):
+        """
+        move_forward function moves the robot in the forward direction based on its 
+        current location and orientation         
+        """
+        self.prev_location = self.current_location.copy()
+
+        if (self.orientation == 'down') and (self.current_location[0] != self.map_size[1]):
+            self.current_location[0] = self.current_location[0] + 1
+            
+        elif (self.orientation == 'up') and (self.current_location[0] != 0):
+            self.current_location[0] = self.current_location[0] - 1
+
+        elif (self.orientation == 'right') and (self.current_location[1] != self.map_size[1]):
+            self.current_location[1] = self.current_location[1] + 1
+        
+        elif (self.orientation == 'left') and (self.current_location[1] != 0):
+            self.current_location[1] = self.current_location[1] - 1
+        
+
+        self.locations = [self.prev_location, self.current_location]
 
 
 
-# test the Map2D class
+# test the warehouse Robot and Shelf classes
 if __name__ == "__main__":
-    map_size_x = 10
-    map_size_y = 5
+    map_size_x = 15
+    map_size_y = 15
 
     map = Map2D(size_x=map_size_x, size_y=map_size_y)
+    map.show_map()
+
+    R1 = Robot(id = 'R1', intial_location = [2,2], intial_orientation = 'down', speed=1, map_size = [map_size_x, map_size_y])
+    R2 = Robot(id = 'R2', intial_location = [4,3], intial_orientation = 'down', speed=1, map_size = [map_size_x, map_size_y])
+    
+    map.update_objects_locations({R1.id:R1.locations, R2.id:R2.locations})
     map.show_map()
 
     
