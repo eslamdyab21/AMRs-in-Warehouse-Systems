@@ -115,6 +115,10 @@ class Robot():
 
 
     def rotate_90_degree_clock_wise(self):
+        """
+        rotate_90_degree_clock_wise function rotates the robot's orientation based
+        on the robot current orientation.
+        """
         if (self.orientation == 'down'):
             self.orientation = 'left'
 
@@ -131,6 +135,10 @@ class Robot():
 
 
     def rotate_90_degree_anti_clock_wise(self):
+        """
+        rotate_90_degree_clock_wise function rotates the robot's orientation based
+        on the robot current orientation.
+        """
         if (self.orientation == 'down'):
                 self.orientation = 'right'
 
