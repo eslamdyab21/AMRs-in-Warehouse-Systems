@@ -114,6 +114,37 @@ class Robot():
         self.locations = [self.prev_location, self.current_location]
 
 
+    def rotate_90_degree_clock_wise(self):
+        if (self.orientation == 'down'):
+            self.orientation = 'left'
+
+        elif (self.orientation == 'up'):
+            self.orientation = 'right'
+        
+        elif (self.orientation == 'right'):
+            self.orientation = 'down'
+        
+        elif (self.orientation == 'left'):
+            self.orientation = 'up'
+
+            
+
+
+    def rotate_90_degree_anti_clock_wise(self):
+        if (self.orientation == 'down'):
+                self.orientation = 'right'
+
+        elif (self.orientation == 'up'):
+            self.orientation = 'left'
+        
+        elif (self.orientation == 'right'):
+            self.orientation = 'up'
+        
+        elif (self.orientation == 'left'):
+            self.orientation = 'down'
+
+
+
 
 # test the warehouse Robot and Shelf classes
 if __name__ == "__main__":
@@ -128,5 +159,19 @@ if __name__ == "__main__":
     
     map.update_objects_locations({R1.id:R1.locations, R2.id:R2.locations})
     map.show_map()
+
+    R1.move_forward()
+    R2.move_forward()
+    map.update_objects_locations({R1.id:R1.locations, R2.id:R2.locations})
+    map.show_map()
+
+
+    R1.rotate_90_degree_clock_wise()
+    R2.rotate_90_degree_anti_clock_wise()
+    R1.move_forward()
+    R2.move_forward()
+    map.update_objects_locations({R1.id:R1.locations, R2.id:R2.locations})
+    map.show_map()
+
 
     
