@@ -44,3 +44,14 @@ class Control():
                         self.robot_with_min_cost.paired_with_shelf = shlef
 
                         self.robots_with_min_cost_list.append(robot_with_min_cost)
+
+
+    def steps_map(self):
+        """
+        steps_map function work on the robots in the robots_with_min_cost_list to get their
+        steps/movement instructions that they will take to reach the shelf.
+        """
+        for i in range(len(self.robots_with_min_cost_list)):
+            robot = self.robots_with_min_cost_list[i]
+            vertical_steps = abs(robot.paired_with_shelf.location[1] - robot.location[1])
+            horizontal_steps = abs(robot.paired_with_shelf.location[0] - robot.location[0])
