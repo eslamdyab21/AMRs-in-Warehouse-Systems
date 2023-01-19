@@ -11,7 +11,7 @@ class Shelf():
         self.id = id
         self.active_order_status = False 
         self.paired_with_robot_status = False
-        self.paired_with_robot_id = None
+        self.paired_with_robot = None
         self.intial_location = intial_location
         self.map_size = map_size
 
