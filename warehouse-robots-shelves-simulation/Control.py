@@ -111,7 +111,7 @@ S1 ----> R2 (Min cost =6)
 
 
 ***************************************
-solution:
+solution::
 implemented logic to get min path for each robot
 
     A  B   C   D   E  F  G  H
