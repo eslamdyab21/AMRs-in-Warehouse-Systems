@@ -32,7 +32,7 @@ class Control():
         shelf_costs_vector = []
         shelvs_recived_order = []
         for shelf in self.shelvs:
-            if shelf.recived_order_status:   
+            if shelf.recived_order_status and shelf.paired_with_robot_status==False:   
                 for robot in self.robots:
                     if robot.paired_with_shelf_status == False:
                         robot.active_order_status = False  
@@ -57,6 +57,7 @@ class Control():
         # sort shelves desendingly based on higher costs value to give it the robot with
         # min path
         shelvs_recived_order = sorted(shelvs_recived_order, key=lambda x: x[1], reverse=True)
+
         # print(shelvs_recived_order)
         for i in range(len(shelvs_recived_order)):
             shelf = shelvs_recived_order[i][0]
@@ -67,8 +68,12 @@ class Control():
 
             robot.active_order_status = True
             robot.paired_with_shelf_status = True
+            shelf.paired_with_robot_status = True
+
             robot.paired_with_shelf = shelf
             shelf.paired_with_robot = robot
+
+            self.robots_with_min_cost_list.append(robot)
 
             if shelf.paired_with_robot == None:
                 print(str(shelf.id) + " ----> " + "None" + " (Min cost)")
@@ -77,7 +82,7 @@ class Control():
         
 
 
-    def steps_map(self):
+    def steps_map(self, map):
         """
         steps_map function work on the robots in the robots_with_min_cost_list to get their
         steps/movement instructions that they will take to reach the shelf.
@@ -87,9 +92,93 @@ class Control():
 
         for i in range(len(self.robots_with_min_cost_list)):
             robot = self.robots_with_min_cost_list[i]
-            vertical_steps = abs(robot.paired_with_shelf.current_location[1] - robot.current_location[1])
-            horizontal_steps = abs(robot.paired_with_shelf.current_location[0] - robot.current_location[0])
+            horizontal_steps = robot.paired_with_shelf.current_location[1] - robot.current_location[1]
+            vertical_steps = robot.paired_with_shelf.current_location[0] - robot.current_location[0]
 
+            if vertical_steps > 0:
+                # want to move down
+                self.move(robot, 'down')
+
+            elif vertical_steps < 0:
+                # want to move up
+                self.move(robot, 'up')
+
+            elif vertical_steps == 0:
+                if horizontal_steps > 0:
+                    # want to move right
+                    self.move(robot, 'right')
+
+                elif horizontal_steps < 0:
+                    # want to move left
+                    self.move(robot, 'left')
+
+            if (abs(horizontal_steps) == 1 or horizontal_steps == 0) and vertical_steps == 0:
+                map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+            else:
+                map.update_objects_locations({robot.id:robot.locations})
+
+        map.show_map()
+
+    def move(self, robot, direction):
+        # print(robot.id, robot.current_location, direction)
+        if direction == 'down':
+            if robot.orientation == 'down':
+                robot.move_forward()
+            elif robot.orientation == 'up':
+                robot.rotate_90_degree_clock_wise()
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'right':
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'left':
+                robot.rotate_90_degree_anti_clock_wise()
+                robot.move_forward()
+
+
+        elif direction == 'up':
+            if robot.orientation == 'up':
+                robot.move_forward()
+            elif robot.orientation == 'down':
+                robot.rotate_90_degree_clock_wise()
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'right':
+                robot.rotate_90_degree_anti_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'left':
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
+
+
+        elif direction == 'right':
+            if robot.orientation == 'right':
+                robot.move_forward()
+            elif robot.orientation == 'left':
+                robot.rotate_90_degree_clock_wise()
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'down':
+                robot.rotate_90_degree_anti_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'up':
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
+
+
+        elif direction == 'left':
+            if robot.orientation == 'left':
+                robot.move_forward()
+            elif robot.orientation == 'right':
+                robot.rotate_90_degree_clock_wise()
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'up':
+                robot.rotate_90_degree_anti_clock_wise()
+                robot.move_forward()
+            elif robot.orientation == 'down':
+                robot.rotate_90_degree_clock_wise()
+                robot.move_forward()
 
 
 """
