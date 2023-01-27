@@ -119,6 +119,7 @@ class Control():
 
         map.show_map()
 
+
     def move(self, robot, direction):
         # print(robot.id, robot.current_location, direction)
         if direction == 'down':
@@ -199,7 +200,7 @@ S1 ----> R2 (Min cost =6)
 
 
 
-***************************************
+****************************************
 solution::
 implemented logic to get min path for each robot
 
