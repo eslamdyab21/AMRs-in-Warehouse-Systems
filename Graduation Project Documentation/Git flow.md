@@ -40,6 +40,16 @@ nothing to commit, working tree clean
 
 now you are in the `feature/software/3` branch who is associated with the issue-3 in the software branch, and yo can start making changes and adding commits.
 
+Note that first push after making some commits will create the branch on github website
+```bash
+git push --set-upstream origin feature/software/3
+```
+After this first push, any other pushes will be normal with 
+```bash
+git push
+```
+
+
 After finishing your work on that issue branch, you need to merge it with the base branch (in this case `software`)
 
 
