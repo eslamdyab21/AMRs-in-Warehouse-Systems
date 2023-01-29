@@ -28,6 +28,7 @@ Now you're in the `AMRs-in-Warehouse-Systems` repo. but if you `git branch` to v
 
 </br>
 To get other branches, use `git branch -a`, you will get other branches.
+
 ```bash
 ❯ git branch -a
 * main
@@ -39,7 +40,9 @@ To get other branches, use `git branch -a`, you will get other branches.
   remotes/origin/main
   remotes/origin/software
 ```
+
 but they are in the `remote (github website)` not in your machine, you can jump in one of them with `git checkout`
+
 ```bash
 ❯ git checkout remotes/origin/feature/software/3
 Note: switching to 'remotes/origin/feature/software/3'.
@@ -64,6 +67,7 @@ HEAD is now at 32bc437 updating git flow docs
 
 </br>
 As described above, any changes you make will be lost unless you make a copy of that remote branch in your machine by `git switch -c <new-branch-name>`, you will make the `<new-branch-name>` as the branch name you jumped into without the `remotes/origin/` at the beginning, meaning the name will be in this case `feature/software/3`
+
 ```bash
 ❯ git switch -c "feature/software/3"
 Switched to a new branch 'feature/software/3'
@@ -106,6 +110,7 @@ An example of the branch name is `feature/software/3`, `feature/embedded/12`.
 
 </br>
 To view branches
+
 ```bash 
 ❯ git branch
   data
@@ -119,12 +124,14 @@ To view branches
 Before creating a branch, first go to the branch you want to create a new branch based on, I will go to `software` branch.
 </br>
 To create a branch (will assume working in a software issue, change software and issue number accordingly)
+
 ```bash
 git checkout software
 ```
 
 </br>
 Then create the branch with the issue number as described above.
+
 ```bash
 ❯ git checkout -b feature/software/3
 Switched to a new branch 'feature/software/3'
@@ -135,17 +142,18 @@ Switched to a new branch 'feature/software/3'
 ❯ git status
 On branch feature/software/3
 nothing to commit, working tree clean
-
 ```
 
 </br>
 now you are in the `feature/software/3` branch who is associated with the issue-3 in the software branch, and yo can start making changes and adding commits.
 </br>
 Note that first push after making some commits will create the branch on github website
+
 ```bash
 git push --set-upstream origin feature/software/3
 ```
 After this first push, any other pushes will be normal with 
+
 ```bash
 git push
 ```
