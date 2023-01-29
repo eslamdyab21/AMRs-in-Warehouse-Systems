@@ -8,7 +8,8 @@ We have 5 classes `Control, Database, Map2D, Robot and Shelf` and a `main.py`.
 - Handle collision
 - Moving the robot with the shelf to the destination after pairing.
 - Moving the shelf back to its original location or other location (needs discussing with team)
-
+</br>
+</br>
 
 ## `main` 
 ```python
@@ -41,7 +42,8 @@ map.update_objects_locations({R1.id:R1.locations, R2.id:R2.locations, R3.id:R3.l
 map.show_map()
 ```
 We first import our classes, create our `2D-map`, create 2 shelves and 3 robots and then update the map with new created shelves and robots and then showing it.
-
+</br>
+</br>
 
 ```python
 database = Database(robots = [R1, R2, R3], shelvs = [S1, S2], map_size = [map_size_x, map_size_y])
@@ -106,14 +108,21 @@ H   0  0     0  0     0  0  0  0
 ---------------------------------------
 
 ```
-
-
+</br>
+</br>
+</br>
+</br>
+</br>
 
 ## `Map2D` class
 `Map2D` class is the same as in issue #1 [[Create a 2d map to update robots and shelves locations @1]] 
 
 
-
+</br>
+</br>
+</br>
+</br>
+</br>
 
 ## `Robot` class
 `Robot` class creates robots for the warehouse and control its movement.
@@ -166,6 +175,8 @@ Then we define 3 functions which will govern the robot motion in the map:
 
 >The robot can only move forward, rotate 90 degree eathier clockwise or anticlockwise. It can move in the 4 directions `up, down, left abd right` with the help of the rotation methods.
 
+</br>
+</br>
 
 #### `move_forward` method
 The `move_forward` method moves the robot in the forward direction based on its
@@ -196,6 +207,8 @@ def move_forward(self):
 	self.locations = [self.prev_location, self.current_location]
 ```
 
+</br>
+</br>
 
 #### `rotate_90_degree_clock_wise` method
 The `rotate_90_degree_clock_wise` method rotates the robot's orientation based
@@ -220,6 +233,9 @@ def rotate_90_degree_clock_wise(self):
 		self.orientation = 'up'
 ```
 
+</br>
+</br>
+
 #### `rotate_90_degree_anti_clock_wise` method
 And similarly the `rotate_90_degree_anti_clock_wise` 
 ```python
@@ -242,18 +258,30 @@ def rotate_90_degree_anti_clock_wise(self):
 		self.orientation = 'down'
 ```
 
-
+</br>
+</br>
+</br>
+</br>
+</br>
 
 ## `Shelf` class
 The `Shelf` class is pretty much like the `Robot` class, only difference is that the `Shelf` class doesn't have a rotation method.
 
 
-
+</br>
+</br>
+</br>
+</br>
+</br>
 
 ## `Database` class
 `Database` class will be responsible of writing and querying updated data from the database, not complete yet.
 
-
+</br>
+</br>
+</br>
+</br>
+</br>
 
 
 ## `Control` class
@@ -266,6 +294,7 @@ The `Shelf` class is pretty much like the `Robot` class, only difference is that
    
 3. `move` moves the min cost robots based on the instructions obtained in steps_map function.
 
+</br>
 
 First we initialize the class with control parameters 
 ```python
@@ -291,6 +320,9 @@ class Control():
 		# self.min_cost = map_size[0]
 		self.robots_with_min_cost_list = []
 ```
+
+</br>
+</br>
 
 ####  `min_cost_robots` method
 First method `min_cost_robots`, we will break it to two parts
@@ -331,6 +363,8 @@ In this part we loop over each `ready-to-be-paired shelf` and for each one of th
 
 Then after looping over all `ready-to-be-paired robots` for a given  `ready-to-be-paired shelf`, we sort those appended robots based on their costs (low cost first then higher). And then for each of the `ready-to-be-paired shelves` we append the shelf along with its costs sum of its `ready-to-be-paired robots` and its `ready-to-be-paired robots` too.
 
+</br>
+</br>
 
 Then the second part after finishing those two loops, we select the robots which will give min cost for all the system.
 ```python
@@ -364,6 +398,9 @@ for i in range(len(shelvs_recived_order)):
 		      " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")")
 ```
 
+</br>
+</br>
+
 It's worth giving example on the `shelvs_recived_order` list variable to understand it better, after the two loops of the first part, an example of the `shelvs_recived_order` list variable would be:
 
 - before `sorted(shelvs_recived_order, key=lambda x: x[1], reverse=True)`
@@ -374,6 +411,9 @@ It's worth giving example on the `shelvs_recived_order` list variable to underst
 [<Shelf object>, 18, [[<Robot object>, 'R1', 3], [<Robot object>, 'R2', 6], 
 					  [<Robot object>, 'R3', 9]]]]
 ```
+
+</br>
+
 - after `sorted(shelvs_recived_order, key=lambda x: x[1], reverse=True)`
 ```python
 [[<Shelf object>, 18, [[<Robot object>, 'R1', 3], [<Robot object>, 'R2', 6], 
@@ -383,12 +423,16 @@ It's worth giving example on the `shelvs_recived_order` list variable to underst
 					 [<Robot object>, 'R3', 4]]]]
 ```
 
+</br>
+</br>
+
 Shelves with higher cost sum will be given the robots nearest to it first before the shelves with lower cost sum, that to get the overall minimum cost of the system.
 
 Then the status of those chosen shelves and robots is updated, and the robots are appended to `robots_with_min_cost_list` to later get their steps/movement instructions needed to reach their shelves.
 
-
-
+</br>
+</br>
+</br>
 
 ####  `steps_map` method
 `steps_map` work on the robots in the `robots_with_min_cost_list` to get their steps/movement instructions that they will take to reach the shelf.
@@ -413,6 +457,8 @@ def steps_map(self, map):
 		                                   robot.current_location[0]
 ```
 for each robot in the `robots_with_min_cost_list` we calculate `horizontal_steps and vertical_steps`, those are the number of steps in the vertical and horizontal direction needed to reach the shelf. 
+
+</br>
 
 Then each simulation time we move one step in the vertical direction until we finish all the vertical then we move the horizontal_steps. this is done in this part down here:
 ```python
@@ -453,8 +499,9 @@ def steps_map(self, map):
 
 And then we update the map and show it at the end.
 
-
-
+</br>
+</br>
+</br>
 
 ####  `move` method
 `move` moves the min cost robots based on the instructions obtained in steps_map function, and move method is very simple and self explanatory.
