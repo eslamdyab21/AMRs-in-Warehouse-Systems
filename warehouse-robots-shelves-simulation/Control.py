@@ -16,7 +16,7 @@ class Control():
         self.robots = robots
         self.shelvs = shelvs
         self.map_size = map_size
-        self.min_cost = map_size[0]
+        # self.min_cost = map_size[0]
         self.robots_with_min_cost_list = []
 
 
@@ -25,8 +25,7 @@ class Control():
         """
         min_cost_robots function gets robots with minimum cost to shelves, for each shelf
         we iterate over all robots that are not paired with other shelves and compute the
-        corresponding cost until the robot with minimum cost is found, this robot is 
-        then appended to a list.
+        corresponding cost until the robot with minimum cost is found.
         """
         shelf_cost_vector = []
         shelf_costs_vector = []
@@ -86,6 +85,8 @@ class Control():
         """
         steps_map function work on the robots in the robots_with_min_cost_list to get their
         steps/movement instructions that they will take to reach the shelf.
+
+        :param map: (2d array) object of the warehouse
         """
         
         self.min_cost_robots()
@@ -121,6 +122,14 @@ class Control():
 
 
     def move(self, robot, direction):
+        """
+        move function moves the min cost robots based on the instructions obtained 
+        in steps_map function.
+
+        :param robot: robot objects in the warehouse
+        :param direction: desired direction to move the robot
+        """
+        
         # print(robot.id, robot.current_location, direction)
         if direction == 'down':
             if robot.orientation == 'down':
