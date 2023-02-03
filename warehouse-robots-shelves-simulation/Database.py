@@ -32,7 +32,7 @@ class Database():
             user="mennatallah",
             password="Mmeenna71@SQL",
             port=3306,
-            host="localhost",
+            host="192.168.1.10",
             database="amr_warehouse"
         )
         self.cursor = self.connection.cursor()
