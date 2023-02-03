@@ -14,9 +14,17 @@ class Database():
         self.connect_to_db()
 
 
-    def query_from_db(self):
-        self.shelvs[0].recived_order_status = True
-        self.shelvs[1].recived_order_status = True
+    def query_shelf_id(self):
+        query_notifications = (
+            """
+                SELECT SUBSTRING_INDEX(Notification, ' ', -1) as ShelfID, DateTime FROM Notifications ORDER BY NotificationID DESC LIMIT 1;
+            """
+        )
+
+        self.cursor.execute(query_notifications)
+        results = self.cursor.fetchall()[0]
+        shelfId, time = results
+        # print("Shelf ID = {} at time {}".format(shelfId, time))
 
 
     def connect_to_db(self):
