@@ -23,7 +23,7 @@ database.update_db(table="Shelves", id=S1.id, parameters={"LocationX":S1.intial_
 # Another shelf
 print("Another shelf")
 S2 = Shelf(id = 'S2', intial_location = [2,2], map_size = [map_size_x, map_size_y])
-database.update_db(S2.id, S2)
+#database.update_db(S2.id, S2)
 
 '''
 databse = Database(shelvs = S2)
