@@ -10,21 +10,22 @@ class Robot():
     """
     def __init__(self, id, intial_location, intial_orientation, speed, map_size):
         
-        self.id = id
-        self.speed = speed
+        self.id = id # RobotID
+        self.speed = speed # Speed
         # active_order_status: (boolean) if robot is delivering an order (paired with a shelf) it's true
-        self.active_order_status = False 
+        self.active_order_status = False # HavingOrder in States table
         # paired_with_shelf_status: (boolean) if robot is paired with a shelf it's true
         self.paired_with_shelf_status = False
-        self.paired_with_shelf = None
+        self.paired_with_shelf = None # ShelfID
         self.battery_precentage = 100
         # cost: (float) robot's path cost from its current location to the shelf location
-        self.cost = None
+        self.cost = None # CostToShelf
         self.orientation = intial_orientation
         self.map_size = map_size
 
         self.prev_location = intial_location
-        self.current_location = intial_location
+        self.current_location = intial_location #CurrentLocationX, CurrentLocationY
+        # NextLocationX, NextLocationY
         self.locations = [self.prev_location, self.current_location]
 
 

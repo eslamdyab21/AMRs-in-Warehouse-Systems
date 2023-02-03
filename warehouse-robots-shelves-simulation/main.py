@@ -15,6 +15,7 @@ map = Map2D(size_x=map_size_x, size_y=map_size_y)
 
 # Creating a shelf and inserting it into the database
 database = Database()
+database.query_shelf_id()
 S1 = Shelf(id = "'S1'", intial_location = [10,11], map_size = [map_size_x, map_size_y])
 database.update_db(table="Shelves", id=S1.id, parameters={"LocationX":S1.intial_location[0], "LocationY":S1.intial_location[1], "ProductID":"'P1'"})
 
@@ -54,6 +55,7 @@ database.query_from_db()
 control = Control(robots = [R1, R2, R3], shelvs = [S2, S1], map_size = [map_size_x, map_size_y])
 
 for i in range(5):
+
 	control.steps_map(map)
 	
 

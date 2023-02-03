@@ -1,6 +1,8 @@
 -- To use MySQL here --
 -- mysql -u username -p --
 
+-- Need to remove CostToShelf
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;

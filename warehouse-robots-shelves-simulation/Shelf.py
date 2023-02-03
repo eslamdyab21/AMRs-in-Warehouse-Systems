@@ -8,7 +8,7 @@ class Shelf():
     """
     def __init__(self, id, intial_location, map_size):
         
-        self.id = id
+        self.id = id # ShelfID
         self.active_order_status = False 
         self.paired_with_robot_status = False
         self.paired_with_robot = None
@@ -16,7 +16,7 @@ class Shelf():
         self.map_size = map_size
 
         self.prev_location = intial_location
-        self.current_location = intial_location
+        self.current_location = intial_location #LocationX, LocationY
         self.locations = [self.prev_location, self.current_location]
 
 
