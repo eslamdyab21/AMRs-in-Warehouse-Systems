@@ -49,6 +49,7 @@ CREATE TABLE Shelves(
     LocationX INT NOT NULL UNIQUE CHECK(LocationX BETWEEN 0 AND 20),
     LocationY INT NOT NULL UNIQUE CHECK(LocationY BETWEEN 0 AND 20),
     ProductID VARCHAR(5) NOT NULL, -- The product that the shelf stores
+    HavingOrder VARCHAR(20) NOT NULL DEFAULT 0 CHECK(HavingOrder IN (0, 1)), -- 0: Empty, 1: Occupied
 
     -- Creating relations
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
@@ -59,8 +60,8 @@ CREATE TABLE Robots(
     Speed INT NOT NULL CHECK(Speed >= 0),
 
     -- Locations
-    CurrentLocationX INT NOT NULL UNIQUE CHECK(CurrentLocationX BETWEEN 0 AND 20),
-    CurrentLocationY INT NOT NULL UNIQUE CHECK(CurrentLocationY BETWEEN 0 AND 20),
+    CurrentLocationX INT NOT NULL CHECK(CurrentLocationX BETWEEN 0 AND 20),
+    CurrentLocationY INT NOT NULL CHECK(CurrentLocationY BETWEEN 0 AND 20),
     NextLocationX INT CHECK(NextLocationX BETWEEN 0 AND 20),
     NextLocationY INT CHECK(NextLocationY BETWEEN 0 AND 20),
 
@@ -93,7 +94,7 @@ CREATE TABLE States(
 
 CREATE TABLE Notifications(
     NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Notification VARCHAR(100) NOT NULL,
+    Notification VARCHAR(100),
     DateTime DATETIME NOT NULL
 );
 
@@ -108,6 +109,8 @@ CREATE TRIGGER NewOrder AFTER INSERT ON Orders FOR EACH ROW
         INSERT INTO Notifications(Notification, DateTime)
             VALUES(CONCAT('A new product is ordered from shelf ', shelfId), TIMESTAMP(NEW.DateTime));
         UPDATE Products AS P SET P.ItemsInStock = P.ItemsInStock - NEW.Quantity WHERE P.ProductID = NEW.ProductID;
+        
+        UPDATE Shelves AS S SET S.HavingOrder = 1 WHERE S.ShelfID = shelfId;
     END //
 DELIMITER ;
 

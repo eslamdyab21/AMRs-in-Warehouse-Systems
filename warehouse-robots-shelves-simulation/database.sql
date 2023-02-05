@@ -14,6 +14,9 @@ USE AMR_Warehouse;
 DROP TABLE Shelves;
 
 USE AMR_Warehouse;
+ALTER TABLE Shelves ADD COLUMN HavingOrder VARCHAR(20) NOT NULL CHECK(HavingOrder IN (0, 1)); -- 0: Empty, 1: Occupied
+
+
 CREATE TABLE Shelves(
     ShelfID VARCHAR(5) NOT NULL PRIMARY KEY,
     LocationX INT NOT NULL CHECK(LocationX BETWEEN 0 AND 20),
