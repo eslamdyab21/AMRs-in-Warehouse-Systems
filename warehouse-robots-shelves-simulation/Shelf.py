@@ -10,7 +10,7 @@ class Shelf():
         self.logger = logger
 
         self.id = id # ShelfID
-        self.active_order_status = False 
+        self.recived_order_status = False 
         self.paired_with_robot_status = False
         self.paired_with_robot = None
         self.intial_location = intial_location
