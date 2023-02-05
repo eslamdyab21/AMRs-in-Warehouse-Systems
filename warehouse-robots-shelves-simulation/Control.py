@@ -11,7 +11,8 @@ class Control():
     :param shelves: (list) list of shelves objects in the warehouse [shelf1, shelf2,....., shelfn]
     :param map_size: (list) [map_size_x, map_size_y]
     """
-    def __init__(self, robots, shelvs, map_size):
+    def __init__(self, logger, robots, shelvs, map_size):
+        self.logger = logger
 
         self.robots = robots
         self.shelvs = shelvs
@@ -75,10 +76,13 @@ class Control():
             self.robots_with_min_cost_list.append(robot)
 
             if shelf.paired_with_robot == None:
-                print(str(shelf.id) + " ----> " + "None" + " (Min cost)")
+                info = str(shelf.id) + " ----> " + "None" + " (Min cost)"
+                # print(info)
+                self.logger.log('Control -->' + info)
             else:
-                print(str(shelf.id) + " ----> " + str(shelf.paired_with_robot.id) + " (Min cost = " + str(min_cost) + ")" + " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")")
-        
+                info = str(shelf.id) + " ----> " + str(shelf.paired_with_robot.id) + " (Min cost = " + str(min_cost) + ")" + " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")"
+                # print(info)
+                self.logger.log('Control -->' + info)
 
 
     def steps_map(self, map):
