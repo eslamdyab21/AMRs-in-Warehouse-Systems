@@ -18,18 +18,25 @@ class Database():
 
 
 
-    def query_shelf_id(self):
+    def query_recived_order_shelfs_id(self):
         query_notifications = (
             """
-                SELECT SUBSTRING_INDEX(Notification, ' ', -1) as ShelfID, DateTime FROM Notifications ORDER BY NotificationID DESC LIMIT 1;
+                SELECT ShelfID FROM Shelves WHERE HavingOrder=1;
             """
         )
 
         self.cursor.execute(query_notifications)
-        results = self.cursor.fetchall()[0]
-        shelfId, time = results
-        # print("Shelf ID = {} at time {}".format(shelfId, time))
-        self.logger.log('Database --> ' + "Shelf ID = {} at time {}".format(shelfId, time))
+        shelves_recived_order = self.cursor.fetchall()
+
+        shelves_id_recived_order_list = []
+        for shelf_id in shelves_recived_order:
+            shelf_id, = shelf_id
+            shelves_id_recived_order_list.append(shelf_id)
+
+        self.logger.log("Database --> Shelves that have recived an order: " + str(shelves_id_recived_order_list))
+        
+        return shelves_id_recived_order_list
+
 
 
     def connect_to_db(self):
@@ -40,6 +47,7 @@ class Database():
             host="localhost",
             database="AMR_Warehouse"
         )
+
         self.cursor = self.connection.cursor()
         self.logger.log('Database --> ' + "Connection is done")
         self.cursor.execute("""USE AMR_Warehouse""")
@@ -73,11 +81,11 @@ class Database():
 
         else:
             shelf = object
-            shelf_parameters = (id, shelf.prev_location[0], shelf.prev_location[1], shelf.id)
+            shelf_parameters = (id, shelf.prev_location[0], shelf.prev_location[1], shelf.id, self.recived_order_status)
             # The query we'll execute
             write_to_shelves = (
                 """
-                    INSERT INTO Shelves(ShelfID, LocationX, LocationY, ProductID)
+                    INSERT INTO Shelves(ShelfID, LocationX, LocationY, ProductID, HavingOrder)
                     VALUES(%s, %s, %s, %s)
                 """
             )
@@ -102,7 +110,8 @@ class Database():
                     SET {} = {}
                     WHERE {} = {}
                 """
-            ).format(table, column, value, primary_key, id)
+            ).format(table, column, value, primary_key, "'" + id + "'")
+            
             self.cursor.execute(update_robots)
         self.connection.commit()
         self.logger.log('Database --> ' + id + " is updated")
