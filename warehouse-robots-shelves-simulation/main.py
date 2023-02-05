@@ -24,34 +24,42 @@ database = Database(logger)
 if write_or_update == 'write':
     # Creating shelfs and robots and inserting them into the database
     S1 = Shelf(logger, id = 'S1', intial_location = [1,6], map_size = [map_size_x, map_size_y])
-    database.write_to_db(S1.id, S1)
+    # database.write_to_db(S1.id, S1)
 
     S2 = Shelf(logger, id = 'S2', intial_location = [2,2], map_size = [map_size_x, map_size_y])
-    database.write_to_db(S2.id, S2)
+    # database.write_to_db(S2.id, S2)
+
+    # S3 = Shelf(logger, id = 'S2', intial_location = [2,2], map_size = [map_size_x, map_size_y])
+
+    # S4 = Shelf(logger, id = 'S2', intial_location = [2,2], map_size = [map_size_x, map_size_y])
+
 
     R1 = Robot(logger, id = 'R1', intial_location = [5,3], intial_orientation = 'right', speed=10, map_size = [map_size_x, map_size_y])
-    database.write_to_db(R1.id, R1)
+    # database.write_to_db(R1.id, R1)
 
     R2 = Robot(logger, id = 'R2', intial_location = [0,3], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
-    database.write_to_db(R2.id, R2)
+    # database.write_to_db(R2.id, R2)
 
     R3 = Robot(logger, id = 'R3', intial_location = [0,0], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
-    database.write_to_db(R3.id, R3)
+    # database.write_to_db(R3.id, R3)
 
 
 if write_or_update == 'update':
     database.update_db(table="Shelves", id=S1.id, parameters={"LocationX":S1.current_location[0], "LocationY":S1.current_location[1], "ProductID":"S1"})
 
 
-"""
-# update sheves and robots status from db
-database.query_from_db()
 
-control = Control(logger, robots = [R1, R2, R3], shelvs = [S2, S1], map_size = [map_size_x, map_size_y])
+
+
+control = Control(logger, database, robots = [R1, R2, R3], shelvs = [S2, S1], map_size = [map_size_x, map_size_y])
+# database.query_shelf_id()
+
+# update S1, S2 recived order fore testing
+database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
+database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
 
 for i in range(5):
+    control.steps_map(map)
 
-	control.steps_map(map)
-"""
 
-logger.log("---------------------------------------------- Line breaker ----------------------------------------------n")
+logger.log("---------------------------------------------- Line breaker ----------------------------------------------\n")
