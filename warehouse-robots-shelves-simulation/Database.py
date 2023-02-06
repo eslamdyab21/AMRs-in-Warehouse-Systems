@@ -58,7 +58,7 @@ class Database():
 
         self.cursor = self.connection.cursor()
         self.logger.log('Database --> ' + "Connection is done")
-        self.cursor.execute("""USE testing_AMRs""")
+        self.cursor.execute(f"""USE {ENV_MYSQL_DATABASE}""")
         self.logger.log('Database --> ' + "testing_AMRs Database is in use")
 
 
