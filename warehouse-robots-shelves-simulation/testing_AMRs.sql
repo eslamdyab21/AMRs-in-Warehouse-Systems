@@ -28,7 +28,7 @@ CREATE TABLE Products(
 
 CREATE TABLE Orders(
     OrderID VARCHAR(5) PRIMARY KEY,     -- O1, O2, O3, ...
-    UserID INT,
+    UserID VARCHAR(5),
     ProductID VARCHAR(5),
     Quantity INT,
     Cost DECIMAL(6, 2),
@@ -82,7 +82,7 @@ CREATE TABLE Robots(
 -- For the developer
 
 CREATE TABLE Notifications(
-    NotificationID INT AUTO_INCREMENT,
+    NotificationID INT AUTO_INCREMENT PRIMARY KEY,
     Notification VARCHAR(100),
     DateTime DATETIME
 );
