@@ -1,0 +1,367 @@
+2023-02-05 17:48:30,398: Logger: Database --> Connection is done
+2023-02-05 17:48:30,398: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 17:48:30,398: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
+2023-02-05 17:48:30,398: Logger: Database --> 'S1' shelf is added
+2023-02-05 17:48:30,399: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 17:48:30,399: Logger: Database --> S2 shelf is added
+2023-02-05 17:48:30,399: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 11], intial_orientation=right battery_precentage=100
+
+2023-02-05 17:56:10,779: Logger: Database --> Connection is done
+2023-02-05 17:56:10,780: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 17:56:10,780: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
+2023-02-05 17:56:10,780: Logger: Database --> 'S1' shelf is added
+2023-02-05 17:56:10,780: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 17:56:10,781: Logger: Database --> S2 shelf is added
+2023-02-05 17:56:10,781: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 11], intial_orientation=right battery_precentage=100
+
+2023-02-05 17:58:31,988: Logger: Database --> Connection is done
+2023-02-05 17:58:31,988: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 17:58:31,988: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
+2023-02-05 17:58:31,989: Logger: Database --> 'S1' shelf is added
+2023-02-05 17:58:31,989: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 17:58:31,989: Logger: Database --> S2 shelf is added
+2023-02-05 17:58:31,989: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 17:58:31,989: Logger: Database --> 'R1' shelf is added
+2023-02-05 17:58:31,989: Logger: 
+
+2023-02-05 17:59:38,520: Logger: Database --> Connection is done
+2023-02-05 17:59:38,521: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 17:59:38,521: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
+2023-02-05 17:59:38,521: Logger: Database --> 'S1' shelf is added
+2023-02-05 17:59:38,758: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 17:59:38,760: Logger: Database --> S2 shelf is added
+2023-02-05 17:59:38,946: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 17:59:38,947: Logger: Database --> 'R1' shelf is added
+2023-02-05 17:59:39,154: Logger: 
+
+2023-02-05 18:04:59,360: Logger: Database --> Connection is done
+2023-02-05 18:04:59,360: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 18:04:59,360: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
+2023-02-05 18:21:33,142: Logger: Database --> Connection is done
+2023-02-05 18:21:33,143: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 18:21:33,143: Logger: Shelf --> S1 is created with intial_location=[10, 11]
+2023-02-05 18:21:33,143: Logger: Database --> S1 shelf is added
+2023-02-05 18:21:33,371: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 18:21:33,372: Logger: Database --> S2 shelf is added
+2023-02-05 18:21:33,448: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 18:24:03,521: Logger: Database --> Connection is done
+2023-02-05 18:24:03,521: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 18:24:03,521: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
+2023-02-05 18:24:03,522: Logger: Database --> 'S1' shelf is added
+2023-02-05 18:24:03,745: Logger: Shelf --> 'S2' is created with intial_location=[2, 2]
+2023-02-05 18:24:03,998: Logger: Database --> 'S2' shelf is added
+2023-02-05 18:24:04,196: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+
+2023-02-05 18:28:11,498: Logger: Database --> Connection is done
+2023-02-05 18:28:11,499: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 18:28:11,499: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
+2023-02-05 18:28:11,499: Logger: Database --> 'S1' shelf is added
+2023-02-05 18:28:11,686: Logger: Shelf --> 'S2' is created with intial_location=[2, 2]
+2023-02-05 18:28:11,688: Logger: Database --> 'S2' shelf is added
+2023-02-05 18:28:11,873: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 18:28:11,876: Logger: Database --> 'R1' robot is added
+2023-02-05 18:28:11,921: Logger: Database --> 'R1' robot's health is added
+2023-02-05 18:28:12,116: Logger: 
+
+2023-02-05 18:39:08,635: Logger: Database --> Connection is done
+2023-02-05 18:39:08,635: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 18:39:08,635: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 18:39:08,635: Logger: Database --> S1 shelf is added
+2023-02-05 18:39:08,796: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 18:39:08,798: Logger: Database --> S2 shelf is added
+2023-02-05 18:39:09,001: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 18:39:10,836: Logger: Database --> R1 shelf is added
+2023-02-05 18:39:11,576: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+
+
+2023-02-05 18:40:49,576: Logger: Database --> Connection is done
+2023-02-05 18:40:49,577: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 18:40:49,577: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 18:40:49,577: Logger: Database --> S1 shelf is added
+2023-02-05 18:40:50,364: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 18:40:50,366: Logger: Database --> S2 shelf is added
+2023-02-05 18:40:51,023: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 18:40:51,025: Logger: Database --> R1 robot is added
+2023-02-05 18:40:51,027: Logger: Database --> R1 robot's health is added
+2023-02-05 18:40:51,266: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+
+2023-02-05 19:03:10,137: Logger: Database --> Connection is done
+2023-02-05 19:03:10,137: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 19:03:10,137: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 19:03:10,138: Logger: Database --> S1 shelf is added
+2023-02-05 19:03:10,262: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 19:03:10,264: Logger: Database --> S2 shelf is added
+2023-02-05 19:03:10,387: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 19:03:10,389: Logger: Database --> R1 robot is added
+2023-02-05 19:03:10,391: Logger: Database --> R1 robot's health is added
+2023-02-05 19:03:10,604: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+
+2023-02-05 19:18:20,366: Logger: Database --> Connection is done
+2023-02-05 19:18:20,366: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 19:18:20,366: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 19:18:20,367: Logger: Database --> S1 shelf is added
+2023-02-05 19:18:20,585: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 19:18:20,587: Logger: Database --> S2 shelf is added
+2023-02-05 19:18:20,751: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 19:18:20,753: Logger: Database --> R1 robot is added
+2023-02-05 19:18:20,754: Logger: Database --> R1 robot's health is added
+2023-02-05 19:18:20,916: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+
+2023-02-05 19:19:32,017: Logger: Database --> Connection is done
+2023-02-05 19:19:32,017: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 19:19:32,017: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 19:19:32,017: Logger: Database --> S1 shelf is added
+2023-02-05 19:19:32,191: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 19:19:32,193: Logger: Database --> S2 shelf is added
+2023-02-05 19:19:32,279: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 19:19:32,281: Logger: Database --> R1 robot is added
+2023-02-05 19:19:32,282: Logger: Database --> R1 robot's health is added
+2023-02-05 19:19:32,378: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+
+2023-02-05 19:22:10,428: Logger: Database --> Connection is done
+2023-02-05 19:22:10,428: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 19:22:10,428: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 19:22:10,429: Logger: Database --> S1 shelf is added
+2023-02-05 19:22:10,695: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 19:22:10,697: Logger: Database --> S2 shelf is added
+2023-02-05 19:22:10,839: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 19:22:10,844: Logger: Database --> R1 robot is added
+2023-02-05 19:22:10,845: Logger: Database --> R1 robot's health is added
+2023-02-05 19:22:11,026: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 19:22:11,027: Logger: Database --> R2 robot is added
+2023-02-05 19:22:11,029: Logger: Database --> R2 robot's health is added
+2023-02-05 19:22:11,224: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 19:22:11,226: Logger: Database --> R3 robot is added
+2023-02-05 19:22:11,227: Logger: Database --> R3 robot's health is added
+2023-02-05 19:22:11,477: Logger: 
+
+2023-02-05 20:21:51,410: Logger: Database --> Connection is done
+2023-02-05 20:21:51,410: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:23:15,373: Logger: Database --> Connection is done
+2023-02-05 20:23:15,373: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:23:15,373: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:23:15,373: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:23:15,373: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:23:15,373: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:23:15,373: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:23:52,228: Logger: Database --> Connection is done
+2023-02-05 20:23:52,228: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:23:52,229: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:23:52,229: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:23:52,229: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:23:52,229: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:23:52,229: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:23:52,229: Logger: Database --> Shelves having order are: [('S1',), ('S4',)]
+2023-02-05 20:23:52,504: Logger: ---------------------------------------------- Line breaker ----------------------------------------------n
+2023-02-05 20:27:41,445: Logger: Database --> Connection is done
+2023-02-05 20:27:41,446: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:27:41,446: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:27:41,446: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:27:41,446: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:27:41,446: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:27:41,446: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:27:41,446: Logger: Database --> Shelves having order are: S1
+2023-02-05 20:27:41,447: Logger: Database --> Shelves having order are: S4
+2023-02-05 20:27:41,496: Logger: ---------------------------------------------- Line breaker ----------------------------------------------n
+2023-02-05 20:30:59,294: Logger: Database --> Connection is done
+2023-02-05 20:30:59,294: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:30:59,294: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:30:59,294: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:30:59,295: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:30:59,295: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:30:59,295: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:30:59,295: Logger: Database --> Shelves having order are: S4
+2023-02-05 20:30:59,344: Logger: ---------------------------------------------- Line breaker ----------------------------------------------n
+2023-02-05 20:31:18,194: Logger: Database --> Connection is done
+2023-02-05 20:31:18,194: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:31:18,195: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:31:18,195: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:31:18,195: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:31:18,195: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:31:18,195: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:31:18,195: Logger: Database --> Shelves having order are: S4
+2023-02-05 20:31:18,236: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 20:31:19,122: Logger: Database --> Connection is done
+2023-02-05 20:31:19,122: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:31:19,122: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:31:19,122: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:31:19,122: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:31:19,122: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:31:19,122: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:31:19,123: Logger: Database --> Shelves having order are: S4
+2023-02-05 20:31:19,165: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 20:31:55,315: Logger: Database --> Connection is done
+2023-02-05 20:31:55,316: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:31:55,316: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:31:55,316: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:31:55,316: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:31:55,316: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:31:55,316: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:31:55,317: Logger: Database --> Shelves having order are: ['S1', 'S4']
+2023-02-05 20:31:55,357: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 20:32:29,987: Logger: Database --> Connection is done
+2023-02-05 20:32:29,988: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:32:29,988: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:32:29,988: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:32:29,988: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:32:29,988: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:32:29,988: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:32:29,989: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
+2023-02-05 20:32:30,028: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 20:58:55,444: Logger: Database --> Connection is done
+2023-02-05 20:58:55,445: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:58:55,445: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:58:55,445: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:58:55,445: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:58:55,445: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:58:55,445: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:32:30,028: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 20:59:52,490: Logger: Database --> Connection is done
+2023-02-05 20:59:52,490: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 20:59:52,490: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 20:59:52,491: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 20:59:52,491: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 20:59:52,491: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 20:59:52,491: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 20:59:52,491: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
+2023-02-05 20:59:52,492: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
+2023-02-05 20:32:30,028: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 21:03:15,366: Logger: Database --> Connection is done
+2023-02-05 21:03:15,366: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 21:03:15,366: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 21:03:15,367: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 21:03:15,367: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 21:03:15,367: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 21:03:15,367: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 21:03:15,367: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
+2023-02-05 21:03:15,367: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
+2023-02-05 21:03:15,577: Logger: Database --> S1 is updated
+2023-02-05 21:03:15,577: Logger: Control -->S1 ----> R2 (Min cost = 4) (Costs: [['R2', 4], ['R1', 7], ['R3', 7]])
+2023-02-05 21:03:15,578: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-02-05 21:03:15,578: Logger: Robot --> R2 moved to location=[1, 3]
+2023-02-05 21:03:15,614: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,614: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,615: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is right
+2023-02-05 21:03:15,615: Logger: Robot --> R2 moved to location=[1, 4]
+2023-02-05 21:03:15,628: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,628: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,628: Logger: Robot --> R2 moved to location=[1, 5]
+2023-02-05 21:03:15,638: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,639: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,639: Logger: Robot --> R2 moved to location=[1, 6]
+2023-02-05 21:03:15,647: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,648: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:03:15,657: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 21:04:39,171: Logger: Database --> Connection is done
+2023-02-05 21:04:39,172: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 21:04:39,172: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 21:04:39,172: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 21:04:39,172: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 21:04:39,172: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 21:04:39,172: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 21:04:39,173: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,173: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,182: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,183: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,191: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,191: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,199: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,200: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,209: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,209: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:04:39,217: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 21:09:53,010: Logger: Database --> Connection is done
+2023-02-05 21:09:53,011: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 21:09:53,011: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 21:09:53,011: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 21:09:53,011: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 21:09:53,011: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+
+
+2023-02-05 21:09:53,011: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 21:10:51,078: Logger: Database --> Connection is done
+2023-02-05 21:10:51,078: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 21:10:51,078: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 21:10:51,078: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 21:10:51,078: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 21:10:51,078: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 21:10:51,078: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 21:04:39,217: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 21:10:52,393: Logger: Database --> S1 is updated
+2023-02-05 21:10:52,602: Logger: Database --> S2 is updated
+2023-02-05 21:10:52,604: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
+2023-02-05 21:10:52,605: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
+2023-02-05 21:10:52,855: Logger: Database --> S1 is updated
+2023-02-05 21:10:52,855: Logger: Control -->S1 ----> R2 (Min cost = 4) (Costs: [['R2', 4], ['R1', 7], ['R3', 7]])
+2023-02-05 21:10:52,998: Logger: Database --> S2 is updated
+2023-02-05 21:10:52,999: Logger: Control -->S2 ----> R1 (Min cost = 4) (Costs: [['R2', 3], ['R1', 4], ['R3', 4]])
+2023-02-05 21:10:52,999: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-02-05 21:10:52,999: Logger: Robot --> R2 moved to location=[1, 3]
+2023-02-05 21:04:39,217: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 21:10:53,000: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-02-05 21:10:53,000: Logger: Robot --> R1 moved to location=[4, 3]
+2023-02-05 21:10:53,036: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,037: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,037: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is right
+2023-02-05 21:10:53,037: Logger: Robot --> R2 moved to location=[1, 4]
+2023-02-05 21:10:53,037: Logger: Robot --> R1 moved to location=[3, 3]
+2023-02-05 21:10:53,052: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,052: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,052: Logger: Robot --> R2 moved to location=[1, 5]
+2023-02-05 21:10:53,052: Logger: Robot --> R1 moved to location=[2, 3]
+2023-02-05 21:10:53,061: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,062: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,062: Logger: Robot --> R2 moved to location=[1, 6]
+2023-02-05 21:10:53,062: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-02-05 21:10:53,062: Logger: Robot --> R1 moved to location=[2, 2]
+2023-02-05 21:10:53,071: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,071: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:10:53,080: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-02-05 21:12:54,184: Logger: Database --> Connection is done
+2023-02-05 21:12:54,184: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-05 21:12:54,184: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 21:12:54,184: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-02-05 21:12:54,184: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-02-05 21:12:54,184: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-02-05 21:12:54,184: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
+2023-02-05 21:12:54,315: Logger: Database --> S1 is updated
+2023-02-05 21:12:54,434: Logger: Database --> S2 is updated
+2023-02-05 21:12:54,435: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
+2023-02-05 21:12:54,437: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
+2023-02-05 21:12:54,522: Logger: Database --> S1 is updated
+2023-02-05 21:12:54,522: Logger: Control -->S1 ----> R2 (Min cost = 4) (Costs: [['R2', 4], ['R1', 7], ['R3', 7]])
+2023-02-05 21:12:54,621: Logger: Database --> S2 is updated
+2023-02-05 21:12:54,621: Logger: Control -->S2 ----> R1 (Min cost = 4) (Costs: [['R2', 3], ['R1', 4], ['R3', 4]])
+2023-02-05 21:12:54,622: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-02-05 21:12:54,622: Logger: Robot --> R2 moved to location=[1, 3]
+2023-02-05 21:12:54,622: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-02-05 21:12:54,623: Logger: Robot --> R1 moved to location=[4, 3]
+2023-02-05 21:12:54,654: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,655: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,655: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is right
+2023-02-05 21:12:54,655: Logger: Robot --> R2 moved to location=[1, 4]
+2023-02-05 21:12:54,655: Logger: Robot --> R1 moved to location=[3, 3]
+2023-02-05 21:12:54,668: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,669: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,669: Logger: Robot --> R2 moved to location=[1, 5]
+2023-02-05 21:12:54,669: Logger: Robot --> R1 moved to location=[2, 3]
+2023-02-05 21:12:54,678: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,679: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,679: Logger: Robot --> R2 moved to location=[1, 6]
+2023-02-05 21:12:54,679: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-02-05 21:12:54,679: Logger: Robot --> R1 moved to location=[2, 2]
+2023-02-05 21:12:54,688: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,688: Logger: Database --> Shelves that have recived an order: ['S4']
+2023-02-05 21:12:54,697: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+

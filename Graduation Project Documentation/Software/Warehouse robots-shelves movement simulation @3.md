@@ -8,6 +8,7 @@ We have 5 classes `Control, Database, Map2D, Robot and Shelf` and a `main.py`.
 - Handle collision
 - Moving the robot with the shelf to the destination after pairing.
 - Moving the shelf back to its original location or other location (needs discussing with team)
+- Editing `move_forward` method in `Shelves` class (shelves doesn't have `orientation` attribute)
 </br>
 </br>
 

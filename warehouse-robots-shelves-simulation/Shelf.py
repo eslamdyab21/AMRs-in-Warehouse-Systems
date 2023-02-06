@@ -6,10 +6,11 @@ class Shelf():
     :param intial_location: (list) [x, y]
     :param map_size: (list) [map_size_x, map_size_y]
     """
-    def __init__(self, id, intial_location, map_size):
-        
+    def __init__(self, logger, id, intial_location, map_size):
+        self.logger = logger
+
         self.id = id # ShelfID
-        self.active_order_status = False 
+        self.recived_order_status = False 
         self.paired_with_robot_status = False
         self.paired_with_robot = None
         self.intial_location = intial_location
@@ -18,6 +19,9 @@ class Shelf():
         self.prev_location = intial_location
         self.current_location = intial_location #LocationX, LocationY
         self.locations = [self.prev_location, self.current_location]
+
+        info = f" is created with intial_location={intial_location}"
+        self.logger.log('Shelf --> ' + id + info)
 
 
 
@@ -42,5 +46,7 @@ class Shelf():
         
 
         self.locations = [self.prev_location, self.current_location]
+
+        self.logger.log('Shelf --> ' + self.id + f" moved to location={self.current_location}")
 
 

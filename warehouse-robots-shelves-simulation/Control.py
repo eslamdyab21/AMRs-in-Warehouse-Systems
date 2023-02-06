@@ -11,7 +11,9 @@ class Control():
     :param shelves: (list) list of shelves objects in the warehouse [shelf1, shelf2,....., shelfn]
     :param map_size: (list) [map_size_x, map_size_y]
     """
-    def __init__(self, robots, shelvs, map_size):
+    def __init__(self, logger, database, robots, shelvs, map_size):
+        self.logger = logger
+        self.database = database
 
         self.robots = robots
         self.shelvs = shelvs
@@ -27,14 +29,17 @@ class Control():
         we iterate over all robots that are not paired with other shelves and compute the
         corresponding cost until the robot with minimum cost is found.
         """
+
+        shelves_recived_order_list = self.query_recived_order_shelfs()
+
         shelf_cost_vector = []
         shelf_costs_vector = []
         shelvs_recived_order = []
-        for shelf in self.shelvs:
-            if shelf.recived_order_status and shelf.paired_with_robot_status==False:   
+        for shelf in shelves_recived_order_list:
+            if shelf.paired_with_robot_status==False:   
                 for robot in self.robots:
                     if robot.paired_with_shelf_status == False:
-                        robot.active_order_status = False  
+                        # robot.active_order_status = False  
                         cost_vector = abs(np.subtract(robot.current_location, shelf.current_location))
                         cost = cost_vector[0] + cost_vector[1]
                         
@@ -65,9 +70,11 @@ class Control():
             shelf_costs_vector = shelvs_recived_order[i][2]
             min_cost = shelf_costs_vector[i][2]
 
-            robot.active_order_status = True
+            # robot.active_order_status = True
             robot.paired_with_shelf_status = True
             shelf.paired_with_robot_status = True
+
+            self.database.update_db(table="Shelves", id=shelf.id, parameters={"HavingOrder":0})
 
             robot.paired_with_shelf = shelf
             shelf.paired_with_robot = robot
@@ -75,10 +82,27 @@ class Control():
             self.robots_with_min_cost_list.append(robot)
 
             if shelf.paired_with_robot == None:
-                print(str(shelf.id) + " ----> " + "None" + " (Min cost)")
+                info = str(shelf.id) + " ----> " + "None" + " (Min cost)"
+                # print(info)
+                self.logger.log('Control -->' + info)
             else:
-                print(str(shelf.id) + " ----> " + str(shelf.paired_with_robot.id) + " (Min cost = " + str(min_cost) + ")" + " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")")
+                info = str(shelf.id) + " ----> " + str(shelf.paired_with_robot.id) + " (Min cost = " + str(min_cost) + ")" + " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")"
+                # print(info)
+                self.logger.log('Control -->' + info)
+
+
+    def query_recived_order_shelfs(self):
+        shelves_id_recived_order_list = self.database.query_recived_order_shelfs_id()
         
+        shelves_recived_order_list = []
+        for shelf in self.shelvs:
+            if shelf.id in shelves_id_recived_order_list:
+                shelves_recived_order_list.append(shelf)
+
+        return shelves_recived_order_list
+        
+
+
 
 
     def steps_map(self, map):
@@ -89,6 +113,7 @@ class Control():
         :param map: (2d array) object of the warehouse
         """
         
+        self.query_recived_order_shelfs()
         self.min_cost_robots()
 
         for i in range(len(self.robots_with_min_cost_list)):
