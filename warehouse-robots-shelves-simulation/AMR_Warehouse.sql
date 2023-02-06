@@ -1,12 +1,12 @@
 -- To use MySQL here --
 -- mysql -u username -p --
 
--- Need to remove CostToShelf
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
 CREATE DATABASE AMR_Warehouse;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Interacting with the website --
 -- ALL IS ADDED --
@@ -49,7 +49,7 @@ CREATE TABLE Shelves(
     LocationX INT NOT NULL UNIQUE CHECK(LocationX BETWEEN 0 AND 20),
     LocationY INT NOT NULL UNIQUE CHECK(LocationY BETWEEN 0 AND 20),
     ProductID VARCHAR(5) NOT NULL, -- The product that the shelf stores
-    HavingOrder VARCHAR(20) NOT NULL DEFAULT 0 CHECK(HavingOrder IN (0, 1)), -- 0: Empty, 1: Occupied
+    HavingOrder INT NOT NULL CHECK(HavingOrder IN (0, 1)), -- 0: Empty, 1: Occupied
 
     -- Creating relations
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
@@ -58,6 +58,7 @@ CREATE TABLE Shelves(
 CREATE TABLE Robots(
     RobotID VARCHAR(5) NOT NULL PRIMARY KEY,
     Speed INT NOT NULL CHECK(Speed >= 0),
+    BatteryLife INT NOT NULL CHECK(BatteryLife BETWEEN 0 AND 100),
 
     -- Locations
     CurrentLocationX INT NOT NULL CHECK(CurrentLocationX BETWEEN 0 AND 20),
@@ -67,24 +68,13 @@ CREATE TABLE Robots(
 
     -- Information about the shelf
     ShelfID VARCHAR(5),
-    CostToShelf INT NOT NULL CHECK(CostToShelf >= 0),
+
+    -- Robot's states
+    HavingOrder INT NOT NULL CHECK(HavingOrder IN (0, 1)), -- 0: Empty, 1: Occupied
+    Moving INT NOT NULL CHECK(Moving IN (0, 1)), -- 0: Not moving, 1: Moving
 
     -- Creating relations
     FOREIGN KEY (ShelfID) REFERENCES Shelves(ShelfID)
-);
-
-CREATE TABLE RobotHealth(
-    RobotID VARCHAR(5) NOT NULL,
-    BatteryLife INT NOT NULL CHECK(BatteryLife BETWEEN 0 AND 100)
-);
-
-CREATE TABLE States(
-    RobotID VARCHAR(5) NOT NULL UNIQUE,
-    HavingOrder INT NOT NULL CHECK(HavingOrder IN (0, 1)), -- 0: Empty, 1: Occupied
-    Moving INT NOT NULL CHECK(Moving IN (0, 1)),
-
-    -- Creating relations
-    FOREIGN KEY (RobotID) REFERENCES Robots(RobotID)
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -109,7 +99,6 @@ CREATE TRIGGER NewOrder AFTER INSERT ON Orders FOR EACH ROW
         INSERT INTO Notifications(Notification, DateTime)
             VALUES(CONCAT('A new product is ordered from shelf ', shelfId), TIMESTAMP(NEW.DateTime));
         UPDATE Products AS P SET P.ItemsInStock = P.ItemsInStock - NEW.Quantity WHERE P.ProductID = NEW.ProductID;
-        
         UPDATE Shelves AS S SET S.HavingOrder = 1 WHERE S.ShelfID = shelfId;
     END //
 DELIMITER ;

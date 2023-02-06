@@ -21,7 +21,7 @@ class Database():
     def query_recived_order_shelfs_id(self):
         query_notifications = (
             """
-                SELECT ShelfID FROM Shelves WHERE HavingOrder=1;
+                SELECT ShelfID FROM Shelves WHERE HavingOrder = 1;
             """
         )
 
@@ -58,26 +58,16 @@ class Database():
     def write_to_db(self, id, object):
         if id[0] == 'R':
             robot = object
-            robot_parameters = (id, robot.speed, robot.prev_location[0], robot.prev_location[1], robot.current_location[0], robot.current_location[1], 'None', 0)
+            robot_parameters = (id, robot.speed, robot.battery_precentage, robot.prev_location[0], robot.prev_location[1], robot.current_location[0], robot.current_location[1], 'None')
             write_to_robots = (
                 """
-                    INSERT INTO Robots(RobotID, Speed, CurrentLocationX, CurrentLocationY, NextLocationX, NextLocationY, ShelfID, CostToShelf)
+                    INSERT INTO Robots(RobotID, Speed, BatteryLife, CurrentLocationX, CurrentLocationY, NextLocationX, NextLocationY, ShelfID)
                     VALUES(%s, %s, %s, %s, %s, %s, %s, %s)
                 """
             )
             # The execution
             self.cursor.execute(write_to_robots, robot_parameters)
-            self.logger.log('Database --> ' + id + " robot is added")
-
-            battery = (id, robot.battery_precentage)
-            write_to_robot_health = (
-                """
-                    INSERT INTO RobotHealth(RobotID, BatteryLife)
-                    VALUES(%s, %s)
-                """
-            )
-            self.cursor.execute(write_to_robot_health, battery)
-            self.logger.log('Database --> ' + id + " robot's health is added")
+            self.logger.log('Database --> ' + id + " robot is added with its health")
 
         else:
             shelf = object
@@ -86,7 +76,7 @@ class Database():
             write_to_shelves = (
                 """
                     INSERT INTO Shelves(ShelfID, LocationX, LocationY, ProductID, HavingOrder)
-                    VALUES(%s, %s, %s, %s)
+                    VALUES(%s, %s, %s, %s, %s)
                 """
             )
             # The execution
@@ -98,7 +88,7 @@ class Database():
 
 
     def update_db(self, table, id, parameters):
-        if table == 'Robots' or table == "RobotHealth":
+        if table == 'Robots':
             primary_key = "RobotID"
         else:
             primary_key = "ShelfID"
