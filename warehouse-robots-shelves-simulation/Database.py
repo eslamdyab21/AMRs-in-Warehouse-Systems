@@ -1,4 +1,6 @@
 import mysql.connector as connector
+from dotenv import load_dotenv
+import os
 
 
 class Database():
@@ -40,18 +42,24 @@ class Database():
 
 
     def connect_to_db(self):
+        load_dotenv()
+        ENV_MYSQL_USER = os.getenv('MYSQL_USER')
+        ENV_MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+        ENV_MYSQL_HOST = os.getenv('MYSQL_HOST')
+        ENV_MYSQL_DATABASE = os.getenv('MYSQL_DATABASE')
+
         self.connection = connector.connect(
-            user="dyab",
-            password="@BMW123bmw",
+            user=ENV_MYSQL_USER,
+            password=ENV_MYSQL_PASSWORD,
             port=3306,
-            host="localhost",
-            database="AMR_Warehouse"
+            host=ENV_MYSQL_HOST,
+            database=ENV_MYSQL_DATABASE
         )
 
         self.cursor = self.connection.cursor()
         self.logger.log('Database --> ' + "Connection is done")
-        self.cursor.execute("""USE AMR_Warehouse""")
-        self.logger.log('Database --> ' + "AMR_Warehouse Database is in use")
+        self.cursor.execute("""USE testing_AMRs""")
+        self.logger.log('Database --> ' + "testing_AMRs Database is in use")
 
 
 
@@ -71,7 +79,7 @@ class Database():
 
         else:
             shelf = object
-            shelf_parameters = (id, shelf.prev_location[0], shelf.prev_location[1], shelf.id, self.recived_order_status)
+            shelf_parameters = (id, shelf.prev_location[0], shelf.prev_location[1], shelf.id, shelf.recived_order_status)
             # The query we'll execute
             write_to_shelves = (
                 """
