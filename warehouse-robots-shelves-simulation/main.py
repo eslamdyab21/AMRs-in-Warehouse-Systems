@@ -58,6 +58,9 @@ control = Control(logger, database, robots = [R1, R2, R3], shelvs = [S2, S1], ma
 database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
 database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
 
+map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations})
+map.show_map()
+
 for i in range(5):
     control.steps_map(map)
 

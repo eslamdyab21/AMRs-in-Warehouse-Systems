@@ -365,3 +365,24 @@
 2023-02-05 21:12:54,688: Logger: Database --> Shelves that have recived an order: ['S4']
 2023-02-05 21:12:54,697: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
+2023-02-06 23:47:20,286: Logger: Database --> Connection is done
+2023-02-06 23:47:20,301: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-06 23:47:20,301: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-06 23:48:46,353: Logger: Database --> Connection is done
+2023-02-06 23:48:46,353: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-06 23:48:46,353: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-06 23:50:11,146: Logger: Database --> Connection is done
+2023-02-06 23:50:11,146: Logger: Database --> AMR_Warehouse Database is in use
+2023-02-06 23:50:11,146: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-05 21:12:54,697: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+
+2023-02-06 23:54:07,021: Logger: Database --> Connection is done
+2023-02-06 23:54:07,022: Logger: Database --> testing_AMRs Database is in use
+2023-02-06 23:54:07,022: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-06 23:56:17,613: Logger: Database --> Connection is done
+2023-02-06 23:56:17,614: Logger: Database --> testing_AMRs Database is in use
+2023-02-06 23:56:17,614: Logger: Shelf --> S1 is created with intial_location=[1, 6]
+2023-02-07 00:07:27,863: Logger: Database --> Connection is done
+2023-02-07 00:07:27,863: Logger: Database --> testing_AMRs Database is in use
+2023-02-07 00:07:27,863: Logger: Shelf --> S1 is created with intial_location=[1, 6]

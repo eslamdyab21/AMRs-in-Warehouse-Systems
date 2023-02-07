@@ -1,4 +1,6 @@
 import mysql.connector as connector
+from dotenv import load_dotenv
+import os
 
 
 class Database():
@@ -7,7 +9,7 @@ class Database():
         1. connecting to database
         2. adding new objects to the database
         3. update existing objects
-        4. querying required information from the database
+        4. querying information from the database
 
     :param logger: object from Logger class to log debugging and info data
     """
@@ -23,19 +25,25 @@ class Database():
         connect_to_db function is responsible of establishing the connection between the database and this python code
         using a cursor and defining the database which we need to be in use
         """
+        
+        load_dotenv()
+        ENV_MYSQL_USER = os.getenv('MYSQL_USER')
+        ENV_MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+        ENV_MYSQL_HOST = os.getenv('MYSQL_HOST')
+        ENV_MYSQL_DATABASE = os.getenv('MYSQL_DATABASE')
 
         self.connection = connector.connect(
-            user="dyab",
-            password="@BMW123bmw",
+            user=ENV_MYSQL_USER,
+            password=ENV_MYSQL_PASSWORD,
             port=3306,
-            host="localhost",
-            database="AMR_Warehouse"
+            host=ENV_MYSQL_HOST,
+            database=ENV_MYSQL_DATABASE
         )
 
         self.cursor = self.connection.cursor()
         self.logger.log('Database --> ' + "Connection is done")
-        self.cursor.execute("""USE AMR_Warehouse""")
-        self.logger.log('Database --> ' + "AMR_Warehouse Database is in use")
+        self.cursor.execute(f"""USE {ENV_MYSQL_DATABASE}""")
+        self.logger.log('Database --> ' + "testing_AMRs Database is in use")
 
 
     def query_recived_order_shelfs_id(self):
@@ -86,7 +94,7 @@ class Database():
 
         else:
             shelf = object
-            shelf_parameters = (id, shelf.prev_location[0], shelf.prev_location[1], shelf.id, self.recived_order_status)
+            shelf_parameters = (id, shelf.prev_location[0], shelf.prev_location[1], shelf.id, shelf.recived_order_status)
             write_to_shelves = (
                 """
                     INSERT INTO Shelves(ShelfID, LocationX, LocationY, ProductID, HavingOrder)
@@ -125,6 +133,6 @@ class Database():
             ).format(table, column, value, primary_key, "'" + id + "'")
             
             self.cursor.execute(update_robots)
-            
+
         self.connection.commit()
         self.logger.log('Database --> ' + id + " is updated")
