@@ -34,7 +34,7 @@ if write_or_update == 'write':
     # S4 = Shelf(logger, id = 'S2', intial_location = [2,2], map_size = [map_size_x, map_size_y])
 
 
-    R1 = Robot(logger, id = 'R1', intial_location = [5,3], intial_orientation = 'right', speed=10, map_size = [map_size_x, map_size_y])
+    R1 = Robot(logger, id = 'R1', intial_location = [5,3], intial_orientation = 'right', speed=1, map_size = [map_size_x, map_size_y])
     # database.write_to_db(R1.id, R1)
 
     R2 = Robot(logger, id = 'R2', intial_location = [0,3], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
@@ -51,18 +51,18 @@ if write_or_update == 'update':
 
 
 
-control = Control(logger, database, robots = [R1, R2, R3], shelvs = [S2, S1], map_size = [map_size_x, map_size_y])
+control = Control(logger, database, robots = [R1, R2, R3], shelvs = [S2, S1], map = map)
 # database.query_shelf_id()
 
 # update S1, S2 recived order fore testing
 database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
 database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
 
-map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations})
+map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations, R1.id:R1.locations, R2.id:R2.locations, R3.id:R3.locations})
 map.show_map()
 
-for i in range(5):
-    control.steps_map(map)
+for i in range(8):
+    control.steps_map()
 
 
 logger.log("---------------------------------------------- Line breaker ----------------------------------------------\n")

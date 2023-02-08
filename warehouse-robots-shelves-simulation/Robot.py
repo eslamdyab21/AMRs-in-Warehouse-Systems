@@ -18,6 +18,7 @@ class Robot():
         # paired_with_shelf_status: (boolean) if robot is paired with a shelf it's true
         self.paired_with_shelf_status = False
         self.paired_with_shelf = None # ShelfID
+        self.physically_connected_to_shelf = None
         self.battery_precentage = 100
         # cost: (float) robot's path cost from its current location to the shelf location
         self.cost = None # CostToShelf

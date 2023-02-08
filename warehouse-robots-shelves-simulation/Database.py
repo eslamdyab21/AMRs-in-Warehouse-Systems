@@ -1,5 +1,6 @@
 import mysql.connector as connector
 from dotenv import load_dotenv
+import time
 import os
 
 
@@ -21,6 +22,8 @@ class Database():
 
 
     def query_recived_order_shelfs_id(self):
+        start_time = time.time()
+
         query_notifications = (
             """
                 SELECT ShelfID FROM Shelves WHERE HavingOrder = 1;
@@ -35,13 +38,15 @@ class Database():
             shelf_id, = shelf_id
             shelves_id_recived_order_list.append(shelf_id)
 
-        self.logger.log("Database --> Shelves that have recived an order: " + str(shelves_id_recived_order_list))
+        self.logger.log(f"Database : query_recived_order_shelfs_id : {time.time()-start_time} --> Shelves that have recived an order: " + str(shelves_id_recived_order_list))
         
         return shelves_id_recived_order_list
 
 
 
     def connect_to_db(self):
+        start_time = time.time()
+
         load_dotenv()
         ENV_MYSQL_USER = os.getenv('MYSQL_USER')
         ENV_MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
@@ -57,13 +62,15 @@ class Database():
         )
 
         self.cursor = self.connection.cursor()
-        self.logger.log('Database --> ' + "Connection is done")
+        self.logger.log(f'Database : connect_to_db : {time.time()-start_time} --> ' + "Connection is done")
         self.cursor.execute(f"""USE {ENV_MYSQL_DATABASE}""")
         self.logger.log('Database --> ' + "testing_AMRs Database is in use")
 
 
 
     def write_to_db(self, id, object):
+        start_time = time.time()
+
         if id[0] == 'R':
             robot = object
             robot_parameters = (id, robot.speed, robot.battery_precentage, robot.prev_location[0], robot.prev_location[1], robot.current_location[0], robot.current_location[1], 'None')
@@ -89,13 +96,15 @@ class Database():
             )
             # The execution
             self.cursor.execute(write_to_shelves, shelf_parameters)
-            self.logger.log('Database --> ' + id + " shelf is added")
+            self.logger.log(f'Database : write_to_db : {time.time()-start_time} --> ' + id + " shelf is added")
 
         self.connection.commit()
 
 
 
     def update_db(self, table, id, parameters):
+        start_time = time.time()
+
         if table == 'Robots':
             primary_key = "RobotID"
         else:
@@ -112,4 +121,4 @@ class Database():
             
             self.cursor.execute(update_robots)
         self.connection.commit()
-        self.logger.log('Database --> ' + id + " is updated")
+        self.logger.log(f'Database : update_db : {time.time()-start_time} --> ' + id + " is updated")
