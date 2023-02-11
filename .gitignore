@@ -17,5 +17,5 @@ dashboard-web-application/client/coverage
 
 # ---------server--------------
 # server
-/node_modules
-.env
+dashboard-web-application/server/node_modules
+dashboard-web-application/server/.env
