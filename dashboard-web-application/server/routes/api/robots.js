@@ -1,25 +1,22 @@
 const express = require('express');
+const Database = require('./Database')
+
 const router = express.Router();
 
-const users = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@gmail.com'
-    },
-    {
-      id: 2,
-      name: 'Bob Williams',
-      email: 'bob@gmail.com'
-    },
-    {
-      id: 3,
-      name: 'Shannon Jackson',
-      email: 'shannon@gmail.com'
-    }
-  ]
+/* DATABASE */
+const database = new Database()
+db = database.connect_to_db()
 
-// Gets All users
-router.get('/', (req, res) => res.json(users));
+
+// Get All Robots
+router.get('/', (req, res) => {
+    // resluts = database.get_all_robots()
+    const sql_query = 'SELECT * FROM Robots'
+    const query = db.query(sql_query, (err, resluts) => {
+        if (err) throw err
+        console.log(resluts)
+        res.json(resluts)
+    })
+});
 
 module.exports = router;
