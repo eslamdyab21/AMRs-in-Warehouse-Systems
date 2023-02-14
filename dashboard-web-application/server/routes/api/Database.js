@@ -9,7 +9,7 @@ class database{
 
 	//constructor
 	constructor(){
-		this.connect_to_db()
+		this.nothing = 1
 	}
 	
 	//methods
@@ -20,20 +20,35 @@ class database{
         */
 
         dotenv.config()
-        const db = mysql.createConnection({
+        this.db = mysql.createConnection({
             host : process.env.MYSQL_HOST,
             user : process.env.MYSQL_USER,
             password : process.env.MYSQL_PASSWORD,
             database : process.env.MYSQL_DATABASE
         })
 
-        db.connect((err) => {
+        this.db.connect((err) => {
             if (err){
                 console.log('problem connecting to database....')
                 throw err
             }
             console.log(`connected to ${process.env.MYSQL_DATABASE} database`)
         })
+
+        return this.db
+    }
+
+    get_all_robots(){
+        let sql_query_res
+        const sql_query = 'SELECT * FROM Robots'
+        const query = this.db.query(sql_query, (err, resluts) => {
+            if (err) throw err
+            sql_query_res =  resluts
+            console.log(sql_query_res)
+        })
+
+        console.log(sql_query_res)
+        return sql_query_res
     }
 
 }
