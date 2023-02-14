@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
     const sql_query = 'SELECT * FROM Robots'
     const query = db.query(sql_query, (err, resluts) => {
         if (err) throw err
-        console.log(resluts)
         res.json(resluts)
     })
 });

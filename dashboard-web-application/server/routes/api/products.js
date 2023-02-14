@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
     const sql_query = 'SELECT * FROM Products'
     const query = db.query(sql_query, (err, resluts) => {
         if (err) throw err
-        console.log(resluts)
         res.json(resluts)
     })
 });
