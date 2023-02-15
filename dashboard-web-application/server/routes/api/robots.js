@@ -10,7 +10,7 @@ db = database.connect_to_db()
 
 // Get All Robots
 router.get('/', (req, res) => {
-    // resluts = database.get_all_robots()
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
     const sql_query = 'SELECT * FROM Robots'
     const query = db.query(sql_query, (err, resluts) => {
         if (err) throw err

@@ -7,7 +7,7 @@ import { themeSettings } from "theme";
 import Layout from "scenes/layout";
 import Dashboard from "scenes/dashboard";
 import Products from "scenes/products";
-import Customers from "scenes/customers";
+import Robots from "scenes/robots";
 import Shelves from "scenes/shelves";
 import Transactions from "scenes/transactions";
 import Overview from "scenes/overview";
@@ -30,7 +30,7 @@ function App() {
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />
-              <Route path="/customers" element={<Customers />} />
+              <Route path="/robots" element={<Robots />} />
               <Route path="/shelves" element={<Shelves />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/overview" element={<Overview />} />

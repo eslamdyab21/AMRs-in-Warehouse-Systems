@@ -7,7 +7,7 @@ export const api = createApi({
   tagTypes: [
     "User",
     "Products",
-    "Customers",
+    "Robots",
     "Shelves",
     "Transactions",
     "Sales",
@@ -24,9 +24,9 @@ export const api = createApi({
       query: () => "client/products",
       providesTags: ["Products"],
     }),
-    getCustomers: build.query({
-      query: () => "client/customers",
-      providesTags: ["Customers"],
+    getRobots: build.query({
+      query: () => "api/robots",
+      providesTags: ["Robots"],
     }),
     getShelves: build.query({
         query: () => "api/shelves",
@@ -62,7 +62,7 @@ export const api = createApi({
 export const {
   useGetUserQuery,
   useGetProductsQuery,
-  useGetCustomersQuery,
+  useGetRobotsQuery,
   useGetShelvesQuery,
   useGetTransactionsQuery,
   useGetSalesQuery,
