@@ -4,39 +4,38 @@ import { useGetShelvesQuery } from "state/api";
 import Header from "components/Header";
 import { DataGrid } from "@mui/x-data-grid";
 
+
 const Shelves = () => {
   const theme = useTheme();
   const { data, isLoading } = useGetShelvesQuery();
   console.log("data", data);
+  
 
   const columns = [
     {
-      field: "_id",
+      field: "ShelfID",
       headerName: "ID",
-      flex: 1,
+      flex: 0.5,
     },
     {
-      field: "email",
+      field: "ProductID",
       headerName: "Product ID",
-      flex: 1,
+      flex: 0.5,
     },
     {
-      field: "phoneNumber",
+      field: "HavingOrder",
       headerName: "Having Order",
       flex: 0.5,
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
     },
     {
-      field: "locationX",
+      field: "LocationX",
       headerName: "Location X",
       flex: 0.4,
     },
     {
-      field: "locationY",
+      field: "LocationY",
       headerName: "Location Y",
-      flex: 1,
+      flex: 0.4,
     },
   ];
 
@@ -73,7 +72,7 @@ const Shelves = () => {
       >
         <DataGrid
           loading={isLoading || !data}
-          getRowId={(row) => row._id}
+          getRowId={(row : any) => row.ShelfID}
           rows={data || []}
           columns={columns}
         />
