@@ -57,7 +57,8 @@ print(decoded_msg)
 ```
 
 - generated qr image:
-![](images/QR-[7,8].png)
+
+	![](images/QR-[7,8].png)
 
 - decoded message
 ```python  
