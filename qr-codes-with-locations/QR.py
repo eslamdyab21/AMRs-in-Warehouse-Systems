@@ -28,6 +28,17 @@ class QR():
 
 
 
+    def reader(self, qr_img):
+        """
+        reader function reads/decodes a QR-image
 
+        :param qr_img: (opencv-image) QR-image to be decoded
+        :return decoded_msg: (string) with decoded data
+        """
+
+        detector=cv2.QRCodeDetector()
+        decoded_msg , one, _=detector.detectAndDecode(qr_img)
+
+        return decoded_msg
 
 
