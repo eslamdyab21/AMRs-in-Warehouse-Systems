@@ -7,6 +7,7 @@ class QR():
     QR class genrates and read qr code with custom messages
     """
     def __init__(self):
+        self.detector = cv2.QRCodeDetector()
         pass
 
     def generator(self, msg, path_to_save_qr_img = None):
@@ -36,8 +37,12 @@ class QR():
         :return decoded_msg: (string) with decoded data
         """
 
-        detector=cv2.QRCodeDetector()
-        decoded_msg , one, _=detector.detectAndDecode(qr_img)
+        decoded_msg = None
+        
+        try:
+            decoded_msg , one, _= self.detector.detectAndDecode(qr_img)
+        except:
+            print('error in qr decoding')
 
         return decoded_msg
 
