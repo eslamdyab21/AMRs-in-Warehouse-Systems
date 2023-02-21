@@ -58,7 +58,7 @@ print(decoded_msg)
 
 - generated qr image:
 
-![](Graduation-Project-Documentation/Software/images/QR-[7,8].png)
+![](/Graduation-Project-Documentation/Software/images/QR-[7,8].png)
 
 - decoded message
 ```python  
