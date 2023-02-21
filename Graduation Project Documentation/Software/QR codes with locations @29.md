@@ -102,5 +102,7 @@ while True:
 - Camera is placed at height of `8, 10 and 14 cm`
 - The QR code size is `5.5x5.5 cm2` 
 
+![](images/qr_camera_test.mp4)
+
 https://user-images.githubusercontent.com/77991372/220340311-cf8227c8-c322-4c68-af61-c96a5493f1da.mp4
 
