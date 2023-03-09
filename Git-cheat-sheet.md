@@ -145,7 +145,19 @@ nothing to commit, working tree clean
 ```
 
 </br>
+
 now you are in the `feature/software/3` branch who is associated with the issue-3 in the software branch, and yo can start making changes and adding commits.
+
+</br>
+</br>
+
+Remeber to inclide `- fixes #issue_number` in your commit so that the change you made is connected to that issue.
+ex: 
+
+```bash
+git commit -m 'create a function xyz - fixes #3'
+```
+
 </br>
 Note that first push after making some commits will create the branch on github website
 
@@ -161,6 +173,6 @@ git push
 </br>
 </br>
 
-After finishing your work on that issue branch, you need to merge it with the base branch (in this case `software`)
+After finishing your work on that issue branch, you need to make a pull request to merge it with the base branch (in this case `software`)
 
 
