@@ -66,6 +66,7 @@ HEAD is now at 32bc437 updating git flow docs
 ```
 
 </br>
+
 As described above, any changes you make will be lost unless you make a copy of that remote branch in your machine by `git switch -c <new-branch-name>`, you will make the `<new-branch-name>` as the branch name you jumped into without the `remotes/origin/` at the beginning, meaning the name will be in this case `feature/software/3`
 
 ```bash
