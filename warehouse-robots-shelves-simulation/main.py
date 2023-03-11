@@ -23,7 +23,7 @@ database = Database(logger)
 
 if write_or_update == 'write':
     # Creating shelfs and robots and inserting them into the database
-    S1 = Shelf(logger, id = 'S1', intial_location = [1,6], map_size = [map_size_x, map_size_y])
+    S1 = Shelf(logger, id = 'S1', intial_location = [3,0], map_size = [map_size_x, map_size_y])
     # database.write_to_db(S1.id, S1)
 
     S2 = Shelf(logger, id = 'S2', intial_location = [2,2], map_size = [map_size_x, map_size_y])
@@ -40,7 +40,7 @@ if write_or_update == 'write':
     R2 = Robot(logger, id = 'R2', intial_location = [0,3], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
     # database.write_to_db(R2.id, R2)
 
-    R3 = Robot(logger, id = 'R3', intial_location = [0,0], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
+    # R3 = Robot(logger, id = 'R3', intial_location = [0,0], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
     # database.write_to_db(R3.id, R3)
 
 
@@ -51,17 +51,17 @@ if write_or_update == 'update':
 
 
 
-control = Control(logger, database, robots = [R1, R2, R3], shelvs = [S2, S1], map = map)
+control = Control(logger, database, robots = [R1, R2], shelvs = [S2, S1], map = map)
 # database.query_shelf_id()
 
 # update S1, S2 recived order fore testing
 database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
 database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
 
-map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations, R1.id:R1.locations, R2.id:R2.locations, R3.id:R3.locations})
+map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations, R1.id:R1.locations, R2.id:R2.locations})
 map.show_map()
 
-for i in range(8):
+for i in range(7):
     control.steps_map()
 
 
