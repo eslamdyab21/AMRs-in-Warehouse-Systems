@@ -1,5 +1,8 @@
 import numpy as np
 import time
+from Path_Planning_Algorithms import Algorithms
+import utils
+
 
 class Control():
     """
@@ -21,6 +24,8 @@ class Control():
         # self.min_cost = map_size[0]
         self.robots_with_min_cost_list = []
         self.robots_physically_connected_to_shelves_list = []
+
+        self.path_algorithms = Algorithms()
 
 
 
@@ -77,7 +82,7 @@ class Control():
             robot.paired_with_shelf_status = True
             shelf.paired_with_robot_status = True
 
-            self.database.update_db(table="Shelves", id=shelf.id, parameters={"HavingOrder":0})
+            # self.database.update_db(table="Shelves", id=shelf.id, parameters={"HavingOrder":0})
 
             robot.paired_with_shelf = shelf
             shelf.paired_with_robot = robot
@@ -86,11 +91,11 @@ class Control():
 
             if shelf.paired_with_robot == None:
                 info = str(shelf.id) + " ----> " + "None" + " (Min cost)"
-                # print(info)
+                print(info)
                 self.logger.log(f'Control : min_cost_robots : {time.time()-start_time} -->' + info)
             else:
                 info = str(shelf.id) + " ----> " + str(shelf.paired_with_robot.id) + " (Min cost = " + str(min_cost) + ")" + " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")"
-                # print(info)
+                print(info)
                 self.logger.log(f'Control : min_cost_robots : {time.time()-start_time} -->' + info)
 
 
@@ -115,9 +120,25 @@ class Control():
 
         i=0
         for robot in self.robots_with_min_cost_list:
+            start = robot.current_location
+            goal = robot.paired_with_shelf.current_location
+
+            robot.astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
+
+            route = self.path_algorithms.astar(robot.astart_map, start, goal)
+            print(route)
             
-            horizontal_steps = robot.paired_with_shelf.current_location[1] - robot.current_location[1] 
-            vertical_steps = robot.paired_with_shelf.current_location[0] - robot.current_location[0]
+            
+            if len(route) == 2:
+                prev_location = robot.current_location
+                robot.current_location = route[-1]
+                robot.locations = [prev_location, robot.current_location]
+
+                horizontal_steps = 0
+                vertical_steps = 0
+            else:
+                horizontal_steps = route[1][1] - robot.current_location[1] 
+                vertical_steps = route[1][0] - robot.current_location[0]
             
 
             if vertical_steps > 0:
@@ -152,14 +173,15 @@ class Control():
                     self.steps_map_to_shelf()
 
             
-            self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+            # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
 
-            if ((horizontal_steps == 0) or abs(horizontal_steps) ==1) and vertical_steps == 0:
+            if horizontal_steps == 0 and vertical_steps == 0:
                 self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
 
             else:
                 self.map.update_objects_locations({robot.id:robot.locations})
-                                        
+            
+            self.map.show_astar_map(robot.astart_map, robot.current_location, goal, route)
             i = i + 1
             
             
@@ -219,11 +241,11 @@ class Control():
         """
         start_time = time.time()
 
-
+        
         self.query_recived_order_shelfs()
         self.min_cost_robots()
         self.steps_map_to_shelf()
-        self.steps_map_to_packaging()
+        # self.steps_map_to_packaging()
         
 
         self.map.show_map()
