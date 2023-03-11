@@ -30,6 +30,7 @@ class Robot():
         # NextLocationX, NextLocationY
         self.locations = [self.prev_location, self.current_location]
 
+        self.astart_map = None
         info = f" is created with speed={speed}, intial_location={intial_location}, intial_orientation={intial_orientation} battery_precentage={self.battery_precentage}"
         self.logger.log('Robot --> ' + id + info)
 
