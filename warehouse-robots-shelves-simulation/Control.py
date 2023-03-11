@@ -73,10 +73,10 @@ class Control():
         # print(shelvs_recived_order)
         for i in range(len(shelvs_recived_order)):
             shelf = shelvs_recived_order[i][0]
-            robot = shelvs_recived_order[i][2][i][0]
-            
+            robot = shelvs_recived_order[i][2][0][0]
+
             shelf_costs_vector = shelvs_recived_order[i][2]
-            min_cost = shelf_costs_vector[i][2]
+            min_cost = shelf_costs_vector[0][2]
 
             # robot.active_order_status = True
             robot.paired_with_shelf_status = True
@@ -98,6 +98,12 @@ class Control():
                 print(info)
                 self.logger.log(f'Control : min_cost_robots : {time.time()-start_time} -->' + info)
 
+            
+            # remove current robot from other potintal shelves, so it's not taken twice
+            for i in range(i+1,len(shelvs_recived_order)):
+                robot_index = shelvs_recived_order[i][2][1].index(shelf_costs_vector[0][1])                
+                del shelvs_recived_order[i][2][robot_index]
+                
 
     def query_recived_order_shelfs(self):
         start_time = time.time()
