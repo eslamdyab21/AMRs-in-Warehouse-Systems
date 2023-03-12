@@ -58,10 +58,51 @@ print(decoded_msg)
 
 - generated qr image:
 
-	![](images/QR-[7,8].png)
+![](/Graduation-Project-Documentation/Software/images/QR-[7,8].png)
 
 - decoded message
 ```python  
 ❯ python3 main.py 
 [7,8]
 ```
+
+
+
+</br>
+</br>
+</br>
+
+
+#### Real camera test case
+```python
+from QR import QR
+import cv2
+
+cap = cv2.VideoCapture('/dev/video2')
+counter = 0
+
+while True:
+	ret, img = cap.read()
+	
+	if ret:
+		decoded_msg = qr.reader(img)
+	
+		if decoded_msg:
+			print(counter, ' decoded_msg: ', decoded_msg)
+			print('---------------------------')
+				
+		cv2.imshow('scanner',img)
+
+		if cv2.waitKey(1)==ord('q'):
+			break
+			
+		counter = counter + 1
+```
+
+- Camera is placed at height of `8, 10 and 14 cm`
+- The QR code size is `5.5x5.5 cm2` 
+
+![](Graduation-Project-Documentation/Software/images/qr_camera_test.mp4)
+
+https://user-images.githubusercontent.com/77991372/220340311-cf8227c8-c322-4c68-af61-c96a5493f1da.mp4
+
