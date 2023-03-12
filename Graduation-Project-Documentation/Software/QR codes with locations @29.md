@@ -23,12 +23,23 @@ class QR():
 
 
 	def generator(self, msg, path_to_save_qr_img = None):
-		qr_img = qrcode.make(msg)		  
 	
+		# Generate QR code
+		qr_img = qrcode.make(msg)
+		qr_img.save(f"QR-{msg}.png")
+		
+		# Resize QR code image
+		qr_img = cv2.imread(f"QR-{msg}.png")
+		width = qr_img.shape[0]
+		height = qr_img.shape[1]
+		dim = (int(width*0.5), int(0.5*height))
+		qr_img = cv2.resize(qr_img, dim)
+		
+		# Save QR code image
 		if path_to_save_qr_img == None:
-			qr_img.save(f"QR-{msg}.png")
+			cv2.imwrite(f"QR-{msg}.png", qr_img)
 		else:
-			qr_img.save(f"{path_to_save_qr_img}/QR-{msg}.png")
+			cv2.imwrite(f"{path_to_save_qr_img}/QR-{msg}.png", qr_img)
 
 
 	def reader(self, qr_img):
