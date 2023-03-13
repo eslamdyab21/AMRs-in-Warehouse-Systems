@@ -54,14 +54,14 @@ if write_or_update == 'update':
 control = Control(logger, database, robots = [R1, R2], shelvs = [S2, S1], map = map)
 # database.query_shelf_id()
 
-# update S1, S2 recived order fore testing
+# update S1, S2 recived order for testing
 database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
 database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
 
 map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations, R1.id:R1.locations, R2.id:R2.locations})
 map.show_map()
 
-for i in range(7):
+for i in range(5):
     control.steps_map()
 
 

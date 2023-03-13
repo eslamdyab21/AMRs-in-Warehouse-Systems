@@ -77,7 +77,7 @@ class Map2D():
         # plot map and path
 
         # plt.subplots(figsize=(20,20))
-
+    
         plt.ion()
 
         plt.imshow(astart_map, cmap=plt.cm.Dark2)

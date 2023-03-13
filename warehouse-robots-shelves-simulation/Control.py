@@ -106,6 +106,12 @@ class Control():
                 
 
     def query_recived_order_shelfs(self):
+        """
+        query_recived_order_shelfs function queres shelves order status
+
+        :return shelves_recived_order_list: a list of shelves ids who recived orders
+        """
+
         start_time = time.time()
         shelves_id_recived_order_list = self.database.query_recived_order_shelfs_id()
         
@@ -122,6 +128,10 @@ class Control():
 
 
     def steps_map_to_shelf(self):
+        """
+        steps_map_to_shelf function uses A* algrothim to plan the path to the shelf
+        and moves the robot to it.
+        """
         start_time = time.time()
 
         i=0
@@ -201,6 +211,10 @@ class Control():
 
     
     def steps_map_to_packaging(self):
+        """
+        steps_map_to_packaging function uses A* algrothim to plan the path to 
+        the packaging location and moves the robot to it.
+        """
         start_time = time.time()
 
 
@@ -244,10 +258,7 @@ class Control():
 
     def steps_map(self):
         """
-        steps_map function work on the robots in the robots_with_min_cost_list to get their
-        steps/movement instructions that they will take to reach the shelf.
-
-        :param map: (2d array) object of the warehouse
+        steps_map function gets the steps needed for each robot reach its goal
         """
         start_time = time.time()
 

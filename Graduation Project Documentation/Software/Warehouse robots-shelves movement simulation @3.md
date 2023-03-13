@@ -4,11 +4,11 @@ We have 5 classes `Control, Database, Map2D, Robot and Shelf` and a `main.py`.
 
 
 ## TO-DO
-- `Database` class, querying and writing.
-- Handle collision
+- Optimize A*
 - Moving the robot with the shelf to the destination after pairing.
-- Moving the shelf back to its original location or other location (needs discussing with team)
+- Moving the shelf back to its original location or other location 
 - Editing `move_forward` method in `Shelves` class (shelves doesn't have `orientation` attribute)
+
 </br>
 </br>
 
@@ -27,86 +27,133 @@ map_size_y = 8
 map = Map2D(size_x=map_size_x, size_y=map_size_y)
 # map.show_map()
 
-  
-S1 = Shelf(id = 'S1', intial_location = [5,4], map_size = [map_size_x, map_size_y])
-S2 = Shelf(id = 'S2', intial_location = [2,2], map_size = [map_size_x, map_size_y])
+# Create a database object to commnicate with database
+database = Database(logger)
 
-map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations})
-map.show_map()
 
-R1 = Robot(id = 'R1', intial_location = [3,3], intial_orientation = 'right', speed=1, map_size = [map_size_x, map_size_y])
-R2 = Robot(id = 'R2', intial_location = [0,3], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
-R3 = Robot(id = 'R3', intial_location = [0,0], intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
+S1 = Shelf(logger, id = 'S1', intial_location = [3,0], map_size = 
+		   [map_size_x, map_size_y])
+# database.write_to_db(S1.id, S1)
 
-map.update_objects_locations({R1.id:R1.locations, R2.id:R2.locations, R3.id:R3.locations})
+S2 = Shelf(logger, id = 'S2', intial_location = [2,2], map_size = 
+		   [map_size_x, map_size_y])
+# database.write_to_db(S2.id, S2)
 
-map.show_map()
+
+
+R1 = Robot(logger, id = 'R1', intial_location = [5,3], intial_orientation = 
+		   'right', speed=1, map_size = [map_size_x, map_size_y])
+# database.write_to_db(R1.id, R1)
+
+R2 = Robot(logger, id = 'R2', intial_location = [0,3], intial_orientation = 
+		   'left', speed=1, map_size = [map_size_x, map_size_y])
+# database.write_to_db(R2.id, R2)
+
+R3 = Robot(logger, id = 'R3', intial_location = [0,0], intial_orientation = 
+		   'left', speed=1, map_size = [map_size_x, map_size_y])
+# database.write_to_db(R3.id, R3)
 ```
-We first import our classes, create our `2D-map`, create 2 shelves and 3 robots and then update the map with new created shelves and robots and then showing it.
+We first import our classes, create our `2D-map`, and a database object instant, create a number of shelves and robots.
 </br>
 </br>
 
 ```python
-database = Database(robots = [R1, R2, R3], shelvs = [S1, S2], map_size = [map_size_x, map_size_y])
+control = Control(logger, database, robots = [R1, R2], shelvs = [S2, S1], map = map)
 
-# update sheves and robots status from db
-database.query_from_db()
 
-control = Control(robots = [R1, R2, R3], shelvs = [S2, S1], map_size = [map_size_x, map_size_y])
+# update S1, S2 recived order fore testing
+database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
+database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
+
+
+map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations, 
+							  R1.id:R1.locations, R2.id:R2.locations})
+
+map.show_map()
 
 for i in range(5):
-	control.steps_map(map)
+	control.steps_map()
 ```
-Then we create an imaginary database instant to query the updated status of the shelves and robots to use this updated info on the control class.
+Then we make a control object instant to interact with system with, update the shelves status for simulation.
 
 Then for 5 simulation time instances we call the `control.steps_map` to run the simulation 5 time instances and observing the output. 
 
 #### Sample output:
+![](images/robots_sim.gif)
+
+The above yellow circle is R2 and the bottom one is R1, the red stars are the shelves and the black lies are the A* path plan. We can see that when a robot moves the other one has a gray box, this gray box indicates an obstacle that the moving robot sees and takes it into consideration when planning the path.
 ```python
+    A  B   C   D  E  F  G  H
+A   0  0   0  R2  0  0  0  0
+B   0  0   0   0  0  0  0  0
+C   0  0  S2   0  0  0  0  0
+D  S1  0   0   0  0  0  0  0
+E   0  0   0   0  0  0  0  0
+F   0  0   0  R1  0  0  0  0
+G   0  0   0   0  0  0  0  0
+H   0  0   0   0  0  0  0  0
 ---------------------------------------
-    A  B   C   D   E  F  G  H
-A  R3  0   0  R2   0  0  0  0
-B   0  0   0   0   0  0  0  0
-C   0  0  S2   0   0  0  0  0
-D   0  0   0  R1   0  0  0  0
-E   0  0   0   0   0  0  0  0
-F   0  0   0   0  S1  0  0  0
-G   0  0   0   0   0  0  0  0
-H   0  0   0   0   0  0  0  0
+S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+[(5, 3), (5, 2), (4, 2), (4, 1), (3, 1), (3, 0)] (R1 Path-Plan)
+[(0, 3), (0, 2), (1, 2), (2, 2)] (R2 Path-Plan)
+    A  B   C  D  E  F  G  H
+A   0  0  R2  0  0  0  0  0
+B   0  0   0  0  0  0  0  0
+C   0  0  S2  0  0  0  0  0
+D  S1  0   0  0  0  0  0  0
+E   0  0   0  0  0  0  0  0
+F   0  0  R1  0  0  0  0  0
+G   0  0   0  0  0  0  0  0
+H   0  0   0  0  0  0  0  0
 ---------------------------------------
-S1 ----> R1 (Min cost = 3) (Costs: [['R1', 3], ['R2', 6], ['R3', 9]])
-S2 ----> R2 (Min cost = 3) (Costs: [['R1', 2], ['R2', 3], ['R3', 4]])
+[(5, 2), (4, 2), (4, 1), (3, 1), (3, 0)] (R1 Path-Plan)
+[(0, 2), (1, 2), (2, 2)] (R2 Path-Plan)
+    A  B   C  D  E  F  G  H
+A   0  0   0  0  0  0  0  0
+B   0  0  R2  0  0  0  0  0
+C   0  0  S2  0  0  0  0  0
+D  S1  0   0  0  0  0  0  0
+E   0  0  R1  0  0  0  0  0
+F   0  0   0  0  0  0  0  0
+G   0  0   0  0  0  0  0  0
+H   0  0   0  0  0  0  0  0
 ---------------------------------------
-    A  B   C   D   E  F  G  H
-A  R3  0   0   0   0  0  0  0
-B   0  0   0  R2   0  0  0  0
-C   0  0  S2   0   0  0  0  0
-D   0  0   0   0   0  0  0  0
-E   0  0   0  R1   0  0  0  0
-F   0  0   0   0  S1  0  0  0
-G   0  0   0   0   0  0  0  0
-H   0  0   0   0   0  0  0  0
+[(4, 2), (4, 1), (3, 1), (3, 0)] (R1 Path-Plan)
+[(1, 2), (2, 2)] (R2 Path-Plan)
+    A   B     C  D  E  F  G  H
+A   0   0     0  0  0  0  0  0
+B   0   0     0  0  0  0  0  0
+C   0   0  R2S2  0  0  0  0  0
+D  S1   0     0  0  0  0  0  0
+E   0  R1     0  0  0  0  0  0
+F   0   0     0  0  0  0  0  0
+G   0   0     0  0  0  0  0  0
+H   0   0     0  0  0  0  0  0
 ---------------------------------------
-    A  B   C   D   E  F  G  H
-A  R3  0   0   0   0  0  0  0
-B   0  0   0   0   0  0  0  0
-C   0  0  S2  R2   0  0  0  0
-D   0  0   0   0   0  0  0  0
-E   0  0   0   0   0  0  0  0
-F   0  0   0  R1  S1  0  0  0
-G   0  0   0   0   0  0  0  0
-H   0  0   0   0   0  0  0  0
+[(4, 1), (3, 1), (3, 0)] (R1 Path-Plan)
+    A   B     C  D  E  F  G  H
+A   0   0     0  0  0  0  0  0
+B   0   0     0  0  0  0  0  0
+C   0   0  R2S2  0  0  0  0  0
+D  S1  R1     0  0  0  0  0  0
+E   0   0     0  0  0  0  0  0
+F   0   0     0  0  0  0  0  0
+G   0   0     0  0  0  0  0  0
+H   0   0     0  0  0  0  0  0
 ---------------------------------------
-    A  B     C  D     E  F  G  H
-A  R3  0     0  0     0  0  0  0
-B   0  0     0  0     0  0  0  0
-C   0  0  R2S2  0     0  0  0  0
-D   0  0     0  0     0  0  0  0
-E   0  0     0  0     0  0  0  0
-F   0  0     0  0  R1S1  0  0  0
-G   0  0     0  0     0  0  0  0
-H   0  0     0  0     0  0  0  0
+[(3, 1), (3, 0)] (R1 Path-Plan)
+      A  B     C  D  E  F  G  H
+A     0  0     0  0  0  0  0  0
+B     0  0     0  0  0  0  0  0
+C     0  0  R2S2  0  0  0  0  0
+D  R1S1  0     0  0  0  0  0  0
+E     0  0     0  0  0  0  0  0
+F     0  0     0  0  0  0  0  0
+G     0  0     0  0  0  0  0  0
+H     0  0     0  0  0  0  0  0
 ---------------------------------------
+
 
 ```
 </br>
@@ -117,7 +164,7 @@ H   0  0     0  0     0  0  0  0
 
 ## `Map2D` class
 `Map2D` class is the same as in issue #1 [[Create a 2d map to update robots and shelves locations @1]] 
-
+but with a one more function `show_astar_map(astart_map, start, goal, route)` which show the matplotlib map of robots and the obstacles they see and the path they plan with A*.
 
 </br>
 </br>
@@ -136,40 +183,44 @@ class Robot():
 	
 	:param id: (string) id for the robot to distinguish between robots
 	:param intial_location: (list) [x, y]
-	:param intial_orientation: (string) robot's intial_orientation (up, down, 
-	right, left)
+	:param intial_orientation: (string) robot's intial_orientation (up, 
+	                            down, right, left)
 	:param speed: (float) robot speed
 	:param map_size: (list) [map_size_x, map_size_y]
 	"""
 	
-	def __init__(self, id, intial_location, intial_orientation, speed, map_size):
-		self.id = id
-		self.speed = speed
-		
-		# active_order_status: (boolean) if robot is delivering an order (paired 
-		# with a shelf) it's true
-		self.active_order_status = False
-		
-		# paired_with_shelf_status: (boolean) if robot is paired with a shelf 
-		# it's true
-		self.paired_with_shelf_status = False
-		
-		self.paired_with_shelf = None
-		self.battery_precentage = 100
-		
-		# cost: (float) robot's path cost from its current location to the shelf 
-		# location
-		self.cost = None
-		
-		self.orientation = intial_orientation
-		self.map_size = map_size
-		
-		self.prev_location = intial_location
-		self.current_location = intial_location
-		self.locations = [self.prev_location, self.current_location]
+	def __init__(self, id, intial_location, intial_orientation, speed, 
+	             map_size):
+		......
+		......
+
+    def move_forward(self):
+		"""
+		move_forward function moves the robot in the forward direction based 
+		on its current location and orientation
+		"""
+		......
+		......
+
+
+	def rotate_90_degree_clock_wise(self):
+		"""
+		rotate_90_degree_clock_wise function rotates the robot's orientation 
+		based on the robot current orientation.
+		"""
+		......
+		......
+
+	def rotate_90_degree_anti_clock_wise(self):
+		"""
+		rotate_90_degree_clock_wise function rotates the robot's orientation 
+		based on the robot current orientation.
+		"""
+		......
+		......
 ```
 
-Then we define 3 functions which will govern the robot motion in the map:
+We define 3 functions which will govern the robot motion in the map:
 1. `move_forward`
 2. `rotate_90_degree_clock_wise`
 3. `rotate_90_degree_anti_clock_wise`
@@ -182,31 +233,6 @@ Then we define 3 functions which will govern the robot motion in the map:
 #### `move_forward` method
 The `move_forward` method moves the robot in the forward direction based on its
 current location and orientation.
-```python
-def move_forward(self):
-	"""
-	move_forward function moves the robot in the forward direction based on its
-	current location and orientation
-	"""
-	
-	self.prev_location = self.current_location.copy()
-	
-	if (self.orientation == 'down') and (self.current_location[0] != 
-	self.map_size[1]):
-		self.current_location[0] = self.current_location[0] + 1
-	
-	elif (self.orientation == 'up') and (self.current_location[0] != 0):
-		self.current_location[0] = self.current_location[0] - 1
-	
-	elif (self.orientation == 'right') and (self.current_location[1] != 
-	self.map_size[1]):
-		self.current_location[1] = self.current_location[1] + 1
-	
-	elif (self.orientation == 'left') and (self.current_location[1] != 0):
-		self.current_location[1] = self.current_location[1] - 1
-	
-	self.locations = [self.prev_location, self.current_location]
-```
 
 </br>
 </br>
@@ -214,50 +240,12 @@ def move_forward(self):
 #### `rotate_90_degree_clock_wise` method
 The `rotate_90_degree_clock_wise` method rotates the robot's orientation based
 on the robot current orientation.
-```python
-def rotate_90_degree_clock_wise(self):
-	"""
-	rotate_90_degree_clock_wise function rotates the robot's orientation based
-	on the robot current orientation.
-	"""
-	
-	if (self.orientation == 'down'):
-		self.orientation = 'left'
-	
-	elif (self.orientation == 'up'):
-		self.orientation = 'right'
-	
-	elif (self.orientation == 'right'):
-		self.orientation = 'down'
-	
-	elif (self.orientation == 'left'):
-		self.orientation = 'up'
-```
 
 </br>
 </br>
 
 #### `rotate_90_degree_anti_clock_wise` method
 And similarly the `rotate_90_degree_anti_clock_wise` 
-```python
-def rotate_90_degree_anti_clock_wise(self):
-	"""
-	rotate_90_degree_clock_wise function rotates the robot's orientation based
-	on the robot current orientation.
-	"""
-	
-	if (self.orientation == 'down'):
-		self.orientation = 'right'
-	
-	elif (self.orientation == 'up'):
-		self.orientation = 'left'
-	
-	elif (self.orientation == 'right'):
-		self.orientation = 'up'
-	
-	elif (self.orientation == 'left'):
-		self.orientation = 'down'
-```
 
 </br>
 </br>
@@ -287,7 +275,7 @@ The `Shelf` class is pretty much like the `Robot` class, only difference is that
 
 ## `Control` class
 - `Control` class controls the robots movement, finds the cost of each robot path to the shelf and decides which robot will move (lowest cost) and gives the steps needed to get to the shelf.
-- We have 4 methods `min_cost_robots, steps_map and move`
+- We have 5 methods `min_cost_robots, query_recived_order_shelfs, steps_map, steps_map_to_shelf, steps_map_to_packaging and move`
 
 1. `min_cost_robots` gets robots with minimum cost to shelves, for each shelf it iterate over all robots that are not paired with other shelves and compute the corresponding cost until the robot with minimum cost is found.
    
@@ -297,29 +285,90 @@ The `Shelf` class is pretty much like the `Robot` class, only difference is that
 
 </br>
 
-First we initialize the class with control parameters 
 ```python
+
+from Path_Planning_Algorithms import Algorithms
+import utils
+
 class Control():
 	"""
-	Control class controls the robots movement, find the cost of each robot path 
-	to the shelf and decides which robot will move (lowest cost) and gives the 
-	steps needed to get to the shelf to the chosen robot.
+	Control class controls the robots movement, find the cost of each robot 
+	path to the shelf and decides which robot will move (lowest cost) and 
+	gives the steps needed to get to the shelf to the chosen robot.
 	
 	:param robots: (list) list of robots objects in the warehouse [robot1, 
-	robot2,....., robotn]
+	               robot2,....., robotn]
 	
 	:param shelves: (list) list of shelves objects in the warehouse [shelf1, 
-	shelf2,....., shelfn]
+	                shelf2,....., shelfn]
 	
 	:param map_size: (list) [map_size_x, map_size_y]
 	"""
 	
 	def __init__(self, robots, shelvs, map_size):
-		self.robots = robots
-		self.shelvs = shelvs
-		self.map_size = map_size
-		# self.min_cost = map_size[0]
-		self.robots_with_min_cost_list = []
+		......
+		......
+
+	def min_cost_robots(self):
+		"""
+		min_cost_robots function gets robots with minimum cost to shelves, 
+		for each shelf we iterate over all robots that are not paired with 
+		other shelves and compute the corresponding cost until the robot 
+		with minimum cost is found.
+		"""
+		......
+		......
+
+
+	def query_recived_order_shelfs(self):
+		"""
+		query_recived_order_shelfs function queres shelves order status
+		
+		:return shelves_recived_order_list: a list of shelves ids who 
+											recived orders
+		"""
+		......
+		......
+
+
+	def steps_map(self):
+		"""
+		steps_map function gets the steps needed for each rootto reach its 
+		goal	
+		"""
+		......
+		......
+
+
+	def steps_map_to_shelf(self):
+		"""
+		steps_map_to_shelf function uses A* algrothim to plan the path to  
+		the shelf and moves the robot to it.
+		"""
+		......
+		......
+
+
+	def steps_map_to_shelf(self):
+		"""
+		steps_map_to_packaging function uses A* algrothim to plan the path 
+		tothe packaging location and moves the robot to it.
+		"""
+		......
+		......
+
+
+	def move(self, robot, direction):
+		
+		"""
+		move function moves the min cost robots based on the instructions 
+		obtained in steps_map function.
+		
+		:param robot: robot objects in the warehouse
+		:param direction: desired direction to move the robot
+		"""
+		......
+		......
 ```
 
 </br>
@@ -329,36 +378,17 @@ class Control():
 First method `min_cost_robots`, we will break it to two parts
 ```python
 def min_cost_robots(self):
-	"""
-	min_cost_robots function gets robots with minimum cost to shelves, for each 
-	shelf we iterate over all robots that are not paired with other shelves and 
-	compute the corresponding cost until the robot with minimum cost is found.
-	"""
-	
+
 	shelf_cost_vector = []
 	shelf_costs_vector = []
 	shelvs_recived_order = []
 	
-	for shelf in self.shelvs:
-		if shelf.recived_order_status and shelf.paired_with_robot_status==False:
+	for shelf in shelves_recived_order_list:
+		if shelf.paired_with_robot_status==False:
 			for robot in self.robots:
 				if robot.paired_with_shelf_status == False:
-					robot.active_order_status = False
-					cost_vector = abs(np.subtract(robot.current_location, 
-									  shelf.current_location))
-					cost = cost_vector[0] + cost_vector[1]
-					
-					shelf_cost_vector.append(cost)
-					shelf_costs_vector.append([robot, robot.id, cost])
-
-			# sort robots based on their costs
-			shelf_costs_vector = sorted(shelf_costs_vector, key=lambda x: x[2])
-			shelvs_recived_order.append([shelf, sum(shelf_cost_vector), 
-		                             	 shelf_costs_vector])
-		
-			# self.min_cost = self.map_size[0]
-			shelf_cost_vector = []
-			shelf_costs_vector = []
+					......
+					......
 ```
 In this part we loop over each `ready-to-be-paired shelf` and for each one of those shelves we loop over each `ready-to-be-paired robot`. For each of those robots we get its cost and append this cost in two lists `shelf_cost_vector` and `shelf_costs_vector`.
 
@@ -436,73 +466,43 @@ Then the status of those chosen shelves and robots is updated, and the robots ar
 </br>
 
 ####  `steps_map` method
-`steps_map` work on the robots in the `robots_with_min_cost_list` to get their steps/movement instructions that they will take to reach the shelf.
+`steps_map` function gets the steps needed for each robot reach its goal
 
 ```python
-def steps_map(self, map):
+def steps_map(self):
 	"""
-	steps_map function work on the robots in the robots_with_min_cost_list to get 
-	their steps/movement instructions that they will take to reach the shelf.
-	
-	:param map: (2d array) object of the warehouse
+	steps_map function gets the steps needed for each robot reach its goal
 	"""
 	
+	start_time = time.time()	
+	self.query_recived_order_shelfs()
 	self.min_cost_robots()
+	self.steps_map_to_shelf()
+	self.steps_map_to_packaging()	
+	self.map.show_map()
 	
-	for i in range(len(self.robots_with_min_cost_list)):
-		robot = self.robots_with_min_cost_list[i]
-		horizontal_steps = robot.paired_with_shelf.current_location[1] - 
-		                                     robot.current_location[1]
-		
-		vertical_steps = robot.paired_with_shelf.current_location[0] - 
-		                                   robot.current_location[0]
+	self.logger.log(f'Control : steps_map : {time.time()-start_time} -->')
 ```
-for each robot in the `robots_with_min_cost_list` we calculate `horizontal_steps and vertical_steps`, those are the number of steps in the vertical and horizontal direction needed to reach the shelf. 
+
+Each simulation time we move one step based on the path from A*, and then we update the map and show it at the end.
 
 </br>
+</br>
+</br>
 
-Then each simulation time we move one step in the vertical direction until we finish all the vertical then we move the horizontal_steps. this is done in this part down here:
-```python
-def steps_map(self, map):
-	
-	for i in range(len(self.robots_with_min_cost_list)):
-		...
-		...
-		...
-		...
-		if vertical_steps > 0:
-			# want to move down
-			self.move(robot, 'down')
-		
-		elif vertical_steps < 0:
-			# want to move up
-			self.move(robot, 'up')
-	
-		elif vertical_steps == 0:
-			if horizontal_steps > 0:
-				# want to move right
-				self.move(robot, 'right')
-		
-			elif horizontal_steps < 0:
-				# want to move left
-				self.move(robot, 'left')
-	
-		if (abs(horizontal_steps) == 1 or horizontal_steps == 0) and 
-										        vertical_steps == 0:
-			map.update_objects_locations({robot.id+robot.paired_with_shelf.id:
-			                                                  robot.locations})
-		else:
-			map.update_objects_locations({robot.id:robot.locations})
-		
-		  
-	map.show_map()
-```
+####  `steps_map_to_shelf` method
+`steps_map_to_shelf` function uses A* algorithm to plan the path to the shelf and moves the robot to it.
 
-And then we update the map and show it at the end.
+</br>
+</br>
+</br>
+
+####  `steps_map_to_packaging` method
+`steps_map_to_packaging`  function uses A* algorithm to plan the path to the packaging location and moves the robot to it.
 
 </br>
 </br>
 </br>
 
 ####  `move` method
-`move` moves the min cost robots based on the instructions obtained in steps_map function, and move method is very simple and self explanatory.
+`move` moves the min cost robots based on the instructions obtained in steps_map function.
