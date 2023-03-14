@@ -5,4 +5,4 @@ warehouse-robots-shelves-simulation/test.py
 warehouse-robots-shelves-simulation/.env
 dashboard-web-application/client/node_modules/*
 dashboard-web-application/server/node_modules/*
-
+qr-codes-with-locations/__pycache__/*
