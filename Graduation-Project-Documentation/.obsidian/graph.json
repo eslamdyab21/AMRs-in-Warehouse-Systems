@@ -25,27 +25,27 @@
       "query": "path:Embedded",
       "color": {
         "a": 1,
-        "rgb": 12210912
+        "rgb": 11657298
       }
     },
     {
       "query": "path:Software",
       "color": {
         "a": 1,
-        "rgb": 5431378
+        "rgb": 15270138
       }
     }
   ],
-  "collapse-display": false,
+  "collapse-display": true,
   "showArrow": false,
-  "textFadeMultiplier": -0.3,
-  "nodeSizeMultiplier": 1.35052083333333,
-  "lineSizeMultiplier": 1.50364583333333,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1,
+  "lineSizeMultiplier": 1,
   "collapse-forces": false,
-  "centerStrength": 0.385416666666667,
-  "repelStrength": 10.7291666666667,
-  "linkStrength": 0.776041666666667,
-  "linkDistance": 338,
-  "scale": 0.5311287737183151,
+  "centerStrength": 0.484375,
+  "repelStrength": 9.27083333333333,
+  "linkStrength": 0.614583333333333,
+  "linkDistance": 245,
+  "scale": 0.970594278480231,
   "close": true
 }

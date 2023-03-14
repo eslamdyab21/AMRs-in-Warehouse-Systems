@@ -4,6 +4,7 @@
   "switcher": true,
   "graph": true,
   "backlink": true,
+  "canvas": true,
   "outgoing-link": true,
   "tag-pane": true,
   "page-preview": true,
@@ -24,6 +25,5 @@
   "workspaces": false,
   "file-recovery": true,
   "publish": false,
-  "sync": false,
-  "canvas": true
+  "sync": false
 }
