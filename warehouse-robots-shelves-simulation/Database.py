@@ -1,5 +1,6 @@
 import mysql.connector as connector
 from dotenv import load_dotenv
+import time
 import os
 
 
@@ -20,12 +21,15 @@ class Database():
         self.connect_to_db()
 
 
+
     def connect_to_db(self):
         """
         connect_to_db function is responsible of establishing the connection between the database and this python code
         using a cursor and defining the database which we need to be in use
         """
         
+        start_time = time.time()
+
         load_dotenv()
         ENV_MYSQL_USER = os.getenv('MYSQL_USER')
         ENV_MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
@@ -41,7 +45,7 @@ class Database():
         )
 
         self.cursor = self.connection.cursor()
-        self.logger.log('Database --> ' + "Connection is done")
+        self.logger.log(f'Database : connect_to_db : {time.time()-start_time} --> ' + "Connection is done")
         self.cursor.execute(f"""USE {ENV_MYSQL_DATABASE}""")
         self.logger.log('Database --> ' + "testing_AMRs Database is in use")
 
@@ -51,6 +55,7 @@ class Database():
         query_recived_order_shelfs_id function queries the IDs of the shelves whose products are ordered by customers
         those shelves are defined by their state 'HavingOrder', this state = 1 if the shelf's product is ordered
         """
+        start_time = time.time()
 
         # This query returns a list of all the shelves which their products are ordered
         query_shelves_ids = (
@@ -67,7 +72,7 @@ class Database():
             shelf_id, = shelf_id
             shelves_id_recived_order_list.append(shelf_id)
 
-        self.logger.log("Database --> Shelves that have recived an order: " + str(shelves_id_recived_order_list))
+        self.logger.log(f"Database : query_recived_order_shelfs_id : {time.time()-start_time} --> Shelves that have recived an order: " + str(shelves_id_recived_order_list))
         
         return shelves_id_recived_order_list
 
@@ -79,7 +84,9 @@ class Database():
         
         this function defines the object to be added by the first letter of its ID (R: Robot, S: Shelf)
         """
-        
+
+        start_time = time.time()
+
         if id[0] == 'R':
             robot = object
             robot_parameters = (id, robot.speed, robot.battery_precentage, robot.prev_location[0], robot.prev_location[1], robot.current_location[0], robot.current_location[1], 'None')
@@ -102,7 +109,7 @@ class Database():
                 """
             )
             self.cursor.execute(write_to_shelves, shelf_parameters)
-            self.logger.log('Database --> ' + id + " shelf is added")
+            self.logger.log(f'Database : write_to_db : {time.time()-start_time} --> ' + id + " shelf is added")
 
         self.connection.commit()
 
@@ -117,7 +124,9 @@ class Database():
         the information we need to update is sent to the function as a dictionary, its keys represent the columns' names
         and its values represent the data we need to update
         """
+        start_time = time.time()
         
+
         if table == 'Robots':
             primary_key = "RobotID"
         else:
@@ -135,4 +144,4 @@ class Database():
             self.cursor.execute(update_robots)
 
         self.connection.commit()
-        self.logger.log('Database --> ' + id + " is updated")
+        self.logger.log(f'Database : update_db : {time.time()-start_time} --> ' + id + " is updated")

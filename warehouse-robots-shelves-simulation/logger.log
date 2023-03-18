@@ -1,388 +1,824 @@
-2023-02-05 17:48:30,398: Logger: Database --> Connection is done
-2023-02-05 17:48:30,398: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 17:48:30,398: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
-2023-02-05 17:48:30,398: Logger: Database --> 'S1' shelf is added
-2023-02-05 17:48:30,399: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 17:48:30,399: Logger: Database --> S2 shelf is added
-2023-02-05 17:48:30,399: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 11], intial_orientation=right battery_precentage=100
+[[<Shelf.Shelf object at 0x7f0aa8c54b80>, 11, [[<Robot.Robot object at 0x7f0aa8c54d60>, 'R1', 5], [<Robot.Robot object at 0x7f0aa8c54ca0>, 'R2', 6]]], [<Shelf.Shelf object at 0x7f0aa8c54a60>, 7, [[<Robot.Robot object at 0x7f0aa8c54ca0>, 'R2', 3], [<Robot.Robot object at 0x7f0aa8c54d60>, 'R1', 4]]]]
+[[<Shelf.Shelf object at 0x7f0aa8c54b80>, 11, [[<Robot.Robot object at 0x7f0aa8c54d60>, 'R1', 5], [<Robot.Robot object at 0x7f0aa8c54ca0>, 'R2', 6]]], [<Shelf.Shelf object at 0x7f0aa8c54a60>, 7, [[<Robot.Robot object at 0x7f0aa8c54d60>, 'R1', 4]]]]
+2023-03-11 05:08:24,037: Logger: Database : connect_to_db : 0.006500720977783203 --> Connection is done
+2023-03-11 05:08:24,037: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:08:24,037: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:08:24,037: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:08:24,037: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:08:24,038: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:08:24,038: Logger: Database : update_db : 0.0004169940948486328 --> S1 is updated
+2023-03-11 05:08:24,038: Logger: Database : update_db : 0.000270843505859375 --> S2 is updated
+2023-03-11 05:08:24,048: Logger: Database : query_recived_order_shelfs_id : 0.0004127025604248047 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:08:24,048: Logger: Control : query_recived_order_shelfs : 0.0005190372467041016 -->
+2023-03-11 05:08:24,048: Logger: Database : query_recived_order_shelfs_id : 0.0002853870391845703 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:08:24,048: Logger: Control : query_recived_order_shelfs : 0.0003559589385986328 -->
+2023-03-11 05:08:24,048: Logger: Control : min_cost_robots : 0.0005342960357666016 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:08:24,048: Logger: Control : min_cost_robots : 0.0006399154663085938 -->S2 ----> R1 (Min cost = 4) (Costs: [['R1', 4]])
+2023-03-11 05:08:24,049: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-11 05:08:24,049: Logger: Robot --> R1 moved to location=[4, 3]
+2023-03-11 05:08:24,049: Logger: Control : move : 9.250640869140625e-05 -->
+2023-03-11 05:08:25,275: Logger: Robot --> R1 moved to location=[3, 3]
+2023-03-11 05:08:25,275: Logger: Control : move : 0.0004527568817138672 -->
+2023-03-11 05:08:26,286: Logger: Control : steps_map_to_shelf : 2.2373383045196533 -->
+2023-03-11 05:08:26,299: Logger: Control : steps_map : 2.2514169216156006 -->
+2023-03-11 05:08:26,299: Logger: Database : query_recived_order_shelfs_id : 0.0005092620849609375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:08:26,299: Logger: Control : query_recived_order_shelfs : 0.0006113052368164062 -->
+2023-03-11 05:08:26,300: Logger: Database : query_recived_order_shelfs_id : 0.00029158592224121094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:08:26,300: Logger: Control : query_recived_order_shelfs : 0.000377655029296875 -->
+2023-03-11 05:08:26,300: Logger: Robot --> R1 moved to location=[2, 3]
+2023-03-11 05:08:26,300: Logger: Control : move : 6.413459777832031e-05 -->
+2023-03-11 05:10:07,571: Logger: Database : connect_to_db : 0.006242513656616211 --> Connection is done
+2023-03-11 05:10:07,571: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:10:07,571: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:10:07,571: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:10:07,571: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:10:07,572: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:10:07,572: Logger: Database : update_db : 0.000377655029296875 --> S1 is updated
+2023-03-11 05:10:07,572: Logger: Database : update_db : 0.00029540061950683594 --> S2 is updated
+2023-03-11 05:10:07,581: Logger: Database : query_recived_order_shelfs_id : 0.0002779960632324219 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:10:07,581: Logger: Control : query_recived_order_shelfs : 0.0003571510314941406 -->
+2023-03-11 05:10:07,581: Logger: Database : query_recived_order_shelfs_id : 0.00021147727966308594 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:10:07,581: Logger: Control : query_recived_order_shelfs : 0.0002601146697998047 -->
+2023-03-11 05:10:07,582: Logger: Control : min_cost_robots : 0.00035643577575683594 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:11:50,586: Logger: Database : connect_to_db : 0.006487846374511719 --> Connection is done
+2023-03-11 05:11:50,587: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:11:50,587: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:11:50,587: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:11:50,587: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:11:50,587: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:11:50,587: Logger: Database : update_db : 0.0003757476806640625 --> S1 is updated
+2023-03-11 05:11:50,588: Logger: Database : update_db : 0.0003437995910644531 --> S2 is updated
+2023-03-11 05:11:50,597: Logger: Database : query_recived_order_shelfs_id : 0.0003306865692138672 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:11:50,597: Logger: Control : query_recived_order_shelfs : 0.00043964385986328125 -->
+2023-03-11 05:11:50,597: Logger: Database : query_recived_order_shelfs_id : 0.0002913475036621094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:11:50,597: Logger: Control : query_recived_order_shelfs : 0.0003619194030761719 -->
+2023-03-11 05:11:50,598: Logger: Control : min_cost_robots : 0.0005059242248535156 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:12:12,984: Logger: Database : connect_to_db : 0.006086826324462891 --> Connection is done
+2023-03-11 05:12:12,984: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:12:12,985: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:12:12,985: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:12:12,985: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:12:12,985: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:12:12,985: Logger: Database : update_db : 0.0005235671997070312 --> S1 is updated
+2023-03-11 05:12:12,986: Logger: Database : update_db : 0.0004277229309082031 --> S2 is updated
+2023-03-11 05:12:12,995: Logger: Database : query_recived_order_shelfs_id : 0.0004284381866455078 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:12:12,995: Logger: Control : query_recived_order_shelfs : 0.0005376338958740234 -->
+2023-03-11 05:12:12,995: Logger: Database : query_recived_order_shelfs_id : 0.0002739429473876953 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:12:12,996: Logger: Control : query_recived_order_shelfs : 0.0003390312194824219 -->
+2023-03-11 05:12:12,996: Logger: Control : min_cost_robots : 0.00045037269592285156 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:12:45,183: Logger: Database : connect_to_db : 0.0059664249420166016 --> Connection is done
+2023-03-11 05:12:45,183: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:12:45,184: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:12:45,184: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:12:45,184: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:12:45,184: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:12:45,184: Logger: Database : update_db : 0.00035953521728515625 --> S1 is updated
+2023-03-11 05:12:45,184: Logger: Database : update_db : 0.00029349327087402344 --> S2 is updated
+2023-03-11 05:12:45,193: Logger: Database : query_recived_order_shelfs_id : 0.00036597251892089844 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:12:45,194: Logger: Control : query_recived_order_shelfs : 0.0004699230194091797 -->
+2023-03-11 05:12:45,194: Logger: Database : query_recived_order_shelfs_id : 0.00028586387634277344 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:12:45,194: Logger: Control : query_recived_order_shelfs : 0.0003497600555419922 -->
+2023-03-11 05:12:45,194: Logger: Control : min_cost_robots : 0.0004527568817138672 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:14:52,408: Logger: Database : connect_to_db : 0.006463289260864258 --> Connection is done
+2023-03-11 05:14:52,409: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:14:52,409: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:14:52,409: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:14:52,409: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:14:52,409: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:14:52,409: Logger: Database : update_db : 0.00040340423583984375 --> S1 is updated
+2023-03-11 05:14:52,410: Logger: Database : update_db : 0.0003249645233154297 --> S2 is updated
+2023-03-11 05:14:52,419: Logger: Database : query_recived_order_shelfs_id : 0.0003428459167480469 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:14:52,419: Logger: Control : query_recived_order_shelfs : 0.0004374980926513672 -->
+2023-03-11 05:14:52,419: Logger: Database : query_recived_order_shelfs_id : 0.00022292137145996094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:14:52,419: Logger: Control : query_recived_order_shelfs : 0.000278472900390625 -->
+2023-03-11 05:14:52,419: Logger: Control : min_cost_robots : 0.00038695335388183594 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:15:19,507: Logger: Database : connect_to_db : 0.0061016082763671875 --> Connection is done
+2023-03-11 05:15:19,507: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:15:19,507: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:15:19,508: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:15:19,508: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:15:19,508: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:15:19,508: Logger: Database : update_db : 0.00036025047302246094 --> S1 is updated
+2023-03-11 05:15:19,508: Logger: Database : update_db : 0.0003573894500732422 --> S2 is updated
+2023-03-11 05:15:19,518: Logger: Database : query_recived_order_shelfs_id : 0.0003643035888671875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:15:19,518: Logger: Control : query_recived_order_shelfs : 0.0004742145538330078 -->
+2023-03-11 05:15:19,518: Logger: Database : query_recived_order_shelfs_id : 0.0002613067626953125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:15:19,519: Logger: Control : query_recived_order_shelfs : 0.00033164024353027344 -->
+2023-03-11 05:15:19,519: Logger: Control : min_cost_robots : 0.00046896934509277344 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:17:45,707: Logger: Database : connect_to_db : 0.00622248649597168 --> Connection is done
+2023-03-11 05:17:45,707: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:17:45,708: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:17:45,708: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:17:45,708: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:17:45,708: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:17:45,708: Logger: Database : update_db : 0.00036334991455078125 --> S1 is updated
+2023-03-11 05:17:45,709: Logger: Database : update_db : 0.0004012584686279297 --> S2 is updated
+2023-03-11 05:17:45,718: Logger: Database : query_recived_order_shelfs_id : 0.00046563148498535156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:45,718: Logger: Control : query_recived_order_shelfs : 0.0005922317504882812 -->
+2023-03-11 05:17:45,718: Logger: Database : query_recived_order_shelfs_id : 0.0002543926239013672 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:45,718: Logger: Control : query_recived_order_shelfs : 0.00032401084899902344 -->
+2023-03-11 05:17:45,719: Logger: Control : min_cost_robots : 0.0004630088806152344 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:17:45,719: Logger: Control : min_cost_robots : 0.0005743503570556641 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 05:17:45,719: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 05:17:45,719: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 05:17:45,719: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 05:17:45,719: Logger: Control : move : 0.00015616416931152344 -->
+2023-03-11 05:17:46,943: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 05:17:46,943: Logger: Control : move : 0.0004394054412841797 -->
+2023-03-11 05:17:47,954: Logger: Control : steps_map_to_shelf : 2.2355544567108154 -->
+2023-03-11 05:17:47,968: Logger: Control : steps_map : 2.2508158683776855 -->
+2023-03-11 05:17:47,969: Logger: Database : query_recived_order_shelfs_id : 0.0005068778991699219 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:47,969: Logger: Control : query_recived_order_shelfs : 0.0006039142608642578 -->
+2023-03-11 05:17:47,969: Logger: Database : query_recived_order_shelfs_id : 0.00033283233642578125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:47,970: Logger: Control : query_recived_order_shelfs : 0.00042319297790527344 -->
+2023-03-11 05:17:47,970: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:17:47,970: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 05:17:47,970: Logger: Control : move : 0.00014281272888183594 -->
+2023-03-11 05:17:48,979: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 05:17:48,980: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 05:17:48,980: Logger: Control : move : 0.0005924701690673828 -->
+2023-03-11 05:17:49,991: Logger: Control : steps_map_to_shelf : 2.021700382232666 -->
+2023-03-11 05:17:50,004: Logger: Control : steps_map : 2.035090923309326 -->
+2023-03-11 05:17:50,004: Logger: Database : query_recived_order_shelfs_id : 0.00045418739318847656 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:50,004: Logger: Control : query_recived_order_shelfs : 0.0005581378936767578 -->
+2023-03-11 05:17:50,005: Logger: Database : query_recived_order_shelfs_id : 0.0002913475036621094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:50,005: Logger: Control : query_recived_order_shelfs : 0.0003762245178222656 -->
+2023-03-11 05:17:50,005: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 05:17:50,005: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 05:17:50,005: Logger: Control : move : 0.00011563301086425781 -->
+2023-03-11 05:17:51,015: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:17:51,015: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 05:17:51,016: Logger: Control : move : 0.0007638931274414062 -->
+2023-03-11 05:17:52,027: Logger: Control : steps_map_to_shelf : 1.0121204853057861 -->
+2023-03-11 05:17:53,039: Logger: Control : steps_map_to_shelf : 3.0342676639556885 -->
+2023-03-11 05:17:53,053: Logger: Control : steps_map : 3.0491769313812256 -->
+2023-03-11 05:17:53,053: Logger: Database : query_recived_order_shelfs_id : 0.00043773651123046875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:53,053: Logger: Control : query_recived_order_shelfs : 0.0005259513854980469 -->
+2023-03-11 05:17:53,054: Logger: Database : query_recived_order_shelfs_id : 0.0002486705780029297 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:53,054: Logger: Control : query_recived_order_shelfs : 0.0003254413604736328 -->
+2023-03-11 05:17:53,054: Logger: Control : steps_map_to_shelf : 7.152557373046875e-07 -->
+2023-03-11 05:17:54,063: Logger: Control : steps_map_to_shelf : 1.0092904567718506 -->
+2023-03-11 05:17:54,076: Logger: Control : steps_map : 1.0233545303344727 -->
+2023-03-11 05:17:54,077: Logger: Database : query_recived_order_shelfs_id : 0.0004603862762451172 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:54,077: Logger: Control : query_recived_order_shelfs : 0.0005552768707275391 -->
+2023-03-11 05:17:54,077: Logger: Database : query_recived_order_shelfs_id : 0.0003552436828613281 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:54,077: Logger: Control : query_recived_order_shelfs : 0.0004394054412841797 -->
+2023-03-11 05:17:54,077: Logger: Control : steps_map_to_shelf : 9.5367431640625e-07 -->
+2023-03-11 05:17:54,087: Logger: Control : steps_map : 0.011012792587280273 -->
+2023-03-11 05:17:54,088: Logger: Database : query_recived_order_shelfs_id : 0.0004119873046875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:54,088: Logger: Control : query_recived_order_shelfs : 0.0005123615264892578 -->
+2023-03-11 05:17:54,088: Logger: Database : query_recived_order_shelfs_id : 0.00034499168395996094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:54,088: Logger: Control : query_recived_order_shelfs : 0.00043201446533203125 -->
+2023-03-11 05:17:54,089: Logger: Control : steps_map_to_shelf : 1.6689300537109375e-06 -->
+2023-03-11 05:17:54,099: Logger: Control : steps_map : 0.01136159896850586 -->
+2023-03-11 05:17:54,099: Logger: Database : query_recived_order_shelfs_id : 0.0004315376281738281 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:54,099: Logger: Control : query_recived_order_shelfs : 0.0005168914794921875 -->
+2023-03-11 05:17:54,100: Logger: Database : query_recived_order_shelfs_id : 0.0002617835998535156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:17:54,100: Logger: Control : query_recived_order_shelfs : 0.00033354759216308594 -->
+2023-03-11 05:17:54,100: Logger: Control : steps_map_to_shelf : 4.76837158203125e-07 -->
+2023-03-11 05:17:54,108: Logger: Control : steps_map : 0.009183883666992188 -->
+2023-03-11 05:17:54,108: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 17:56:10,779: Logger: Database --> Connection is done
-2023-02-05 17:56:10,780: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 17:56:10,780: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
-2023-02-05 17:56:10,780: Logger: Database --> 'S1' shelf is added
-2023-02-05 17:56:10,780: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 17:56:10,781: Logger: Database --> S2 shelf is added
-2023-02-05 17:56:10,781: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 11], intial_orientation=right battery_precentage=100
+2023-03-11 05:29:56,227: Logger: Database : connect_to_db : 0.006172657012939453 --> Connection is done
+2023-03-11 05:29:56,228: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:29:56,228: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:29:56,228: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:29:56,228: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:29:56,228: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:29:56,228: Logger: Database : update_db : 0.0003294944763183594 --> S1 is updated
+2023-03-11 05:29:56,229: Logger: Database : update_db : 0.0003571510314941406 --> S2 is updated
+2023-03-11 05:29:56,239: Logger: Database : query_recived_order_shelfs_id : 0.00036525726318359375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:29:56,239: Logger: Control : query_recived_order_shelfs : 0.00047278404235839844 -->
+2023-03-11 05:29:56,239: Logger: Database : query_recived_order_shelfs_id : 0.0002655982971191406 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:29:56,239: Logger: Control : query_recived_order_shelfs : 0.00033092498779296875 -->
+2023-03-11 05:29:56,239: Logger: Control : min_cost_robots : 0.0004394054412841797 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:29:56,239: Logger: Control : min_cost_robots : 0.0005025863647460938 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 05:29:56,239: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 05:29:56,239: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 05:29:56,239: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 05:29:56,239: Logger: Control : move : 0.00011539459228515625 -->
+2023-03-11 05:29:57,461: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 05:29:57,461: Logger: Control : move : 0.0004215240478515625 -->
+2023-03-11 05:29:58,478: Logger: Control : steps_map_to_shelf : 2.2388837337493896 -->
+2023-03-11 05:29:58,491: Logger: Control : steps_map : 2.2527925968170166 -->
+2023-03-11 05:29:58,492: Logger: Database : query_recived_order_shelfs_id : 0.0004458427429199219 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:29:58,492: Logger: Control : query_recived_order_shelfs : 0.0005424022674560547 -->
+2023-03-11 05:29:58,492: Logger: Database : query_recived_order_shelfs_id : 0.0002498626708984375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:29:58,492: Logger: Control : query_recived_order_shelfs : 0.0003325939178466797 -->
+2023-03-11 05:29:58,492: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:29:58,492: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 05:29:58,492: Logger: Control : move : 0.00016164779663085938 -->
+2023-03-11 05:29:59,503: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 05:29:59,503: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 05:29:59,503: Logger: Control : move : 0.0006046295166015625 -->
+2023-03-11 05:30:00,514: Logger: Control : steps_map_to_shelf : 2.021888494491577 -->
+2023-03-11 05:30:00,541: Logger: Control : steps_map : 2.0502657890319824 -->
+2023-03-11 05:30:00,542: Logger: Database : query_recived_order_shelfs_id : 0.0007905960083007812 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:00,543: Logger: Control : query_recived_order_shelfs : 0.0009596347808837891 -->
+2023-03-11 05:30:00,543: Logger: Database : query_recived_order_shelfs_id : 0.0005815029144287109 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:00,543: Logger: Control : query_recived_order_shelfs : 0.0007457733154296875 -->
+2023-03-11 05:30:00,544: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 05:30:00,544: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 05:30:00,544: Logger: Control : move : 0.0003044605255126953 -->
+2023-03-11 05:30:01,557: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:30:01,558: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 05:30:01,558: Logger: Control : move : 0.0006823539733886719 -->
+2023-03-11 05:30:02,570: Logger: Control : steps_map_to_shelf : 1.0132966041564941 -->
+2023-03-11 05:30:03,582: Logger: Control : steps_map_to_shelf : 3.038137674331665 -->
+2023-03-11 05:30:03,595: Logger: Control : steps_map : 3.053133487701416 -->
+2023-03-11 05:30:03,595: Logger: Database : query_recived_order_shelfs_id : 0.00043654441833496094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:03,595: Logger: Control : query_recived_order_shelfs : 0.0005347728729248047 -->
+2023-03-11 05:30:03,596: Logger: Database : query_recived_order_shelfs_id : 0.00023865699768066406 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:03,596: Logger: Control : query_recived_order_shelfs : 0.0003154277801513672 -->
+2023-03-11 05:30:03,596: Logger: Control : steps_map_to_shelf : 4.5299530029296875e-06 -->
+2023-03-11 05:30:04,605: Logger: Control : steps_map_to_shelf : 1.0087473392486572 -->
+2023-03-11 05:30:04,618: Logger: Control : steps_map : 1.023319959640503 -->
+2023-03-11 05:30:04,619: Logger: Database : query_recived_order_shelfs_id : 0.0004296302795410156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:04,619: Logger: Control : query_recived_order_shelfs : 0.0005154609680175781 -->
+2023-03-11 05:30:04,619: Logger: Database : query_recived_order_shelfs_id : 0.0002307891845703125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:04,619: Logger: Control : query_recived_order_shelfs : 0.0003032684326171875 -->
+2023-03-11 05:30:04,619: Logger: Control : steps_map_to_shelf : 9.298324584960938e-06 -->
+2023-03-11 05:30:04,628: Logger: Control : steps_map : 0.009773015975952148 -->
+2023-03-11 05:30:04,628: Logger: Database : query_recived_order_shelfs_id : 0.0002524852752685547 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:04,628: Logger: Control : query_recived_order_shelfs : 0.00032520294189453125 -->
+2023-03-11 05:30:04,629: Logger: Database : query_recived_order_shelfs_id : 0.000209808349609375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:04,629: Logger: Control : query_recived_order_shelfs : 0.0002796649932861328 -->
+2023-03-11 05:30:04,629: Logger: Control : steps_map_to_shelf : 8.821487426757812e-06 -->
+2023-03-11 05:30:04,638: Logger: Control : steps_map : 0.009671688079833984 -->
+2023-03-11 05:30:04,638: Logger: Database : query_recived_order_shelfs_id : 0.0003962516784667969 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:04,638: Logger: Control : query_recived_order_shelfs : 0.00047326087951660156 -->
+2023-03-11 05:30:04,639: Logger: Database : query_recived_order_shelfs_id : 0.00019621849060058594 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:30:04,639: Logger: Control : query_recived_order_shelfs : 0.00025773048400878906 -->
+2023-03-11 05:30:04,639: Logger: Control : steps_map_to_shelf : 8.58306884765625e-06 -->
+2023-03-11 05:30:04,647: Logger: Control : steps_map : 0.009085893630981445 -->
+2023-03-11 05:30:04,647: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 17:58:31,988: Logger: Database --> Connection is done
-2023-02-05 17:58:31,988: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 17:58:31,988: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
-2023-02-05 17:58:31,989: Logger: Database --> 'S1' shelf is added
-2023-02-05 17:58:31,989: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 17:58:31,989: Logger: Database --> S2 shelf is added
-2023-02-05 17:58:31,989: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 17:58:31,989: Logger: Database --> 'R1' shelf is added
-2023-02-05 17:58:31,989: Logger: 
+2023-03-11 05:35:47,347: Logger: Database : connect_to_db : 0.006117343902587891 --> Connection is done
+2023-03-11 05:35:47,347: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:35:47,347: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:35:47,347: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:35:47,347: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:35:47,347: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:35:47,348: Logger: Database : update_db : 0.00048542022705078125 --> S1 is updated
+2023-03-11 05:35:47,348: Logger: Database : update_db : 0.0003409385681152344 --> S2 is updated
+2023-03-11 05:35:47,357: Logger: Database : query_recived_order_shelfs_id : 0.00036787986755371094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:47,357: Logger: Control : query_recived_order_shelfs : 0.00047397613525390625 -->
+2023-03-11 05:35:47,358: Logger: Database : query_recived_order_shelfs_id : 0.0002529621124267578 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:47,358: Logger: Control : query_recived_order_shelfs : 0.00032329559326171875 -->
+2023-03-11 05:35:47,358: Logger: Control : min_cost_robots : 0.00044274330139160156 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:35:47,358: Logger: Control : min_cost_robots : 0.0005068778991699219 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 05:35:47,358: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 05:35:47,358: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 05:35:47,358: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 05:35:47,358: Logger: Control : move : 0.00011730194091796875 -->
+2023-03-11 05:35:48,580: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 05:35:48,581: Logger: Control : move : 0.0004978179931640625 -->
+2023-03-11 05:35:49,592: Logger: Control : steps_map_to_shelf : 2.234159231185913 -->
+2023-03-11 05:35:49,606: Logger: Control : steps_map : 2.2488865852355957 -->
+2023-03-11 05:35:49,606: Logger: Database : query_recived_order_shelfs_id : 0.0005161762237548828 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:49,606: Logger: Control : query_recived_order_shelfs : 0.0006151199340820312 -->
+2023-03-11 05:35:49,607: Logger: Database : query_recived_order_shelfs_id : 0.0003361701965332031 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:49,607: Logger: Control : query_recived_order_shelfs : 0.00042939186096191406 -->
+2023-03-11 05:35:49,607: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:35:49,607: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 05:35:49,607: Logger: Control : move : 0.00015354156494140625 -->
+2023-03-11 05:35:50,617: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 05:35:50,618: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 05:35:50,618: Logger: Control : move : 0.0007011890411376953 -->
+2023-03-11 05:35:51,643: Logger: Control : steps_map_to_shelf : 2.0355422496795654 -->
+2023-03-11 05:35:51,655: Logger: Control : steps_map : 2.0490434169769287 -->
+2023-03-11 05:35:51,656: Logger: Database : query_recived_order_shelfs_id : 0.0005075931549072266 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:51,656: Logger: Control : query_recived_order_shelfs : 0.0006067752838134766 -->
+2023-03-11 05:35:51,656: Logger: Database : query_recived_order_shelfs_id : 0.000339508056640625 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:51,656: Logger: Control : query_recived_order_shelfs : 0.00044608116149902344 -->
+2023-03-11 05:35:51,656: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 05:35:51,656: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 05:35:51,657: Logger: Control : move : 0.00015091896057128906 -->
+2023-03-11 05:35:52,665: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:35:52,666: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 05:35:52,666: Logger: Control : move : 0.0005965232849121094 -->
+2023-03-11 05:35:53,676: Logger: Control : steps_map_to_shelf : 1.0111610889434814 -->
+2023-03-11 05:35:54,688: Logger: Control : steps_map_to_shelf : 3.0312695503234863 -->
+2023-03-11 05:35:54,701: Logger: Control : steps_map : 3.0455210208892822 -->
+2023-03-11 05:35:54,701: Logger: Database : query_recived_order_shelfs_id : 0.00045609474182128906 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:54,701: Logger: Control : query_recived_order_shelfs : 0.0005495548248291016 -->
+2023-03-11 05:35:54,702: Logger: Database : query_recived_order_shelfs_id : 0.0003485679626464844 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:54,702: Logger: Control : query_recived_order_shelfs : 0.00043511390686035156 -->
+2023-03-11 05:35:54,702: Logger: Control : steps_map_to_shelf : 5.4836273193359375e-06 -->
+2023-03-11 05:35:55,711: Logger: Control : steps_map_to_shelf : 1.009183645248413 -->
+2023-03-11 05:35:55,724: Logger: Control : steps_map : 1.0237739086151123 -->
+2023-03-11 05:35:55,725: Logger: Database : query_recived_order_shelfs_id : 0.0004620552062988281 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:55,725: Logger: Control : query_recived_order_shelfs : 0.000553131103515625 -->
+2023-03-11 05:35:55,725: Logger: Database : query_recived_order_shelfs_id : 0.0003211498260498047 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:55,726: Logger: Control : query_recived_order_shelfs : 0.00040721893310546875 -->
+2023-03-11 05:35:55,726: Logger: Control : steps_map_to_shelf : 9.775161743164062e-06 -->
+2023-03-11 05:35:55,735: Logger: Control : steps_map : 0.010862350463867188 -->
+2023-03-11 05:35:55,736: Logger: Database : query_recived_order_shelfs_id : 0.00037384033203125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:55,736: Logger: Control : query_recived_order_shelfs : 0.0004661083221435547 -->
+2023-03-11 05:35:55,736: Logger: Database : query_recived_order_shelfs_id : 0.00034236907958984375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:55,736: Logger: Control : query_recived_order_shelfs : 0.0004527568817138672 -->
+2023-03-11 05:35:55,737: Logger: Control : steps_map_to_shelf : 1.33514404296875e-05 -->
+2023-03-11 05:35:55,748: Logger: Control : steps_map : 0.012166738510131836 -->
+2023-03-11 05:35:55,748: Logger: Database : query_recived_order_shelfs_id : 0.0004363059997558594 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:55,748: Logger: Control : query_recived_order_shelfs : 0.0005202293395996094 -->
+2023-03-11 05:35:55,749: Logger: Database : query_recived_order_shelfs_id : 0.00027370452880859375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:35:55,749: Logger: Control : query_recived_order_shelfs : 0.00034737586975097656 -->
+2023-03-11 05:35:55,749: Logger: Control : steps_map_to_shelf : 9.059906005859375e-06 -->
+2023-03-11 05:35:55,758: Logger: Control : steps_map : 0.009729385375976562 -->
+2023-03-11 05:35:55,758: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 17:59:38,520: Logger: Database --> Connection is done
-2023-02-05 17:59:38,521: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 17:59:38,521: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
-2023-02-05 17:59:38,521: Logger: Database --> 'S1' shelf is added
-2023-02-05 17:59:38,758: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 17:59:38,760: Logger: Database --> S2 shelf is added
-2023-02-05 17:59:38,946: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 17:59:38,947: Logger: Database --> 'R1' shelf is added
-2023-02-05 17:59:39,154: Logger: 
+2023-03-11 05:43:34,674: Logger: Database : connect_to_db : 0.005942583084106445 --> Connection is done
+2023-03-11 05:43:34,674: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:43:34,674: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:43:34,674: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:43:34,674: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:43:34,674: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:43:34,675: Logger: Database : update_db : 0.0004782676696777344 --> S1 is updated
+2023-03-11 05:43:34,675: Logger: Database : update_db : 0.0004055500030517578 --> S2 is updated
+2023-03-11 05:43:34,685: Logger: Database : query_recived_order_shelfs_id : 0.00037670135498046875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:34,685: Logger: Control : query_recived_order_shelfs : 0.0004794597625732422 -->
+2023-03-11 05:43:34,685: Logger: Database : query_recived_order_shelfs_id : 0.0002720355987548828 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:34,685: Logger: Control : query_recived_order_shelfs : 0.000339508056640625 -->
+2023-03-11 05:43:34,685: Logger: Control : min_cost_robots : 0.0004432201385498047 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:43:34,685: Logger: Control : min_cost_robots : 0.000507354736328125 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 05:43:34,686: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 05:43:34,686: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 05:43:34,686: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 05:43:34,686: Logger: Control : move : 0.00015735626220703125 -->
+2023-03-11 05:43:35,909: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 05:43:35,909: Logger: Control : move : 0.0004725456237792969 -->
+2023-03-11 05:43:36,921: Logger: Control : steps_map_to_shelf : 2.2352638244628906 -->
+2023-03-11 05:43:36,954: Logger: Control : steps_map : 2.269230842590332 -->
+2023-03-11 05:43:36,955: Logger: Database : query_recived_order_shelfs_id : 0.0007700920104980469 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:36,955: Logger: Control : query_recived_order_shelfs : 0.0009403228759765625 -->
+2023-03-11 05:43:36,955: Logger: Database : query_recived_order_shelfs_id : 0.0005717277526855469 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:36,956: Logger: Control : query_recived_order_shelfs : 0.0007371902465820312 -->
+2023-03-11 05:43:36,956: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:43:36,956: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 05:43:36,956: Logger: Control : move : 0.0002791881561279297 -->
+2023-03-11 05:43:37,969: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 05:43:37,969: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 05:43:37,970: Logger: Control : move : 0.0006225109100341797 -->
+2023-03-11 05:43:38,980: Logger: Control : steps_map_to_shelf : 2.02465558052063 -->
+2023-03-11 05:43:38,994: Logger: Control : steps_map : 2.0399904251098633 -->
+2023-03-11 05:43:38,994: Logger: Database : query_recived_order_shelfs_id : 0.0004999637603759766 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:38,995: Logger: Control : query_recived_order_shelfs : 0.0005991458892822266 -->
+2023-03-11 05:43:38,995: Logger: Database : query_recived_order_shelfs_id : 0.0003261566162109375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:38,995: Logger: Control : query_recived_order_shelfs : 0.00041794776916503906 -->
+2023-03-11 05:43:38,995: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 05:43:38,995: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 05:43:38,995: Logger: Control : move : 0.00014328956604003906 -->
+2023-03-11 05:43:41,017: Logger: Control : steps_map_to_shelf : 2.022007942199707 -->
+2023-03-11 05:43:41,031: Logger: Control : steps_map : 2.037339448928833 -->
+2023-03-11 05:43:41,032: Logger: Database : query_recived_order_shelfs_id : 0.0004382133483886719 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:41,032: Logger: Control : query_recived_order_shelfs : 0.0005364418029785156 -->
+2023-03-11 05:43:41,032: Logger: Database : query_recived_order_shelfs_id : 0.00027298927307128906 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:43:41,032: Logger: Control : query_recived_order_shelfs : 0.00035834312438964844 -->
+2023-03-11 05:43:41,033: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:43:41,033: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 05:43:41,033: Logger: Control : move : 0.0001704692840576172 -->
+2023-03-11 05:46:01,070: Logger: Database : connect_to_db : 0.006646156311035156 --> Connection is done
+2023-03-11 05:46:01,070: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:46:01,071: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:46:01,071: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:46:01,071: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:46:01,071: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:46:01,071: Logger: Database : update_db : 0.00041413307189941406 --> S1 is updated
+2023-03-11 05:46:01,071: Logger: Database : update_db : 0.00032806396484375 --> S2 is updated
+2023-03-11 05:46:01,081: Logger: Database : query_recived_order_shelfs_id : 0.0006422996520996094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:01,081: Logger: Control : query_recived_order_shelfs : 0.0007801055908203125 -->
+2023-03-11 05:46:01,081: Logger: Database : query_recived_order_shelfs_id : 0.0002658367156982422 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:01,082: Logger: Control : query_recived_order_shelfs : 0.00033783912658691406 -->
+2023-03-11 05:46:01,082: Logger: Control : min_cost_robots : 0.0004620552062988281 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:46:01,082: Logger: Control : min_cost_robots : 0.0005362033843994141 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 05:46:01,082: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 05:46:01,082: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 05:46:01,082: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 05:46:01,082: Logger: Control : move : 0.0001327991485595703 -->
+2023-03-11 05:46:02,316: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 05:46:02,317: Logger: Control : move : 0.0004642009735107422 -->
+2023-03-11 05:46:03,329: Logger: Control : steps_map_to_shelf : 2.2468724250793457 -->
+2023-03-11 05:46:03,342: Logger: Control : steps_map : 2.2612509727478027 -->
+2023-03-11 05:46:03,342: Logger: Database : query_recived_order_shelfs_id : 0.0005054473876953125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:03,342: Logger: Control : query_recived_order_shelfs : 0.0006036758422851562 -->
+2023-03-11 05:46:03,343: Logger: Database : query_recived_order_shelfs_id : 0.0002968311309814453 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:03,343: Logger: Control : query_recived_order_shelfs : 0.00038814544677734375 -->
+2023-03-11 05:46:03,343: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:46:03,343: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 05:46:03,343: Logger: Control : move : 0.0001494884490966797 -->
+2023-03-11 05:46:04,353: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 05:46:04,353: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 05:46:04,353: Logger: Control : move : 0.0005998611450195312 -->
+2023-03-11 05:46:05,364: Logger: Control : steps_map_to_shelf : 2.0214107036590576 -->
+2023-03-11 05:46:05,378: Logger: Control : steps_map : 2.0365660190582275 -->
+2023-03-11 05:46:05,379: Logger: Database : query_recived_order_shelfs_id : 0.00046253204345703125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:05,379: Logger: Control : query_recived_order_shelfs : 0.0005538463592529297 -->
+2023-03-11 05:46:05,379: Logger: Database : query_recived_order_shelfs_id : 0.0002906322479248047 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:05,379: Logger: Control : query_recived_order_shelfs : 0.000377655029296875 -->
+2023-03-11 05:46:05,380: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 05:46:05,380: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 05:46:05,380: Logger: Control : move : 0.00011944770812988281 -->
+2023-03-11 05:46:07,402: Logger: Control : steps_map_to_shelf : 2.0226457118988037 -->
+2023-03-11 05:46:07,416: Logger: Control : steps_map : 2.0373501777648926 -->
+2023-03-11 05:46:07,416: Logger: Database : query_recived_order_shelfs_id : 0.0004413127899169922 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:07,416: Logger: Control : query_recived_order_shelfs : 0.0005292892456054688 -->
+2023-03-11 05:46:07,417: Logger: Database : query_recived_order_shelfs_id : 0.00023698806762695312 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:07,417: Logger: Control : query_recived_order_shelfs : 0.0003132820129394531 -->
+2023-03-11 05:46:07,417: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:46:07,417: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 05:46:07,417: Logger: Control : move : 0.00012373924255371094 -->
+2023-03-11 05:46:08,427: Logger: Control : steps_map_to_shelf : 1.0097308158874512 -->
+2023-03-11 05:46:08,440: Logger: Control : steps_map : 1.0243175029754639 -->
+2023-03-11 05:46:08,441: Logger: Database : query_recived_order_shelfs_id : 0.0004322528839111328 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:08,441: Logger: Control : query_recived_order_shelfs : 0.0005195140838623047 -->
+2023-03-11 05:46:08,441: Logger: Database : query_recived_order_shelfs_id : 0.00023508071899414062 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:08,441: Logger: Control : query_recived_order_shelfs : 0.0003116130828857422 -->
+2023-03-11 05:46:09,451: Logger: Control : steps_map_to_shelf : 1.009639024734497 -->
+2023-03-11 05:46:09,464: Logger: Control : steps_map : 1.0235164165496826 -->
+2023-03-11 05:46:09,464: Logger: Database : query_recived_order_shelfs_id : 0.0004761219024658203 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:09,464: Logger: Control : query_recived_order_shelfs : 0.0005695819854736328 -->
+2023-03-11 05:46:09,465: Logger: Database : query_recived_order_shelfs_id : 0.00030350685119628906 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:09,465: Logger: Control : query_recived_order_shelfs : 0.0003902912139892578 -->
+2023-03-11 05:46:09,465: Logger: Control : steps_map_to_shelf : 1.6927719116210938e-05 -->
+2023-03-11 05:46:09,475: Logger: Control : steps_map : 0.011420249938964844 -->
+2023-03-11 05:46:09,476: Logger: Database : query_recived_order_shelfs_id : 0.0004131793975830078 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:09,476: Logger: Control : query_recived_order_shelfs : 0.0005147457122802734 -->
+2023-03-11 05:46:09,476: Logger: Database : query_recived_order_shelfs_id : 0.0003418922424316406 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:46:09,476: Logger: Control : query_recived_order_shelfs : 0.00043582916259765625 -->
+2023-03-11 05:46:09,477: Logger: Control : steps_map_to_shelf : 1.7642974853515625e-05 -->
+2023-03-11 05:46:09,486: Logger: Control : steps_map : 0.010978221893310547 -->
+2023-03-11 05:46:09,487: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 18:04:59,360: Logger: Database --> Connection is done
-2023-02-05 18:04:59,360: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 18:04:59,360: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
-2023-02-05 18:21:33,142: Logger: Database --> Connection is done
-2023-02-05 18:21:33,143: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 18:21:33,143: Logger: Shelf --> S1 is created with intial_location=[10, 11]
-2023-02-05 18:21:33,143: Logger: Database --> S1 shelf is added
-2023-02-05 18:21:33,371: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 18:21:33,372: Logger: Database --> S2 shelf is added
-2023-02-05 18:21:33,448: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 18:24:03,521: Logger: Database --> Connection is done
-2023-02-05 18:24:03,521: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 18:24:03,521: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
-2023-02-05 18:24:03,522: Logger: Database --> 'S1' shelf is added
-2023-02-05 18:24:03,745: Logger: Shelf --> 'S2' is created with intial_location=[2, 2]
-2023-02-05 18:24:03,998: Logger: Database --> 'S2' shelf is added
-2023-02-05 18:24:04,196: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:50:29,578: Logger: Database : connect_to_db : 0.006228446960449219 --> Connection is done
+2023-03-11 05:50:29,578: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:50:29,578: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:50:29,578: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:50:29,578: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:50:29,578: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:50:29,579: Logger: Database : update_db : 0.0004062652587890625 --> S1 is updated
+2023-03-11 05:50:29,579: Logger: Database : update_db : 0.00038504600524902344 --> S2 is updated
+2023-03-11 05:50:29,589: Logger: Database : query_recived_order_shelfs_id : 0.00041174888610839844 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:50:29,589: Logger: Control : query_recived_order_shelfs : 0.000518798828125 -->
+2023-03-11 05:50:29,589: Logger: Database : query_recived_order_shelfs_id : 0.0002846717834472656 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:50:29,589: Logger: Control : query_recived_order_shelfs : 0.0003516674041748047 -->
+2023-03-11 05:50:29,589: Logger: Control : min_cost_robots : 0.0004572868347167969 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:50:29,589: Logger: Control : min_cost_robots : 0.0005209445953369141 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 05:51:33,553: Logger: Database : connect_to_db : 0.006349086761474609 --> Connection is done
+2023-03-11 05:51:33,553: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 05:51:33,553: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 05:51:33,554: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 05:51:33,554: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 05:51:33,554: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 05:51:33,554: Logger: Database : update_db : 0.00038051605224609375 --> S1 is updated
+2023-03-11 05:51:33,554: Logger: Database : update_db : 0.00032639503479003906 --> S2 is updated
+2023-03-11 05:51:33,564: Logger: Database : query_recived_order_shelfs_id : 0.0003795623779296875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:33,564: Logger: Control : query_recived_order_shelfs : 0.0005321502685546875 -->
+2023-03-11 05:51:33,564: Logger: Database : query_recived_order_shelfs_id : 0.0002770423889160156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:33,564: Logger: Control : query_recived_order_shelfs : 0.0003521442413330078 -->
+2023-03-11 05:51:33,565: Logger: Control : min_cost_robots : 0.00048422813415527344 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 05:51:33,565: Logger: Control : min_cost_robots : 0.0005505084991455078 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 05:51:33,565: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 05:51:33,565: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 05:51:33,565: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 05:51:33,565: Logger: Control : move : 0.0001983642578125 -->
+2023-03-11 05:51:34,825: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 05:51:34,826: Logger: Control : move : 0.00041747093200683594 -->
+2023-03-11 05:51:35,837: Logger: Control : steps_map_to_shelf : 2.272061824798584 -->
+2023-03-11 05:51:35,870: Logger: Control : steps_map : 2.306243419647217 -->
+2023-03-11 05:51:35,871: Logger: Database : query_recived_order_shelfs_id : 0.0007724761962890625 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:35,871: Logger: Control : query_recived_order_shelfs : 0.0009579658508300781 -->
+2023-03-11 05:51:35,872: Logger: Database : query_recived_order_shelfs_id : 0.0004703998565673828 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:35,872: Logger: Control : query_recived_order_shelfs : 0.0006017684936523438 -->
+2023-03-11 05:51:35,872: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 05:51:35,872: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 05:51:35,872: Logger: Control : move : 0.00024199485778808594 -->
+2023-03-11 05:51:36,885: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 05:51:36,885: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 05:51:36,885: Logger: Control : move : 0.0006051063537597656 -->
+2023-03-11 05:51:37,896: Logger: Control : steps_map_to_shelf : 2.0246613025665283 -->
+2023-03-11 05:51:37,909: Logger: Control : steps_map : 2.039170980453491 -->
+2023-03-11 05:51:37,910: Logger: Database : query_recived_order_shelfs_id : 0.00048828125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:37,910: Logger: Control : query_recived_order_shelfs : 0.0005786418914794922 -->
+2023-03-11 05:51:37,910: Logger: Database : query_recived_order_shelfs_id : 0.0003192424774169922 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:37,910: Logger: Control : query_recived_order_shelfs : 0.00040650367736816406 -->
+2023-03-11 05:51:37,910: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 05:51:37,911: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 05:51:37,911: Logger: Control : move : 0.00012731552124023438 -->
+2023-03-11 05:51:39,933: Logger: Control : steps_map_to_shelf : 2.0223782062530518 -->
+2023-03-11 05:51:39,945: Logger: Control : steps_map : 2.0358920097351074 -->
+2023-03-11 05:51:39,946: Logger: Database : query_recived_order_shelfs_id : 0.0004856586456298828 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:39,946: Logger: Control : query_recived_order_shelfs : 0.0005764961242675781 -->
+2023-03-11 05:51:39,946: Logger: Database : query_recived_order_shelfs_id : 0.0003223419189453125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:39,946: Logger: Control : query_recived_order_shelfs : 0.0004076957702636719 -->
+2023-03-11 05:51:39,946: Logger: Robot --> R1 moved to location=[4, 0]
+2023-03-11 05:51:39,947: Logger: Control : move : 6.628036499023438e-05 -->
+2023-03-11 05:51:40,956: Logger: Control : steps_map_to_shelf : 1.009209394454956 -->
+2023-03-11 05:51:40,969: Logger: Control : steps_map : 1.0241594314575195 -->
+2023-03-11 05:51:40,970: Logger: Database : query_recived_order_shelfs_id : 0.0004608631134033203 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:40,970: Logger: Control : query_recived_order_shelfs : 0.0005524158477783203 -->
+2023-03-11 05:51:40,970: Logger: Database : query_recived_order_shelfs_id : 0.0002884864807128906 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:40,970: Logger: Control : query_recived_order_shelfs : 0.0003752708435058594 -->
+2023-03-11 05:51:41,980: Logger: Control : steps_map_to_shelf : 1.0094001293182373 -->
+2023-03-11 05:51:41,993: Logger: Control : steps_map : 1.0236568450927734 -->
+2023-03-11 05:51:41,994: Logger: Database : query_recived_order_shelfs_id : 0.0004942417144775391 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:41,994: Logger: Control : query_recived_order_shelfs : 0.0005970001220703125 -->
+2023-03-11 05:51:41,994: Logger: Database : query_recived_order_shelfs_id : 0.00030803680419921875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:41,994: Logger: Control : query_recived_order_shelfs : 0.00040078163146972656 -->
+2023-03-11 05:51:41,994: Logger: Control : steps_map_to_shelf : 1.71661376953125e-05 -->
+2023-03-11 05:51:42,004: Logger: Control : steps_map : 0.011159420013427734 -->
+2023-03-11 05:51:42,005: Logger: Database : query_recived_order_shelfs_id : 0.0003616809844970703 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:42,005: Logger: Control : query_recived_order_shelfs : 0.0004630088806152344 -->
+2023-03-11 05:51:42,005: Logger: Database : query_recived_order_shelfs_id : 0.0003306865692138672 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 05:51:42,005: Logger: Control : query_recived_order_shelfs : 0.0004246234893798828 -->
+2023-03-11 05:51:42,006: Logger: Control : steps_map_to_shelf : 1.7404556274414062e-05 -->
+2023-03-11 05:51:42,016: Logger: Control : steps_map : 0.01108407974243164 -->
+2023-03-11 05:51:42,016: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 18:28:11,498: Logger: Database --> Connection is done
-2023-02-05 18:28:11,499: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 18:28:11,499: Logger: Shelf --> 'S1' is created with intial_location=[10, 11]
-2023-02-05 18:28:11,499: Logger: Database --> 'S1' shelf is added
-2023-02-05 18:28:11,686: Logger: Shelf --> 'S2' is created with intial_location=[2, 2]
-2023-02-05 18:28:11,688: Logger: Database --> 'S2' shelf is added
-2023-02-05 18:28:11,873: Logger: Robot --> 'R1' is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 18:28:11,876: Logger: Database --> 'R1' robot is added
-2023-02-05 18:28:11,921: Logger: Database --> 'R1' robot's health is added
-2023-02-05 18:28:12,116: Logger: 
+2023-03-11 16:16:33,112: Logger: Database : connect_to_db : 0.13450121879577637 --> Connection is done
+2023-03-11 16:16:33,145: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 16:16:33,145: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 16:16:33,145: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 16:16:33,146: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 16:16:33,146: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 16:16:33,197: Logger: Database : update_db : 0.05160927772521973 --> S1 is updated
+2023-03-11 16:16:33,199: Logger: Database : update_db : 0.0010280609130859375 --> S2 is updated
+2023-03-11 16:16:33,300: Logger: Database : query_recived_order_shelfs_id : 0.049550771713256836 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:33,301: Logger: Control : query_recived_order_shelfs : 0.04997587203979492 -->
+2023-03-11 16:16:33,302: Logger: Database : query_recived_order_shelfs_id : 0.001056671142578125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:33,302: Logger: Control : query_recived_order_shelfs : 0.0013186931610107422 -->
+2023-03-11 16:16:33,303: Logger: Control : min_cost_robots : 0.00182342529296875 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 16:16:33,303: Logger: Control : min_cost_robots : 0.002169370651245117 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 16:16:33,304: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 16:16:33,304: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 16:16:33,304: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 16:16:33,304: Logger: Control : move : 0.0004892349243164062 -->
+2023-03-11 16:16:35,746: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 16:16:35,746: Logger: Control : move : 0.00046062469482421875 -->
+2023-03-11 16:16:36,770: Logger: Control : steps_map_to_shelf : 3.4667234420776367 -->
+2023-03-11 16:16:36,783: Logger: Control : steps_map : 3.532684326171875 -->
+2023-03-11 16:16:36,784: Logger: Database : query_recived_order_shelfs_id : 0.00048828125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:36,784: Logger: Control : query_recived_order_shelfs : 0.0005741119384765625 -->
+2023-03-11 16:16:36,784: Logger: Database : query_recived_order_shelfs_id : 0.00032210350036621094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:36,784: Logger: Control : query_recived_order_shelfs : 0.00040340423583984375 -->
+2023-03-11 16:16:36,785: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:16:36,785: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 16:16:36,785: Logger: Control : move : 0.00010967254638671875 -->
+2023-03-11 16:16:37,795: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 16:16:37,795: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 16:16:37,795: Logger: Control : move : 0.0006413459777832031 -->
+2023-03-11 16:16:38,804: Logger: Control : steps_map_to_shelf : 2.0198614597320557 -->
+2023-03-11 16:16:38,818: Logger: Control : steps_map : 2.0348803997039795 -->
+2023-03-11 16:16:38,819: Logger: Database : query_recived_order_shelfs_id : 0.0005087852478027344 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:38,819: Logger: Control : query_recived_order_shelfs : 0.0006012916564941406 -->
+2023-03-11 16:16:38,819: Logger: Database : query_recived_order_shelfs_id : 0.0003268718719482422 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:38,819: Logger: Control : query_recived_order_shelfs : 0.000408172607421875 -->
+2023-03-11 16:16:38,820: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 16:16:38,820: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 16:16:38,820: Logger: Control : move : 0.00010967254638671875 -->
+2023-03-11 16:16:40,839: Logger: Control : steps_map_to_shelf : 2.0199134349823 -->
+2023-03-11 16:16:40,852: Logger: Control : steps_map : 2.0334229469299316 -->
+2023-03-11 16:16:40,852: Logger: Database : query_recived_order_shelfs_id : 0.0005006790161132812 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:40,852: Logger: Control : query_recived_order_shelfs : 0.0005872249603271484 -->
+2023-03-11 16:16:40,853: Logger: Database : query_recived_order_shelfs_id : 0.0003228187561035156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:40,853: Logger: Control : query_recived_order_shelfs : 0.00040459632873535156 -->
+2023-03-11 16:16:40,853: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:16:40,853: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 16:16:40,853: Logger: Control : move : 0.00012087821960449219 -->
+2023-03-11 16:16:41,862: Logger: Control : steps_map_to_shelf : 1.0092222690582275 -->
+2023-03-11 16:16:41,875: Logger: Control : steps_map : 1.0236389636993408 -->
+2023-03-11 16:16:41,876: Logger: Database : query_recived_order_shelfs_id : 0.0004906654357910156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:41,876: Logger: Control : query_recived_order_shelfs : 0.0005755424499511719 -->
+2023-03-11 16:16:41,876: Logger: Database : query_recived_order_shelfs_id : 0.0003178119659423828 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:41,877: Logger: Control : query_recived_order_shelfs : 0.0003981590270996094 -->
+2023-03-11 16:16:42,886: Logger: Control : steps_map_to_shelf : 1.0090172290802002 -->
+2023-03-11 16:16:42,899: Logger: Control : steps_map : 1.0234251022338867 -->
+2023-03-11 16:16:42,900: Logger: Database : query_recived_order_shelfs_id : 0.0004451274871826172 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:42,900: Logger: Control : query_recived_order_shelfs : 0.0005311965942382812 -->
+2023-03-11 16:16:42,900: Logger: Database : query_recived_order_shelfs_id : 0.0003330707550048828 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:42,900: Logger: Control : query_recived_order_shelfs : 0.000415802001953125 -->
+2023-03-11 16:16:42,900: Logger: Control : steps_map_to_shelf : 1.3589859008789062e-05 -->
+2023-03-11 16:16:42,910: Logger: Control : steps_map : 0.010930061340332031 -->
+2023-03-11 16:16:42,910: Logger: Database : query_recived_order_shelfs_id : 0.0003681182861328125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:42,911: Logger: Control : query_recived_order_shelfs : 0.00045418739318847656 -->
+2023-03-11 16:16:42,911: Logger: Database : query_recived_order_shelfs_id : 0.0003154277801513672 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:42,911: Logger: Control : query_recived_order_shelfs : 0.0003917217254638672 -->
+2023-03-11 16:16:42,911: Logger: Control : steps_map_to_shelf : 1.3828277587890625e-05 -->
+2023-03-11 16:16:42,921: Logger: Control : steps_map : 0.011214733123779297 -->
+2023-03-11 16:16:42,921: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 18:39:08,635: Logger: Database --> Connection is done
-2023-02-05 18:39:08,635: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 18:39:08,635: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 18:39:08,635: Logger: Database --> S1 shelf is added
-2023-02-05 18:39:08,796: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 18:39:08,798: Logger: Database --> S2 shelf is added
-2023-02-05 18:39:09,001: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 18:39:10,836: Logger: Database --> R1 shelf is added
-2023-02-05 18:39:11,576: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 16:16:45,529: Logger: Database : connect_to_db : 0.0054433345794677734 --> Connection is done
+2023-03-11 16:16:45,529: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 16:16:45,529: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 16:16:45,529: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 16:16:45,529: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 16:16:45,530: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 16:16:45,530: Logger: Database : update_db : 0.0004305839538574219 --> S1 is updated
+2023-03-11 16:16:45,530: Logger: Database : update_db : 0.0002932548522949219 --> S2 is updated
+2023-03-11 16:16:45,539: Logger: Database : query_recived_order_shelfs_id : 0.00028443336486816406 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:45,539: Logger: Control : query_recived_order_shelfs : 0.0003559589385986328 -->
+2023-03-11 16:16:45,539: Logger: Database : query_recived_order_shelfs_id : 0.00023174285888671875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:45,539: Logger: Control : query_recived_order_shelfs : 0.0002865791320800781 -->
+2023-03-11 16:16:45,539: Logger: Control : min_cost_robots : 0.0003819465637207031 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 16:16:45,539: Logger: Control : min_cost_robots : 0.0004355907440185547 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 16:16:45,539: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 16:16:45,539: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 16:16:45,539: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 16:16:45,539: Logger: Control : move : 0.0001068115234375 -->
+2023-03-11 16:16:46,763: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 16:16:46,764: Logger: Control : move : 0.0003933906555175781 -->
+2023-03-11 16:16:47,775: Logger: Control : steps_map_to_shelf : 2.236178398132324 -->
+2023-03-11 16:16:47,788: Logger: Control : steps_map : 2.2500112056732178 -->
+2023-03-11 16:16:47,789: Logger: Database : query_recived_order_shelfs_id : 0.0004911422729492188 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:47,789: Logger: Control : query_recived_order_shelfs : 0.0005757808685302734 -->
+2023-03-11 16:16:47,789: Logger: Database : query_recived_order_shelfs_id : 0.00030493736267089844 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:47,789: Logger: Control : query_recived_order_shelfs : 0.0003845691680908203 -->
+2023-03-11 16:16:47,790: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:16:47,790: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 16:16:47,790: Logger: Control : move : 0.00010728836059570312 -->
+2023-03-11 16:16:48,798: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 16:16:48,799: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 16:16:48,799: Logger: Control : move : 0.0006299018859863281 -->
+2023-03-11 16:16:49,809: Logger: Control : steps_map_to_shelf : 2.019653081893921 -->
+2023-03-11 16:16:49,822: Logger: Control : steps_map : 2.033205032348633 -->
+2023-03-11 16:16:49,822: Logger: Database : query_recived_order_shelfs_id : 0.0004911422729492188 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:49,822: Logger: Control : query_recived_order_shelfs : 0.0005776882171630859 -->
+2023-03-11 16:16:49,823: Logger: Database : query_recived_order_shelfs_id : 0.0003192424774169922 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:49,823: Logger: Control : query_recived_order_shelfs : 0.00040030479431152344 -->
+2023-03-11 16:16:49,823: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 16:16:49,823: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 16:16:49,823: Logger: Control : move : 0.00010943412780761719 -->
+2023-03-11 16:16:51,843: Logger: Control : steps_map_to_shelf : 2.020522117614746 -->
+2023-03-11 16:16:51,857: Logger: Control : steps_map : 2.035573720932007 -->
+2023-03-11 16:16:51,858: Logger: Database : query_recived_order_shelfs_id : 0.0005109310150146484 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:51,858: Logger: Control : query_recived_order_shelfs : 0.0005943775177001953 -->
+2023-03-11 16:16:51,858: Logger: Database : query_recived_order_shelfs_id : 0.00030517578125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:51,858: Logger: Control : query_recived_order_shelfs : 0.0003848075866699219 -->
+2023-03-11 16:16:51,859: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:16:51,859: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 16:16:51,859: Logger: Control : move : 0.0001049041748046875 -->
+2023-03-11 16:16:52,867: Logger: Control : steps_map_to_shelf : 1.0089333057403564 -->
+2023-03-11 16:16:52,880: Logger: Control : steps_map : 1.0223562717437744 -->
+2023-03-11 16:16:52,880: Logger: Database : query_recived_order_shelfs_id : 0.0005006790161132812 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:52,880: Logger: Control : query_recived_order_shelfs : 0.0005872249603271484 -->
+2023-03-11 16:16:52,881: Logger: Database : query_recived_order_shelfs_id : 0.0003190040588378906 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:52,881: Logger: Control : query_recived_order_shelfs : 0.0004010200500488281 -->
+2023-03-11 16:16:53,889: Logger: Control : steps_map_to_shelf : 1.0084285736083984 -->
+2023-03-11 16:16:53,902: Logger: Control : steps_map : 1.0219731330871582 -->
+2023-03-11 16:16:53,902: Logger: Database : query_recived_order_shelfs_id : 0.0004906654357910156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:53,902: Logger: Control : query_recived_order_shelfs : 0.0005774497985839844 -->
+2023-03-11 16:16:53,903: Logger: Database : query_recived_order_shelfs_id : 0.0003266334533691406 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:53,903: Logger: Control : query_recived_order_shelfs : 0.00039768218994140625 -->
+2023-03-11 16:16:53,903: Logger: Control : steps_map_to_shelf : 1.1205673217773438e-05 -->
+2023-03-11 16:16:53,913: Logger: Control : steps_map : 0.010766029357910156 -->
+2023-03-11 16:16:53,913: Logger: Database : query_recived_order_shelfs_id : 0.0004673004150390625 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:53,913: Logger: Control : query_recived_order_shelfs : 0.0005650520324707031 -->
+2023-03-11 16:16:53,914: Logger: Database : query_recived_order_shelfs_id : 0.0003066062927246094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:53,914: Logger: Control : query_recived_order_shelfs : 0.0004138946533203125 -->
+2023-03-11 16:16:53,914: Logger: Control : steps_map_to_shelf : 1.6927719116210938e-05 -->
+2023-03-11 16:16:53,925: Logger: Control : steps_map : 0.012063980102539062 -->
+2023-03-11 16:16:53,925: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
+2023-03-11 16:16:57,537: Logger: Database : connect_to_db : 0.005998134613037109 --> Connection is done
+2023-03-11 16:16:57,537: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 16:16:57,537: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 16:16:57,537: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 16:16:57,537: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 16:16:57,537: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 16:16:57,538: Logger: Database : update_db : 0.0004711151123046875 --> S1 is updated
+2023-03-11 16:16:57,538: Logger: Database : update_db : 0.00044465065002441406 --> S2 is updated
+2023-03-11 16:16:57,548: Logger: Database : query_recived_order_shelfs_id : 0.00031757354736328125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:57,548: Logger: Control : query_recived_order_shelfs : 0.0004036426544189453 -->
+2023-03-11 16:16:57,548: Logger: Database : query_recived_order_shelfs_id : 0.0002605915069580078 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:57,548: Logger: Control : query_recived_order_shelfs : 0.0003204345703125 -->
+2023-03-11 16:16:57,548: Logger: Control : min_cost_robots : 0.00042891502380371094 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 16:16:57,548: Logger: Control : min_cost_robots : 0.00048828125 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 16:16:57,549: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 16:16:57,549: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 16:16:57,549: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 16:16:57,549: Logger: Control : move : 0.00011324882507324219 -->
+2023-03-11 16:16:58,773: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 16:16:58,774: Logger: Control : move : 0.00047898292541503906 -->
+2023-03-11 16:16:59,785: Logger: Control : steps_map_to_shelf : 2.2366514205932617 -->
+2023-03-11 16:16:59,799: Logger: Control : steps_map : 2.25212025642395 -->
+2023-03-11 16:16:59,800: Logger: Database : query_recived_order_shelfs_id : 0.0004980564117431641 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:59,800: Logger: Control : query_recived_order_shelfs : 0.0005850791931152344 -->
+2023-03-11 16:16:59,801: Logger: Database : query_recived_order_shelfs_id : 0.0003199577331542969 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:16:59,801: Logger: Control : query_recived_order_shelfs : 0.0004019737243652344 -->
+2023-03-11 16:16:59,801: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:16:59,801: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 16:16:59,801: Logger: Control : move : 0.00011396408081054688 -->
+2023-03-11 16:17:00,810: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 16:17:00,811: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 16:17:00,811: Logger: Control : move : 0.0006361007690429688 -->
+2023-03-11 16:17:01,821: Logger: Control : steps_map_to_shelf : 2.020237922668457 -->
+2023-03-11 16:17:01,833: Logger: Control : steps_map : 2.033656358718872 -->
+2023-03-11 16:17:01,834: Logger: Database : query_recived_order_shelfs_id : 0.00046539306640625 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:01,834: Logger: Control : query_recived_order_shelfs : 0.0005478858947753906 -->
+2023-03-11 16:17:01,834: Logger: Database : query_recived_order_shelfs_id : 0.0003185272216796875 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:01,834: Logger: Control : query_recived_order_shelfs : 0.00039696693420410156 -->
+2023-03-11 16:17:01,834: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 16:17:01,835: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 16:17:01,835: Logger: Control : move : 0.0001068115234375 -->
+2023-03-11 16:17:03,854: Logger: Control : steps_map_to_shelf : 2.019564628601074 -->
+2023-03-11 16:17:03,866: Logger: Control : steps_map : 2.033097505569458 -->
+2023-03-11 16:17:03,867: Logger: Database : query_recived_order_shelfs_id : 0.0005090236663818359 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:03,867: Logger: Control : query_recived_order_shelfs : 0.0005967617034912109 -->
+2023-03-11 16:17:03,867: Logger: Database : query_recived_order_shelfs_id : 0.00031638145446777344 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:03,868: Logger: Control : query_recived_order_shelfs : 0.0003952980041503906 -->
+2023-03-11 16:17:03,868: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:17:03,868: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 16:17:03,868: Logger: Control : move : 0.0001068115234375 -->
+2023-03-11 16:17:04,877: Logger: Control : steps_map_to_shelf : 1.0091474056243896 -->
+2023-03-11 16:17:04,890: Logger: Control : steps_map : 1.0239555835723877 -->
+2023-03-11 16:17:04,891: Logger: Database : query_recived_order_shelfs_id : 0.0004596710205078125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:04,891: Logger: Control : query_recived_order_shelfs : 0.0005483627319335938 -->
+2023-03-11 16:17:04,891: Logger: Database : query_recived_order_shelfs_id : 0.00031948089599609375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:04,892: Logger: Control : query_recived_order_shelfs : 0.0004024505615234375 -->
+2023-03-11 16:17:05,901: Logger: Control : steps_map_to_shelf : 1.009528636932373 -->
+2023-03-11 16:17:05,913: Logger: Control : steps_map : 1.022916316986084 -->
+2023-03-11 16:17:05,914: Logger: Database : query_recived_order_shelfs_id : 0.0004985332489013672 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:05,914: Logger: Control : query_recived_order_shelfs : 0.0005846023559570312 -->
+2023-03-11 16:17:05,915: Logger: Database : query_recived_order_shelfs_id : 0.0003314018249511719 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:05,915: Logger: Control : query_recived_order_shelfs : 0.00041365623474121094 -->
+2023-03-11 16:17:05,915: Logger: Control : steps_map_to_shelf : 1.1920928955078125e-05 -->
+2023-03-11 16:17:05,925: Logger: Control : steps_map : 0.011203289031982422 -->
+2023-03-11 16:17:05,925: Logger: Database : query_recived_order_shelfs_id : 0.00035119056701660156 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:05,925: Logger: Control : query_recived_order_shelfs : 0.00045752525329589844 -->
+2023-03-11 16:17:05,926: Logger: Database : query_recived_order_shelfs_id : 0.00032401084899902344 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:17:05,926: Logger: Control : query_recived_order_shelfs : 0.00042319297790527344 -->
+2023-03-11 16:17:05,926: Logger: Control : steps_map_to_shelf : 1.1920928955078125e-05 -->
+2023-03-11 16:17:05,936: Logger: Control : steps_map : 0.011209964752197266 -->
+2023-03-11 16:17:05,936: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 18:40:49,576: Logger: Database --> Connection is done
-2023-02-05 18:40:49,577: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 18:40:49,577: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 18:40:49,577: Logger: Database --> S1 shelf is added
-2023-02-05 18:40:50,364: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 18:40:50,366: Logger: Database --> S2 shelf is added
-2023-02-05 18:40:51,023: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 18:40:51,025: Logger: Database --> R1 robot is added
-2023-02-05 18:40:51,027: Logger: Database --> R1 robot's health is added
-2023-02-05 18:40:51,266: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 16:23:26,929: Logger: Database : connect_to_db : 0.0070607662200927734 --> Connection is done
+2023-03-11 16:23:26,929: Logger: Database --> testing_AMRs Database is in use
+2023-03-11 16:23:26,929: Logger: Shelf --> S1 is created with intial_location=[3, 0]
+2023-03-11 16:23:26,929: Logger: Shelf --> S2 is created with intial_location=[2, 2]
+2023-03-11 16:23:26,929: Logger: Robot --> R1 is created with speed=1, intial_location=[5, 3], intial_orientation=right battery_precentage=100
+2023-03-11 16:23:26,929: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-11 16:23:26,930: Logger: Database : update_db : 0.00032138824462890625 --> S1 is updated
+2023-03-11 16:23:26,930: Logger: Database : update_db : 0.0002262592315673828 --> S2 is updated
+2023-03-11 16:23:26,939: Logger: Database : query_recived_order_shelfs_id : 0.0002689361572265625 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:26,939: Logger: Control : query_recived_order_shelfs : 0.00037384033203125 -->
+2023-03-11 16:23:26,940: Logger: Database : query_recived_order_shelfs_id : 0.0002777576446533203 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:26,940: Logger: Control : query_recived_order_shelfs : 0.00034046173095703125 -->
+2023-03-11 16:23:26,940: Logger: Control : min_cost_robots : 0.0004799365997314453 -->S1 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R2', 6]])
+2023-03-11 16:23:26,940: Logger: Control : min_cost_robots : 0.0005702972412109375 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3]])
+2023-03-11 16:23:26,940: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-11 16:23:26,941: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-11 16:23:26,941: Logger: Robot --> R1 moved to location=[5, 2]
+2023-03-11 16:23:26,941: Logger: Control : move : 0.0001266002655029297 -->
+2023-03-11 16:23:29,207: Logger: Robot --> R2 moved to location=[0, 2]
+2023-03-11 16:23:29,208: Logger: Control : move : 0.000431060791015625 -->
+2023-03-11 16:23:31,206: Logger: Control : steps_map_to_shelf : 4.265791654586792 -->
+2023-03-11 16:23:31,218: Logger: Control : steps_map : 4.278990030288696 -->
+2023-03-11 16:23:31,219: Logger: Database : query_recived_order_shelfs_id : 0.00040149688720703125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:31,219: Logger: Control : query_recived_order_shelfs : 0.0004677772521972656 -->
+2023-03-11 16:23:31,219: Logger: Database : query_recived_order_shelfs_id : 0.0002002716064453125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:31,219: Logger: Control : query_recived_order_shelfs : 0.00025725364685058594 -->
+2023-03-11 16:23:31,219: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:23:31,219: Logger: Robot --> R1 moved to location=[4, 2]
+2023-03-11 16:23:31,219: Logger: Control : move : 8.511543273925781e-05 -->
+2023-03-11 16:23:33,208: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-11 16:23:33,208: Logger: Robot --> R2 moved to location=[1, 2]
+2023-03-11 16:23:33,208: Logger: Control : move : 0.0007693767547607422 -->
+2023-03-11 16:23:35,206: Logger: Control : steps_map_to_shelf : 3.9872872829437256 -->
+2023-03-11 16:23:35,218: Logger: Control : steps_map : 3.9997942447662354 -->
+2023-03-11 16:23:35,218: Logger: Database : query_recived_order_shelfs_id : 0.00041794776916503906 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:35,218: Logger: Control : query_recived_order_shelfs : 0.0004885196685791016 -->
+2023-03-11 16:23:35,219: Logger: Database : query_recived_order_shelfs_id : 0.00019669532775878906 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:35,219: Logger: Control : query_recived_order_shelfs : 0.0002605915069580078 -->
+2023-03-11 16:23:35,219: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-11 16:23:35,219: Logger: Robot --> R1 moved to location=[4, 1]
+2023-03-11 16:23:35,219: Logger: Control : move : 8.296966552734375e-05 -->
+2023-03-11 16:23:39,207: Logger: Control : steps_map_to_shelf : 3.9881210327148438 -->
+2023-03-11 16:23:39,233: Logger: Control : steps_map : 4.01502537727356 -->
+2023-03-11 16:23:39,234: Logger: Database : query_recived_order_shelfs_id : 0.0005660057067871094 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:39,234: Logger: Control : query_recived_order_shelfs : 0.0006821155548095703 -->
+2023-03-11 16:23:39,234: Logger: Database : query_recived_order_shelfs_id : 0.00035309791564941406 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:39,234: Logger: Control : query_recived_order_shelfs : 0.0004525184631347656 -->
+2023-03-11 16:23:39,235: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-11 16:23:39,235: Logger: Robot --> R1 moved to location=[3, 1]
+2023-03-11 16:23:39,235: Logger: Control : move : 0.0001361370086669922 -->
+2023-03-11 16:23:41,206: Logger: Control : steps_map_to_shelf : 1.97182035446167 -->
+2023-03-11 16:23:41,219: Logger: Control : steps_map : 1.9854779243469238 -->
+2023-03-11 16:23:41,219: Logger: Database : query_recived_order_shelfs_id : 0.00042629241943359375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:41,219: Logger: Control : query_recived_order_shelfs : 0.0005071163177490234 -->
+2023-03-11 16:23:41,219: Logger: Database : query_recived_order_shelfs_id : 0.00022077560424804688 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:41,220: Logger: Control : query_recived_order_shelfs : 0.0002827644348144531 -->
+2023-03-11 16:23:43,207: Logger: Control : steps_map_to_shelf : 1.9869039058685303 -->
+2023-03-11 16:23:43,215: Logger: Control : steps_map : 1.9958620071411133 -->
+2023-03-11 16:23:43,215: Logger: Database : query_recived_order_shelfs_id : 0.0004892349243164062 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:43,215: Logger: Control : query_recived_order_shelfs : 0.0005600452423095703 -->
+2023-03-11 16:23:43,216: Logger: Database : query_recived_order_shelfs_id : 0.0002765655517578125 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:43,216: Logger: Control : query_recived_order_shelfs : 0.00033855438232421875 -->
+2023-03-11 16:23:43,216: Logger: Control : steps_map_to_shelf : 9.298324584960938e-06 -->
+2023-03-11 16:23:43,223: Logger: Control : steps_map : 0.00854182243347168 -->
+2023-03-11 16:23:43,224: Logger: Database : query_recived_order_shelfs_id : 0.0003008842468261719 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:43,224: Logger: Control : query_recived_order_shelfs : 0.00036406517028808594 -->
+2023-03-11 16:23:43,224: Logger: Database : query_recived_order_shelfs_id : 0.000270843505859375 --> Shelves that have recived an order: ['S1', 'S2']
+2023-03-11 16:23:43,224: Logger: Control : query_recived_order_shelfs : 0.00033354759216308594 -->
+2023-03-11 16:23:43,224: Logger: Control : steps_map_to_shelf : 9.059906005859375e-06 -->
+2023-03-11 16:23:43,232: Logger: Control : steps_map : 0.008888721466064453 -->
+2023-03-11 16:23:43,232: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
 
-2023-02-05 19:03:10,137: Logger: Database --> Connection is done
-2023-02-05 19:03:10,137: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 19:03:10,137: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 19:03:10,138: Logger: Database --> S1 shelf is added
-2023-02-05 19:03:10,262: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 19:03:10,264: Logger: Database --> S2 shelf is added
-2023-02-05 19:03:10,387: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 19:03:10,389: Logger: Database --> R1 robot is added
-2023-02-05 19:03:10,391: Logger: Database --> R1 robot's health is added
-2023-02-05 19:03:10,604: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-
-2023-02-05 19:18:20,366: Logger: Database --> Connection is done
-2023-02-05 19:18:20,366: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 19:18:20,366: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 19:18:20,367: Logger: Database --> S1 shelf is added
-2023-02-05 19:18:20,585: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 19:18:20,587: Logger: Database --> S2 shelf is added
-2023-02-05 19:18:20,751: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 19:18:20,753: Logger: Database --> R1 robot is added
-2023-02-05 19:18:20,754: Logger: Database --> R1 robot's health is added
-2023-02-05 19:18:20,916: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-
-2023-02-05 19:19:32,017: Logger: Database --> Connection is done
-2023-02-05 19:19:32,017: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 19:19:32,017: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 19:19:32,017: Logger: Database --> S1 shelf is added
-2023-02-05 19:19:32,191: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 19:19:32,193: Logger: Database --> S2 shelf is added
-2023-02-05 19:19:32,279: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 19:19:32,281: Logger: Database --> R1 robot is added
-2023-02-05 19:19:32,282: Logger: Database --> R1 robot's health is added
-2023-02-05 19:19:32,378: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-
-2023-02-05 19:22:10,428: Logger: Database --> Connection is done
-2023-02-05 19:22:10,428: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 19:22:10,428: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 19:22:10,429: Logger: Database --> S1 shelf is added
-2023-02-05 19:22:10,695: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 19:22:10,697: Logger: Database --> S2 shelf is added
-2023-02-05 19:22:10,839: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 19:22:10,844: Logger: Database --> R1 robot is added
-2023-02-05 19:22:10,845: Logger: Database --> R1 robot's health is added
-2023-02-05 19:22:11,026: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 19:22:11,027: Logger: Database --> R2 robot is added
-2023-02-05 19:22:11,029: Logger: Database --> R2 robot's health is added
-2023-02-05 19:22:11,224: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 19:22:11,226: Logger: Database --> R3 robot is added
-2023-02-05 19:22:11,227: Logger: Database --> R3 robot's health is added
-2023-02-05 19:22:11,477: Logger: 
-
-2023-02-05 20:21:51,410: Logger: Database --> Connection is done
-2023-02-05 20:21:51,410: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:23:15,373: Logger: Database --> Connection is done
-2023-02-05 20:23:15,373: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:23:15,373: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:23:15,373: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:23:15,373: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:23:15,373: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:23:15,373: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:23:52,228: Logger: Database --> Connection is done
-2023-02-05 20:23:52,228: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:23:52,229: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:23:52,229: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:23:52,229: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:23:52,229: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:23:52,229: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:23:52,229: Logger: Database --> Shelves having order are: [('S1',), ('S4',)]
-2023-02-05 20:23:52,504: Logger: ---------------------------------------------- Line breaker ----------------------------------------------n
-2023-02-05 20:27:41,445: Logger: Database --> Connection is done
-2023-02-05 20:27:41,446: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:27:41,446: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:27:41,446: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:27:41,446: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:27:41,446: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:27:41,446: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:27:41,446: Logger: Database --> Shelves having order are: S1
-2023-02-05 20:27:41,447: Logger: Database --> Shelves having order are: S4
-2023-02-05 20:27:41,496: Logger: ---------------------------------------------- Line breaker ----------------------------------------------n
-2023-02-05 20:30:59,294: Logger: Database --> Connection is done
-2023-02-05 20:30:59,294: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:30:59,294: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:30:59,294: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:30:59,295: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:30:59,295: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:30:59,295: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:30:59,295: Logger: Database --> Shelves having order are: S4
-2023-02-05 20:30:59,344: Logger: ---------------------------------------------- Line breaker ----------------------------------------------n
-2023-02-05 20:31:18,194: Logger: Database --> Connection is done
-2023-02-05 20:31:18,194: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:31:18,195: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:31:18,195: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:31:18,195: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:31:18,195: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:31:18,195: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:31:18,195: Logger: Database --> Shelves having order are: S4
-2023-02-05 20:31:18,236: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 20:31:19,122: Logger: Database --> Connection is done
-2023-02-05 20:31:19,122: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:31:19,122: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:31:19,122: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:31:19,122: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:31:19,122: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:31:19,122: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:31:19,123: Logger: Database --> Shelves having order are: S4
-2023-02-05 20:31:19,165: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 20:31:55,315: Logger: Database --> Connection is done
-2023-02-05 20:31:55,316: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:31:55,316: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:31:55,316: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:31:55,316: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:31:55,316: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:31:55,316: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:31:55,317: Logger: Database --> Shelves having order are: ['S1', 'S4']
-2023-02-05 20:31:55,357: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 20:32:29,987: Logger: Database --> Connection is done
-2023-02-05 20:32:29,988: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:32:29,988: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:32:29,988: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:32:29,988: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:32:29,988: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:32:29,988: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:32:29,989: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
-2023-02-05 20:32:30,028: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 20:58:55,444: Logger: Database --> Connection is done
-2023-02-05 20:58:55,445: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:58:55,445: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:58:55,445: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:58:55,445: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:58:55,445: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:58:55,445: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:32:30,028: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 20:59:52,490: Logger: Database --> Connection is done
-2023-02-05 20:59:52,490: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 20:59:52,490: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 20:59:52,491: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 20:59:52,491: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 20:59:52,491: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 20:59:52,491: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 20:59:52,491: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
-2023-02-05 20:59:52,492: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
-2023-02-05 20:32:30,028: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 21:03:15,366: Logger: Database --> Connection is done
-2023-02-05 21:03:15,366: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 21:03:15,366: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 21:03:15,367: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 21:03:15,367: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 21:03:15,367: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 21:03:15,367: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 21:03:15,367: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
-2023-02-05 21:03:15,367: Logger: Database --> Shelves that have recived an order: ['S1', 'S4']
-2023-02-05 21:03:15,577: Logger: Database --> S1 is updated
-2023-02-05 21:03:15,577: Logger: Control -->S1 ----> R2 (Min cost = 4) (Costs: [['R2', 4], ['R1', 7], ['R3', 7]])
-2023-02-05 21:03:15,578: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
-2023-02-05 21:03:15,578: Logger: Robot --> R2 moved to location=[1, 3]
-2023-02-05 21:03:15,614: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,614: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,615: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is right
-2023-02-05 21:03:15,615: Logger: Robot --> R2 moved to location=[1, 4]
-2023-02-05 21:03:15,628: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,628: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,628: Logger: Robot --> R2 moved to location=[1, 5]
-2023-02-05 21:03:15,638: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,639: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,639: Logger: Robot --> R2 moved to location=[1, 6]
-2023-02-05 21:03:15,647: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,648: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:03:15,657: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 21:04:39,171: Logger: Database --> Connection is done
-2023-02-05 21:04:39,172: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 21:04:39,172: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 21:04:39,172: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 21:04:39,172: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 21:04:39,172: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 21:04:39,172: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 21:04:39,173: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,173: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,182: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,183: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,191: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,191: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,199: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,200: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,209: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,209: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:04:39,217: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 21:09:53,010: Logger: Database --> Connection is done
-2023-02-05 21:09:53,011: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 21:09:53,011: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 21:09:53,011: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 21:09:53,011: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 21:09:53,011: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-
-
-2023-02-05 21:09:53,011: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 21:10:51,078: Logger: Database --> Connection is done
-2023-02-05 21:10:51,078: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 21:10:51,078: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 21:10:51,078: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 21:10:51,078: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 21:10:51,078: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 21:10:51,078: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 21:04:39,217: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 21:10:52,393: Logger: Database --> S1 is updated
-2023-02-05 21:10:52,602: Logger: Database --> S2 is updated
-2023-02-05 21:10:52,604: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
-2023-02-05 21:10:52,605: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
-2023-02-05 21:10:52,855: Logger: Database --> S1 is updated
-2023-02-05 21:10:52,855: Logger: Control -->S1 ----> R2 (Min cost = 4) (Costs: [['R2', 4], ['R1', 7], ['R3', 7]])
-2023-02-05 21:10:52,998: Logger: Database --> S2 is updated
-2023-02-05 21:10:52,999: Logger: Control -->S2 ----> R1 (Min cost = 4) (Costs: [['R2', 3], ['R1', 4], ['R3', 4]])
-2023-02-05 21:10:52,999: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
-2023-02-05 21:10:52,999: Logger: Robot --> R2 moved to location=[1, 3]
-2023-02-05 21:04:39,217: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 21:10:53,000: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
-2023-02-05 21:10:53,000: Logger: Robot --> R1 moved to location=[4, 3]
-2023-02-05 21:10:53,036: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,037: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,037: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is right
-2023-02-05 21:10:53,037: Logger: Robot --> R2 moved to location=[1, 4]
-2023-02-05 21:10:53,037: Logger: Robot --> R1 moved to location=[3, 3]
-2023-02-05 21:10:53,052: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,052: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,052: Logger: Robot --> R2 moved to location=[1, 5]
-2023-02-05 21:10:53,052: Logger: Robot --> R1 moved to location=[2, 3]
-2023-02-05 21:10:53,061: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,062: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,062: Logger: Robot --> R2 moved to location=[1, 6]
-2023-02-05 21:10:53,062: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
-2023-02-05 21:10:53,062: Logger: Robot --> R1 moved to location=[2, 2]
-2023-02-05 21:10:53,071: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,071: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:10:53,080: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-05 21:12:54,184: Logger: Database --> Connection is done
-2023-02-05 21:12:54,184: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-05 21:12:54,184: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 21:12:54,184: Logger: Shelf --> S2 is created with intial_location=[2, 2]
-2023-02-05 21:12:54,184: Logger: Robot --> R1 is created with speed=10, intial_location=[5, 3], intial_orientation=right battery_precentage=100
-2023-02-05 21:12:54,184: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
-2023-02-05 21:12:54,184: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 0], intial_orientation=left battery_precentage=100
-2023-02-05 21:12:54,315: Logger: Database --> S1 is updated
-2023-02-05 21:12:54,434: Logger: Database --> S2 is updated
-2023-02-05 21:12:54,435: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
-2023-02-05 21:12:54,437: Logger: Database --> Shelves that have recived an order: ['S1', 'S2', 'S4']
-2023-02-05 21:12:54,522: Logger: Database --> S1 is updated
-2023-02-05 21:12:54,522: Logger: Control -->S1 ----> R2 (Min cost = 4) (Costs: [['R2', 4], ['R1', 7], ['R3', 7]])
-2023-02-05 21:12:54,621: Logger: Database --> S2 is updated
-2023-02-05 21:12:54,621: Logger: Control -->S2 ----> R1 (Min cost = 4) (Costs: [['R2', 3], ['R1', 4], ['R3', 4]])
-2023-02-05 21:12:54,622: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
-2023-02-05 21:12:54,622: Logger: Robot --> R2 moved to location=[1, 3]
-2023-02-05 21:12:54,622: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
-2023-02-05 21:12:54,623: Logger: Robot --> R1 moved to location=[4, 3]
-2023-02-05 21:12:54,654: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,655: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,655: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is right
-2023-02-05 21:12:54,655: Logger: Robot --> R2 moved to location=[1, 4]
-2023-02-05 21:12:54,655: Logger: Robot --> R1 moved to location=[3, 3]
-2023-02-05 21:12:54,668: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,669: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,669: Logger: Robot --> R2 moved to location=[1, 5]
-2023-02-05 21:12:54,669: Logger: Robot --> R1 moved to location=[2, 3]
-2023-02-05 21:12:54,678: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,679: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,679: Logger: Robot --> R2 moved to location=[1, 6]
-2023-02-05 21:12:54,679: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is left
-2023-02-05 21:12:54,679: Logger: Robot --> R1 moved to location=[2, 2]
-2023-02-05 21:12:54,688: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,688: Logger: Database --> Shelves that have recived an order: ['S4']
-2023-02-05 21:12:54,697: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-2023-02-06 23:47:20,286: Logger: Database --> Connection is done
-2023-02-06 23:47:20,301: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-06 23:47:20,301: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-06 23:48:46,353: Logger: Database --> Connection is done
-2023-02-06 23:48:46,353: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-06 23:48:46,353: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-06 23:50:11,146: Logger: Database --> Connection is done
-2023-02-06 23:50:11,146: Logger: Database --> AMR_Warehouse Database is in use
-2023-02-06 23:50:11,146: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-05 21:12:54,697: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
-
-
-2023-02-06 23:54:07,021: Logger: Database --> Connection is done
-2023-02-06 23:54:07,022: Logger: Database --> testing_AMRs Database is in use
-2023-02-06 23:54:07,022: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-06 23:56:17,613: Logger: Database --> Connection is done
-2023-02-06 23:56:17,614: Logger: Database --> testing_AMRs Database is in use
-2023-02-06 23:56:17,614: Logger: Shelf --> S1 is created with intial_location=[1, 6]
-2023-02-07 00:07:27,863: Logger: Database --> Connection is done
-2023-02-07 00:07:27,863: Logger: Database --> testing_AMRs Database is in use
-2023-02-07 00:07:27,863: Logger: Shelf --> S1 is created with intial_location=[1, 6]

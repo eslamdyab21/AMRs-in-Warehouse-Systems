@@ -13,6 +13,7 @@ class Shelf():
         self.recived_order_status = False 
         self.paired_with_robot_status = False
         self.paired_with_robot = None
+        self.physically_connected_to_robot = None
         self.intial_location = intial_location
         self.map_size = map_size
 
