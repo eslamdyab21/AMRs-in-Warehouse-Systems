@@ -1,11 +1,10 @@
 /*
-To use MySQL here
-mysql -u username -p
+To use MySQL here: mysql -u username -p
+To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
 CREATE DATABASE AMR_Warehouse;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -119,9 +118,7 @@ DELEMITER //
 CREATE TRIGGER CheckStates BEFORE UPDATE ON Robots FOR EACH ROW
     BEGIN
         DECLARE currentState INT;
-
         SELECT NEW.HavingOrder INTO currentState FROM Robots;
-
         IF currentState = 0 THEN
             SET NEW.ShelfID = NULL;
         END IF;
