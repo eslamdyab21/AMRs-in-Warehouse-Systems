@@ -114,11 +114,14 @@ DELIMITER ;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- This trigger does one task which is making the ShelfID in the Robots table becomes NULL once the HavingOrder state becomes 0
+
 DELEMITER //
 CREATE TRIGGER CheckStates BEFORE UPDATE ON Robots FOR EACH ROW
     BEGIN
         DECLARE currentState INT;
+
         SELECT NEW.HavingOrder INTO currentState FROM Robots;
+
         IF currentState = 0 THEN
             SET NEW.ShelfID = NULL;
         END IF;
@@ -126,9 +129,21 @@ CREATE TRIGGER CheckStates BEFORE UPDATE ON Robots FOR EACH ROW
 DELEMITER ;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- This trigger does one task which is calculating the cost of new orders by multiplying the price of the product by the order's quantity
+
+DELIMITER //
+CREATE TRIGGER CheckCost BEFORE INSERT ON Orders FOR EACH ROW
+    BEGIN
+        DECLARE product_price INT;
+        SELECT Price INTO product_price FROM Products AS P WHERE P.ProductID = NEW.ProductID;
+        SET NEW.Cost = product_price * NEW.Quantity;
+    END //
+DELIMITER ;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
 Things to do:
 -------------
-1. Check the Cost in the Orders table that is equal to Quantity*Product.Price
 */
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
