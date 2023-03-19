@@ -100,10 +100,13 @@ class Control():
 
             
             # remove current robot from other potintal shelves, so it's not taken twice
-            for i in range(i+1,len(shelvs_recived_order)):
-                if shelf_costs_vector[0][1] in shelvs_recived_order[i][2][1]:
-                    robot_index = shelvs_recived_order[i][2][1].index(shelf_costs_vector[0][1])                
-                    del shelvs_recived_order[i][2][robot_index]
+            for i in range(i,len(shelvs_recived_order)):
+                print(shelf_costs_vector[0][1])
+                print('======================')
+                print(shelvs_recived_order[i][2][1])
+                # if shelf_costs_vector[0][1] == shelvs_recived_order[i][2][1]:
+                robot_index = shelvs_recived_order[i][2][1].index(shelf_costs_vector[0][1])                
+                del shelvs_recived_order[i][2][robot_index]
                 
 
     def query_recived_order_shelfs(self):
@@ -136,7 +139,7 @@ class Control():
         start_time = time.time()
 
         i=0
-        print(self.robots_with_min_cost_list)
+        # print(self.robots_with_min_cost_list)
         for robot in self.robots_with_min_cost_list:
             if robot != None:
 
@@ -156,52 +159,53 @@ class Control():
 
                     horizontal_steps = 0
                     vertical_steps = 0
-                else:
+                elif len(route) > 2:
                     horizontal_steps = route[1][1] - robot.current_location[1] 
                     vertical_steps = route[1][0] - robot.current_location[0]
                 
+                if len(route) > 2:
+                    if vertical_steps > 0:
+                        # want to move down
+                        self.move(robot, 'down')
 
-                if vertical_steps > 0:
-                    # want to move down
-                    self.move(robot, 'down')
-
-                elif vertical_steps < 0:
-                    # want to move up
-                    self.move(robot, 'up')
-                
-                elif vertical_steps == 0:
-                    if horizontal_steps > 0:
-                        # want to move right
-                        self.move(robot, 'right')
-
-                    elif horizontal_steps < 0:
-                        # want to move left
-                        self.move(robot, 'left')
-
-                    else:
-                        robot.paired_with_shelf.current_location = robot.current_location
+                    elif vertical_steps < 0:
+                        # want to move up
+                        self.move(robot, 'up')
                     
-                        # robot is now physicly connected to shelf
-                        robot.physically_connected_to_shelf = robot.paired_with_shelf
-                        robot.paired_with_shelf.physically_connected_to_robot = robot
+                    elif vertical_steps == 0:
+                        if horizontal_steps > 0:
+                            # want to move right
+                            self.move(robot, 'right')
 
-                        # appending that robot to a list
-                        self.robots_physically_connected_to_shelves_list.append(robot)
+                        elif horizontal_steps < 0:
+                            # want to move left
+                            self.move(robot, 'left')
 
-                        # delete that robot from the robots_with_min_cost_list
-                        # del self.robots_with_min_cost_list[i]
-                        self.robots_with_min_cost_list[i] = None
-                        # self.steps_map_to_shelf()
+                        else:
+                            robot.paired_with_shelf.current_location = robot.current_location
+                        
+                            # robot is now physicly connected to shelf
+                            robot.physically_connected_to_shelf = robot.paired_with_shelf
+                            robot.paired_with_shelf.physically_connected_to_robot = robot
 
-            
-                # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+                            # appending that robot to a list
+                            self.robots_physically_connected_to_shelves_list.append(robot)
 
-                if horizontal_steps == 0 and vertical_steps == 0:
-                    self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+                            # delete that robot from the robots_with_min_cost_list
+                            # del self.robots_with_min_cost_list[i]
+                            self.robots_with_min_cost_list[i] = None
+                            # self.steps_map_to_shelf()
+
+                if len(route) == 2:
+                    # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+
+                    if horizontal_steps == 0 and vertical_steps == 0:
+                        self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
 
                 else:
                     self.map.update_objects_locations({robot.id:robot.locations})
                 
+                print(robot.id)
                 self.map.show_astar_map(robot.astart_map, robot.current_location, goal, route)
                 i = i + 1
             
