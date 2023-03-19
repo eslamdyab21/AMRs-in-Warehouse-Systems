@@ -71,7 +71,7 @@ class Control():
         shelvs_recived_order = sorted(shelvs_recived_order, key=lambda x: x[1], reverse=True)
 
         # print(shelvs_recived_order)
-        for i in range(len(shelvs_recived_order)):
+        for i in range(0,len(shelvs_recived_order)):
             shelf = shelvs_recived_order[i][0]
             robot = shelvs_recived_order[i][2][0][0]
 
@@ -101,8 +101,9 @@ class Control():
             
             # remove current robot from other potintal shelves, so it's not taken twice
             for i in range(i+1,len(shelvs_recived_order)):
-                robot_index = shelvs_recived_order[i][2][1].index(shelf_costs_vector[0][1])                
-                del shelvs_recived_order[i][2][robot_index]
+                if shelf_costs_vector[0][1] in shelvs_recived_order[i][2][1]:
+                    robot_index = shelvs_recived_order[i][2][1].index(shelf_costs_vector[0][1])                
+                    del shelvs_recived_order[i][2][robot_index]
                 
 
     def query_recived_order_shelfs(self):
