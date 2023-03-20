@@ -68,7 +68,7 @@ if write_or_update == 'write':
     R6 = Robot(logger, id = 'R6', intial_location = x_y, intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
 
     x_y = [randrange(map_size_y), randrange(map_size_y)]
-    R6 = Robot(logger, id = 'R7', intial_location = x_y, intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
+    R7 = Robot(logger, id = 'R7', intial_location = x_y, intial_orientation = 'left', speed=1, map_size = [map_size_x, map_size_y])
 
 
 
@@ -79,7 +79,7 @@ if write_or_update == 'update':
 
 
 
-control = Control(logger, database, robots = [R1, R2, R3, R4, R5, R6], 
+control = Control(logger, database, robots = [R1, R2, R3, R4, R5, R6, R7], 
                   shelvs = [S1, S2, S3, S4, S5], map = map)
 # database.query_shelf_id()
 
@@ -91,7 +91,7 @@ database.update_db(table="Shelves", id=S3.id, parameters={"HavingOrder":1})
 map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations,S3.id:S3.locations, 
                               S4.id:S4.locations, S5.id:S5.locations ,R1.id:R1.locations, 
                               R2.id:R2.locations, R3.id:R3.locations, R4.id:R4.locations,
-                              R5.id:R5.locations, R6.id:R6.locations})
+                              R5.id:R5.locations, R6.id:R6.locations, R7.id:R7.locations})
 map.show_map()
 
 for i in range(10):
