@@ -147,7 +147,10 @@ class Control():
                 route = self.path_algorithms.astar(robot.astart_map, start, goal)
                 print(robot.id, route)
                 
-                
+                # skip if no path is found
+                if route == False:
+                    continue
+
                 if len(route) == 2:
                     prev_location = robot.current_location.copy()
                     robot.current_location = route[-1]
@@ -198,11 +201,11 @@ class Control():
                     if horizontal_steps == 0 and vertical_steps == 0:
                         self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
 
-                else:
+                elif len(route) >2:
                     self.map.update_objects_locations({robot.id:robot.locations})
                 
                 
-                self.map.show_astar_map(robot.astart_map, robot.current_location, goal, route)
+                self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)
                 i = i + 1
             
             
