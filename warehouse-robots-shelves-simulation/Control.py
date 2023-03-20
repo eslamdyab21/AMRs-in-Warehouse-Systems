@@ -70,13 +70,12 @@ class Control():
         # min path
         shelvs_recived_order = sorted(shelvs_recived_order, key=lambda x: x[1], reverse=True)
 
-        # print(shelvs_recived_order)
         for i in range(0,len(shelvs_recived_order)):
             shelf = shelvs_recived_order[i][0]
             robot = shelvs_recived_order[i][2][0][0]
 
-            shelf_costs_vector = shelvs_recived_order[i][2]
-            min_cost = shelf_costs_vector[0][2]
+            shelf_costs_vector = shelvs_recived_order[i][2].copy()
+            min_cost = shelf_costs_vector[0][2].copy()
 
             # robot.active_order_status = True
             robot.paired_with_shelf_status = True
@@ -100,13 +99,10 @@ class Control():
 
             
             # remove current robot from other potintal shelves, so it's not taken twice
-            for i in range(i,len(shelvs_recived_order)):
-                print(shelf_costs_vector[0][1])
-                print('======================')
-                print(shelvs_recived_order[i][2][1])
-                # if shelf_costs_vector[0][1] == shelvs_recived_order[i][2][1]:
-                robot_index = shelvs_recived_order[i][2][1].index(shelf_costs_vector[0][1])                
-                del shelvs_recived_order[i][2][robot_index]
+            for j in range(i,len(shelvs_recived_order)):
+                for robot_robotid_cost in shelvs_recived_order[j][2]:
+                    if shelf_costs_vector[0][1] in robot_robotid_cost:
+                        shelvs_recived_order[j][2].remove(robot_robotid_cost)
                 
 
     def query_recived_order_shelfs(self):
@@ -149,7 +145,7 @@ class Control():
                 robot.astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
 
                 route = self.path_algorithms.astar(robot.astart_map, start, goal)
-                print(route)
+                print(robot.id, route)
                 
                 
                 if len(route) == 2:
@@ -205,7 +201,7 @@ class Control():
                 else:
                     self.map.update_objects_locations({robot.id:robot.locations})
                 
-                print(robot.id)
+                
                 self.map.show_astar_map(robot.astart_map, robot.current_location, goal, route)
                 i = i + 1
             
