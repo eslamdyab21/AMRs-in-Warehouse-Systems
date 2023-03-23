@@ -1,12 +1,14 @@
 # Rasbperrypi plug and play
 
 1) Type "ssh pi@IP_of_pi"
-<b>
-IP of pi:- i) Ethernet IP = 198.168.1.20
-		  ii) Wifi IP = "Depneding on network"
 
-password = 2023
-<\b>
+	IP of pi:- 
+
+	i) Ethernet IP = 198.168.1.20
+    ii) Wifi IP = "Depneding on network"
+
+	password:- 2023
+
 2) To change WIFI configeration:
 
 		   i) Type "sudo nano /etc/wpa_supplicant/wpa_supplicant.config" then enter wifi settings
