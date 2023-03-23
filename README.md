@@ -1,9 +1,7 @@
-# ROS Installation
+# raspbian installation
 
-1) We need to change the time to work with apt
-		1) Command to change time:- $sudo date -s 'Date of today<space>Time'
-		2) visiting this site: https://linuxhint.com/set-time-and-date-on-raspberry-pi/
+1) Download the image via this link: https://www.raspberrypi.com/software/
+		
+2) Enter this command to install pi-imager: $sudo apt install rpi-imager
 
-2) Enter this coommand to check it's working:- $sudo apt update && sudo apt upgrade
-
-3) We enter this link which is a step by step installation: https://varhowto.com/install-ros-noetic-raspberry-pi-4/
+3) Burn the image via pi-imager or follow this link: https://youtu.be/eS-N8NCB9rk
