@@ -5,6 +5,7 @@
 	IP of pi:- 
 
 	i) Ethernet IP = 198.168.1.20
+	
     ii) Wifi IP = "Depneding on network"
 
 	password:- 2023
