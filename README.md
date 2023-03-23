@@ -1,6 +1,7 @@
 # ROS Installation
 
-1) We need to change the time to work with set-time-and-date-on-raspberry-pi.
+1) We need to change the time to work with set-time-and-date-on-raspberry-pi. 
+		
 		1) Command to change time:- $sudo date -s 'Date of today<space>Time'
 		2) visiting this site: https://linuxhint.com/set-time-and-date-on-raspberry-pi/
 
