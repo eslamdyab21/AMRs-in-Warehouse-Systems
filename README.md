@@ -1,10 +1,19 @@
-# ROS Installation
+# Rasbperrypi plug and play
 
-1) We need to change the time to work with set-time-and-date-on-raspberry-pi. 
-		
-		1) Command to change time:- $sudo date -s 'Date of today<space>Time'
-		2) visiting this site: https://linuxhint.com/set-time-and-date-on-raspberry-pi/
+1) Type "ssh pi@IP_of_pi"
 
-2) Enter this coommand to check it's working:- $sudo apt update && sudo apt upgrade.
+IP of pi:- i) Ethernet IP = 198.168.1.20
+		  ii) Wifi IP = "Depneding on network"
 
-3) We enter this link which is a step by step installation: https://varhowto.com/install-ros-noetic-raspberry-pi-4/
+password = 2023
+
+2) To change WIFI configeration:
+
+		   i) Type "sudo nano /etc/wpa_supplicant/wpa_supplicant.config" then enter wifi settings
+		      Type "sudo reboot"
+		   ii) sudo raspi-config   
+
+3) To know the IPs type "ifconfig"
+
+4) For static_IP:https://youtu.be/S-VnPDECtog 
+				 https://youtu.be/-EsmSugtqF4
