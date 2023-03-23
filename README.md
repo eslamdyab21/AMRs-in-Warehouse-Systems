@@ -2,13 +2,13 @@
 
 1) Type "ssh pi@IP_of_pi"
 
-	IP of pi:- 
+		   IP of pi:- 
 
-	i) Ethernet IP = 198.168.1.20
-	
-    ii) Wifi IP = "Depneding on network"
+		   i) Ethernet IP = 198.168.1.20
 
-	password:- 2023
+   		   ii) Wifi IP = "Depneding on network"
+
+	       password:- 2023
 
 2) To change WIFI configeration:
 
