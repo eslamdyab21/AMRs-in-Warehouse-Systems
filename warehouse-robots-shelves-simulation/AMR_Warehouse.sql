@@ -13,7 +13,7 @@ CREATE DATABASE AMR_Warehouse;
 /* Interacting with the website */
 
 CREATE TABLE Users(
-    UserID VARCHAR(5) PRIMARY KEY,
+    UserID VARCHAR(5) NOT NULL PRIMARY KEY,
     Email VARCHAR(50) NOT NULL UNIQUE,
     Password VARCHAR(50) NOT NULL,
     FullName VARCHAR(20) NOT NULL,
@@ -21,13 +21,13 @@ CREATE TABLE Users(
 );
 
 CREATE TABLE Products(
-    ProductID VARCHAR(5) PRIMARY KEY,
+    ProductID VARCHAR(5) NOT NULL PRIMARY KEY,
     Price INT NOT NULL CHECK(Price > 0),
     ItemsInStock INT NOT NULL CHECK(ItemsInStock >= 0)
 );
 
 CREATE TABLE Orders(
-    OrderID VARCHAR(5) PRIMARY KEY,
+    OrderID VARCHAR(5) NOT NULL PRIMARY KEY,
     UserID VARCHAR(5) NOT NULL,
     ProductID VARCHAR(5) NOT NULL,
     Quantity INT NOT NULL CHECK(Quantity > 0),
@@ -45,7 +45,7 @@ CREATE TABLE Orders(
 /* Interacting with the warehouse */
 
 CREATE TABLE Shelves(
-    ShelfID VARCHAR(5) PRIMARY KEY,
+    ShelfID VARCHAR(5) NOT NULL PRIMARY KEY,
     LocationX INT NOT NULL CHECK(LocationX BETWEEN 0 AND 20),
     LocationY INT NOT NULL CHECK(LocationY BETWEEN 0 AND 20),
     ProductID VARCHAR(5), -- The product that the shelf stores
@@ -56,7 +56,7 @@ CREATE TABLE Shelves(
 );
 
 CREATE TABLE Robots(
-    RobotID VARCHAR(5) PRIMARY KEY,
+    RobotID VARCHAR(5) NOT NULL PRIMARY KEY,
     Speed INT NOT NULL CHECK(Speed >= 0),
     BatteryLife INT NOT NULL CHECK(BatteryLife BETWEEN 0 AND 100),
 
@@ -86,7 +86,7 @@ CREATE TABLE Robots(
 /* For the admin */
 
 CREATE TABLE Notifications(
-    NotificationID INT PRIMARY KEY AUTO_INCREMENT,
+    NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Notification VARCHAR(100),
     DateTime DATETIME NOT NULL
 );
