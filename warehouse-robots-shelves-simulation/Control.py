@@ -2,6 +2,7 @@ import numpy as np
 import time
 from Path_Planning_Algorithms import Algorithms
 import utils
+import pandas as pd
 
 
 class Control():
@@ -37,8 +38,10 @@ class Control():
         """
         start_time = time.time()
 
-
-        shelves_recived_order_list = self.query_recived_order_shelfs()
+        if self.database != None:
+            shelves_recived_order_list = self.query_recived_order_shelfs_from_db()
+        else:
+            shelves_recived_order_list = self.query_recived_order_shelfs_from_file()
 
         shelf_cost_vector = []
         shelf_costs_vector = []
@@ -105,26 +108,54 @@ class Control():
                         shelvs_recived_order[j][2].remove(robot_robotid_cost)
                 
 
-    def query_recived_order_shelfs(self):
+    def query_recived_order_shelfs_from_db(self):
         """
-        query_recived_order_shelfs function queres shelves order status
+        query_recived_order_shelfs_from_db function queres shelves order status
 
         :return shelves_recived_order_list: a list of shelves ids who recived orders
         """
 
         start_time = time.time()
-        shelves_id_recived_order_list = self.database.query_recived_order_shelfs_id()
+        shelves_id_recived_order_list = self.database.query_recived_order_shelfs_from_db_id()
         
         shelves_recived_order_list = []
         for shelf in self.shelvs:
             if shelf.id in shelves_id_recived_order_list:
                 shelves_recived_order_list.append(shelf)
 
-        self.logger.log(f'Control : query_recived_order_shelfs : {time.time()-start_time} -->')
+        self.logger.log(f'Control : query_recived_order_shelfs_from_db : {time.time()-start_time} -->')
 
         return shelves_recived_order_list
         
 
+    def query_recived_order_shelfs_from_file(self):
+        """
+        query_recived_order_shelfs_from_file function queres shelves order status
+
+        :return shelves_recived_order_list: a list of shelves ids who recived orders
+        """
+
+        start_time = time.time()
+
+        file_name = "warehouse-robots-shelves-simulation/recived_order_shelfs.csv"
+        df = pd.read_csv(file_name)
+
+        # get shlves who recived order
+        shelves_id_recived_order_list = df[df['recived_order_status'] == 1]['shelf'].tolist()
+        
+        # put recived status to 0
+        df.loc[df.recived_order_status==1, 'recived_order_status'] = 0
+        # df.to_csv(file_name, encoding='utf-8', index=False)
+
+        shelves_recived_order_list = []
+        for shelf in self.shelvs:
+            if shelf.id in shelves_id_recived_order_list:
+                shelves_recived_order_list.append(shelf)
+                
+
+        self.logger.log(f'Control : query_recived_order_shelfs_from_file : {time.time()-start_time} -->')
+
+        return shelves_recived_order_list
 
 
     def steps_map_to_shelf(self):
@@ -249,8 +280,8 @@ class Control():
             robot.paired_with_shelf.locations = robot.locations
 
             
-            self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
-            self.database.update_db(table="Shelves", id=robot.paired_with_shelf.id, parameters={"LocationX":robot.current_location[0], "LocationY":robot.current_location[1]})
+            # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+            # self.database.update_db(table="Shelves", id=robot.paired_with_shelf.id, parameters={"LocationX":robot.current_location[0], "LocationY":robot.current_location[1]})
             
 
             self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
@@ -266,8 +297,11 @@ class Control():
         """
         start_time = time.time()
 
-        
-        self.query_recived_order_shelfs()
+        if self.database != None:
+            self.query_recived_order_shelfs_from_db()
+        else:
+            self.query_recived_order_shelfs_from_file()
+
         self.min_cost_robots()
         self.steps_map_to_shelf()
         # self.steps_map_to_packaging()

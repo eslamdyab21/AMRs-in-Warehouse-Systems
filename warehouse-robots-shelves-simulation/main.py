@@ -15,13 +15,17 @@ map_size_x = 15
 map_size_y = 15
 
 write_or_update = 'write'
+database_bool = False
 
 # Create a 2d map
 map = Map2D(size_x=map_size_x, size_y=map_size_y)
 # map.show_map()
 
 # Create a database object to commnicate with database
-database = Database(logger)
+if database_bool:
+    database = Database(logger)
+else:
+    database = None
 
 
 if write_or_update == 'write':
@@ -84,9 +88,11 @@ control = Control(logger, database, robots = [R1, R2, R3, R4, R5, R6, R7],
 # database.query_shelf_id()
 
 # update S1, S2 recived order for testing
-database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
-database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
-database.update_db(table="Shelves", id=S3.id, parameters={"HavingOrder":1})
+if database_bool:
+    database.update_db(table="Shelves", id=S1.id, parameters={"HavingOrder":1})
+    database.update_db(table="Shelves", id=S2.id, parameters={"HavingOrder":1})
+    database.update_db(table="Shelves", id=S3.id, parameters={"HavingOrder":1})
+
 
 map.update_objects_locations({S1.id:S1.locations, S2.id:S2.locations,S3.id:S3.locations, 
                               S4.id:S4.locations, S5.id:S5.locations ,R1.id:R1.locations, 
