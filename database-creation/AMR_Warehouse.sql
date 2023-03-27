@@ -1,11 +1,10 @@
 /*
-To use MySQL here
-mysql -u username -p
+To use MySQL here: mysql -u username -p
+To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
 CREATE DATABASE AMR_Warehouse;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,6 +113,7 @@ DELIMITER ;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- This trigger does one task which is making the ShelfID in the Robots table becomes NULL once the HavingOrder state becomes 0
+
 DELEMITER //
 CREATE TRIGGER CheckStates BEFORE UPDATE ON Robots FOR EACH ROW
     BEGIN
@@ -126,9 +126,23 @@ CREATE TRIGGER CheckStates BEFORE UPDATE ON Robots FOR EACH ROW
 DELEMITER ;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- This trigger does one task which is calculating the cost of new orders by multiplying the price of the product by the order's quantity
+
+DELIMITER //
+CREATE TRIGGER CheckCost BEFORE INSERT ON Orders FOR EACH ROW
+    BEGIN
+        DECLARE product_price INT;
+        SELECT Price INTO product_price FROM Products AS P WHERE P.ProductID = NEW.ProductID;
+        SET NEW.Cost = product_price * NEW.Quantity;
+    END //
+DELIMITER ;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
 Things to do:
 -------------
-1. Check the Cost in the Orders table that is equal to Quantity*Product.Price
+1. Change DateTime in Orders and Notifications table to OrderDate and NotificationDate
+2. Add a status to the orders table (Status) -> New, In progress, Completed
 */
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
