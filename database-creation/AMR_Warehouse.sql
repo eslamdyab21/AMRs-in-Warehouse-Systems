@@ -31,12 +31,12 @@ CREATE TABLE Orders(
     ProductID VARCHAR(5) NOT NULL,
     Quantity INT NOT NULL CHECK(Quantity > 0),
     Cost DECIMAL(6 , 2) CHECK(Cost >= 0),
-    DateTime DATETIME NOT NULL,
+    OrderDate DATETIME NOT NULL,
+    Status VARCHAR(10) CHECK(Status IN ("New", "In progress", "Completed")) DEFAULT "New",
 
     -- Creating relations
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,8 +86,8 @@ CREATE TABLE Robots(
 
 CREATE TABLE Notifications(
     NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Notification VARCHAR(100),
-    DateTime DATETIME NOT NULL
+    Notification VARCHAR(255),
+    Date DATETIME NOT NULL
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -102,9 +102,11 @@ DELIMITER //
 CREATE TRIGGER NewOrder AFTER INSERT ON Orders FOR EACH ROW
     BEGIN
         DECLARE shelfId VARCHAR(5);
+        DECLARE productId VARCHAR(5);
+        SELECT New.ProductID INTO productId;
         SELECT S.ShelfID INTO shelfId FROM Shelves AS S WHERE S.ProductID = NEW.ProductID;
-        INSERT INTO Notifications(Notification, DateTime)
-            VALUES(CONCAT('A new product is ordered from shelf ', shelfId), TIMESTAMP(NEW.DateTime));
+        INSERT INTO Notifications(Notification, Date)
+            VALUES(CONCAT("A new product ", productId, " is ordered from shelf ", shelfId, "."), NOW());
         UPDATE Products AS P SET P.ItemsInStock = P.ItemsInStock - NEW.Quantity WHERE P.ProductID = NEW.ProductID;
         UPDATE Shelves AS S SET S.HavingOrder = 1 WHERE S.ShelfID = shelfId;
     END //
@@ -142,7 +144,8 @@ DELIMITER ;
 /*
 Things to do:
 -------------
-1. Change DateTime in Orders and Notifications table to OrderDate and NotificationDate
-2. Add a status to the orders table (Status) -> New, In progress, Completed
+1. (Done) Change DateTime in Orders table to OrderDate and Notifications table Date
+2. (Done) Add a status to the orders table (Status) -> New, In progress, Completed (New by default)
+3. Add a new trigger, once the shelf arrived the packaging area, the order would be marked as Completed
 */
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
