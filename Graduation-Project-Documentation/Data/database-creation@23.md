@@ -81,7 +81,7 @@ The database has a significant role in the flow of the system. The flow starts f
 ## <u> Entity Relationship Diagram (ERD) of the database </u> ##
 The following Entitty Relationship Diagram (ERD) is built with the help of ERD Editor extension build in VS Code.
 
-<img src="images\ERD.png">
+<img src="https://user-images.githubusercontent.com/70551007/229638460-40991392-d75f-4b93-b39e-c09313050cad.png">
 
 It explains the information stored in each table in the database, and the relationships between all tables with their primary keys and foreign keys.
 
