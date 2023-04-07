@@ -31,8 +31,8 @@ CREATE TABLE Orders(
     ProductID VARCHAR(5) NOT NULL,
     Quantity INT NOT NULL CHECK(Quantity > 0),
     Cost DECIMAL(6 , 2) CHECK(Cost >= 0),
-    OrderDate DATETIME NOT NULL,
-    Status VARCHAR(10) CHECK(Status IN ("New", "In progress", "Completed")) DEFAULT "New",
+    OrderDate DATETIME NOT NULL, -- DATE for postgres
+    Status VARCHAR(10) CHECK(Status IN ('New', 'In progress', 'Completed')) DEFAULT 'New',
 
     -- Creating relations
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
@@ -85,9 +85,9 @@ CREATE TABLE Robots(
 /* For the admin */
 
 CREATE TABLE Notifications(
-    NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, -- NotificationID SERIAL NOT NULL PRIMARY KEY -- for postgres
     Notification VARCHAR(255),
-    Date DATETIME NOT NULL
+    Date DATETIME NOT NULL -- DATE for postgres
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ CREATE TRIGGER NewOrder AFTER INSERT ON Orders FOR EACH ROW
         SELECT New.ProductID INTO productId;
         SELECT S.ShelfID INTO shelfId FROM Shelves AS S WHERE S.ProductID = NEW.ProductID;
         INSERT INTO Notifications(Notification, Date)
-            VALUES(CONCAT("A new product ", productId, " is ordered from shelf ", shelfId, "."), NOW());
+            VALUES(CONCAT('A new product ', productId, ' is ordered from shelf ', shelfId, '.'), NOW());
         UPDATE Products AS P SET P.ItemsInStock = P.ItemsInStock - NEW.Quantity WHERE P.ProductID = NEW.ProductID;
         UPDATE Shelves AS S SET S.HavingOrder = 1 WHERE S.ShelfID = shelfId;
     END //
