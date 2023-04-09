@@ -1,7 +1,11 @@
-# raspbian installation
+# AMRs-in-Warehouse-Systems
+This repository is for our graduation project ‫‪AMRs‬‬ ‫‪in‬‬ ‫‪Warehouse‬‬ ‫‪Systems, A team in the Faculty of Engineering, Alexandria university, majored in Electronics and Communication.
 
-1) Download the image via this link: https://www.raspberrypi.com/software/
-		
-2) Enter this command to install pi-imager: $sudo apt install rpi-imager
+The repository have 5 branches, main, software, embedded, data and devops. each branch has its corresponding tasks represented as issues as illustrated in the next figure.
+![canvas](README-images/canvas2.png)
+This image is from [AMRs-in-Warehouse-Systems Canvas project](https://github.com/users/eslamdyab21/projects/2/views/1) on GitHub.
 
-3) Burn the image via pi-imager or follow this link: https://youtu.be/eS-N8NCB9rk
+Inside the `Graduation Project Documentation` folder there is a documentation for each issue documenting producers taken to solve the issue. 
+
+Our team uses **Obsidian** for documentation and here is an image from the program visualizing each issue/task as a node and its connection to other nodes.
+![obsidian-nodes](README-images/obsidian-nodes.png)
