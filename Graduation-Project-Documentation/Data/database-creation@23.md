@@ -7,40 +7,29 @@ There're some tables for integrating with the website, some for integrating with
 
 ## <u> Structure of the database </u> ##
 
-1. __Tables that integrate with the website__
-	- Users
-    	- UserID --> (PK)
-    	- Email
-    	- Paddword
-    	- Fullame
-    	- Gender
-	- Products
-    	- ProductID --> (PK)
-    	- Price
-    	- ItemsInStock
-	- Orders
-    	- OrderID --> (PK)
-    	- UserID --> (FK)
-    	- ProductID --> (FK)
-    	- Quantity
-    	- Cost
-    	- Date
-  
-2. __Tables that integrate with the robots__
-	- Robots
-    	- RobotID --> (PK)
-    	- Speed
-    	- BatteryLife
-    	- CurrentLocation
-    	- NextLocation
-    	- ShelfID --> (FK)
-    	- HavingOrder
-    	- Moving
-	- Shelves
-    	- ShelfID --> (PK)
-    	- Location
-    	- ProductID --> (FK)
-    	- HavingOrder
+As mentioned above, the tables in our database is divided into 3 groups, each group integrates with a part of the system. Each table in any group of them has its primary key and may or may not have one or more foreign key(s).
+
+- Tables that integrate with the website
+  - __Users__
+     - PK &rarr; UserID
+  - __Products__
+     - PK &rarr; ProductID
+  - __Orders__
+     - PK &rarr; OrderID
+     - FKs &rarr; UserID - ProductID
+		><span style="color:#73c6b6; font-weight:bold;">UserID</span> &rarr; Link _Orders_ table with _Users_ table to know which customer ordered this order.
+		>
+		><span style="color: #73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Products_ table with _Users_ table to know which product is ordered in this order.
+
+- Tables that integrate with the robots
+  - __Robots__
+  	- PK &rarr; RobotID
+  	- FK &rarr; ShelfID
+		><span style="color:#73c6b6; font-weight:bold;">ShelfID</span> &rarr; Link _Robots_ table with _Shelves_ table to know which shelf is connected to that robot.
+  - __Shelves__
+  	- PK &rarr; ShelfID
+  	- FK &rarr; ProductID
+		><span style="color:#73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Shelves_ table with _Products_ table to know which product is on that shelf.
   
 3. __Tables that integrate with the Admin's web application__
 	- Notifications
