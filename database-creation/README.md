@@ -26,7 +26,7 @@ As mentioned above, the tables in our database is divided into 3 groups, each gr
      - PK &rarr; OrderID
      - FKs &rarr; UserID - ProductID
 		><span style="color:#73c6b6; font-weight:bold;">UserID</span> &rarr; Link _Orders_ table with _Users_ table to know which customer ordered this order.
-		<br>
+		>
 		><span style="color: #73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Products_ table with _Users_ table to know which product is ordered in this order.
 
 - Tables that integrate with the robots
