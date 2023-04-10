@@ -9,7 +9,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
 1. MySQL Server
    - INSERT statement
      - Query
-        ```
+        ```sql
         mysql> INSERT INTO Products VALUES('P1', 1500, 100); 
         ```
       - Results
@@ -18,7 +18,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
         ```
     - UPDATE statement
       - Query
-        ```
+        ```sql
         mysql> UPDATE Products SET ItemsInStock = 95 WHERE ProductID = 'P1';
         ```
       - Results
@@ -30,7 +30,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
 2. MSSQL Server
     - INSERT statement
       - Query
-        ```
+        ```sql
         1> INSERT INTO Products VALUES('P1', 1500, 100);
         2> GO
         ```
@@ -48,7 +48,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
         ```
     - UPDATE statement
       - Query
-        ```
+        ```sql
         1> UPDATE Products SET ItemsInStock = 95 WHERE ProductID = 'P1';
         2> GO
         ```
@@ -68,7 +68,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
 3. PostgreSQL Server
     - INSERT statement
       - Query
-        ```
+        ```sql
         amr_warehouse=# EXPLAIN ANALYZE INSERT INTO Products VALUES('P1', 1500, 100);
         ```
       - Results
@@ -83,7 +83,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
         ```
     - UPDATE statement
         - Query
-            ```
+            ```sql
             amr_warehouse=# EXPLAIN ANALYZE UPDATE Products SET ItemsInStock = 95 WHERE ProductID = 'P1';
             ```
         - Results
@@ -101,14 +101,14 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
 
 To summarize, here's a table that shows the time (in msec) of each statement for the three servers:
 
-<p align="center">
+<ul>
 
 | Server / Statement        | INSERT           | UPDATE  |
-| ------------------------- |:-------------:| -----:|
-| MySQL                     | 140           | 180   |
-| MSSQL                     | 33            | 36    |
-| PostgreSQL                | 0.33          | 0.38  |
+| ------------------------- |:-------------:   | -----:  |
+| MySQL                     | 140              | 180     |
+| MSSQL                     | 33               | 36      |
+| PostgreSQL                | 0.33             | 0.38    |
 
-</p>
+</ul>
 
 This table tells us that PostgreSQL takes the least planning and execution time among the three servers, and for the same queries MySQL takes around __400__ times this time!
