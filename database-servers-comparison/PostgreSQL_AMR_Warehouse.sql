@@ -1,6 +1,11 @@
 /*
-To use PostgreSQL here: psql -U postgres
+To use PostgreSQL here: psql -h host_name -p port_number -U user_name -d postgres
 To show statistics of time: EXPLAIN ANALYZE query
+To disconnet all users from a database in order to drop it :
+    SELECT pg_terminate_backend(pg_stat_activity.pid)
+    FROM pg_stat_activity
+    WHERE pg_stat_activity.datname = 'database_name';
+To connect to a database: \c database_name
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
