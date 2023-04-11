@@ -1,8 +1,8 @@
-/*
+//*
  * main.c
  *
  *  Created on: Mar 10, 2023
- *      Author: HP
+ *      Author: Gehad
  */
 
 #include"STD_TYPES.h"
@@ -26,12 +26,16 @@ void main (void)
 
 	/*mode must be alternative function push pull*/
 	MGPIO_VoidSetPinDirection(GPIOA,PIN3,OUTPUT_2MHZ_AFPP);
+	MGPIO_VoidSetPinDirection(GPIOA,PIN2,OUTPUT_2MHZ_PP);
+	//MGPIO_VoidSetPinDirection(GPIOA,PIN0,OUTPUT_2MHZ_PP);
 
 	MTIM2_voidInit();
-	MTIM2_voidOutputPWM(100);
 
 	while(1)
 	{
+
+		MGPIO_VoidSetPinValue(GPIOA , PIN2 ,HIGH);
+		MTIM2_voidOutputPWM(0);
 
 	}
 }

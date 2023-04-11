@@ -1,6 +1,6 @@
 /*****************************************/
 /* Author  :  Gehad Elkoumy              */
-/* Version :  V01                        */
+/* Version :  V02                        */
 /* Date    :  10 MAR 2023                */
 /*****************************************/
 
@@ -9,7 +9,7 @@
 
 /* Options : 0 -- upcounter 
 			 1 -- downcounter  */
-#define		  CR1_DIR			0
+#define		  CR1_DIR			1
 
 
 /* Options : 0 to 65535 	*/

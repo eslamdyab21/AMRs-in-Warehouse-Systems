@@ -2,7 +2,7 @@
  * main.c
  *
  *  Created on: Mar 10, 2023
- *      Author: HP
+ *      Author: Gehad
  */
 
 #include"STD_TYPES.h"
@@ -24,15 +24,17 @@ void main (void)
 	/*Enable Timer3 clock*/
 	RCC_voidEnableClock(RCC_APB1,1);
 
-	/*mode must be alternative function push pull*/
+	/*mode must be alternative function push pull (not considered as GPIO)*/
 	MGPIO_VoidSetPinDirection(GPIOA,PIN6,OUTPUT_2MHZ_AFPP);
+	MGPIO_VoidSetPinDirection(GPIOA,PIN5,OUTPUT_2MHZ_PP);
 
 	MTIM3_voidInit();
-	MTIM3_voidOutputPWM(500);
+
 
 	while(1)
 	{
-
+		MTIM3_voidOutputPWM(0);
+		MGPIO_VoidSetPinValue(GPIOA,PIN5,HIGH);
 	}
 }
 
