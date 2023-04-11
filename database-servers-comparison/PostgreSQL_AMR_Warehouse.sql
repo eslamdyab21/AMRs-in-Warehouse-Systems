@@ -161,11 +161,3 @@ CREATE TRIGGER CheckCost BEFORE INSERT ON Orders
     EXECUTE FUNCTION check_cost();
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-Things to do:
--------------
-1. (Done) Change DateTime in Orders table to OrderDate and Notifications table Date
-2. (Done) Add a status to the orders table (Status) -> New, In progress, Completed (New by default)
-3. Add a new trigger, once the shelf arrived the packaging area, the order would be marked as Completed
-*/
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
