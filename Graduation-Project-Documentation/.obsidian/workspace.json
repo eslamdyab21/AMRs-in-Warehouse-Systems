@@ -1,22 +1,18 @@
 {
   "main": {
-    "id": "3840b0dd679ebcb5",
+    "id": "9c02d550e8801248",
     "type": "split",
     "children": [
       {
-        "id": "eaae33f2ce3c4444",
+        "id": "2c48d7417fe4c8ff",
         "type": "tabs",
         "children": [
           {
-            "id": "8dce6ca902ed6a98",
+            "id": "a9057a44e95858f9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ARM LIB layer @34.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -25,15 +21,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "839563bb350d95e5",
+    "id": "60d1923e60b93f17",
     "type": "split",
     "children": [
       {
-        "id": "86328ba3ef860209",
+        "id": "edc96046ca282814",
         "type": "tabs",
         "children": [
           {
-            "id": "6a1dc7c7cd404d73",
+            "id": "4d54c092d4bafea9",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -43,7 +39,7 @@
             }
           },
           {
-            "id": "e9036705078fc4e4",
+            "id": "34f8c44036b032b7",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -58,10 +54,18 @@
             }
           },
           {
-            "id": "cd876a0c2afb1803",
+            "id": "59e9578467af91a8",
             "type": "leaf",
             "state": {
               "type": "starred",
+              "state": {}
+            }
+          },
+          {
+            "id": "3584851e793a1867",
+            "type": "leaf",
+            "state": {
+              "type": "mk-file-view",
               "state": {}
             }
           }
@@ -72,20 +76,19 @@
     "width": 300
   },
   "right": {
-    "id": "811dedb0bdd76791",
+    "id": "a4ca25487eb098b2",
     "type": "split",
     "children": [
       {
-        "id": "22498036bc93ed8a",
+        "id": "451fbd41f68c07a6",
         "type": "tabs",
         "children": [
           {
-            "id": "3d21c83d6da4857c",
+            "id": "407e43dbe727f4c5",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ARM LIB layer @34.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,19 +100,18 @@
             }
           },
           {
-            "id": "63b98f4c6c97e1c7",
+            "id": "67f9c9f72e3f61dd",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "ARM LIB layer @34.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "46575e5052fd03ee",
+            "id": "99707310be537838",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -120,13 +122,11 @@
             }
           },
           {
-            "id": "5d659a0db95d8259",
+            "id": "1d65acce541485a1",
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "ARM LIB layer @34.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -146,8 +146,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8dce6ca902ed6a98",
+  "active": "a9057a44e95858f9",
   "lastOpenFiles": [
-    "ARM LIB layer @34.md"
+    "Embedded/integrate ros with micro-controller in arduino @17.md",
+    "Embedded/ARM-MCAL-core-peripheral-drivers@12.md",
+    "Embedded/ARM embedded-c encoders code @14.md",
+    "Context",
+    "Embedded/Embedded.md"
   ]
 }

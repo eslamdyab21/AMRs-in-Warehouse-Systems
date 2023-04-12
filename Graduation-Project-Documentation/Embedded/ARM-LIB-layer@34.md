@@ -1,4 +1,4 @@
-> ## ***This is a documentation for issue #11***  
+> ## ***This is a documentation for issue #34***  
 > `creating ARM libraries`  
 
 ## We have 2 libraries:
