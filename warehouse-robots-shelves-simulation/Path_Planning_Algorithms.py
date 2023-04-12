@@ -1,4 +1,5 @@
 import heapq
+import numpy as np
 
 
 class Algorithms():
@@ -6,7 +7,10 @@ class Algorithms():
         pass
     
 
-    def heuristic(self, a, b):
+    def heuristic(self, a, b, steps_score=False):
+        if steps_score:
+            cost = abs((b[0] - a[0]) + abs((b[1] - a[1])))
+            if b[0] 
         # return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
         return abs((b[0] - a[0]) + abs((b[1] - a[1])))
 
@@ -33,56 +37,42 @@ class Algorithms():
     
 
         while oheap:
-
             current = heapq.heappop(oheap)[1]
-
+            # made it to the goal location
             if current == goal:
-
                 data = []
 
                 while current in came_from:
-
                     data.append(current)
-
                     current = came_from[current]
-
 
                 route = data + [start]
                 route = route[::-1]
 
                 return route
 
+
             close_set.add(current)
 
             for i, j in neighbors:
-
                 neighbor = current[0] + i, current[1] + j
-
-                tentative_g_score = gscore[current] + self.heuristic(current, neighbor)
+                tentative_g_score = gscore[current] + self.heuristic(current, neighbor, steps_score=True)
 
                 if 0 <= neighbor[0] < array.shape[0]:
-
                     if 0 <= neighbor[1] < array.shape[1]:                
-
                         if array[neighbor[0]][neighbor[1]] == 1:
-
                             continue
 
                     else:
-
                         # array bound y walls
-
                         continue
 
                 else:
-
                     # array bound x walls
-
                     continue
     
 
                 if neighbor in close_set and tentative_g_score >= gscore.get(neighbor, 0):
-
                     continue
     
 
