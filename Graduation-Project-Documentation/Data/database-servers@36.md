@@ -103,7 +103,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
 
 To summarize, here's a table that shows the time (in msec) of each statement for the three servers:
 
-<p align="center">
+<ul>
 
 | Server / Statement        | INSERT           | UPDATE  |
 | ------------------------- |:-------------:   | -----:  |
@@ -111,7 +111,7 @@ To summarize, here's a table that shows the time (in msec) of each statement for
 | MSSQL                     | 33               | 36      |
 | PostgreSQL                | 0.33             | 0.38    |
 
-</p>
+</ul>
 
 This table tells us that PostgreSQL takes the least planning and execution time among the three servers, and for the same queries MySQL takes around __400__ times this time!
 
@@ -143,7 +143,7 @@ Finally, we get statistics of the results we gathered.
 
     <ul>
     <p align="center">
-    <img src="">
+    <img src="https://user-images.githubusercontent.com/70551007/231333243-11708f61-cae7-4815-90e3-e7163eeab1e2.png">
     </p>
     </ul>
   
@@ -151,7 +151,7 @@ Finally, we get statistics of the results we gathered.
 
     <ul>
     <p align="center">
-    <img src="">
+    <img src="https://user-images.githubusercontent.com/70551007/231333331-b8ef759a-425b-4ce3-b243-5282f6646f78.png">
     </p>
     </ul>
 
@@ -201,8 +201,21 @@ Finally, we get statistics of the results we gathered.
     As for the UPDATE statement, we first fill the database with all the records we generate, then pick a random _ProductID_  and update its _ItemsInStock_ with 50. We choose this number to be out of the _ItemsInStock_ range, in order to be a new value to be written in the database.
 
 4. After filling the dataframe with the results, we get some statistics about them.
-   - Here is a screenshot of some of the results
-   - Here is a screenshot of the statistics we get
+   - Here is a screenshot of some results
+   
+      <ul>
+      <p align="center">
+      <img src="https://user-images.githubusercontent.com/70551007/231333453-534abee7-2361-4220-be09-db91f15d9347.png">
+      </p>
+      </ul>
+       
+   - Here is a screenshot of the statistics we got
+
+      <ul>
+      <p align="center">
+      <img src="https://user-images.githubusercontent.com/70551007/231333655-f6c6b29c-46cb-4d9d-9f21-ed6bd8d54154.png">
+      </p>
+      </ul>
 
 5. Insights
    - The standard deviation of PostgreSQL for INSERT and UPDATE statement is the lowest among the three servers, which means that the data points are less spread out.
