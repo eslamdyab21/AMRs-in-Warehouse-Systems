@@ -6,4 +6,4 @@
 [[PCB fabrication @16]]
 [[Robot mechanical design @13]]
 [[robot movement algorithm @19]]
-[[Test hardware components @11]]
+[[Test-hardware-components@11]]
