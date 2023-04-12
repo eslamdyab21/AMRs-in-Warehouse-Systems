@@ -4,7 +4,7 @@
 
 In this issue we try to choose the best server according to performance. We choose 3 popular servers to compare between, MySQL, MSSQL (Microsoft SQL Server), and PostgreSQL.
 
-In each server we executed the same database (our database) with the same tables, columns, constraints, and triggers. Also, we run all the servers on the same PC to ensure same hardware specifications. [You can check the codes here.](https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems/tree/feature/data/36/database-servers)
+In each server we executed the same database (our database) with the same tables, columns, constraints, and triggers. Also, we run all the servers on the same PC to ensure same hardware specifications. [You can check the codes here.](https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems/tree/feature/data/36/database-servers-comparison/codes)
 
 For each server we'll execute 2 main statements, INSERT, and UPDATE, as they give us much time while integrating with our Python code compared to Python's execution speed. Also, we'll execute the same statements in the three servers to avoid many variables while evaluating the performance. So, let's explore the results!
 
