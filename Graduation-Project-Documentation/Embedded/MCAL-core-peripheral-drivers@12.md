@@ -12,20 +12,24 @@
 - Independent enable pin and software set flag for each external interrupt.
 - software and hardware priority support.
 
-## Each interrupt has a set of basic configurations through NVIC such as:
-- Enable interrupt.
-- Disable interrupt.
-- Set pending flag.
-- Clear pending flag.
-- Active status.
+## We have 6 functions in this driver
+1. Enable interrupt.
+2. Disable interrupt.
+3. Set pending flag.
+	- Set the interrupt flag by software.
+	- Used for debugging and testing.
+4. Clear pending flag.
+5. Active status.
 	- To see if the interrupt is excuting or not.
-- Priority level.
+6. Priority level.
 	- Group priority and sub priority.
 	- SCB core peripheral defines 4 bits of priority classifications.  
 
 
 # 2. System Tick (SYSTICK)
-This peripheral is a timer only mode (count down only), it has 2 clocks: `AHB` or `AHB\8` depending on the processor clock.
+### This peripheral provides:
+- Timer only mode (count down only).
+- 2 clocks: `AHB` or `AHB\8` depending on the processor clock.
 
 ## We have 7 functions in this driver
 1. Initialization function 
@@ -40,7 +44,7 @@ This peripheral is a timer only mode (count down only), it has 2 clocks: `AHB` o
 5. Stop interval function
 	- To disable SYSTICK interrupt and stop the timer.
 6. Get elapsed function
-	- To get the counted time (value of load register).
+	- To get the counted time (load register - value register).
 7. Get remaining time function
 	- To get the remaining time (value register).
 
