@@ -1,12 +1,14 @@
-> This is a documentation for issue #36, the comparison between database servers.
+This is a documentation for issue #36, the comparison between database servers.
+
+> <u>Note</u>: We should say that the final results of this issue may be applied only on _our database_, as we can't say that they're general rules for any database.
 
 <hr>
 
 In this issue we try to choose the best server according to performance. We choose 3 popular servers to compare between, MySQL, MSSQL (Microsoft SQL Server), and PostgreSQL.
 
-In each server we executed the same database (our database) with the same tables, columns, constraints, and triggers. Also, we run all the servers on the same PC to ensure same hardware specifications. [You can check the codes here.](https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems/tree/feature/data/36/database-servers-comparison/codes)
+In each server we executed the same database (our database) with the same tables, columns, constraints, and triggers. Also, we run all the servers on the same PC to ensure same hardware specifications. [You can check the codes here.](https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems/tree/feature/data/36/database-servers)
 
-For each server we'll execute 2 main statements, INSERT, and UPDATE, as they give us much time while integrating with our Python code compared to Python's execution speed. Also, we'll execute the same statements in the three servers to avoid many variables while evaluating the performance. So, let's explore the results!
+For each server we'll execute 2 main statements, INSERT, and UPDATE, as they give us much time while integrating with our Python code compared to Python's execution speed. Also, we'll execute the same statements in the 3 servers to avoid many variables while evaluating the performance. So, let's explore the results!
 
 1. MySQL Server
    - INSERT statement
@@ -101,7 +103,7 @@ For each server we'll execute 2 main statements, INSERT, and UPDATE, as they giv
             ```
 <hr>
 
-To summarize, here's a table that shows the time (in msec) of each statement for the three servers:
+To summarize, here's a table that shows the time (in msec) of each statement for the 3 servers:
 
 <ul>
 
@@ -113,7 +115,7 @@ To summarize, here's a table that shows the time (in msec) of each statement for
 
 </ul>
 
-This table tells us that PostgreSQL takes the least planning and execution time among the three servers, and for the same queries MySQL takes around __400__ times this time!
+This table tells us that PostgreSQL takes the least planning and execution time among the 3 servers, and for the same queries MySQL takes around __400__ times this time!
 
 <hr>
 
@@ -123,7 +125,7 @@ This table tells us that PostgreSQL takes the least planning and execution time 
 
 This time, we used Python to help us in the process of repeating inserting and updating records in the database.
 
-We used three libraries to connect Python to our servers, ___mysql.connector___ for MySQL, ___pyodbc___ for MSSQL, and ___psycopg2___ for PostgreSQL. Those libraries help us in writing queries and executing them in Python.
+We used 3 libraries to connect Python to our servers, ___mysql.connector___ for MySQL, ___pyodbc___ for MSSQL, and ___psycopg2___ for PostgreSQL. Those libraries help us in writing queries and executing them in Python.
 
 We also used ___time___ library to calculate the time which each query takes, and in order to avoid __caching__ in the database, we used ___random___ library to generate random records to insert and update. Besides, we used ___Pandas___ to analyze the data we get.
 
@@ -218,5 +220,45 @@ Finally, we get statistics of the results we gathered.
       </ul>
 
 5. Insights
-   - The standard deviation of PostgreSQL for INSERT and UPDATE statement is the lowest among the three servers, which means that the data points are less spread out.
+   - The standard deviation of PostgreSQL for INSERT and UPDATE statement is the lowest among the 3 servers, which means that the data points are less spread out.
    - PostgreSQL also has the lowest maximum result for INSERT and UPDATE, `2.3` and `4` msec respectively, while the maximum of the remaining servers exceeds `30` msec.
+
+<hr>
+
+## Let's explore some analysis on the results ##
+
+<ul>
+
+### <u>The INSERT statement</u>: ###
+
+1. The following line chart shows the behaviour of our 200 inserting queries acorss the 3 servers
+
+    <p align="center">
+    <img src="https://user-images.githubusercontent.com/70551007/231629949-6882eaf3-e472-4b04-8986-7c0a5113d10c.png">
+    </p>
+
+2. The following histogram shows the distribution of the inserting queries across the 3 servers
+
+    <p align="center">
+    <img src="https://user-images.githubusercontent.com/70551007/231630016-a34d3fe1-5edb-4011-88e5-9a9ca7e766fe.png">
+    </p>
+
+### <u>The UPDATE statement</u>: ###
+
+1. The following line chart shows the behaviour of our 200 updating queries acorss the 3 servers
+
+    <p align="center">
+    <img src="https://user-images.githubusercontent.com/70551007/231630056-f7e46984-c35a-4910-a1a7-611955b174e1.png">
+    </p>
+
+2. The following histogram shows the distribution of the updating queries across the 3 servers
+
+    <p align="center">
+    <img src="https://user-images.githubusercontent.com/70551007/231630095-534d46ed-7c3d-4610-8c06-a98f4dc1cb4a.png">
+    </p>
+
+</ul>
+
+<u>The previous figures show 2 important information</u>:
+1. __PostgreSQL__ is more stable than __MySQL__ and __MSSQL__ in INSERT and UPDATE as it has the least spread-out points while __MySQL__ and __MSSQL__ have some points which take very high execution time compared to __PostgreSQL__ execution time.
+2. __PostgreSQL__ didn't exceed `4 msec` in inserting new records and `2 msec` in updating the existing records, while __MySQL__ and __MSSQL__ executed _many_ queries in more than `10 msec`!
