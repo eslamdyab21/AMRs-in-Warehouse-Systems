@@ -234,13 +234,13 @@ Finally, we get statistics of the results we gathered.
 1. The following line chart shows the behaviour of our 200 inserting queries acorss the 3 servers
 
     <p align="center">
-    <img src="">
+    <img src="https://user-images.githubusercontent.com/70551007/231629949-6882eaf3-e472-4b04-8986-7c0a5113d10c.png">
     </p>
 
 2. The following histogram shows the distribution of the inserting queries across the 3 servers
 
     <p align="center">
-    <img src="">
+    <img src="https://user-images.githubusercontent.com/70551007/231630016-a34d3fe1-5edb-4011-88e5-9a9ca7e766fe.png">
     </p>
 
 ### <u>The UPDATE statement</u>: ###
@@ -248,17 +248,17 @@ Finally, we get statistics of the results we gathered.
 1. The following line chart shows the behaviour of our 200 updating queries acorss the 3 servers
 
     <p align="center">
-    <img src="">
+    <img src="https://user-images.githubusercontent.com/70551007/231630056-f7e46984-c35a-4910-a1a7-611955b174e1.png">
     </p>
 
 2. The following histogram shows the distribution of the updating queries across the 3 servers
 
     <p align="center">
-    <img src="">
+    <img src="https://user-images.githubusercontent.com/70551007/231630095-534d46ed-7c3d-4610-8c06-a98f4dc1cb4a.png">
     </p>
 
 </ul>
 
-The previous figures show 2 important information:
+<u>The previous figures show 2 important information</u>:
 1. __PostgreSQL__ is more stable than __MySQL__ and __MSSQL__ in INSERT and UPDATE as it has the least spread-out points while __MySQL__ and __MSSQL__ have some points which take very high execution time compared to __PostgreSQL__ execution time.
 2. __PostgreSQL__ didn't exceed `4 msec` in inserting new records and `2 msec` in updating the existing records, while __MySQL__ and __MSSQL__ executed _many_ queries in more than `10 msec`!
