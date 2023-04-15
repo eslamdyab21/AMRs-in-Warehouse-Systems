@@ -10,5 +10,10 @@
      - `RPM = ( counts / encoder resolution )*60`
 - Finally, we display the readings of counts, RPM and Motor direction on a serial monitor every 1 sec.
 
+## 3. Testing MPU6050 on the MicroController(Stm32).
+-  MPU is used to rotate (90 or 180) degree (clockwise or Anticlockwise ) using the Yaw angle 
+-  the sensor is tested 
+    - we will make the connection like in the figure below then watch the reading , also by change the yaw angle of the sesnor the reading will change 
 
+![BluePillMPU6050](https://user-images.githubusercontent.com/93758246/232246374-b5e06a53-7a0c-4528-87cf-b770c5909e74.png)
 
