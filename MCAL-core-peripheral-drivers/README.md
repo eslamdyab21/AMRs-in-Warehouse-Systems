@@ -1,6 +1,5 @@
 > ## ***This is a documentation for issue #12***    
 > `MCAL core peripherals`
-<br>
 
 ## We have 2 core drivers in this issue:
 - NVIC
@@ -17,16 +16,51 @@
 
 ## We have 6 functions in this driver
 1. Enable interrupt.
+   ```C
+   void MNVIC_voidEnableInterrupt  (u8 Copy_u8IntNumber);
+   ```  
+	- Parameter : Index of interrupt (position).
+	- Description : Set NVIC enable pin for the interrupt.
+
+   <br>
 2. Disable interrupt.
+   ```C
+   void MNVIC_voidDisableInterrupt (u8 Copy_u8IntNumber);
+   ```  
+	- Parameter : Index of interrupt (position).
+	- Description : Disable the interrupt.
+   <br>
 3. Set pending flag.
-	- Set the interrupt flag by software.
-	- Used for debugging and testing.
+   ```C
+   void MNVIC_voidSetPendingFlag   (u8 Copy_u8IntNumber);
+   ```  
+	- Parameter : Index of interrupt (position).
+	- Description : Set interrupt pending flag by software for debugging and testing.
+   <br>
 4. Clear pending flag.
+   ```C
+   void MNVIC_voidClearPendingFlag (u8 Copy_u8IntNumber);
+   ```  
+	- Parameter : index of interrupt (position).
+	- Description : Clear interrupt pending flag.
+   <br>
 5. Active status.
-	- To see if the interrupt is excuting or not.
+   ```C
+   u8 MNVIC_u8GetActiveFlag        (u8 Copy_u8IntNumber);
+   ```  
+	- Parameter : index of interrupt (position).
+	- Return : status of active flag of the interrupt
+		- 0 : inactive
+		- 1 : active
+	- Description : Get status of active flag to see if the interrupt is excuting or not.
+   <br>
 6. Priority level.
-	- Group priority and sub priority.
-	- SCB core peripheral defines 4 bits of priority classifications.  
+   ```C
+   void MNVIC_voidSetPriority(u8 Copy_u8IntNumber , u8 Copy_u8GroupPriority ,u8 Copy_u8SubPriority );
+   ```
+	- Parameters : index of interrupt (position), number of bits for group priority, number of bits for sub priority.
+	- Description : Specify group and sub priority level of each interrupt.
+	- Note : SCB core peripheral defines 4 bits of priority classifications.  
 <br>
 <br>
 
@@ -38,20 +72,55 @@
 
 ## We have 7 functions in this driver
 1. Initialization function 
-	- To choose the suitable clock.
+   ```C
+   void MSTK_voidInit(void);
+   ```  
+	- Description : Select suitable clock - `AHB` or `AHB\8`.
+
+   <br>
 2. Busy wait function
-	- it makes a time delay.
-	- It is considered as a synchronous function as it lock the processor for N counts.
+   ```C
+   void MSTK_voidSetBusyWait( u32 Copy_u32Ticks );
+   ```  
+	- Parameter : number of ticks to be counted.
+	- Description : make a time delay.
+	- Note : It is considered as a synchronous function as it lock the processor for N counts.
+   <br>
 3. Interval single function
-	-  count once then after the time is up, it jumps to ISR and execute it.
+   ```C
+   void MSTK_voidSetIntervalSingle  ( u32 Copy_u32Ticks, void (*Copy_ptr)(void) );
+   ```  
+	- Parameter : Number of ticks to be counted down, pointer to function to be executed after timeout.
+	- Description : Count once then after timeout, it jumps to ISR and execute it.
+   <br>
 4. Interval periodic function
-	- count and execute the ISR periodically after a certain period of time.
+   ```C
+   void MSTK_voidSetIntervalPeriodic( u32 Copy_u32Ticks, void (*Copy_ptr)(void) );
+   ```  
+	- Parameter : Number of ticks to be counted, pointer to function to be executed after timeout.
+	- Description : Count and execute the ISR periodically after a certain period of time.
+   <br>
 5. Stop interval function
-	- To disable SYSTICK interrupt and stop the timer.
+   ```C
+   void MSTK_voidStopInterval(void);
+   ```  
+	- Description : Disable SYSTICK interrupt and stop the timer.
+   <br>
 6. Get elapsed function
-	- To get the counted time (load register - value register).
+   ```C
+   u32  MSTK_u32GetElapsedTime(void);
+   ```  
+	- Return : counted time.
+	- Description : Get the counted time (load register - value register).
+   <br>
 7. Get remaining time function
-	- To get the remaining time (value register).
+   ```C
+   u32  MSTK_u32GetRemainingTime(void);
+   ```  
+	- Return : remaining time.
+	- Description : Get the remaining time (value register).
+
+
 <br>
 
 ## Note: 
