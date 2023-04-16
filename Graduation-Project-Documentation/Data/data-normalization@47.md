@@ -32,7 +32,7 @@ We'll apply the data normalization process on each table in our database to ensu
 2. __Orders__:
    
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232258485-8ed6210e-e0ad-4841-9772-52e542888e1c.png">
+   <img src="https://user-images.githubusercontent.com/70551007/232259100-b242eafb-d1bd-41bf-aca0-0d30dd62e3ef.png">
    </p>
 
    We noticed that this table has two multi-valued attributes, _ProductID_ and _Quantity_, as the customer may order more than one product.
@@ -43,7 +43,7 @@ We'll apply the data normalization process on each table in our database to ensu
    2. __Orders_Details__
 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232258502-e7c9ed07-f88f-405c-86ae-52db66fd02d5.png">
+   <img src="https://user-images.githubusercontent.com/70551007/232259072-1ff25b57-111f-4211-bc96-dd5a0a77e8d6.png">
    </p>
 
    Now, we've to examine both tables:
