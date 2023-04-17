@@ -4,15 +4,62 @@ import numpy as np
 
 class Algorithms():
     def __init__(self):
-        pass
+        self.direction = None
+        self.prev_direction = None
+        self.init = False
+        self.counter = 0
     
 
     def heuristic(self, a, b, steps_score=False):
+        
         if steps_score:
-            cost = abs((b[0] - a[0]) + abs((b[1] - a[1])))
-            if b[0] 
-        # return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
+            
+            current = a
+            neighbor = b
+
+            if self.init == False:
+                self.prev_current = current
+                self.init = True
+                return abs((b[0] - a[0]) + abs((b[1] - a[1])))
+            
+            
+            
+            
+            # if self.prev_current != current:
+            # print('in self.prev_current != current')
+            self.counter = self.counter + 1
+
+            if self.counter >= 4:
+                print('steps_score')
+                print(self.prev_current,a,b)
+                if self.prev_current[0] - current[0] == 0:
+                    self.direction = 'horizontal'
+                    if current[0] - neighbor[0] != 0:
+                        cost = abs((b[0] - a[0]) + abs((b[1] - a[1]))) + 1
+                    else:
+                        cost = abs((b[0] - a[0]) + abs((b[1] - a[1])))
+
+
+                elif self.prev_current[1] - current[1] == 0:
+                    self.direction = 'vertical'
+                    if current[1] - neighbor[1] != 0:
+                        cost = abs((b[0] - a[0]) + abs((b[1] - a[1]))) + 1
+                    else:
+                        cost = abs((b[0] - a[0]) + abs((b[1] - a[1])))
+
+                if self.counter % 4 == 0:
+                    print('in counter')
+                    self.prev_current = current
+                    
+
+                return cost
+            
+            else:
+                return abs((b[0] - a[0]) + abs((b[1] - a[1])))
+                
         return abs((b[0] - a[0]) + abs((b[1] - a[1])))
+            
+
 
 
     def astar(self, grid, start, goal):
