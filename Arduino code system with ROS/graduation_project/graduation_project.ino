@@ -209,6 +209,12 @@ void loop() {
     apply_speeds(pwm_right_motor, dir_right_motor, pwm_right);
     
     last_action = millis();
+    for(int i = 0; i<2; i++)
+    {
+      speeds_temp[0] = pwm_left;
+      speeds_temp[1] = pwm_right;
+    }
+    
   }
   
 
@@ -216,11 +222,9 @@ void loop() {
   if ((millis() - prev_feedback_timer) > feedback_timer)
   {
     feedback.data_length = 2;
-    feedback.data[0] = pwm_left;
-    feedback.data[1] = pwm_right;
+    feedback.data = speeds_temp;
     
     pub_feedback.publish(&feedback);
-    
     prev_feedback_timer = millis();
   }
   
