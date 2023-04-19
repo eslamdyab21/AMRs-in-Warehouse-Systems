@@ -13,7 +13,8 @@ class Algorithms():
     def heuristic(self, a, b, steps_score=False):
         
         if steps_score:
-            
+            cost = None
+
             current = a
             neighbor = b
 
@@ -38,7 +39,7 @@ class Algorithms():
                         cost = abs((b[0] - a[0]) + abs((b[1] - a[1]))) + 1
                     else:
                         cost = abs((b[0] - a[0]) + abs((b[1] - a[1])))
-
+                    
 
                 elif self.prev_current[1] - current[1] == 0:
                     self.direction = 'vertical'
@@ -46,13 +47,16 @@ class Algorithms():
                         cost = abs((b[0] - a[0]) + abs((b[1] - a[1]))) + 1
                     else:
                         cost = abs((b[0] - a[0]) + abs((b[1] - a[1])))
-
+    
+                
                 if self.counter % 4 == 0:
                     print('in counter')
                     self.prev_current = current
-                    
 
-                return cost
+                if cost == None:
+                    return abs((b[0] - a[0]) + abs((b[1] - a[1]))) 
+                else:
+                    return cost   
             
             else:
                 return abs((b[0] - a[0]) + abs((b[1] - a[1])))
