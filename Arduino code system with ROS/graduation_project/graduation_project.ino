@@ -63,7 +63,9 @@ int pwm_left = 0, pwm_right = 0;
 double prev_time = 0, speed_timer = 100;
 double action_timer = 10, last_action = 0;
 double feedback_timer = 1000, prev_feedback_timer = 0;
-  
+
+
+short int speeds_temp[2] = {0, 0};
 /*---------------- Publishers for ros ----------------*/
 
 // Publisher for feedback
@@ -207,9 +209,8 @@ void loop() {
     apply_speeds(pwm_right_motor, dir_right_motor, pwm_right);
     
     last_action = millis();
-    
   }
-
+  
 
   // Sending feedback values of motors using ROS
   if ((millis() - prev_feedback_timer) > feedback_timer)
@@ -219,6 +220,8 @@ void loop() {
     feedback.data[1] = pwm_right;
     
     pub_feedback.publish(&feedback);
+    
+    prev_feedback_timer = millis();
   }
   
   nh.spinOnce();
