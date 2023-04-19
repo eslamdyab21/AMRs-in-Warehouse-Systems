@@ -124,7 +124,7 @@ void funcR(){
 
 }
 
-// Callback functions
+/*---------------- Callback Functions For ROS ----------------*/
 
 void setSpeeds(const std_msgs::Int16MultiArray& speeds)
 {
@@ -141,6 +141,19 @@ void setYaw(const std_msgs::Float32& yaw)
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speeds("speeds", &setSpeeds );
 ros::Subscriber<std_msgs::Float32> sub_yaw("yaw", &setYaw );
 
+
+/*---------------- Applying speed calculations function ----------------*/
+void apply_speeds(int pwm_pin_number, int dir_pin_number, int pwm_value)
+{
+  if (pwm_value > 0){
+      analogWrite(pwm_pin_number,abs(pwm_value));
+      digitalWrite(dir_pin_number, HIGH);
+    }
+    else{
+      analogWrite(dir_pin_number,abs(pwm_value));
+      digitalWrite(dir_pin_number, LOW);
+    }
+}
 
 void setup() {
   // Pin mode declarations
@@ -166,7 +179,7 @@ void setup() {
   // Ros nodes declarations
   nh.initNode();
   nh.subscribe(sub_speeds);
-   nh.subscribe(sub_yaw);
+  nh.subscribe(sub_yaw);
   nh.advertise(pub_feedback);
   
 }
@@ -183,28 +196,16 @@ void loop() {
     prev_time = millis();
   }
 
-  // calculating PWM for motors
+  
   if ((millis() - last_action) > action_timer){
+    // calculating PWM for motors
     pwm_left = pwm_left*epsi + (y-m)*(1 - epsi);
     pwm_right = pwm_right*epsi + (y+m)*(1 - epsi);
     
-    if (pwm_left < 0){
-      analogWrite(pwm_left_motor,abs(pwm_left));
-      digitalWrite(dir_left_motor, HIGH);
-    }
-    else{
-      analogWrite(pwm_left_motor,abs(pwm_left));
-      digitalWrite(dir_left_motor, LOW);
-    }
+    // Sending Speeds to be applied
+    apply_speeds(pwm_right_motor, dir_left_motor, pwm_left);
+    apply_speeds(pwm_right_motor, dir_right_motor, pwm_right);
     
-     if (pwm_right < 0){
-      analogWrite(pwm_right_motor,abs(pwm_right));
-      digitalWrite(dir_right_motor, HIGH);
-    }
-    else{
-      analogWrite(pwm_right_motor,abs(pwm_right));
-      digitalWrite(dir_right_motor, LOW);
-    }
     last_action = millis();
     
   }
