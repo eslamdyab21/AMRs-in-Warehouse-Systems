@@ -54,10 +54,10 @@ int current_state_l = 0, current_state_r = 0, current_state_lift = 0;
 String encdir_l ="", encdir_r ="", encdir_lift ="";  
 
 // Speeds variables and damping factor
-int y = 0, m = 0, epsi = 0.8;
+float y = 0, m = 0, epsi = 0.9;
 
 // PWMs for motors
-float pwm_left = 0, pwm_right = 0;
+float pwm_left = 0.0, pwm_right = 0.0;
 
 // timers variables
 double prev_time = 0, speed_timer = 100;
@@ -158,6 +158,7 @@ void apply_speeds(int pwm_pin_number, int dir_pin_number, int pwm_value)
 }
 
 void setup() {
+  Serial.begin(9600);
   // Pin mode declarations
   pinMode(dir_left_motor, OUTPUT);
   pinMode(pwm_left_motor, OUTPUT);
@@ -201,6 +202,7 @@ void loop() {
   
   if ((millis() - last_action) > action_timer){
     // calculating PWM for motors
+    
     pwm_left = pwm_left*epsi + (y-m)*(1 - epsi);
     pwm_right = pwm_right*epsi + (y+m)*(1 - epsi);
     
@@ -208,19 +210,18 @@ void loop() {
     apply_speeds(pwm_right_motor, dir_left_motor, round(pwm_left));
     apply_speeds(pwm_right_motor, dir_right_motor, round(pwm_right));
     
+    
+    speeds_temp[0] = round(pwm_left);
+    speeds_temp[1] = round(pwm_right);
+
     last_action = millis();
-    for(int i = 0; i<2; i++)
-    {
-      speeds_temp[0] = round(pwm_left);
-      speeds_temp[1] = round(pwm_right);
-    }
     
   }
-  
 
   // Sending feedback values of motors using ROS
   if ((millis() - prev_feedback_timer) > feedback_timer)
   {
+   
     feedback.data_length = 2;
     feedback.data = speeds_temp;
     
