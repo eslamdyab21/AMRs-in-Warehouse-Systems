@@ -1,4 +1,4 @@
-[[MCAL-core-peripheral-drivers@12]]
+[[Arduino Encoders code @12]]
 [[ARM embedded-c encoders code @14]]
 [[integrate ros with micro-controller in arduino @17]]
 [[integrate ros with micro-controller in embeded-c @18]]
