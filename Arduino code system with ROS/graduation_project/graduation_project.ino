@@ -141,40 +141,6 @@ void setYaw(const std_msgs::Float32& yaw)
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speeds("speeds", &setSpeeds );
 ros::Subscriber<std_msgs::Float32> sub_yaw("yaw", &setYaw );
 
-void backward(){
-  analogWrite(pwm_left_motor,100);
-  analogWrite(pwm_right_motor,100);
-  digitalWrite(dir_left_motor, HIGH);
-  digitalWrite(dir_right_motor, HIGH);
-}
-
-void forward(){
-  analogWrite(pwm_left_motor,100);
-  analogWrite(pwm_right_motor,100);
-  digitalWrite(dir_left_motor, LOW);
-  digitalWrite(dir_right_motor, LOW);
-}
-
-void right(){
-  analogWrite(pwm_left_motor,70);
-  analogWrite(pwm_right_motor,70);
-  digitalWrite(dir_left_motor, LOW);
-  digitalWrite(dir_right_motor, HIGH);
-}
-
-void left(){
-  analogWrite(pwm_left_motor,70);
-  analogWrite(pwm_right_motor,70);
-  digitalWrite(dir_left_motor, HIGH);
-  digitalWrite(dir_right_motor, LOW);
-}
-void stop_(){
-  analogWrite(pwm_left_motor,0);
-  analogWrite(pwm_right_motor,0);
-  digitalWrite(dir_left_motor, HIGH);
-  digitalWrite(dir_right_motor, LOW);
-}
-
 
 void setup() {
   // Pin mode declarations
@@ -248,8 +214,8 @@ void loop() {
   if ((millis() - prev_feedback_timer) > feedback_timer)
   {
     feedback.data_length = 2;
-    feedback.data[0] = abs(pwm_left);
-    feedback.data[1] = abs(pwm_right);
+    feedback.data[0] = pwm_left;
+    feedback.data[1] = pwm_right;
     
     pub_feedback.publish(&feedback);
   }
