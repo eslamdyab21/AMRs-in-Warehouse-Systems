@@ -54,10 +54,10 @@ int current_state_l = 0, current_state_r = 0, current_state_lift = 0;
 String encdir_l ="", encdir_r ="", encdir_lift ="";  
 
 // Speeds variables and damping factor
-float y = 0, m = 0, epsi = 0.8;
+int y = 0, m = 0, epsi = 0.8;
 
 // PWMs for motors
-int pwm_left = 0, pwm_right = 0;
+float pwm_left = 0, pwm_right = 0;
 
 // timers variables
 double prev_time = 0, speed_timer = 100;
@@ -205,14 +205,14 @@ void loop() {
     pwm_right = pwm_right*epsi + (y+m)*(1 - epsi);
     
     // Sending Speeds to be applied
-    apply_speeds(pwm_right_motor, dir_left_motor, pwm_left);
-    apply_speeds(pwm_right_motor, dir_right_motor, pwm_right);
+    apply_speeds(pwm_right_motor, dir_left_motor, round(pwm_left));
+    apply_speeds(pwm_right_motor, dir_right_motor, round(pwm_right));
     
     last_action = millis();
     for(int i = 0; i<2; i++)
     {
-      speeds_temp[0] = pwm_left;
-      speeds_temp[1] = pwm_right;
+      speeds_temp[0] = round(pwm_left);
+      speeds_temp[1] = round(pwm_right);
     }
     
   }
