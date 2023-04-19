@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+
+=======
 >This is a documentation to issue #3, the `warehouse-robots-shelves-simulation` folder contains a number of classes developed to tackle this issue
 
 We have 5 classes `Control, Database, Map2D, Robot and Shelf` and a `main.py`.
@@ -505,3 +508,4 @@ And then we update the map and show it at the end.
 
 ####  `move` method
 `move` moves the min cost robots based on the instructions obtained in steps_map function, and move method is very simple and self explanatory.
+>>>>>>> main
