@@ -1,13 +1,8 @@
 /*
 To use MySQL here: mysql -u username -p
 To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
-To reset counting: ALTER TABLE Notifications AUTO_INCREMENT = 1;
-*/
-
-/* Notes:
-1. front end constraint on password
-2. OrderStatus completed with admin in front end
-3. What is the maximum speed ?
+To reset counting on auto-incremental columns: ALTER TABLE table_name AUTO_INCREMENT = 1;
+To get information from any table in MySQL: desc table_name
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Products(
 CREATE TABLE IF NOT EXISTS Orders(
     OrderID VARCHAR(7),
     CustomerID VARCHAR(7),
-    TotalCost FLOAT CHECK(TotalCost >= 0),
+    TotalCost FLOAT CHECK(TotalCost >= 0) DEFAULT NULL,
     OrderDate TIMESTAMP DEFAULT NOW(),
     PhoneNumber VARCHAR(13),
     Address VARCHAR(255),
@@ -134,3 +129,12 @@ CREATE TABLE IF NOT EXISTS Customer_Services(
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/*
+Questions:
+------
+1. Is there a constraint on password in the front-end ?
+2. OrderStatus get marked as Completed by the admin using the web application
+3. What is the maximum speed of the robot ?
+4. Does the TotalCost get calculated in the back-end of the website ?
+*/
