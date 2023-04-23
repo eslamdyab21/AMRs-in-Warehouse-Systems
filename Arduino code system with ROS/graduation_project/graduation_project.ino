@@ -207,7 +207,7 @@ void loop() {
     pwm_right = pwm_right*epsi + (y+m)*(1 - epsi);
     
     // Sending Speeds to be applied
-    apply_speeds(pwm_right_motor, dir_left_motor, round(pwm_left));
+    apply_speeds(pwm_left_motor, dir_left_motor, round(pwm_left));
     apply_speeds(pwm_right_motor, dir_right_motor, round(pwm_right));
     
     
