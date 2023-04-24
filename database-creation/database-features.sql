@@ -46,4 +46,5 @@ DELIMITER ;
 To-do list:
 -----------
 1. Solve the problem of 'FOR EACH ROW' in adding a notification
+2. ItemsInStock in Products trigger (checkItemsInStock): Low or Out of Stock
 */
