@@ -45,6 +45,16 @@ CREATE TABLE IF NOT EXISTS Products(
     CONSTRAINT PK_Products PRIMARY KEY(ProductID)
 );
 
+CREATE TABLE IF NOT EXISTS Orders_Details(
+    OrderID VARCHAR(7),
+    ProductID VARCHAR(7),
+    Quantity INT CHECK(Quantity > 0),
+
+    -- Constraints
+    CONSTRAINT PK_Orders_Details PRIMARY KEY(OrderID, ProductID),
+    CONSTRAINT FK_products_in_orders_details FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
 CREATE TABLE IF NOT EXISTS Orders(
     OrderID VARCHAR(7),
     CustomerID VARCHAR(7),
@@ -57,18 +67,8 @@ CREATE TABLE IF NOT EXISTS Orders(
 
     -- Constraints
     CONSTRAINT PK_Orders PRIMARY KEY(OrderID),
+    CONSTRAINT FK_orders_deatils_in_orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     CONSTRAINT FK_customers_in_orders FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
-);
-
-CREATE TABLE IF NOT EXISTS Orders_Details(
-    OrderID VARCHAR(7),
-    ProductID VARCHAR(7),
-    Quantity INT CHECK(Quantity > 0),
-
-    -- Constraints
-    CONSTRAINT PK_Orders_Details PRIMARY KEY(OrderID, ProductID),
-    CONSTRAINT FK_orders_in_orders_details FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    CONSTRAINT FK_products_in_orders_details FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
