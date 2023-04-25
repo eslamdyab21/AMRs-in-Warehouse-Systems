@@ -72,8 +72,10 @@ BEGIN
     END IF;
 
     -- Sends the notification
-    INSERT INTO Notifications(Notification)
-        VALUES(@items_in_stock_notification);
+    IF @items_in_stock_notification IS NOT NULL THEN
+        INSERT INTO Notifications(Notification)
+            VALUES(@items_in_stock_notification);
+    END IF;
 END //
 
 
