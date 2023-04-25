@@ -36,8 +36,9 @@ class Control():
         os.environ['ROS_MASTER_URI'] = 'http://' + roscore_ip + ':' + str(roscore_port)
 
         rospy.init_node(robot.id, anonymous=True)
-        self.movement = rospy.Publisher(f'{robot.id}_movement', String, queue_size=10)
-        self.speed = rospy.Publisher(f'{robot.id}_speed', Float32, queue_size=10)
+        #robot_id:movement:speed:location-shelf_id:location
+        self.ros_topic_robot = rospy.Publisher(f'{robot.id}_topic', String, queue_size=10)
+        self.ros_map = rospy.Publisher('ros_2dmap', String, queue_size=10)
 
         rospy.Subscriber("order_at_shelf", String, self.ros_order_at_shelf_callback)
 
@@ -53,10 +54,11 @@ class Control():
   
     def ros_order_at_shelf_callback(self, data):
         order_at_shelf = str(data.data)
-        robot_id, shelf_id = order_at_shelf.split('_')
+        robot_id, shelf_id, shelf_loc = order_at_shelf.split('_')
         if robot_id == self.robot.id:
             self.robot.active_order_status = True
             self.shelf.id = shelf_id
+            self.shelf.current_location = [int(shelf_loc.split(',')[0]), int(shelf_loc.split(',')[1])]
             self.robot.paired_with_shelf = self.shelf
 
 
@@ -83,8 +85,8 @@ class Control():
         print(robot.id, route)
         
         # skip if no path is found
-        if route == False:
-            continue
+        # if route == False:
+        #     continue
 
         if len(route) == 2:
             prev_location = robot.current_location.copy()
@@ -128,14 +130,16 @@ class Control():
 
             if horizontal_steps == 0 and vertical_steps == 0:
                 self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+                self.ros_map.publish(str(self.map.map))
 
         elif len(route) >2:
             self.map.update_objects_locations({robot.id:robot.locations})
+            # self.map.update_objects_locations({self.shelf.id:self.shelf.locations})
+
+            self.ros_map.publish(str(self.map.map))
         
         
-        # self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)
-        i = i + 1
-    
+        # self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)    
             
         
         self.logger.log(f'Control : steps_map_to_shelf : {time.time()-start_time} -->')
@@ -194,13 +198,9 @@ class Control():
         """
         start_time = time.time()
 
-        if self.database != None:
-            self.query_recived_order_shelfs_from_db()
-        else:
-            self.query_recived_order_shelfs_from_file()
 
-
-        # self.steps_map_to_shelf()
+        if self.robot.active_order_status:
+            self.steps_map_to_shelf(self.robot)
         # self.steps_map_to_packaging()
         
 
@@ -221,6 +221,7 @@ class Control():
 
         # print(robot.id, robot.current_location, direction)
         if direction == 'down':
+            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'down':
                 robot.move_forward()
             elif robot.orientation == 'up':
@@ -236,6 +237,7 @@ class Control():
 
 
         elif direction == 'up':
+            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'up':
                 robot.move_forward()
             elif robot.orientation == 'down':
@@ -251,6 +253,7 @@ class Control():
 
 
         elif direction == 'right':
+            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'right':
                 robot.move_forward()
             elif robot.orientation == 'left':
@@ -266,6 +269,7 @@ class Control():
 
 
         elif direction == 'left':
+            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'left':
                 robot.move_forward()
             elif robot.orientation == 'right':
