@@ -7,6 +7,8 @@ To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
 
 CREATE DATABASE AMR_Warehouse;
 
+USE AMR_Warehouse;
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /* Interacting with the website */
@@ -85,9 +87,9 @@ CREATE TABLE Robots(
 /* For the admin */
 
 CREATE TABLE Notifications(
-    NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, -- NotificationID SERIAL NOT NULL PRIMARY KEY -- for postgres
+    NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Notification VARCHAR(255),
-    Date DATETIME NOT NULL -- DATE for postgres
+    Date DATETIME NOT NULL
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -140,12 +142,4 @@ CREATE TRIGGER CheckCost BEFORE INSERT ON Orders FOR EACH ROW
     END //
 DELIMITER ;
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-Things to do:
--------------
-1. (Done) Change DateTime in Orders table to OrderDate and Notifications table Date
-2. (Done) Add a status to the orders table (Status) -> New, In progress, Completed (New by default)
-3. Add a new trigger, once the shelf arrived the packaging area, the order would be marked as Completed
-*/
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
