@@ -8,7 +8,7 @@ def convert_warehouse_map_to_astart_map(warehouse_map, robot_id = None):
             if warehouse_map[x,y] == robot_id:
                 warehouse_map[x,y] = 0
 
-            elif warehouse_map[x,y] != 0:
+            elif warehouse_map[x,y] != 0 and warehouse_map[x,y] != '0':
 
                 if warehouse_map[x,y][0] == 'S':
                     warehouse_map[x,y] = 0

@@ -69,6 +69,7 @@ class Control():
         self.map.map = np.asarray(np.matrix(map_str)) 
         self.map.map = self.map.map.astype('object')
         self.map.map = np.resize(self.map.map,(self.map.size_x,self.map.size_y))
+        self.map.map = np.squeeze(self.map.map)
 
 
 
@@ -105,11 +106,11 @@ class Control():
 
             horizontal_steps = 0
             vertical_steps = 0
+            
         elif len(route) > 2:
             horizontal_steps = route[1][1] - robot.current_location[1] 
             vertical_steps = route[1][0] - robot.current_location[0]
         
-        if len(route) > 2:
             if vertical_steps > 0:
                 # want to move down
                 self.move(robot, 'down')
@@ -139,6 +140,12 @@ class Control():
             # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
 
             if horizontal_steps == 0 and vertical_steps == 0:
+                robot.paired_with_shelf.current_location = robot.current_location
+                
+                # robot is now physically connected to shelf
+                robot.physically_connected_to_shelf = robot.paired_with_shelf
+                robot.paired_with_shelf.physically_connected_to_robot = robot
+                
                 self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
                 self.ros_map.publish(str(self.map.map))
 
@@ -209,12 +216,13 @@ class Control():
         start_time = time.time()
 
 
-        if self.robot.active_order_status:
+        if self.robot.active_order_status and self.robot.physically_connected_to_shelf == None:
             self.steps_map_to_shelf(self.robot)
+            self.map.show_map()
         # self.steps_map_to_packaging()
         
 
-        self.map.show_map()
+        
         self.logger.log(f'Control : steps_map : {time.time()-start_time} -->')
 
 
