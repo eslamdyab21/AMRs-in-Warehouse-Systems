@@ -41,6 +41,7 @@ class Control():
         self.ros_map = rospy.Publisher('ros_2dmap', String, queue_size=10)
 
         rospy.Subscriber("order_at_shelf", String, self.ros_order_at_shelf_callback)
+        rospy.Subscriber("ros_2dmap", String, self.ros_2dmap_callback)
 
 
     def ros_move(self, movement):
@@ -60,6 +61,15 @@ class Control():
             self.shelf.id = shelf_id
             self.shelf.current_location = [int(shelf_loc.split(',')[0]), int(shelf_loc.split(',')[1])]
             self.robot.paired_with_shelf = self.shelf
+
+
+    def ros_2dmap_callback(self, data):
+        mapp = data.data
+        map_str = mapp.strip()
+        self.map.map = np.asarray(np.matrix(map_str)) 
+        self.map.map = self.map.map.astype('object')
+        self.map.map = np.resize(self.map.map,(self.map.size_x,self.map.size_y))
+
 
 
     def ros_close(self):
