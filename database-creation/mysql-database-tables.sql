@@ -71,6 +71,16 @@ CREATE TABLE IF NOT EXISTS Orders_Details(
     CONSTRAINT FK_customers_in_orders_details FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
+CREATE TABLE IF NOT EXISTS Wishlist(
+    CustomerID VARCHAR(7),
+    ProductID VARCHAR(7),
+
+    -- Constraints
+    CONSTRAINT PK_Wishlist PRIMARY KEY(CustomerID, ProductID),
+    CONSTRAINT FK_customers_in_wishlist FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    CONSTRAINT FK_products_in_wishlist FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /* Interacting with the warehouse */
