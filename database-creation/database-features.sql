@@ -10,6 +10,11 @@ TRIGGERS:
     This tigger does only one task for each new Orders_Details table:
         1. Add a notification to the Notifications table. It maps the products in this order with their shelves
         2. Calculate the total cost of the order
+
+3. ItemsInStockUpdates
+    This tigger does 2 tasks for each update on products table:
+        1. If ItemsInStock < 10: Sends a notification with the product and its remaining number of items
+        2. If ItemsInStock = 0: Sends a notification that the product is out of stock
 */
 
 DELIMITER //
@@ -50,6 +55,28 @@ BEGIN
                         WHERE O.OrderID = NEW.OrderID);
     SET NEW.TotalCost = @total_cost;
 END //
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Trigger number 3 : ItemsInStockUpdates
+CREATE TRIGGER ItemsInStockUpdates
+AFTER UPDATE ON Products
+FOR EACH ROW
+BEGIN
+    -- Check the items in stock for the updated product(s)
+    DECLARE items_in_stock_notification VARCHAR(255);
+    IF NEW.ItemsInStock = 0 THEN
+        SET @items_in_stock_notification = (CONCAT(NEW.ProductID, ' is out of stock'));
+    ELSEIF NEW.ItemsInStock < 10 THEN
+        SET @items_in_stock_notification = (CONCAT(NEW.ProductID, ' is low in stock [', NEW.ItemsInStock, ' items left]'));
+    END IF;
+
+    -- Sends the notification
+    INSERT INTO Notifications(Notification)
+        VALUES(@items_in_stock_notification);
+END //
+
+
 DELIMITER ;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -58,5 +85,5 @@ DELIMITER ;
 To-do list:
 -----------
 1. Solve the problem of 'FOR EACH ROW' in adding a notification (done)
-2. ItemsInStock in Products trigger (checkItemsInStock): Low or Out of Stock
+2. ItemsInStock in Products trigger (checkItemsInStock): Low or Out of Stock (done)
 */
