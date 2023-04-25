@@ -42,7 +42,7 @@ include 'components/wishlist_cart.php';
      $select_products = $conn->prepare("SELECT * FROM `products` WHERE id = ?"); 
      $select_products->execute([$pid]);
      if($select_products->rowCount() > 0){
-      while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+     $fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)
    ?>
    <form action="" method="post" class="box">
       <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
@@ -64,18 +64,29 @@ include 'components/wishlist_cart.php';
             <div class="name"><?= $fetch_product['name']; ?></div>
             <div class="flex">
                <div class="price"><span>$</span><?= $fetch_product['price']; ?><span>/-</span></div>
-               <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+               <input type="number" name="qty" class="qty" min="1" max="<?php echo $fetch_product['InStock']; ?>" onkeypress="if(this.value.length == 2) return false;" value="1">
             </div>
             <div class="details"><?= $fetch_product['details']; ?></div>
             <div class="flex-btn">
-               <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+
+            <?php
+               if($fetch_product['InStock']>0)
+               { ?>
+                  <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+                  <?php
+               }
+               else  {
+                  ?>
+                  <h1 class="btn"> out of stock </h1>
+                  <?php
+               }
+            ?>
                <input class="option-btn" type="submit" name="add_to_wishlist" value="add to wishlist">
             </div>
          </div>
       </div>
    </form>
    <?php
-      }
    }else{
       echo '<p class="empty">no products added yet!</p>';
    }
