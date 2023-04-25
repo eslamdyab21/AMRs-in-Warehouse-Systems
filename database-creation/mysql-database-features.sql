@@ -39,13 +39,13 @@ BEFORE INSERT ON Orders_Details
 FOR EACH ROW
 BEGIN
     -- Send a notification with the products and their shelves
-    SET @shelves_products := (SELECT GROUP_CONCAT(CONCAT(O.ProductID, ' from  ',  S.ShelfID)  SEPARATOR ', ') AS 'Products On Shelves'
+    SET @shelves_products := (SELECT GROUP_CONCAT(CONCAT(O.Quantity, ' items of ', O.ProductID, ' from  ',  S.ShelfID)  SEPARATOR ', ') AS 'Products On Shelves'
                                 FROM Orders AS O
                                 INNER JOIN Shelves AS S
                                     ON O.ProductID = S.ProductID
                                 WHERE O.OrderID = NEW.OrderID);
     INSERT INTO Notifications(Notification)
-        VALUES(CONCAT('There is new order with product(s) ', @shelves_products, '.'));
+        VALUES(CONCAT('There is new order with ', @shelves_products, '.'));
     
     -- Calculate the total cost
     SET @total_cost := (SELECT SUM(O.Quantity * P.Price) AS TotalCost

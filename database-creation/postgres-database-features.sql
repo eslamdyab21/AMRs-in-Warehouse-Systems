@@ -24,15 +24,15 @@ CREATE OR REPLACE FUNCTION notify_me_function()
 RETURNS TRIGGER AS
 $$
 DECLARE
-    shelves_products TEXT := (SELECT STRING_AGG(OD.ProductID || ' from ' || S.ShelfID, ', ')
+    shelves_products TEXT := (SELECT STRING_AGG(OD.Quantity || ' items of ' || OD.ProductID || ' from ' || S.ShelfID, ', ')
                                 FROM Orders_Details AS OD
                                 INNER JOIN Shelves AS S
                                     ON OD.ProductID = S.ProductID
-                                WHERE OrderID = 'O1');
+                                WHERE OrderID = NEW.OrderID);
 BEGIN
     -- Send a notification with the products and their shelves
     INSERT INTO Notifications(Notification)
-    VALUES(CONCAT('There is new order with product(s) ', shelves_products, '.'));
+    VALUES(CONCAT('There is a new order with ', shelves_products, '.'));
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
