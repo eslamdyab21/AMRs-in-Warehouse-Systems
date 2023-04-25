@@ -20,6 +20,8 @@ if(isset($_POST['submit'])){
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
    $cpass = $_POST['cpass'];
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+   $gender = $_POST['Gender'];
+   $gender = filter_var($gender, FILTER_SANITIZE_STRING);
 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
    $select_user->execute([$email,]);
@@ -31,8 +33,8 @@ if(isset($_POST['submit'])){
       if($pass != $cpass){
          $message[] = 'confirm password not matched!';
       }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password) VALUES(?,?,?)");
-         $insert_user->execute([$name, $email, $cpass]);
+         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password,gender) VALUES(?,?,?,?)");
+         $insert_user->execute([$name, $email, $cpass,$gender]);
          $message[] = 'registered successfully, login now please!';
       }
    }
@@ -68,6 +70,11 @@ if(isset($_POST['submit'])){
       <input type="email" name="email" required placeholder="enter your email" maxlength="50"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" required placeholder="enter your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="cpass" required placeholder="confirm your password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+      <p> Gender </p>
+      <select name="Gender">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      </select>
       <input type="submit" value="register now" class="btn" name="submit">
       <p>already have an account?</p>
       <a href="user_login.php" class="option-btn">login now</a>
