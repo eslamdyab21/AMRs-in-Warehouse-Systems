@@ -10,10 +10,16 @@ TRIGGERS:
         1. Decrease the number of items in stock in Products table by the quantity of each product
         2. Mark the shelves which store the products in this order as HavingOrder shelves (isHavingOrder = 1)
         3. Calculate the total cost of the order
+
+3. ItemsInStockUpdates
+    This tigger does 2 tasks for each update on products table:
+        1. If ItemsInStock < 10: Sends a notification with the product and its remaining number of items
+        2. If ItemsInStock = 0: Sends a notification that the product is out of stock
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- Trigger number 1 : NotifyMe
 CREATE OR REPLACE FUNCTION notify_me_function()
 RETURNS TRIGGER AS
 $$
@@ -39,6 +45,7 @@ EXECUTE FUNCTION notify_me_function();
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- Trigger number 1 : NewOrder
 CREATE OR REPLACE FUNCTION new_order_function()
 RETURNS TRIGGER AS
 $$
@@ -67,3 +74,31 @@ AFTER INSERT
 ON Orders_Details
 FOR EACH ROW
 EXECUTE FUNCTION new_order_function();
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Trigger number 1 : ItemsInStockUpdates
+CREATE OR REPLACE FUNCTION items_in_stock_updates_function()
+RETURNS TRIGGER AS $$
+DECLARE
+    items_in_stock_notification VARCHAR(255);
+BEGIN
+    -- Check the items in stock for the updated product(s)
+    IF NEW.ItemsInStock = 0 THEN
+        items_in_stock_notification = CONCAT(NEW.ProductID, ' is out of stock');
+    ELSEIF NEW.ItemsInStock < 10 THEN
+        items_in_stock_notification = CONCAT(NEW.ProductID, ' is low in stock [', NEW.ItemsInStock, ' items left]');
+    END IF;
+
+    -- Sends the notification
+    INSERT INTO Notifications(Notification)
+        VALUES(items_in_stock_notification);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER items_in_stock_updates_trigger
+AFTER UPDATE ON Products
+FOR EACH ROW
+EXECUTE FUNCTION items_in_stock_updates_function();
