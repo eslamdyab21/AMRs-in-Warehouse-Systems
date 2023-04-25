@@ -5,7 +5,7 @@ from Control import Control
 from Logger import Logger
 
 from random import randrange
-
+import time
 
 
 
@@ -24,3 +24,7 @@ R = Robot(logger, id = 'R1', intial_location = x_y, intial_orientation = 'right'
 S = Shelf(logger, id = 'S1', intial_location = x_y, map_size = [map_size_x, map_size_y])
 
 control = Control(logger, robot = R, shelf = S, map = map, robot_ip = '127.0.0.1', roscore_ip = '127.0.0.1')
+
+while True:
+    control.steps_map()
+    time.sleep(0.5)
