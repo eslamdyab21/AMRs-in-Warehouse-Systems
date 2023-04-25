@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Products(
     CONSTRAINT PK_Products PRIMARY KEY(ProductID)
 );
 
-CREATE TABLE IF NOT EXISTS Orders(
+CREATE TABLE IF NOT EXISTS Orders_Details(
     OrderID VARCHAR(7),
     CustomerID VARCHAR(7),
     TotalCost FLOAT CHECK(TotalCost >= 0) DEFAULT NULL,
@@ -56,19 +56,19 @@ CREATE TABLE IF NOT EXISTS Orders(
     OrderStatus VARCHAR(15) DEFAULT 'New' CHECK(OrderStatus IN ('New', 'In progress', 'Completed')),
 
     -- Constraints
-    CONSTRAINT PK_Orders PRIMARY KEY(OrderID),
-    CONSTRAINT FK_customers_in_orders FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    CONSTRAINT PK_Orders_Details PRIMARY KEY(OrderID),
+    CONSTRAINT FK_customers_in_orders_details FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
-CREATE TABLE IF NOT EXISTS Orders_Details(
+CREATE TABLE IF NOT EXISTS Orders(
     OrderID VARCHAR(7),
     ProductID VARCHAR(7),
     Quantity INT CHECK(Quantity > 0),
 
     -- Constraints
-    CONSTRAINT PK_Orders_Details PRIMARY KEY(OrderID, ProductID),
-    CONSTRAINT FK_orders_in_orders_details FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    CONSTRAINT FK_products_in_orders_details FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+    CONSTRAINT PK_Orders PRIMARY KEY(OrderID, ProductID),
+    CONSTRAINT FK_orders_in_orders_details FOREIGN KEY (OrderID) REFERENCES Orders_Details(OrderID),
+    CONSTRAINT FK_products_in_orders FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
 CREATE TABLE IF NOT EXISTS Wishlist(
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS Shelves(
     Location_X INT NOT NULL CHECK(Location_X BETWEEN 0 AND 20),
     Location_Y INT NOT NULL CHECK(Location_Y BETWEEN 0 AND 20),
     ProductID VARCHAR(7), -- The product that the shelf stores
-    isHavingOrder BOOL, -- 0: Empty, 1: Occupied
+    NumOfOrders INT DEFAULT 0 CHECK(NumOfOrders >= 0),
 
     -- Constraints
     CONSTRAINT PK_Shelves PRIMARY KEY(ShelfID),
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS Shelves(
 
 CREATE TABLE IF NOT EXISTS Robots(
     RobotID VARCHAR(7),
-    Speed DECIMAL(5, 2) CHECK(Speed >= 0),
+    Speed INT CHECK(Speed BETWEEN 0 AND 100),
     BatteryPercentage INT NOT NULL CHECK(BatteryPercentage BETWEEN 0 AND 100),
     CurrentLocation_X INT NOT NULL CHECK(CurrentLocation_X BETWEEN 0 AND 20),
     CurrentLocation_Y INT NOT NULL CHECK(CurrentLocation_Y BETWEEN 0 AND 20),
@@ -137,3 +137,19 @@ CREATE TABLE IF NOT EXISTS Customer_Services(
     CONSTRAINT PK_Customer_Services PRIMARY KEY(MessageID),
     CONSTRAINT FK_customers_in_customer_services FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/* View for the web application */
+
+CREATE VIEW admin_view AS
+    SELECT O.OrderID, O.ProductID, O.Quantity, S.ShelfID, OD.OrderStatus, OD.OrderDate
+    FROM Orders AS O
+    INNER JOIN Orders_Details AS OD
+        ON OD.OrderID = O.OrderID
+    INNER JOIN Shelves AS S
+        ON S.ProductID = O.ProductID
+    ORDER BY OD.OrderDate;
+
+-- To view it
+SELECT * FROM admin_view;
