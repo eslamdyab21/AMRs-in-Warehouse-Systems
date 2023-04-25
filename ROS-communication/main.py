@@ -1,17 +1,26 @@
-from ROS_communication import ROS_communication
-import time 
+from Map2D import Map2D
+from Robot import Robot
+from Shelf import Shelf
+from Control import Control
+from Logger import Logger
 
-ROS_comm = ROS_communication(robot_id = 'R1', robot_ip = '127.0.0.1', roscore_ip = '127.0.0.1')
+from random import randrange
 
 
-i=0
-while True:
-    ROS_comm.move(f'Forward-{i}')
-    ROS_comm.set_speed(i)
 
-    if i == 100:
-        i=0
 
-    i = i + 1
-    time.sleep(0.2)
 
+map_size_x = 15
+map_size_y = 15
+
+# Create a 2d map
+map = Map2D(size_x=map_size_x, size_y=map_size_y)
+
+logger = Logger()
+
+
+x_y = [randrange(map_size_y), randrange(map_size_y)]
+R = Robot(logger, id = 'R1', intial_location = x_y, intial_orientation = 'right', speed=1, map_size = [map_size_x, map_size_y])
+S = Shelf(logger, id = 'S1', intial_location = x_y, map_size = [map_size_x, map_size_y])
+
+control = Control(logger, robot = R, shelf = S, map = map, robot_ip = '127.0.0.1', roscore_ip = '127.0.0.1')
