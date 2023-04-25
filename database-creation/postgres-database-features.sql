@@ -45,7 +45,7 @@ EXECUTE FUNCTION notify_me_function();
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Trigger number 1 : NewOrder
+-- Trigger number 2 : NewOrder
 CREATE OR REPLACE FUNCTION new_order_function()
 RETURNS TRIGGER AS
 $$
@@ -77,7 +77,7 @@ EXECUTE FUNCTION new_order_function();
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Trigger number 1 : ItemsInStockUpdates
+-- Trigger number 3 : ItemsInStockUpdates
 CREATE OR REPLACE FUNCTION items_in_stock_updates_function()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -102,3 +102,5 @@ CREATE TRIGGER items_in_stock_updates_trigger
 AFTER UPDATE ON Products
 FOR EACH ROW
 EXECUTE FUNCTION items_in_stock_updates_function();
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
