@@ -25,7 +25,7 @@ class ROS_communication():
 
     def set_speed(self, speed):
         speed = Float32(speed)
-        self.movement.publish(speed)
+        self.speed.publish(speed)
 
 
     def close(self):
