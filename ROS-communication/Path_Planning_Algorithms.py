@@ -31,8 +31,8 @@ class Algorithms():
             self.counter = self.counter + 1
 
             if self.counter >= 4:
-                print('steps_score')
-                print(self.prev_current,a,b)
+                # print('steps_score')
+                # print(self.prev_current,a,b)
                 if self.prev_current[0] - current[0] == 0:
                     self.direction = 'horizontal'
                     if current[0] - neighbor[0] != 0:
@@ -50,7 +50,7 @@ class Algorithms():
     
                 
                 if self.counter % 4 == 0:
-                    print('in counter')
+                    # print('in counter')
                     self.prev_current = current
 
                 if cost == None:
