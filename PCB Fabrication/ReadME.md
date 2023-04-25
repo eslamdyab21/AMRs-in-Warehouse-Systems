@@ -3,6 +3,7 @@
 
 ## There is Certain steps in order to Fabricate the PCB 
   -After finishing the Design on Eagle Software (Discussed before ) we have to check 
+  
     *A complete engineering review for circuitry
     *Synchronized schematic and layout databases
     *Complete circuit simulation, signal integrity, and power integrity analysis
