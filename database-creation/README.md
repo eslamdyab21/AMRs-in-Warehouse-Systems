@@ -57,13 +57,13 @@ As mentioned above, the tables in our database is divided into 3 groups, each gr
   - __Shelves__
   	- PK &rarr; ShelfID
   	- FK &rarr; ProductID
-		  ><span style="color:#73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Shelves_ table with _Products_ table to know which product is on that shelf.
+        ><span style="color:#73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Shelves_ table with _Products_ table to know which product is on that shelf.
     - Attributes &rarr; Location(x, y) and Number of Orders
 
   - __Robots__
   	- PK &rarr; RobotID
   	- FK &rarr; ShelfID
-		  ><span style="color:#73c6b6; font-weight:bold;">ShelfID</span> &rarr; Link _Robots_ table with _Shelves_ table to know which shelf is connected to that robot.
+        ><span style="color:#73c6b6; font-weight:bold;">ShelfID</span> &rarr; Link _Robots_ table with _Shelves_ table to know which shelf is connected to that robot.
     - Attributes &rarr; Speed, Battery Percentage, Location(x, y), and Charging or not
   
 - Tables that integrate with the Admin's web application
