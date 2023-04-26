@@ -11,38 +11,38 @@ const Robots = () => {
 
   const columns = [
     {
-        field: "RobotID",
+        field: "robotid",
         headerName: "ID",
         flex: 0.5,
       },
       {
-        field: "BatteryLife",
+        field: "batterypercentage",
         headerName: "Battery Life",
         flex: 0.5,
       },
       {
-        field: "Speed",
+        field: "speed",
         headerName: "Speed",
         flex: 0.5,
       },
       {
-        field: "CurrentLocationX",
+        field: "currentlocation_x",
         headerName: "Location X",
         flex: 0.4,
       },
       {
-        field: "CurrentLocationY",
+        field: "currentlocation_y",
         headerName: "Location Y",
         flex: 0.4,
       },
       {
-        field: "ShelfID",
-        headerName: "Connect to Shelf",
+        field: "shelfid",
+        headerName: "Connected to Shelf",
         flex: 0.4,
       },
       {
-        field: "Moving",
-        headerName: "Moving",
+        field: "ischarging",
+        headerName: "Charger status",
         flex: 0.4,
       },
 
@@ -81,7 +81,7 @@ const Robots = () => {
       >
         <DataGrid
           loading={isLoading || !data}
-          getRowId={(row:any) => row.RobotID}
+          getRowId={(row:any) => row.robotid}
           rows={data || []}
           columns={columns}
         />

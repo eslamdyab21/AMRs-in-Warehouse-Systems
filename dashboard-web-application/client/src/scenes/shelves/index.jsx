@@ -13,27 +13,27 @@ const Shelves = () => {
 
   const columns = [
     {
-      field: "ShelfID",
+      field: "shelfid",
       headerName: "ID",
       flex: 0.5,
     },
     {
-      field: "ProductID",
+      field: "productid",
       headerName: "Product ID",
       flex: 0.5,
     },
     {
-      field: "HavingOrder",
-      headerName: "Having Order",
+      field: "numoforders",
+      headerName: "Number of orders",
       flex: 0.5,
     },
     {
-      field: "LocationX",
+      field: "location_x",
       headerName: "Location X",
       flex: 0.4,
     },
     {
-      field: "LocationY",
+      field: "location_y",
       headerName: "Location Y",
       flex: 0.4,
     },
@@ -72,7 +72,7 @@ const Shelves = () => {
       >
         <DataGrid
           loading={isLoading || !data}
-          getRowId={(row : any) => row.ShelfID}
+          getRowId={(row : any) => row.shelfid}
           rows={data || []}
           columns={columns}
         />
