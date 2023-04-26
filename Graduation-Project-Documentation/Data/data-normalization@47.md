@@ -22,7 +22,7 @@ We'll apply the data normalization process on each table in our database to ensu
 1. __Customers__:
 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264280-51adee4c-80d2-4f9c-9202-cb971ccdd936.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450273-1faee369-d9ef-462e-95d1-4f47fdc3411d.png">
    </p>
 
    __Customers__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF as well as there's no _transitive dependency_.
@@ -30,9 +30,9 @@ We'll apply the data normalization process on each table in our database to ensu
 <br>
 
 2. __Orders__:
-   
+ 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264285-3d3fce2b-0efd-4daa-b1e1-60b749b6e611.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450319-2302613a-398f-44af-9570-0a1d1f4cfcbf.png">
    </p>
 
    We noticed that this table has two multi-valued attributes, _ProductID_ and _Quantity_, as the customer may order more than one product.
@@ -43,7 +43,7 @@ We'll apply the data normalization process on each table in our database to ensu
    2. __Orders__
 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264325-762a2b76-c870-4ae8-95f6-8894a2447a69.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450356-17b4aed3-2558-4bb6-87e4-283dd1ec1f95.png">
    </p>
 
    Now, we've to examine both tables:
@@ -57,9 +57,9 @@ We'll apply the data normalization process on each table in our database to ensu
 <br>
 
 3. __Products__:
-      
+    
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264334-3856d203-6906-49b0-aeb6-86d9cea07144.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450409-ca3b657c-9447-4225-b878-018671541217.png">
    </p>
 
    __Products__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
@@ -67,9 +67,9 @@ We'll apply the data normalization process on each table in our database to ensu
 <br>
 
 4. __Robots__:
-   
+ 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264344-f4af69dc-207d-401e-ac65-dc2cfc74c08e.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450447-e1153df5-4f29-4c5d-91de-08b537c5c5fc.png">
    </p>
 
    __Robots__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
@@ -79,7 +79,7 @@ We'll apply the data normalization process on each table in our database to ensu
 5. __Shelves__:
 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264353-0f11a194-8421-4af3-8417-a7b6104160dd.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450489-b99f3c0c-1764-451a-bb33-cc9822cece83.png">
    </p>
 
    __Shelves__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
@@ -87,9 +87,9 @@ We'll apply the data normalization process on each table in our database to ensu
 <br>
 
 6. __Notifications__:
-   
+ 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232258545-e6bfe7aa-89ef-4636-953b-71954eeb5ff9.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450584-90067926-ca22-46cb-965a-d12513139559.png">
    </p>
 
    __Notifications__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
@@ -97,9 +97,9 @@ We'll apply the data normalization process on each table in our database to ensu
 <br>
 
 7. __Customer_Services__:
-   
+ 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264367-825a6baa-9c3e-4231-9727-723ba9c8de8d.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450653-61a7d1e2-eed0-4d4c-9f82-f20c3c4208a4.png">
    </p>
 
    __Customer_Services__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
@@ -107,7 +107,7 @@ We'll apply the data normalization process on each table in our database to ensu
 8. __Wishlist__:
 
    <p align="center">
-   <img src="https://user-images.githubusercontent.com/70551007/232264367-825a6baa-9c3e-4231-9727-723ba9c8de8d.png">
+   <img src="https://user-images.githubusercontent.com/70551007/234450697-1415f449-4d44-46ac-bb65-2e6275e5d572.png">
    </p>
 
    __Wishlist__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
