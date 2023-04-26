@@ -39,18 +39,18 @@ We'll apply the data normalization process on each table in our database to ensu
    So, this table is not in 1NF. To make it in 1NF, we'll move the _ProductID_ and _Quantity_ in another table with a composite primary key (OrderID, ProductID).
 
    Now the __Orders__ table is divided into 2 tables:
-   1. __Orders__: The original orders table without _ProductID_, and _Quantity_
-   2. __Orders_Details__
+   1. __Orders_Details__: The original orders table without _ProductID_, and _Quantity_
+   2. __Orders__
 
    <p align="center">
    <img src="https://user-images.githubusercontent.com/70551007/232264325-762a2b76-c870-4ae8-95f6-8894a2447a69.png">
    </p>
 
    Now, we've to examine both tables:
-   1. __Orders__:
+   1. __Orders_Details__:
       - There's no _partial dependency_ as we've only one primary key on which all the attributes depend. So, we can say that the table is in 2NF now.         
       - There's no _transitive dependency_ as there's no non-key attribute which depends on another non-key attribute. So, the table is in 3NF.
-   2. __Orders_Details__:
+   2. __Orders__:
       - There's no _partial dependency_ as _Quantity_ depends on both (OrderID, ProductID). So, the table is in 2NF.
       - There's no _transitive dependency_, so the table is in 3NF.
 
@@ -103,6 +103,14 @@ We'll apply the data normalization process on each table in our database to ensu
    </p>
 
    __Customer_Services__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
+
+8. __Wishlist__:
+
+   <p align="center">
+   <img src="https://user-images.githubusercontent.com/70551007/232264367-825a6baa-9c3e-4231-9727-723ba9c8de8d.png">
+   </p>
+
+   __Wishlist__ is in 1NF as it doesn't have any multi-valued attributes, and in 2NF as all the non-key attributes are fully dependent on the primary key. It is in 3NF too as there's no _transitive dependency_.
 
 <br>
 
