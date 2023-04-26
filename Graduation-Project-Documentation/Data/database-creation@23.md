@@ -1,3 +1,12 @@
+## <u>Table of Contents</u> ##
+- [About the database](#about-the-database)
+- [Database Tables](#database-tables)
+- [Database Features](#database-features)
+- [ Entity Relationship Diagram (ERD) of the Database ](#-entity-relationship-diagram-erd-of-the-database-)
+- [ The role of the database in the system ](#-the-role-of-the-database-in-the-system-)
+
+<hr>
+
 ## <u>About the database</u> ##
 Our database is a _Relational Database_ (i.e. it stores and organizes data in table consisting of rows and columns). In a relational database, data is organized into one or more tables, where each table represents a specific type of entity or object, such as customers, orders, or products.
 
