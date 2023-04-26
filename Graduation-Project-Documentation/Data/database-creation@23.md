@@ -1,4 +1,4 @@
-## <u> About the database </u> ##
+## <u>About the database</u> ##
 Our database is a _Relational Database_ (i.e. it stores and organizes data in table consisting of rows and columns). In a relational database, data is organized into one or more tables, where each table represents a specific type of entity or object, such as customers, orders, or products.
 
 It has been built with the help of _PostgreSQL_ server and consists of 3 groups of tables, each group integrates with a part of our system. There's a group that integrates with the customers website, another group that integrates with the robots and shelves in the warehouse, and the last group integrates with the Admin's web application.
@@ -13,7 +13,7 @@ It also has some _triggers_. A trigger is a database object that is associated w
 
 <hr>
 
-## <u> Structure of the database </u> ##
+## <u>Database Tables</u> ##
 
 As mentioned above, the tables in our database is divided into 3 groups, each group integrates with a part of the system. Each table in any group of them has its primary key and may or may not have one or more foreign key(s).
 
@@ -73,7 +73,7 @@ As mentioned above, the tables in our database is divided into 3 groups, each gr
 
 <hr>
 
-## <u>Database Objects</u> ##
+## <u>Database Features</u> ##
 
 - Triggers  
    - __New Order__
@@ -94,7 +94,7 @@ As mentioned above, the tables in our database is divided into 3 groups, each gr
 
 <hr>
 
-## <u> Entity Relationship Diagram (ERD) of the database </u> ##
+## <u> Entity Relationship Diagram (ERD) of the Database </u> ##
 The following Entitty Relationship Diagram (ERD) was built with the help of [Diagrams.net](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjEiMzopcj-AhXEYcAKHU1aAjMQFnoECAwQAQ&url=http%3A%2F%2Fdraw.io%2F&usg=AOvVaw3exHXDNauG59ZYpUDzrlsu) website.
 
 <p align="center">
