@@ -1,0 +1,1202 @@
+2023-03-27 12:58:57,305: Logger: Shelf --> S1 is created with intial_location=[8, 7]
+2023-03-27 12:58:57,305: Logger: Shelf --> S2 is created with intial_location=[10, 2]
+2023-03-27 12:58:57,305: Logger: Shelf --> S3 is created with intial_location=[6, 9]
+2023-03-27 12:58:57,306: Logger: Shelf --> S4 is created with intial_location=[11, 11]
+2023-03-27 12:58:57,306: Logger: Shelf --> S5 is created with intial_location=[10, 6]
+2023-03-27 12:58:57,306: Logger: Robot --> R1 is created with speed=1, intial_location=[8, 0], intial_orientation=right battery_precentage=100
+2023-03-27 12:58:57,306: Logger: Robot --> R2 is created with speed=1, intial_location=[6, 7], intial_orientation=left battery_precentage=100
+2023-03-27 12:58:57,306: Logger: Robot --> R3 is created with speed=1, intial_location=[14, 13], intial_orientation=left battery_precentage=100
+2023-03-27 12:58:57,306: Logger: Robot --> R4 is created with speed=1, intial_location=[7, 13], intial_orientation=left battery_precentage=100
+2023-03-27 12:58:57,306: Logger: Robot --> R5 is created with speed=1, intial_location=[9, 12], intial_orientation=left battery_precentage=100
+2023-03-27 12:58:57,306: Logger: Robot --> R6 is created with speed=1, intial_location=[7, 13], intial_orientation=left battery_precentage=100
+2023-03-27 12:58:57,306: Logger: Robot --> R7 is created with speed=1, intial_location=[2, 3], intial_orientation=left battery_precentage=100
+2023-03-27 12:58:57,414: Logger: Control : query_recived_order_shelfs_from_file : 0.08997368812561035 -->
+2023-03-27 12:58:57,423: Logger: Control : query_recived_order_shelfs_from_file : 0.006024599075317383 -->
+2023-03-27 12:58:57,424: Logger: Control : min_cost_robots : 0.006748199462890625 -->S2 ----> R1 (Min cost = 4) (Costs: [['R1', 4], ['R2', 9], ['R7', 9], ['R5', 11], ['R4', 14], ['R6', 14], ['R3', 15]])
+2023-03-27 12:58:57,424: Logger: Control : min_cost_robots : 0.007079601287841797 -->S1 ----> R2 (Min cost = 2) (Costs: [['R2', 2], ['R5', 6], ['R4', 7], ['R6', 7], ['R7', 10], ['R3', 12]])
+2023-03-27 12:58:57,425: Logger: Control : min_cost_robots : 0.00733494758605957 -->S3 ----> R4 (Min cost = 5) (Costs: [['R4', 5], ['R6', 5], ['R5', 6], ['R7', 10], ['R3', 12]])
+2023-03-27 12:58:57,425: Logger: Robot --> R1 moved to location=[8, 1]
+2023-03-27 12:58:57,426: Logger: Control : move : 0.0002696514129638672 -->
+2023-03-27 12:58:59,562: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-27 12:58:59,563: Logger: Robot --> R2 moved to location=[7, 7]
+2023-03-27 12:58:59,563: Logger: Control : move : 0.0009870529174804688 -->
+2023-03-27 12:58:59,675: Logger: Robot --> R4 moved to location=[7, 12]
+2023-03-27 12:58:59,676: Logger: Control : move : 0.00035500526428222656 -->
+2023-03-27 12:58:59,779: Logger: Control : steps_map_to_shelf : 2.3537943363189697 -->
+2023-03-27 12:58:59,796: Logger: Control : steps_map : 2.472179651260376 -->
+2023-03-27 12:58:59,799: Logger: Control : query_recived_order_shelfs_from_file : 0.002948760986328125 -->
+2023-03-27 12:58:59,802: Logger: Control : query_recived_order_shelfs_from_file : 0.002445697784423828 -->
+2023-03-27 12:58:59,802: Logger: Robot --> R1 moved to location=[8, 2]
+2023-03-27 12:58:59,802: Logger: Control : move : 0.00012755393981933594 -->
+2023-03-27 12:59:00,058: Logger: Robot --> R4 moved to location=[7, 11]
+2023-03-27 12:59:00,059: Logger: Control : move : 0.00048279762268066406 -->
+2023-03-27 12:59:00,221: Logger: Control : steps_map_to_shelf : 0.4187891483306885 -->
+2023-03-27 12:59:00,237: Logger: Control : steps_map : 0.4412972927093506 -->
+2023-03-27 12:59:00,241: Logger: Control : query_recived_order_shelfs_from_file : 0.003262042999267578 -->
+2023-03-27 12:59:00,245: Logger: Control : query_recived_order_shelfs_from_file : 0.0037789344787597656 -->
+2023-03-27 12:59:00,246: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-27 12:59:00,246: Logger: Robot --> R1 moved to location=[9, 2]
+2023-03-27 12:59:00,246: Logger: Control : move : 0.0002765655517578125 -->
+2023-03-27 12:59:00,580: Logger: Robot --> R4 moved to location=[7, 10]
+2023-03-27 12:59:00,581: Logger: Control : move : 0.00035190582275390625 -->
+2023-03-27 12:59:00,770: Logger: Control : steps_map_to_shelf : 0.524285078048706 -->
+2023-03-27 12:59:00,786: Logger: Control : steps_map : 0.5478503704071045 -->
+2023-03-27 12:59:00,788: Logger: Control : query_recived_order_shelfs_from_file : 0.0025031566619873047 -->
+2023-03-27 12:59:00,791: Logger: Control : query_recived_order_shelfs_from_file : 0.0024433135986328125 -->
+2023-03-27 12:59:01,210: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 12:59:01,211: Logger: Robot --> R4 moved to location=[6, 10]
+2023-03-27 12:59:01,211: Logger: Control : move : 0.0006279945373535156 -->
+2023-03-27 12:59:01,441: Logger: Control : steps_map_to_shelf : 0.6494081020355225 -->
+2023-03-27 12:59:01,458: Logger: Control : steps_map : 0.6721682548522949 -->
+2023-03-27 12:59:01,461: Logger: Control : query_recived_order_shelfs_from_file : 0.0027065277099609375 -->
+2023-03-27 12:59:01,464: Logger: Control : query_recived_order_shelfs_from_file : 0.0023221969604492188 -->
+2023-03-27 12:59:02,261: Logger: Control : steps_map_to_shelf : 0.7971985340118408 -->
+2023-03-27 12:59:02,277: Logger: Control : steps_map : 0.8184621334075928 -->
+2023-03-27 12:59:02,281: Logger: Control : query_recived_order_shelfs_from_file : 0.00366973876953125 -->
+2023-03-27 12:59:02,284: Logger: Control : query_recived_order_shelfs_from_file : 0.002674579620361328 -->
+2023-03-27 12:59:03,229: Logger: Control : steps_map_to_shelf : 0.9443860054016113 -->
+2023-03-27 12:59:03,245: Logger: Control : steps_map : 0.9675276279449463 -->
+2023-03-27 12:59:03,248: Logger: Control : query_recived_order_shelfs_from_file : 0.0025534629821777344 -->
+2023-03-27 12:59:03,250: Logger: Control : query_recived_order_shelfs_from_file : 0.002338886260986328 -->
+2023-03-27 12:59:04,330: Logger: Control : steps_map_to_shelf : 1.0798149108886719 -->
+2023-03-27 12:59:04,346: Logger: Control : steps_map : 1.1010518074035645 -->
+2023-03-27 12:59:04,349: Logger: Control : query_recived_order_shelfs_from_file : 0.002591371536254883 -->
+2023-03-27 12:59:04,352: Logger: Control : query_recived_order_shelfs_from_file : 0.0023033618927001953 -->
+2023-03-27 12:59:05,577: Logger: Control : steps_map_to_shelf : 1.22523832321167 -->
+2023-03-27 12:59:05,593: Logger: Control : steps_map : 1.2466444969177246 -->
+2023-03-27 12:59:05,596: Logger: Control : query_recived_order_shelfs_from_file : 0.002736330032348633 -->
+2023-03-27 12:59:05,599: Logger: Control : query_recived_order_shelfs_from_file : 0.002324819564819336 -->
+2023-03-27 12:59:06,969: Logger: Control : steps_map_to_shelf : 1.3699300289154053 -->
+2023-03-27 12:59:06,984: Logger: Control : steps_map : 1.3911614418029785 -->
+2023-03-27 12:59:06,988: Logger: Control : query_recived_order_shelfs_from_file : 0.002785205841064453 -->
+2023-03-27 12:59:06,990: Logger: Control : query_recived_order_shelfs_from_file : 0.0023698806762695312 -->
+2023-03-27 12:59:08,408: Logger: Control : steps_map_to_shelf : 1.4172289371490479 -->
+2023-03-27 12:59:08,420: Logger: Control : steps_map : 1.4354918003082275 -->
+2023-03-27 12:59:08,421: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 12:59:26,739: Logger: Shelf --> S1 is created with intial_location=[10, 9]
+2023-03-27 12:59:26,739: Logger: Shelf --> S2 is created with intial_location=[6, 7]
+2023-03-27 12:59:26,740: Logger: Shelf --> S3 is created with intial_location=[8, 8]
+2023-03-27 12:59:26,740: Logger: Shelf --> S4 is created with intial_location=[16, 11]
+2023-03-27 12:59:26,740: Logger: Shelf --> S5 is created with intial_location=[5, 9]
+2023-03-27 12:59:26,740: Logger: Robot --> R1 is created with speed=1, intial_location=[13, 1], intial_orientation=right battery_precentage=100
+2023-03-27 12:59:26,740: Logger: Robot --> R2 is created with speed=1, intial_location=[14, 11], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:26,740: Logger: Robot --> R3 is created with speed=1, intial_location=[3, 8], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:26,740: Logger: Robot --> R4 is created with speed=1, intial_location=[2, 9], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:26,740: Logger: Robot --> R5 is created with speed=1, intial_location=[7, 3], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:26,740: Logger: Robot --> R6 is created with speed=1, intial_location=[12, 0], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:26,740: Logger: Robot --> R7 is created with speed=1, intial_location=[8, 10], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:40,475: Logger: Shelf --> S1 is created with intial_location=[6, 7]
+2023-03-27 12:59:40,475: Logger: Shelf --> S2 is created with intial_location=[8, 6]
+2023-03-27 12:59:40,476: Logger: Shelf --> S3 is created with intial_location=[6, 5]
+2023-03-27 12:59:40,476: Logger: Shelf --> S4 is created with intial_location=[7, 9]
+2023-03-27 12:59:40,476: Logger: Shelf --> S5 is created with intial_location=[9, 10]
+2023-03-27 12:59:40,476: Logger: Robot --> R1 is created with speed=1, intial_location=[3, 2], intial_orientation=right battery_precentage=100
+2023-03-27 12:59:40,476: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 3], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:40,476: Logger: Robot --> R3 is created with speed=1, intial_location=[11, 4], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:40,477: Logger: Robot --> R4 is created with speed=1, intial_location=[7, 14], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:40,477: Logger: Robot --> R5 is created with speed=1, intial_location=[7, 3], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:40,477: Logger: Robot --> R6 is created with speed=1, intial_location=[11, 13], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:40,477: Logger: Robot --> R7 is created with speed=1, intial_location=[9, 9], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:40,500: Logger: Control : query_recived_order_shelfs_from_file : 0.004370689392089844 -->
+2023-03-27 12:59:40,503: Logger: Control : query_recived_order_shelfs_from_file : 0.0029799938201904297 -->
+2023-03-27 12:59:40,503: Logger: Control : min_cost_robots : 0.0034546852111816406 -->S1 ----> R5 (Min cost = 5) (Costs: [['R5', 5], ['R7', 5], ['R1', 8], ['R3', 8], ['R4', 8], ['R2', 10], ['R6', 11]])
+2023-03-27 12:59:40,504: Logger: Control : min_cost_robots : 0.0036859512329101562 -->S3 ----> R1 (Min cost = 6) (Costs: [['R1', 6], ['R3', 6], ['R7', 7], ['R2', 8], ['R4', 10], ['R6', 13]])
+2023-03-27 12:59:40,504: Logger: Control : min_cost_robots : 0.0038504600524902344 -->S2 ----> R7 (Min cost = 4) (Costs: [['R7', 4], ['R3', 5], ['R4', 9], ['R6', 10], ['R2', 11]])
+2023-03-27 12:59:40,504: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 12:59:40,504: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 12:59:40,504: Logger: Robot --> R5 moved to location=[7, 4]
+2023-03-27 12:59:40,504: Logger: Control : move : 0.000331878662109375 -->
+2023-03-27 12:59:40,869: Logger: Robot --> R1 moved to location=[3, 3]
+2023-03-27 12:59:40,869: Logger: Control : move : 0.0003528594970703125 -->
+2023-03-27 12:59:40,982: Logger: Robot --> R7 moved to location=[9, 8]
+2023-03-27 12:59:40,982: Logger: Control : move : 0.0002262592315673828 -->
+2023-03-27 12:59:41,090: Logger: Control : steps_map_to_shelf : 0.5862741470336914 -->
+2023-03-27 12:59:41,112: Logger: Control : steps_map : 0.616610050201416 -->
+2023-03-27 12:59:41,115: Logger: Control : query_recived_order_shelfs_from_file : 0.0032663345336914062 -->
+2023-03-27 12:59:41,119: Logger: Control : query_recived_order_shelfs_from_file : 0.0031785964965820312 -->
+2023-03-27 12:59:41,119: Logger: Robot --> R5 moved to location=[7, 5]
+2023-03-27 12:59:41,119: Logger: Control : move : 0.000102996826171875 -->
+2023-03-27 12:59:41,251: Logger: Robot --> R1 moved to location=[3, 4]
+2023-03-27 12:59:41,252: Logger: Control : move : 0.0002789497375488281 -->
+2023-03-27 12:59:41,373: Logger: Robot --> R7 moved to location=[9, 7]
+2023-03-27 12:59:41,374: Logger: Control : move : 0.0002689361572265625 -->
+2023-03-27 12:59:41,511: Logger: Control : steps_map_to_shelf : 0.39258837699890137 -->
+2023-03-27 12:59:41,527: Logger: Control : steps_map : 0.4151310920715332 -->
+2023-03-27 12:59:41,530: Logger: Control : query_recived_order_shelfs_from_file : 0.0025413036346435547 -->
+2023-03-27 12:59:41,532: Logger: Control : query_recived_order_shelfs_from_file : 0.0022749900817871094 -->
+2023-03-27 12:59:41,533: Logger: Robot --> R5 moved to location=[7, 6]
+2023-03-27 12:59:41,533: Logger: Control : move : 0.00011420249938964844 -->
+2023-03-27 12:59:41,703: Logger: Robot --> R1 moved to location=[3, 5]
+2023-03-27 12:59:41,703: Logger: Control : move : 0.000244140625 -->
+2023-03-27 12:59:41,871: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 12:59:41,871: Logger: Robot --> R7 moved to location=[8, 7]
+2023-03-27 12:59:41,871: Logger: Control : move : 0.0003495216369628906 -->
+2023-03-27 12:59:42,057: Logger: Control : steps_map_to_shelf : 0.52445387840271 -->
+2023-03-27 12:59:42,073: Logger: Control : steps_map : 0.5456061363220215 -->
+2023-03-27 12:59:42,076: Logger: Control : query_recived_order_shelfs_from_file : 0.0025358200073242188 -->
+2023-03-27 12:59:42,078: Logger: Control : query_recived_order_shelfs_from_file : 0.0024688243865966797 -->
+2023-03-27 12:59:42,079: Logger: Robot --> R5 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 12:59:42,079: Logger: Robot --> R5 moved to location=[6, 6]
+2023-03-27 12:59:42,079: Logger: Control : move : 0.0002224445343017578 -->
+2023-03-27 12:59:42,288: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-27 12:59:42,288: Logger: Robot --> R1 moved to location=[4, 5]
+2023-03-27 12:59:42,288: Logger: Control : move : 0.0003795623779296875 -->
+2023-03-27 12:59:42,735: Logger: Control : steps_map_to_shelf : 0.6559784412384033 -->
+2023-03-27 12:59:42,753: Logger: Control : steps_map : 0.6793863773345947 -->
+2023-03-27 12:59:42,755: Logger: Control : query_recived_order_shelfs_from_file : 0.0025403499603271484 -->
+2023-03-27 12:59:42,758: Logger: Control : query_recived_order_shelfs_from_file : 0.002393484115600586 -->
+2023-03-27 12:59:43,010: Logger: Robot --> R1 moved to location=[5, 5]
+2023-03-27 12:59:43,011: Logger: Control : move : 0.0002963542938232422 -->
+2023-03-27 12:59:43,561: Logger: Control : steps_map_to_shelf : 0.8029501438140869 -->
+2023-03-27 12:59:43,576: Logger: Control : steps_map : 0.8237113952636719 -->
+2023-03-27 12:59:43,579: Logger: Control : query_recived_order_shelfs_from_file : 0.002645254135131836 -->
+2023-03-27 12:59:43,582: Logger: Control : query_recived_order_shelfs_from_file : 0.002730846405029297 -->
+2023-03-27 12:59:44,507: Logger: Control : steps_map_to_shelf : 0.9245421886444092 -->
+2023-03-27 12:59:44,523: Logger: Control : steps_map : 0.945936918258667 -->
+2023-03-27 12:59:44,526: Logger: Control : query_recived_order_shelfs_from_file : 0.002780914306640625 -->
+2023-03-27 12:59:44,529: Logger: Control : query_recived_order_shelfs_from_file : 0.0023908615112304688 -->
+2023-03-27 12:59:45,602: Logger: Control : steps_map_to_shelf : 1.072751522064209 -->
+2023-03-27 12:59:45,619: Logger: Control : steps_map : 1.095560073852539 -->
+2023-03-27 12:59:45,622: Logger: Control : query_recived_order_shelfs_from_file : 0.002654552459716797 -->
+2023-03-27 12:59:45,625: Logger: Control : query_recived_order_shelfs_from_file : 0.0026590824127197266 -->
+2023-03-27 12:59:46,837: Logger: Control : steps_map_to_shelf : 1.212033987045288 -->
+2023-03-27 12:59:46,852: Logger: Control : steps_map : 1.2333080768585205 -->
+2023-03-27 12:59:46,855: Logger: Control : query_recived_order_shelfs_from_file : 0.002552032470703125 -->
+2023-03-27 12:59:46,858: Logger: Control : query_recived_order_shelfs_from_file : 0.0025572776794433594 -->
+2023-03-27 12:59:48,197: Logger: Control : steps_map_to_shelf : 1.3385720252990723 -->
+2023-03-27 12:59:48,213: Logger: Control : steps_map : 1.3600170612335205 -->
+2023-03-27 12:59:48,216: Logger: Control : query_recived_order_shelfs_from_file : 0.0027153491973876953 -->
+2023-03-27 12:59:48,218: Logger: Control : query_recived_order_shelfs_from_file : 0.0023407936096191406 -->
+2023-03-27 12:59:49,620: Logger: Control : steps_map_to_shelf : 1.4009346961975098 -->
+2023-03-27 12:59:49,632: Logger: Control : steps_map : 1.4188613891601562 -->
+2023-03-27 12:59:49,632: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 12:59:51,960: Logger: Shelf --> S1 is created with intial_location=[8, 9]
+2023-03-27 12:59:51,960: Logger: Shelf --> S2 is created with intial_location=[6, 4]
+2023-03-27 12:59:51,960: Logger: Shelf --> S3 is created with intial_location=[7, 8]
+2023-03-27 12:59:51,960: Logger: Shelf --> S4 is created with intial_location=[7, 7]
+2023-03-27 12:59:51,960: Logger: Shelf --> S5 is created with intial_location=[9, 5]
+2023-03-27 12:59:51,960: Logger: Robot --> R1 is created with speed=1, intial_location=[13, 0], intial_orientation=right battery_precentage=100
+2023-03-27 12:59:51,961: Logger: Robot --> R2 is created with speed=1, intial_location=[9, 1], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:51,961: Logger: Robot --> R3 is created with speed=1, intial_location=[0, 8], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:51,961: Logger: Robot --> R4 is created with speed=1, intial_location=[4, 3], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:51,961: Logger: Robot --> R5 is created with speed=1, intial_location=[7, 14], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:51,961: Logger: Robot --> R6 is created with speed=1, intial_location=[10, 6], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:51,961: Logger: Robot --> R7 is created with speed=1, intial_location=[14, 14], intial_orientation=left battery_precentage=100
+2023-03-27 12:59:51,981: Logger: Control : query_recived_order_shelfs_from_file : 0.0032875537872314453 -->
+2023-03-27 12:59:51,984: Logger: Control : query_recived_order_shelfs_from_file : 0.002491474151611328 -->
+2023-03-27 12:59:51,984: Logger: Control : min_cost_robots : 0.002900838851928711 -->S2 ----> R4 (Min cost = 3) (Costs: [['R4', 3], ['R2', 6], ['R6', 6], ['R3', 10], ['R1', 11], ['R5', 11], ['R7', 18]])
+2023-03-27 12:59:51,984: Logger: Control : min_cost_robots : 0.0032052993774414062 -->S1 ----> R6 (Min cost = 5) (Costs: [['R6', 5], ['R5', 6], ['R2', 9], ['R3', 9], ['R7', 11], ['R1', 14]])
+2023-03-27 12:59:51,984: Logger: Control : min_cost_robots : 0.0033919811248779297 -->S3 ----> R5 (Min cost = 6) (Costs: [['R5', 6], ['R3', 7], ['R2', 9], ['R7', 13], ['R1', 14]])
+2023-03-27 12:59:51,985: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 12:59:51,985: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 12:59:51,985: Logger: Robot --> R4 moved to location=[4, 4]
+2023-03-27 12:59:51,985: Logger: Control : move : 0.0003902912139892578 -->
+2023-03-27 12:59:52,315: Logger: Robot --> R6 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 12:59:52,315: Logger: Robot --> R6 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 12:59:52,316: Logger: Robot --> R6 moved to location=[10, 7]
+2023-03-27 12:59:52,316: Logger: Control : move : 0.0006763935089111328 -->
+2023-03-27 12:59:52,429: Logger: Robot --> R5 moved to location=[7, 13]
+2023-03-27 12:59:52,430: Logger: Control : move : 0.00024008750915527344 -->
+2023-03-27 12:59:52,530: Logger: Control : steps_map_to_shelf : 0.5455732345581055 -->
+2023-03-27 12:59:52,547: Logger: Control : steps_map : 0.5693469047546387 -->
+2023-03-27 12:59:52,550: Logger: Control : query_recived_order_shelfs_from_file : 0.002532958984375 -->
+2023-03-27 12:59:52,552: Logger: Control : query_recived_order_shelfs_from_file : 0.0024411678314208984 -->
+2023-03-27 12:59:52,553: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-27 12:59:52,553: Logger: Robot --> R4 moved to location=[5, 4]
+2023-03-27 12:59:52,553: Logger: Control : move : 0.00029349327087402344 -->
+2023-03-27 12:59:52,658: Logger: Robot --> R6 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 12:59:52,659: Logger: Robot --> R6 moved to location=[9, 7]
+2023-03-27 12:59:52,659: Logger: Control : move : 0.0004374980926513672 -->
+2023-03-27 12:59:52,802: Logger: Robot --> R5 moved to location=[7, 12]
+2023-03-27 12:59:52,802: Logger: Control : move : 0.0004031658172607422 -->
+2023-03-27 12:59:52,951: Logger: Control : steps_map_to_shelf : 0.39836764335632324 -->
+2023-03-27 12:59:52,968: Logger: Control : steps_map : 0.4208645820617676 -->
+2023-03-27 12:59:52,971: Logger: Control : query_recived_order_shelfs_from_file : 0.002567291259765625 -->
+2023-03-27 12:59:52,973: Logger: Control : query_recived_order_shelfs_from_file : 0.0024073123931884766 -->
+2023-03-27 12:59:53,126: Logger: Robot --> R6 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 12:59:53,127: Logger: Robot --> R6 moved to location=[9, 8]
+2023-03-27 12:59:53,127: Logger: Control : move : 0.0003402233123779297 -->
+2023-03-27 12:59:53,306: Logger: Robot --> R5 moved to location=[7, 11]
+2023-03-27 12:59:53,306: Logger: Control : move : 0.00026154518127441406 -->
+2023-03-27 12:59:53,498: Logger: Control : steps_map_to_shelf : 0.5246114730834961 -->
+2023-03-27 12:59:53,514: Logger: Control : steps_map : 0.5456373691558838 -->
+2023-03-27 12:59:53,516: Logger: Control : query_recived_order_shelfs_from_file : 0.0024039745330810547 -->
+2023-03-27 12:59:53,519: Logger: Control : query_recived_order_shelfs_from_file : 0.0025739669799804688 -->
+2023-03-27 12:59:53,718: Logger: Robot --> R6 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 12:59:53,718: Logger: Robot --> R6 moved to location=[8, 8]
+2023-03-27 12:59:53,718: Logger: Control : move : 0.0006468296051025391 -->
+2023-03-27 12:59:53,944: Logger: Robot --> R5 moved to location=[7, 10]
+2023-03-27 12:59:53,944: Logger: Control : move : 0.00031113624572753906 -->
+2023-03-27 12:59:54,184: Logger: Control : steps_map_to_shelf : 0.6646914482116699 -->
+2023-03-27 12:59:54,200: Logger: Control : steps_map : 0.6856908798217773 -->
+2023-03-27 12:59:54,203: Logger: Control : query_recived_order_shelfs_from_file : 0.002763509750366211 -->
+2023-03-27 12:59:54,206: Logger: Control : query_recived_order_shelfs_from_file : 0.002383708953857422 -->
+2023-03-27 12:59:54,733: Logger: Robot --> R5 moved to location=[7, 9]
+2023-03-27 12:59:54,734: Logger: Control : move : 0.00037097930908203125 -->
+2023-03-27 12:59:55,023: Logger: Control : steps_map_to_shelf : 0.81717848777771 -->
+2023-03-27 12:59:55,039: Logger: Control : steps_map : 0.8389778137207031 -->
+2023-03-27 12:59:55,043: Logger: Control : query_recived_order_shelfs_from_file : 0.002959728240966797 -->
+2023-03-27 12:59:55,045: Logger: Control : query_recived_order_shelfs_from_file : 0.0025167465209960938 -->
+2023-03-27 12:59:55,998: Logger: Control : steps_map_to_shelf : 0.9520642757415771 -->
+2023-03-27 12:59:56,014: Logger: Control : steps_map : 0.9740662574768066 -->
+2023-03-27 12:59:56,017: Logger: Control : query_recived_order_shelfs_from_file : 0.0026884078979492188 -->
+2023-03-27 12:59:56,019: Logger: Control : query_recived_order_shelfs_from_file : 0.0025959014892578125 -->
+2023-03-27 12:59:57,101: Logger: Control : steps_map_to_shelf : 1.0808663368225098 -->
+2023-03-27 12:59:57,116: Logger: Control : steps_map : 1.1023480892181396 -->
+2023-03-27 12:59:57,119: Logger: Control : query_recived_order_shelfs_from_file : 0.0026404857635498047 -->
+2023-03-27 12:59:57,122: Logger: Control : query_recived_order_shelfs_from_file : 0.0023772716522216797 -->
+2023-03-27 12:59:58,230: Logger: Control : steps_map_to_shelf : 1.1079819202423096 -->
+2023-03-27 12:59:58,242: Logger: Control : steps_map : 1.1252415180206299 -->
+2023-03-27 12:59:58,244: Logger: Control : query_recived_order_shelfs_from_file : 0.0020074844360351562 -->
+2023-03-27 12:59:58,246: Logger: Control : query_recived_order_shelfs_from_file : 0.0017840862274169922 -->
+2023-03-27 12:59:59,151: Logger: Control : steps_map_to_shelf : 0.9047565460205078 -->
+2023-03-27 12:59:59,161: Logger: Control : steps_map : 0.9187233448028564 -->
+2023-03-27 12:59:59,163: Logger: Control : query_recived_order_shelfs_from_file : 0.0017654895782470703 -->
+2023-03-27 12:59:59,165: Logger: Control : query_recived_order_shelfs_from_file : 0.0015625953674316406 -->
+2023-03-27 13:00:00,116: Logger: Control : steps_map_to_shelf : 0.9514541625976562 -->
+2023-03-27 13:00:00,126: Logger: Control : steps_map : 0.964900016784668 -->
+2023-03-27 13:00:00,126: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:00:06,172: Logger: Shelf --> S1 is created with intial_location=[11, 10]
+2023-03-27 13:00:06,172: Logger: Shelf --> S2 is created with intial_location=[4, 9]
+2023-03-27 13:00:06,172: Logger: Shelf --> S3 is created with intial_location=[9, 8]
+2023-03-27 13:00:06,172: Logger: Shelf --> S4 is created with intial_location=[10, 5]
+2023-03-27 13:00:06,173: Logger: Shelf --> S5 is created with intial_location=[11, 8]
+2023-03-27 13:00:06,173: Logger: Robot --> R1 is created with speed=1, intial_location=[12, 0], intial_orientation=right battery_precentage=100
+2023-03-27 13:00:06,173: Logger: Robot --> R2 is created with speed=1, intial_location=[9, 11], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:06,173: Logger: Robot --> R3 is created with speed=1, intial_location=[9, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:06,173: Logger: Robot --> R4 is created with speed=1, intial_location=[14, 10], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:06,173: Logger: Robot --> R5 is created with speed=1, intial_location=[2, 8], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:06,173: Logger: Robot --> R6 is created with speed=1, intial_location=[1, 10], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:06,174: Logger: Robot --> R7 is created with speed=1, intial_location=[14, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:06,196: Logger: Control : query_recived_order_shelfs_from_file : 0.004582405090332031 -->
+2023-03-27 13:00:06,199: Logger: Control : query_recived_order_shelfs_from_file : 0.0026540756225585938 -->
+2023-03-27 13:00:06,200: Logger: Control : min_cost_robots : 0.0031845569610595703 -->S2 ----> R5 (Min cost = 3) (Costs: [['R5', 3], ['R6', 4], ['R2', 7], ['R3', 8], ['R4', 11], ['R7', 13], ['R1', 17]])
+2023-03-27 13:00:06,200: Logger: Control : min_cost_robots : 0.0034837722778320312 -->S3 ----> R2 (Min cost = 3) (Costs: [['R2', 3], ['R3', 4], ['R4', 7], ['R7', 9], ['R6', 10], ['R1', 11]])
+2023-03-27 13:00:06,200: Logger: Control : min_cost_robots : 0.0037004947662353516 -->S1 ----> R4 (Min cost = 3) (Costs: [['R4', 3], ['R3', 4], ['R7', 5], ['R6', 10], ['R1', 11]])
+2023-03-27 13:00:06,201: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:00:06,201: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:00:06,201: Logger: Robot --> R5 moved to location=[2, 9]
+2023-03-27 13:00:06,201: Logger: Control : move : 0.0004343986511230469 -->
+2023-03-27 13:00:06,587: Logger: Robot --> R2 moved to location=[9, 10]
+2023-03-27 13:00:06,588: Logger: Control : move : 0.0002999305725097656 -->
+2023-03-27 13:00:06,669: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:00:06,669: Logger: Robot --> R4 moved to location=[13, 10]
+2023-03-27 13:00:06,669: Logger: Control : move : 0.0005173683166503906 -->
+2023-03-27 13:00:06,764: Logger: Control : steps_map_to_shelf : 0.5638699531555176 -->
+2023-03-27 13:00:06,781: Logger: Control : steps_map : 0.5892705917358398 -->
+2023-03-27 13:00:06,784: Logger: Control : query_recived_order_shelfs_from_file : 0.0024919509887695312 -->
+2023-03-27 13:00:06,786: Logger: Control : query_recived_order_shelfs_from_file : 0.0023887157440185547 -->
+2023-03-27 13:00:06,787: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-27 13:00:06,787: Logger: Robot --> R5 moved to location=[3, 9]
+2023-03-27 13:00:06,787: Logger: Control : move : 0.00026726722717285156 -->
+2023-03-27 13:00:06,901: Logger: Robot --> R2 moved to location=[9, 9]
+2023-03-27 13:00:06,901: Logger: Control : move : 0.0003190040588378906 -->
+2023-03-27 13:00:07,027: Logger: Robot --> R4 moved to location=[12, 10]
+2023-03-27 13:00:07,027: Logger: Control : move : 0.00027060508728027344 -->
+2023-03-27 13:00:07,165: Logger: Control : steps_map_to_shelf : 0.3789668083190918 -->
+2023-03-27 13:00:07,181: Logger: Control : steps_map : 0.4002408981323242 -->
+2023-03-27 13:00:07,184: Logger: Control : query_recived_order_shelfs_from_file : 0.0024459362030029297 -->
+2023-03-27 13:00:07,186: Logger: Control : query_recived_order_shelfs_from_file : 0.0022563934326171875 -->
+2023-03-27 13:00:07,696: Logger: Control : steps_map_to_shelf : 0.5097246170043945 -->
+2023-03-27 13:00:07,713: Logger: Control : steps_map : 0.5314311981201172 -->
+2023-03-27 13:00:07,716: Logger: Control : query_recived_order_shelfs_from_file : 0.002556324005126953 -->
+2023-03-27 13:00:07,719: Logger: Control : query_recived_order_shelfs_from_file : 0.0024673938751220703 -->
+2023-03-27 13:00:08,376: Logger: Control : steps_map_to_shelf : 0.6570048332214355 -->
+2023-03-27 13:00:08,392: Logger: Control : steps_map : 0.6783249378204346 -->
+2023-03-27 13:00:08,395: Logger: Control : query_recived_order_shelfs_from_file : 0.002599954605102539 -->
+2023-03-27 13:00:08,397: Logger: Control : query_recived_order_shelfs_from_file : 0.0023369789123535156 -->
+2023-03-27 13:00:09,189: Logger: Control : steps_map_to_shelf : 0.7920291423797607 -->
+2023-03-27 13:00:09,206: Logger: Control : steps_map : 0.8136727809906006 -->
+2023-03-27 13:00:09,209: Logger: Control : query_recived_order_shelfs_from_file : 0.0032036304473876953 -->
+2023-03-27 13:00:09,212: Logger: Control : query_recived_order_shelfs_from_file : 0.0023813247680664062 -->
+2023-03-27 13:00:10,142: Logger: Control : steps_map_to_shelf : 0.9298644065856934 -->
+2023-03-27 13:00:10,158: Logger: Control : steps_map : 0.9518425464630127 -->
+2023-03-27 13:00:10,161: Logger: Control : query_recived_order_shelfs_from_file : 0.002622842788696289 -->
+2023-03-27 13:00:10,163: Logger: Control : query_recived_order_shelfs_from_file : 0.0022902488708496094 -->
+2023-03-27 13:00:11,234: Logger: Control : steps_map_to_shelf : 1.070826530456543 -->
+2023-03-27 13:00:11,250: Logger: Control : steps_map : 1.0917725563049316 -->
+2023-03-27 13:00:11,253: Logger: Control : query_recived_order_shelfs_from_file : 0.0025594234466552734 -->
+2023-03-27 13:00:11,256: Logger: Control : query_recived_order_shelfs_from_file : 0.002515077590942383 -->
+2023-03-27 13:00:12,473: Logger: Control : steps_map_to_shelf : 1.216977596282959 -->
+2023-03-27 13:00:12,489: Logger: Control : steps_map : 1.2387163639068604 -->
+2023-03-27 13:00:12,492: Logger: Control : query_recived_order_shelfs_from_file : 0.002882242202758789 -->
+2023-03-27 13:00:12,495: Logger: Control : query_recived_order_shelfs_from_file : 0.002381563186645508 -->
+2023-03-27 13:00:13,851: Logger: Control : steps_map_to_shelf : 1.3563592433929443 -->
+2023-03-27 13:00:13,867: Logger: Control : steps_map : 1.378159523010254 -->
+2023-03-27 13:00:13,870: Logger: Control : query_recived_order_shelfs_from_file : 0.002593994140625 -->
+2023-03-27 13:00:13,873: Logger: Control : query_recived_order_shelfs_from_file : 0.002346038818359375 -->
+2023-03-27 13:00:15,127: Logger: Control : steps_map_to_shelf : 1.2543020248413086 -->
+2023-03-27 13:00:15,138: Logger: Control : steps_map : 1.2701637744903564 -->
+2023-03-27 13:00:15,138: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:00:16,620: Logger: Shelf --> S1 is created with intial_location=[6, 8]
+2023-03-27 13:00:16,620: Logger: Shelf --> S2 is created with intial_location=[6, 4]
+2023-03-27 13:00:16,620: Logger: Shelf --> S3 is created with intial_location=[9, 9]
+2023-03-27 13:00:16,620: Logger: Shelf --> S4 is created with intial_location=[5, 6]
+2023-03-27 13:00:16,620: Logger: Shelf --> S5 is created with intial_location=[10, 3]
+2023-03-27 13:00:16,620: Logger: Robot --> R1 is created with speed=1, intial_location=[8, 3], intial_orientation=right battery_precentage=100
+2023-03-27 13:00:16,620: Logger: Robot --> R2 is created with speed=1, intial_location=[3, 2], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:16,620: Logger: Robot --> R3 is created with speed=1, intial_location=[6, 11], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:16,620: Logger: Robot --> R4 is created with speed=1, intial_location=[6, 6], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:16,621: Logger: Robot --> R5 is created with speed=1, intial_location=[9, 3], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:16,621: Logger: Robot --> R6 is created with speed=1, intial_location=[6, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:16,621: Logger: Robot --> R7 is created with speed=1, intial_location=[1, 13], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:16,642: Logger: Control : query_recived_order_shelfs_from_file : 0.0037484169006347656 -->
+2023-03-27 13:00:16,644: Logger: Control : query_recived_order_shelfs_from_file : 0.002371549606323242 -->
+2023-03-27 13:00:16,645: Logger: Control : min_cost_robots : 0.002747774124145508 -->S3 ----> R3 (Min cost = 5) (Costs: [['R3', 5], ['R4', 6], ['R5', 6], ['R6', 6], ['R1', 7], ['R7', 12], ['R2', 13]])
+2023-03-27 13:00:16,645: Logger: Control : min_cost_robots : 0.0030570030212402344 -->S1 ----> R4 (Min cost = 2) (Costs: [['R4', 2], ['R6', 4], ['R1', 7], ['R5', 8], ['R2', 9], ['R7', 10]])
+2023-03-27 13:00:16,645: Logger: Control : min_cost_robots : 0.0032854080200195312 -->S2 ----> R1 (Min cost = 3) (Costs: [['R1', 3], ['R5', 4], ['R2', 5], ['R6', 8], ['R7', 14]])
+2023-03-27 13:00:16,646: Logger: Robot --> R3 moved to location=[6, 10]
+2023-03-27 13:00:16,646: Logger: Control : move : 0.00017642974853515625 -->
+2023-03-27 13:00:16,960: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:00:16,961: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:00:16,961: Logger: Robot --> R4 moved to location=[6, 7]
+2023-03-27 13:00:16,961: Logger: Control : move : 0.0005846023559570312 -->
+2023-03-27 13:00:17,044: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 13:00:17,044: Logger: Robot --> R1 moved to location=[7, 3]
+2023-03-27 13:00:17,044: Logger: Control : move : 0.00042128562927246094 -->
+2023-03-27 13:00:17,140: Logger: Control : steps_map_to_shelf : 0.494478702545166 -->
+2023-03-27 13:00:17,156: Logger: Control : steps_map : 0.5182316303253174 -->
+2023-03-27 13:00:17,159: Logger: Control : query_recived_order_shelfs_from_file : 0.0024509429931640625 -->
+2023-03-27 13:00:17,162: Logger: Control : query_recived_order_shelfs_from_file : 0.0024518966674804688 -->
+2023-03-27 13:00:17,162: Logger: Robot --> R3 moved to location=[6, 9]
+2023-03-27 13:00:17,162: Logger: Control : move : 0.00011968612670898438 -->
+2023-03-27 13:00:17,397: Logger: Robot --> R1 moved to location=[6, 3]
+2023-03-27 13:00:17,397: Logger: Control : move : 0.0003521442413330078 -->
+2023-03-27 13:00:17,535: Logger: Control : steps_map_to_shelf : 0.37320828437805176 -->
+2023-03-27 13:00:17,551: Logger: Control : steps_map : 0.394390344619751 -->
+2023-03-27 13:00:17,554: Logger: Control : query_recived_order_shelfs_from_file : 0.0025343894958496094 -->
+2023-03-27 13:00:17,556: Logger: Control : query_recived_order_shelfs_from_file : 0.0023081302642822266 -->
+2023-03-27 13:00:17,557: Logger: Robot --> R3 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-27 13:00:17,557: Logger: Robot --> R3 moved to location=[7, 9]
+2023-03-27 13:00:17,557: Logger: Control : move : 0.00031280517578125 -->
+2023-03-27 13:00:18,066: Logger: Control : steps_map_to_shelf : 0.5098445415496826 -->
+2023-03-27 13:00:18,082: Logger: Control : steps_map : 0.5309567451477051 -->
+2023-03-27 13:00:18,085: Logger: Control : query_recived_order_shelfs_from_file : 0.0025315284729003906 -->
+2023-03-27 13:00:18,088: Logger: Control : query_recived_order_shelfs_from_file : 0.002431631088256836 -->
+2023-03-27 13:00:18,088: Logger: Robot --> R3 moved to location=[8, 9]
+2023-03-27 13:00:18,088: Logger: Control : move : 0.0001201629638671875 -->
+2023-03-27 13:00:18,749: Logger: Control : steps_map_to_shelf : 0.6606707572937012 -->
+2023-03-27 13:00:18,765: Logger: Control : steps_map : 0.6819093227386475 -->
+2023-03-27 13:00:18,767: Logger: Control : query_recived_order_shelfs_from_file : 0.002584218978881836 -->
+2023-03-27 13:00:18,770: Logger: Control : query_recived_order_shelfs_from_file : 0.0023398399353027344 -->
+2023-03-27 13:00:19,568: Logger: Control : steps_map_to_shelf : 0.7977583408355713 -->
+2023-03-27 13:00:19,584: Logger: Control : steps_map : 0.8190178871154785 -->
+2023-03-27 13:00:19,587: Logger: Control : query_recived_order_shelfs_from_file : 0.0026035308837890625 -->
+2023-03-27 13:00:19,589: Logger: Control : query_recived_order_shelfs_from_file : 0.0024433135986328125 -->
+2023-03-27 13:00:20,525: Logger: Control : steps_map_to_shelf : 0.9351112842559814 -->
+2023-03-27 13:00:20,540: Logger: Control : steps_map : 0.9558494091033936 -->
+2023-03-27 13:00:20,543: Logger: Control : query_recived_order_shelfs_from_file : 0.002868175506591797 -->
+2023-03-27 13:00:20,546: Logger: Control : query_recived_order_shelfs_from_file : 0.002261638641357422 -->
+2023-03-27 13:00:21,409: Logger: Control : steps_map_to_shelf : 0.8632502555847168 -->
+2023-03-27 13:00:21,420: Logger: Control : steps_map : 0.879457950592041 -->
+2023-03-27 13:00:21,422: Logger: Control : query_recived_order_shelfs_from_file : 0.0018961429595947266 -->
+2023-03-27 13:00:21,424: Logger: Control : query_recived_order_shelfs_from_file : 0.0017888545989990234 -->
+2023-03-27 13:00:22,204: Logger: Control : steps_map_to_shelf : 0.7792539596557617 -->
+2023-03-27 13:00:22,214: Logger: Control : steps_map : 0.794064998626709 -->
+2023-03-27 13:00:22,216: Logger: Control : query_recived_order_shelfs_from_file : 0.0018668174743652344 -->
+2023-03-27 13:00:22,218: Logger: Control : query_recived_order_shelfs_from_file : 0.001695394515991211 -->
+2023-03-27 13:00:23,079: Logger: Control : steps_map_to_shelf : 0.8601639270782471 -->
+2023-03-27 13:00:23,089: Logger: Control : steps_map : 0.8740487098693848 -->
+2023-03-27 13:00:23,091: Logger: Control : query_recived_order_shelfs_from_file : 0.0017554759979248047 -->
+2023-03-27 13:00:23,092: Logger: Control : query_recived_order_shelfs_from_file : 0.001565694808959961 -->
+2023-03-27 13:00:24,039: Logger: Control : steps_map_to_shelf : 0.9469642639160156 -->
+2023-03-27 13:00:24,049: Logger: Control : steps_map : 0.9605181217193604 -->
+2023-03-27 13:00:24,050: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:00:29,118: Logger: Shelf --> S1 is created with intial_location=[8, 5]
+2023-03-27 13:00:29,119: Logger: Shelf --> S2 is created with intial_location=[10, 8]
+2023-03-27 13:00:29,119: Logger: Shelf --> S3 is created with intial_location=[12, 7]
+2023-03-27 13:00:29,119: Logger: Shelf --> S4 is created with intial_location=[4, 10]
+2023-03-27 13:00:29,119: Logger: Shelf --> S5 is created with intial_location=[9, 13]
+2023-03-27 13:00:29,119: Logger: Robot --> R1 is created with speed=1, intial_location=[9, 1], intial_orientation=right battery_precentage=100
+2023-03-27 13:00:29,119: Logger: Robot --> R2 is created with speed=1, intial_location=[8, 2], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:29,119: Logger: Robot --> R3 is created with speed=1, intial_location=[7, 3], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:29,119: Logger: Robot --> R4 is created with speed=1, intial_location=[8, 5], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:29,119: Logger: Robot --> R5 is created with speed=1, intial_location=[4, 1], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:29,120: Logger: Robot --> R6 is created with speed=1, intial_location=[11, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:29,120: Logger: Robot --> R7 is created with speed=1, intial_location=[11, 7], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:29,142: Logger: Control : query_recived_order_shelfs_from_file : 0.0045583248138427734 -->
+2023-03-27 13:00:29,146: Logger: Control : query_recived_order_shelfs_from_file : 0.0029888153076171875 -->
+2023-03-27 13:00:29,146: Logger: Control : min_cost_robots : 0.0034856796264648438 -->S3 ----> R7 (Min cost = 1) (Costs: [['R7', 1], ['R4', 6], ['R6', 6], ['R1', 9], ['R2', 9], ['R3', 9], ['R5', 14]])
+2023-03-27 13:00:29,146: Logger: Control : min_cost_robots : 0.0037813186645507812 -->S2 ----> R4 (Min cost = 5) (Costs: [['R4', 5], ['R6', 5], ['R1', 8], ['R2', 8], ['R3', 8], ['R5', 13]])
+2023-03-27 13:00:29,147: Logger: Control : min_cost_robots : 0.004019260406494141 -->S1 ----> R2 (Min cost = 3) (Costs: [['R2', 3], ['R3', 3], ['R1', 5], ['R5', 8], ['R6', 10]])
+2023-03-27 13:00:29,529: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:00:29,529: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:00:29,529: Logger: Robot --> R4 moved to location=[8, 6]
+2023-03-27 13:00:29,529: Logger: Control : move : 0.0005936622619628906 -->
+2023-03-27 13:00:29,627: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:00:29,627: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:00:29,627: Logger: Robot --> R2 moved to location=[8, 3]
+2023-03-27 13:00:29,628: Logger: Control : move : 0.0007061958312988281 -->
+2023-03-27 13:00:29,724: Logger: Control : steps_map_to_shelf : 0.5770375728607178 -->
+2023-03-27 13:00:29,740: Logger: Control : steps_map : 0.6019232273101807 -->
+2023-03-27 13:00:29,742: Logger: Control : query_recived_order_shelfs_from_file : 0.0026001930236816406 -->
+2023-03-27 13:00:29,745: Logger: Control : query_recived_order_shelfs_from_file : 0.0024080276489257812 -->
+2023-03-27 13:00:29,851: Logger: Robot --> R4 moved to location=[8, 7]
+2023-03-27 13:00:29,851: Logger: Control : move : 0.0002677440643310547 -->
+2023-03-27 13:00:29,975: Logger: Robot --> R2 moved to location=[8, 4]
+2023-03-27 13:00:29,976: Logger: Control : move : 0.0002346038818359375 -->
+2023-03-27 13:00:30,117: Logger: Control : steps_map_to_shelf : 0.3721284866333008 -->
+2023-03-27 13:00:30,135: Logger: Control : steps_map : 0.39545392990112305 -->
+2023-03-27 13:00:30,138: Logger: Control : query_recived_order_shelfs_from_file : 0.002498149871826172 -->
+2023-03-27 13:00:30,141: Logger: Control : query_recived_order_shelfs_from_file : 0.0025882720947265625 -->
+2023-03-27 13:00:30,299: Logger: Robot --> R4 moved to location=[8, 8]
+2023-03-27 13:00:30,299: Logger: Control : move : 0.00024819374084472656 -->
+2023-03-27 13:00:30,658: Logger: Control : steps_map_to_shelf : 0.5174524784088135 -->
+2023-03-27 13:00:30,675: Logger: Control : steps_map : 0.5394577980041504 -->
+2023-03-27 13:00:30,678: Logger: Control : query_recived_order_shelfs_from_file : 0.0027577877044677734 -->
+2023-03-27 13:00:30,681: Logger: Control : query_recived_order_shelfs_from_file : 0.002478361129760742 -->
+2023-03-27 13:00:30,881: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-27 13:00:30,882: Logger: Robot --> R4 moved to location=[9, 8]
+2023-03-27 13:00:30,882: Logger: Control : move : 0.0004172325134277344 -->
+2023-03-27 13:00:31,333: Logger: Control : steps_map_to_shelf : 0.6521697044372559 -->
+2023-03-27 13:00:31,349: Logger: Control : steps_map : 0.6738462448120117 -->
+2023-03-27 13:00:31,352: Logger: Control : query_recived_order_shelfs_from_file : 0.0026006698608398438 -->
+2023-03-27 13:00:31,355: Logger: Control : query_recived_order_shelfs_from_file : 0.0023527145385742188 -->
+2023-03-27 13:00:32,142: Logger: Control : steps_map_to_shelf : 0.7869958877563477 -->
+2023-03-27 13:00:32,157: Logger: Control : steps_map : 0.8079142570495605 -->
+2023-03-27 13:00:32,160: Logger: Control : query_recived_order_shelfs_from_file : 0.0025136470794677734 -->
+2023-03-27 13:00:32,163: Logger: Control : query_recived_order_shelfs_from_file : 0.0023970603942871094 -->
+2023-03-27 13:00:33,082: Logger: Control : steps_map_to_shelf : 0.9190659523010254 -->
+2023-03-27 13:00:33,098: Logger: Control : steps_map : 0.9400186538696289 -->
+2023-03-27 13:00:33,101: Logger: Control : query_recived_order_shelfs_from_file : 0.002787351608276367 -->
+2023-03-27 13:00:33,104: Logger: Control : query_recived_order_shelfs_from_file : 0.002519369125366211 -->
+2023-03-27 13:00:34,160: Logger: Control : steps_map_to_shelf : 1.0562551021575928 -->
+2023-03-27 13:00:34,176: Logger: Control : steps_map : 1.0776185989379883 -->
+2023-03-27 13:00:34,179: Logger: Control : query_recived_order_shelfs_from_file : 0.0026712417602539062 -->
+2023-03-27 13:00:34,182: Logger: Control : query_recived_order_shelfs_from_file : 0.002734661102294922 -->
+2023-03-27 13:00:35,385: Logger: Control : steps_map_to_shelf : 1.2028510570526123 -->
+2023-03-27 13:00:35,400: Logger: Control : steps_map : 1.2244036197662354 -->
+2023-03-27 13:00:35,403: Logger: Control : query_recived_order_shelfs_from_file : 0.0025513172149658203 -->
+2023-03-27 13:00:35,406: Logger: Control : query_recived_order_shelfs_from_file : 0.0023996829986572266 -->
+2023-03-27 13:00:36,755: Logger: Control : steps_map_to_shelf : 1.348832130432129 -->
+2023-03-27 13:00:36,771: Logger: Control : steps_map : 1.3701634407043457 -->
+2023-03-27 13:00:36,774: Logger: Control : query_recived_order_shelfs_from_file : 0.002688169479370117 -->
+2023-03-27 13:00:36,777: Logger: Control : query_recived_order_shelfs_from_file : 0.002641439437866211 -->
+2023-03-27 13:00:37,912: Logger: Control : steps_map_to_shelf : 1.1347041130065918 -->
+2023-03-27 13:00:37,923: Logger: Control : steps_map : 1.1513633728027344 -->
+2023-03-27 13:00:37,923: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:00:54,103: Logger: Shelf --> S1 is created with intial_location=[12, 10]
+2023-03-27 13:00:54,103: Logger: Shelf --> S2 is created with intial_location=[2, 6]
+2023-03-27 13:00:54,104: Logger: Shelf --> S3 is created with intial_location=[4, 7]
+2023-03-27 13:00:54,104: Logger: Shelf --> S4 is created with intial_location=[5, 6]
+2023-03-27 13:00:54,104: Logger: Shelf --> S5 is created with intial_location=[10, 8]
+2023-03-27 13:00:54,104: Logger: Robot --> R1 is created with speed=1, intial_location=[12, 13], intial_orientation=right battery_precentage=100
+2023-03-27 13:00:54,104: Logger: Robot --> R2 is created with speed=1, intial_location=[0, 8], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:54,104: Logger: Robot --> R3 is created with speed=1, intial_location=[10, 3], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:54,104: Logger: Robot --> R4 is created with speed=1, intial_location=[1, 14], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:54,104: Logger: Robot --> R5 is created with speed=1, intial_location=[3, 2], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:54,105: Logger: Robot --> R6 is created with speed=1, intial_location=[13, 7], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:54,105: Logger: Robot --> R7 is created with speed=1, intial_location=[7, 6], intial_orientation=left battery_precentage=100
+2023-03-27 13:00:54,128: Logger: Control : query_recived_order_shelfs_from_file : 0.005102396011352539 -->
+2023-03-27 13:00:54,131: Logger: Control : query_recived_order_shelfs_from_file : 0.0028836727142333984 -->
+2023-03-27 13:00:54,132: Logger: Control : min_cost_robots : 0.0033996105194091797 -->S1 ----> R1 (Min cost = 3) (Costs: [['R1', 3], ['R6', 4], ['R3', 9], ['R7', 9], ['R2', 14], ['R4', 15], ['R5', 17]])
+2023-03-27 13:00:54,132: Logger: Control : min_cost_robots : 0.00377655029296875 -->S2 ----> R2 (Min cost = 4) (Costs: [['R2', 4], ['R5', 5], ['R7', 5], ['R4', 9], ['R3', 11], ['R6', 12]])
+2023-03-27 13:00:54,132: Logger: Control : min_cost_robots : 0.0039937496185302734 -->S3 ----> R7 (Min cost = 4) (Costs: [['R7', 4], ['R5', 6], ['R6', 9], ['R3', 10], ['R4', 10]])
+2023-03-27 13:00:54,133: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-27 13:00:54,133: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is left
+2023-03-27 13:00:54,133: Logger: Robot --> R1 moved to location=[12, 12]
+2023-03-27 13:00:54,133: Logger: Control : move : 0.00046443939208984375 -->
+2023-03-27 13:00:54,518: Logger: Robot --> R2 moved to location=[0, 7]
+2023-03-27 13:00:54,519: Logger: Control : move : 0.00039124488830566406 -->
+2023-03-27 13:00:54,641: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:00:54,641: Logger: Robot --> R7 moved to location=[6, 6]
+2023-03-27 13:00:54,641: Logger: Control : move : 0.0004265308380126953 -->
+2023-03-27 13:00:54,731: Logger: Control : steps_map_to_shelf : 0.5984756946563721 -->
+2023-03-27 13:00:54,747: Logger: Control : steps_map : 0.6240048408508301 -->
+2023-03-27 13:00:54,750: Logger: Control : query_recived_order_shelfs_from_file : 0.0023992061614990234 -->
+2023-03-27 13:00:54,752: Logger: Control : query_recived_order_shelfs_from_file : 0.0021898746490478516 -->
+2023-03-27 13:00:54,752: Logger: Robot --> R1 moved to location=[12, 11]
+2023-03-27 13:00:54,752: Logger: Control : move : 0.0001010894775390625 -->
+2023-03-27 13:00:54,859: Logger: Robot --> R2 moved to location=[0, 6]
+2023-03-27 13:00:54,859: Logger: Control : move : 0.0002608299255371094 -->
+2023-03-27 13:00:54,985: Logger: Robot --> R7 moved to location=[5, 6]
+2023-03-27 13:00:54,986: Logger: Control : move : 0.00024080276489257812 -->
+2023-03-27 13:00:55,120: Logger: Control : steps_map_to_shelf : 0.36777353286743164 -->
+2023-03-27 13:00:55,135: Logger: Control : steps_map : 0.38815855979919434 -->
+2023-03-27 13:00:55,138: Logger: Control : query_recived_order_shelfs_from_file : 0.002547025680541992 -->
+2023-03-27 13:00:55,141: Logger: Control : query_recived_order_shelfs_from_file : 0.002373933792114258 -->
+2023-03-27 13:00:55,292: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-27 13:00:55,292: Logger: Robot --> R2 moved to location=[1, 6]
+2023-03-27 13:00:55,292: Logger: Control : move : 0.00034618377685546875 -->
+2023-03-27 13:00:55,462: Logger: Robot --> R7 moved to location=[4, 6]
+2023-03-27 13:00:55,463: Logger: Control : move : 0.0002741813659667969 -->
+2023-03-27 13:00:55,647: Logger: Control : steps_map_to_shelf : 0.5065693855285645 -->
+2023-03-27 13:00:55,663: Logger: Control : steps_map : 0.5277791023254395 -->
+2023-03-27 13:00:55,666: Logger: Control : query_recived_order_shelfs_from_file : 0.0025238990783691406 -->
+2023-03-27 13:00:55,668: Logger: Control : query_recived_order_shelfs_from_file : 0.002265453338623047 -->
+2023-03-27 13:00:56,322: Logger: Control : steps_map_to_shelf : 0.6528315544128418 -->
+2023-03-27 13:00:56,337: Logger: Control : steps_map : 0.6735885143280029 -->
+2023-03-27 13:00:56,340: Logger: Control : query_recived_order_shelfs_from_file : 0.002650022506713867 -->
+2023-03-27 13:00:56,343: Logger: Control : query_recived_order_shelfs_from_file : 0.0025331974029541016 -->
+2023-03-27 13:00:57,134: Logger: Control : steps_map_to_shelf : 0.7911388874053955 -->
+2023-03-27 13:00:57,150: Logger: Control : steps_map : 0.8123064041137695 -->
+2023-03-27 13:00:57,153: Logger: Control : query_recived_order_shelfs_from_file : 0.0025560855865478516 -->
+2023-03-27 13:00:57,156: Logger: Control : query_recived_order_shelfs_from_file : 0.0027184486389160156 -->
+2023-03-27 13:00:58,082: Logger: Control : steps_map_to_shelf : 0.9262022972106934 -->
+2023-03-27 13:00:58,097: Logger: Control : steps_map : 0.9474606513977051 -->
+2023-03-27 13:00:58,100: Logger: Control : query_recived_order_shelfs_from_file : 0.0026171207427978516 -->
+2023-03-27 13:00:58,103: Logger: Control : query_recived_order_shelfs_from_file : 0.002421855926513672 -->
+2023-03-27 13:00:59,170: Logger: Control : steps_map_to_shelf : 1.0669329166412354 -->
+2023-03-27 13:00:59,186: Logger: Control : steps_map : 1.0886540412902832 -->
+2023-03-27 13:00:59,189: Logger: Control : query_recived_order_shelfs_from_file : 0.0027184486389160156 -->
+2023-03-27 13:00:59,192: Logger: Control : query_recived_order_shelfs_from_file : 0.0025069713592529297 -->
+2023-03-27 13:01:00,406: Logger: Control : steps_map_to_shelf : 1.2140510082244873 -->
+2023-03-27 13:01:00,422: Logger: Control : steps_map : 1.235320806503296 -->
+2023-03-27 13:01:00,425: Logger: Control : query_recived_order_shelfs_from_file : 0.0027115345001220703 -->
+2023-03-27 13:01:00,428: Logger: Control : query_recived_order_shelfs_from_file : 0.0023107528686523438 -->
+2023-03-27 13:01:01,777: Logger: Control : steps_map_to_shelf : 1.348705530166626 -->
+2023-03-27 13:01:01,792: Logger: Control : steps_map : 1.3697290420532227 -->
+2023-03-27 13:01:01,795: Logger: Control : query_recived_order_shelfs_from_file : 0.0026717185974121094 -->
+2023-03-27 13:01:01,798: Logger: Control : query_recived_order_shelfs_from_file : 0.002435922622680664 -->
+2023-03-27 13:01:03,226: Logger: Control : steps_map_to_shelf : 1.427739143371582 -->
+2023-03-27 13:01:03,238: Logger: Control : steps_map : 1.4454710483551025 -->
+2023-03-27 13:01:03,238: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:01:04,749: Logger: Shelf --> S1 is created with intial_location=[4, 10]
+2023-03-27 13:01:04,750: Logger: Shelf --> S2 is created with intial_location=[7, 4]
+2023-03-27 13:01:04,750: Logger: Shelf --> S3 is created with intial_location=[0, 4]
+2023-03-27 13:01:04,750: Logger: Shelf --> S4 is created with intial_location=[8, 8]
+2023-03-27 13:01:04,750: Logger: Shelf --> S5 is created with intial_location=[9, 8]
+2023-03-27 13:01:04,750: Logger: Robot --> R1 is created with speed=1, intial_location=[10, 12], intial_orientation=right battery_precentage=100
+2023-03-27 13:01:04,750: Logger: Robot --> R2 is created with speed=1, intial_location=[4, 7], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:04,750: Logger: Robot --> R3 is created with speed=1, intial_location=[14, 1], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:04,750: Logger: Robot --> R4 is created with speed=1, intial_location=[13, 4], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:04,750: Logger: Robot --> R5 is created with speed=1, intial_location=[13, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:04,751: Logger: Robot --> R6 is created with speed=1, intial_location=[8, 11], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:04,751: Logger: Robot --> R7 is created with speed=1, intial_location=[2, 10], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:04,770: Logger: Control : query_recived_order_shelfs_from_file : 0.0033185482025146484 -->
+2023-03-27 13:01:04,773: Logger: Control : query_recived_order_shelfs_from_file : 0.0023064613342285156 -->
+2023-03-27 13:01:04,773: Logger: Control : min_cost_robots : 0.0027234554290771484 -->S3 ----> R2 (Min cost = 7) (Costs: [['R2', 7], ['R7', 8], ['R4', 13], ['R6', 15], ['R3', 17], ['R1', 18], ['R5', 21]])
+2023-03-27 13:01:04,773: Logger: Control : min_cost_robots : 0.002954244613647461 -->S2 ----> R4 (Min cost = 6) (Costs: [['R4', 6], ['R6', 8], ['R3', 10], ['R1', 11], ['R7', 11], ['R5', 14]])
+2023-03-27 13:01:04,773: Logger: Control : min_cost_robots : 0.0031363964080810547 -->S1 ----> R7 (Min cost = 2) (Costs: [['R7', 2], ['R6', 5], ['R1', 8], ['R5', 11], ['R3', 19]])
+2023-03-27 13:01:04,774: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:04,774: Logger: Robot --> R2 moved to location=[3, 7]
+2023-03-27 13:01:04,774: Logger: Control : move : 0.0003037452697753906 -->
+2023-03-27 13:01:05,101: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:05,102: Logger: Robot --> R4 moved to location=[12, 4]
+2023-03-27 13:01:05,102: Logger: Control : move : 0.0004379749298095703 -->
+2023-03-27 13:01:05,180: Logger: Robot --> R7 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-27 13:01:05,180: Logger: Robot --> R7 moved to location=[3, 10]
+2023-03-27 13:01:05,180: Logger: Control : move : 0.0003387928009033203 -->
+2023-03-27 13:01:05,273: Logger: Control : steps_map_to_shelf : 0.4995286464691162 -->
+2023-03-27 13:01:05,290: Logger: Control : steps_map : 0.5232396125793457 -->
+2023-03-27 13:01:05,293: Logger: Control : query_recived_order_shelfs_from_file : 0.0025386810302734375 -->
+2023-03-27 13:01:05,295: Logger: Control : query_recived_order_shelfs_from_file : 0.00228118896484375 -->
+2023-03-27 13:01:05,296: Logger: Robot --> R2 moved to location=[2, 7]
+2023-03-27 13:01:05,296: Logger: Control : move : 0.00011515617370605469 -->
+2023-03-27 13:01:05,412: Logger: Robot --> R4 moved to location=[11, 4]
+2023-03-27 13:01:05,412: Logger: Control : move : 0.0002567768096923828 -->
+2023-03-27 13:01:05,692: Logger: Control : steps_map_to_shelf : 0.39648985862731934 -->
+2023-03-27 13:01:05,708: Logger: Control : steps_map : 0.41777491569519043 -->
+2023-03-27 13:01:05,711: Logger: Control : query_recived_order_shelfs_from_file : 0.002439737319946289 -->
+2023-03-27 13:01:05,713: Logger: Control : query_recived_order_shelfs_from_file : 0.0022881031036376953 -->
+2023-03-27 13:01:05,714: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-27 13:01:05,714: Logger: Robot --> R2 moved to location=[2, 6]
+2023-03-27 13:01:05,714: Logger: Control : move : 0.0002522468566894531 -->
+2023-03-27 13:01:05,872: Logger: Robot --> R4 moved to location=[10, 4]
+2023-03-27 13:01:05,872: Logger: Control : move : 0.00025200843811035156 -->
+2023-03-27 13:01:06,226: Logger: Control : steps_map_to_shelf : 0.512991189956665 -->
+2023-03-27 13:01:06,242: Logger: Control : steps_map : 0.5339899063110352 -->
+2023-03-27 13:01:06,245: Logger: Control : query_recived_order_shelfs_from_file : 0.0026519298553466797 -->
+2023-03-27 13:01:06,248: Logger: Control : query_recived_order_shelfs_from_file : 0.002408742904663086 -->
+2023-03-27 13:01:06,248: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:06,249: Logger: Robot --> R2 moved to location=[1, 6]
+2023-03-27 13:01:06,249: Logger: Control : move : 0.0002276897430419922 -->
+2023-03-27 13:01:06,453: Logger: Robot --> R4 moved to location=[9, 4]
+2023-03-27 13:01:06,453: Logger: Control : move : 0.0002484321594238281 -->
+2023-03-27 13:01:06,903: Logger: Control : steps_map_to_shelf : 0.6549642086029053 -->
+2023-03-27 13:01:06,919: Logger: Control : steps_map : 0.6761734485626221 -->
+2023-03-27 13:01:06,922: Logger: Control : query_recived_order_shelfs_from_file : 0.0026361942291259766 -->
+2023-03-27 13:01:06,925: Logger: Control : query_recived_order_shelfs_from_file : 0.002542257308959961 -->
+2023-03-27 13:01:06,925: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-27 13:01:06,925: Logger: Robot --> R2 moved to location=[1, 5]
+2023-03-27 13:01:06,925: Logger: Control : move : 0.00026917457580566406 -->
+2023-03-27 13:01:07,176: Logger: Robot --> R4 moved to location=[8, 4]
+2023-03-27 13:01:07,177: Logger: Control : move : 0.0004029273986816406 -->
+2023-03-27 13:01:07,712: Logger: Control : steps_map_to_shelf : 0.7870852947235107 -->
+2023-03-27 13:01:07,728: Logger: Control : steps_map : 0.8085002899169922 -->
+2023-03-27 13:01:07,731: Logger: Control : query_recived_order_shelfs_from_file : 0.0027070045471191406 -->
+2023-03-27 13:01:07,733: Logger: Control : query_recived_order_shelfs_from_file : 0.0023310184478759766 -->
+2023-03-27 13:01:07,734: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:07,734: Logger: Robot --> R2 moved to location=[0, 5]
+2023-03-27 13:01:07,734: Logger: Control : move : 0.00041222572326660156 -->
+2023-03-27 13:01:08,656: Logger: Control : steps_map_to_shelf : 0.9226291179656982 -->
+2023-03-27 13:01:08,672: Logger: Control : steps_map : 0.9436359405517578 -->
+2023-03-27 13:01:08,675: Logger: Control : query_recived_order_shelfs_from_file : 0.002543210983276367 -->
+2023-03-27 13:01:08,677: Logger: Control : query_recived_order_shelfs_from_file : 0.0025177001953125 -->
+2023-03-27 13:01:09,576: Logger: Control : steps_map_to_shelf : 0.8980960845947266 -->
+2023-03-27 13:01:09,587: Logger: Control : steps_map : 0.9146125316619873 -->
+2023-03-27 13:01:09,589: Logger: Control : query_recived_order_shelfs_from_file : 0.001993894577026367 -->
+2023-03-27 13:01:09,591: Logger: Control : query_recived_order_shelfs_from_file : 0.0017321109771728516 -->
+2023-03-27 13:01:10,372: Logger: Control : steps_map_to_shelf : 0.7803637981414795 -->
+2023-03-27 13:01:10,381: Logger: Control : steps_map : 0.7943117618560791 -->
+2023-03-27 13:01:10,383: Logger: Control : query_recived_order_shelfs_from_file : 0.001653909683227539 -->
+2023-03-27 13:01:10,385: Logger: Control : query_recived_order_shelfs_from_file : 0.0015933513641357422 -->
+2023-03-27 13:01:11,244: Logger: Control : steps_map_to_shelf : 0.8587965965270996 -->
+2023-03-27 13:01:11,254: Logger: Control : steps_map : 0.8721835613250732 -->
+2023-03-27 13:01:11,256: Logger: Control : query_recived_order_shelfs_from_file : 0.0017881393432617188 -->
+2023-03-27 13:01:11,258: Logger: Control : query_recived_order_shelfs_from_file : 0.00168609619140625 -->
+2023-03-27 13:01:12,201: Logger: Control : steps_map_to_shelf : 0.9429488182067871 -->
+2023-03-27 13:01:12,211: Logger: Control : steps_map : 0.9566090106964111 -->
+2023-03-27 13:01:12,211: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:01:14,231: Logger: Shelf --> S1 is created with intial_location=[8, 7]
+2023-03-27 13:01:14,231: Logger: Shelf --> S2 is created with intial_location=[6, 6]
+2023-03-27 13:01:14,231: Logger: Shelf --> S3 is created with intial_location=[7, 11]
+2023-03-27 13:01:14,231: Logger: Shelf --> S4 is created with intial_location=[4, 7]
+2023-03-27 13:01:14,232: Logger: Shelf --> S5 is created with intial_location=[10, 5]
+2023-03-27 13:01:14,232: Logger: Robot --> R1 is created with speed=1, intial_location=[2, 7], intial_orientation=right battery_precentage=100
+2023-03-27 13:01:14,232: Logger: Robot --> R2 is created with speed=1, intial_location=[7, 8], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:14,232: Logger: Robot --> R3 is created with speed=1, intial_location=[1, 8], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:14,232: Logger: Robot --> R4 is created with speed=1, intial_location=[11, 9], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:14,232: Logger: Robot --> R5 is created with speed=1, intial_location=[9, 10], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:14,232: Logger: Robot --> R6 is created with speed=1, intial_location=[1, 8], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:14,232: Logger: Robot --> R7 is created with speed=1, intial_location=[9, 13], intial_orientation=left battery_precentage=100
+2023-03-27 13:01:14,252: Logger: Control : query_recived_order_shelfs_from_file : 0.0034177303314208984 -->
+2023-03-27 13:01:14,255: Logger: Control : query_recived_order_shelfs_from_file : 0.0024373531341552734 -->
+2023-03-27 13:01:14,255: Logger: Control : min_cost_robots : 0.0030663013458251953 -->S2 ----> R2 (Min cost = 3) (Costs: [['R2', 3], ['R1', 5], ['R3', 7], ['R5', 7], ['R6', 7], ['R4', 8], ['R7', 10]])
+2023-03-27 13:01:14,256: Logger: Control : min_cost_robots : 0.0033185482025146484 -->S3 ----> R5 (Min cost = 3) (Costs: [['R5', 3], ['R7', 4], ['R4', 6], ['R1', 9], ['R3', 9], ['R6', 9]])
+2023-03-27 13:01:14,256: Logger: Control : min_cost_robots : 0.0035049915313720703 -->S1 ----> R4 (Min cost = 5) (Costs: [['R4', 5], ['R1', 6], ['R7', 7], ['R3', 8], ['R6', 8]])
+2023-03-27 13:01:14,256: Logger: Robot --> R2 moved to location=[7, 7]
+2023-03-27 13:01:14,256: Logger: Control : move : 0.00012040138244628906 -->
+2023-03-27 13:01:14,611: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:14,612: Logger: Robot --> R5 moved to location=[8, 10]
+2023-03-27 13:01:14,612: Logger: Control : move : 0.0005171298980712891 -->
+2023-03-27 13:01:14,693: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:14,694: Logger: Robot --> R4 moved to location=[10, 9]
+2023-03-27 13:01:14,694: Logger: Control : move : 0.0004925727844238281 -->
+2023-03-27 13:01:14,794: Logger: Control : steps_map_to_shelf : 0.537647008895874 -->
+2023-03-27 13:01:14,809: Logger: Control : steps_map : 0.5608348846435547 -->
+2023-03-27 13:01:14,812: Logger: Control : query_recived_order_shelfs_from_file : 0.0025010108947753906 -->
+2023-03-27 13:01:14,815: Logger: Control : query_recived_order_shelfs_from_file : 0.0024416446685791016 -->
+2023-03-27 13:01:14,815: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:14,815: Logger: Robot --> R2 moved to location=[6, 7]
+2023-03-27 13:01:14,815: Logger: Control : move : 0.00021028518676757812 -->
+2023-03-27 13:01:14,924: Logger: Robot --> R5 moved to location=[7, 10]
+2023-03-27 13:01:14,924: Logger: Control : move : 0.0002560615539550781 -->
+2023-03-27 13:01:15,057: Logger: Robot --> R4 moved to location=[9, 9]
+2023-03-27 13:01:15,057: Logger: Control : move : 0.0002307891845703125 -->
+2023-03-27 13:01:15,204: Logger: Control : steps_map_to_shelf : 0.3892347812652588 -->
+2023-03-27 13:01:15,220: Logger: Control : steps_map : 0.41039085388183594 -->
+2023-03-27 13:01:15,223: Logger: Control : query_recived_order_shelfs_from_file : 0.002490520477294922 -->
+2023-03-27 13:01:15,225: Logger: Control : query_recived_order_shelfs_from_file : 0.0023941993713378906 -->
+2023-03-27 13:01:15,569: Logger: Robot --> R4 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-27 13:01:15,569: Logger: Robot --> R4 moved to location=[9, 8]
+2023-03-27 13:01:15,569: Logger: Control : move : 0.0004730224609375 -->
+2023-03-27 13:01:15,753: Logger: Control : steps_map_to_shelf : 0.5278489589691162 -->
+2023-03-27 13:01:15,772: Logger: Control : steps_map : 0.5513558387756348 -->
+2023-03-27 13:01:15,774: Logger: Control : query_recived_order_shelfs_from_file : 0.0025703907012939453 -->
+2023-03-27 13:01:15,777: Logger: Control : query_recived_order_shelfs_from_file : 0.0023097991943359375 -->
+2023-03-27 13:01:16,201: Logger: Robot --> R4 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:01:16,201: Logger: Robot --> R4 moved to location=[8, 8]
+2023-03-27 13:01:16,201: Logger: Control : move : 0.0005276203155517578 -->
+2023-03-27 13:01:16,431: Logger: Control : steps_map_to_shelf : 0.6528451442718506 -->
+2023-03-27 13:01:16,447: Logger: Control : steps_map : 0.6749565601348877 -->
+2023-03-27 13:01:16,450: Logger: Control : query_recived_order_shelfs_from_file : 0.0026895999908447266 -->
+2023-03-27 13:01:16,453: Logger: Control : query_recived_order_shelfs_from_file : 0.0024154186248779297 -->
+2023-03-27 13:01:17,238: Logger: Control : steps_map_to_shelf : 0.7849888801574707 -->
+2023-03-27 13:01:17,253: Logger: Control : steps_map : 0.806168794631958 -->
+2023-03-27 13:01:17,257: Logger: Control : query_recived_order_shelfs_from_file : 0.0029108524322509766 -->
+2023-03-27 13:01:17,259: Logger: Control : query_recived_order_shelfs_from_file : 0.0023288726806640625 -->
+2023-03-27 13:01:18,187: Logger: Control : steps_map_to_shelf : 0.9275732040405273 -->
+2023-03-27 13:01:18,203: Logger: Control : steps_map : 0.9492034912109375 -->
+2023-03-27 13:01:18,206: Logger: Control : query_recived_order_shelfs_from_file : 0.002634286880493164 -->
+2023-03-27 13:01:18,209: Logger: Control : query_recived_order_shelfs_from_file : 0.0025153160095214844 -->
+2023-03-27 13:01:19,282: Logger: Control : steps_map_to_shelf : 1.0729286670684814 -->
+2023-03-27 13:01:19,298: Logger: Control : steps_map : 1.0945587158203125 -->
+2023-03-27 13:01:19,301: Logger: Control : query_recived_order_shelfs_from_file : 0.00244903564453125 -->
+2023-03-27 13:01:19,303: Logger: Control : query_recived_order_shelfs_from_file : 0.002382040023803711 -->
+2023-03-27 13:01:20,362: Logger: Control : steps_map_to_shelf : 1.0586152076721191 -->
+2023-03-27 13:01:20,373: Logger: Control : steps_map : 1.0748984813690186 -->
+2023-03-27 13:01:20,375: Logger: Control : query_recived_order_shelfs_from_file : 0.0019161701202392578 -->
+2023-03-27 13:01:20,377: Logger: Control : query_recived_order_shelfs_from_file : 0.0016965866088867188 -->
+2023-03-27 13:01:21,285: Logger: Control : steps_map_to_shelf : 0.9078154563903809 -->
+2023-03-27 13:01:21,295: Logger: Control : steps_map : 0.921992301940918 -->
+2023-03-27 13:01:21,297: Logger: Control : query_recived_order_shelfs_from_file : 0.0018591880798339844 -->
+2023-03-27 13:01:21,300: Logger: Control : query_recived_order_shelfs_from_file : 0.0018410682678222656 -->
+2023-03-27 13:01:22,321: Logger: Control : steps_map_to_shelf : 1.021240234375 -->
+2023-03-27 13:01:22,331: Logger: Control : steps_map : 1.035121202468872 -->
+2023-03-27 13:01:22,331: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:06:03,887: Logger: Shelf --> S1 is created with intial_location=[9, 6]
+2023-03-27 13:06:03,887: Logger: Shelf --> S2 is created with intial_location=[4, 11]
+2023-03-27 13:06:03,888: Logger: Shelf --> S3 is created with intial_location=[7, 8]
+2023-03-27 13:06:03,888: Logger: Shelf --> S4 is created with intial_location=[5, 11]
+2023-03-27 13:06:03,888: Logger: Shelf --> S5 is created with intial_location=[10, 10]
+2023-03-27 13:06:03,888: Logger: Robot --> R1 is created with speed=1, intial_location=[9, 5], intial_orientation=right battery_precentage=100
+2023-03-27 13:06:03,888: Logger: Robot --> R2 is created with speed=1, intial_location=[5, 1], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:03,888: Logger: Robot --> R3 is created with speed=1, intial_location=[14, 13], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:03,888: Logger: Robot --> R4 is created with speed=1, intial_location=[13, 9], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:03,889: Logger: Robot --> R5 is created with speed=1, intial_location=[5, 9], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:03,889: Logger: Robot --> R6 is created with speed=1, intial_location=[9, 3], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:03,889: Logger: Robot --> R7 is created with speed=1, intial_location=[0, 2], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:03,915: Logger: Control : query_recived_order_shelfs_from_file : 0.004065036773681641 -->
+2023-03-27 13:06:03,918: Logger: Control : query_recived_order_shelfs_from_file : 0.0028281211853027344 -->
+2023-03-27 13:06:03,919: Logger: Control : min_cost_robots : 0.0033371448516845703 -->S2 ----> R5 (Min cost = 3) (Costs: [['R5', 3], ['R1', 11], ['R2', 11], ['R4', 11], ['R3', 12], ['R6', 13], ['R7', 13]])
+2023-03-27 13:06:03,919: Logger: Control : min_cost_robots : 0.0036144256591796875 -->S3 ----> R1 (Min cost = 5) (Costs: [['R1', 5], ['R4', 7], ['R6', 7], ['R2', 9], ['R3', 12], ['R7', 13]])
+2023-03-27 13:06:03,919: Logger: Control : min_cost_robots : 0.003812074661254883 -->S1 ----> R6 (Min cost = 3) (Costs: [['R6', 3], ['R4', 7], ['R2', 9], ['R3', 12], ['R7', 13]])
+2023-03-27 13:06:03,919: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:06:03,920: Logger: Robot --> R5 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:06:03,920: Logger: Robot --> R5 moved to location=[5, 10]
+2023-03-27 13:06:03,920: Logger: Control : move : 0.00036334991455078125 -->
+2023-03-27 13:06:04,344: Logger: Robot --> R1 moved to location=[9, 6]
+2023-03-27 13:06:04,345: Logger: Control : move : 0.00043320655822753906 -->
+2023-03-27 13:06:04,439: Logger: Control : steps_map_to_shelf : 0.5194082260131836 -->
+2023-03-27 13:06:04,455: Logger: Control : steps_map : 0.5441944599151611 -->
+2023-03-27 13:06:04,458: Logger: Control : query_recived_order_shelfs_from_file : 0.002472400665283203 -->
+2023-03-27 13:06:04,460: Logger: Control : query_recived_order_shelfs_from_file : 0.0023550987243652344 -->
+2023-03-27 13:06:04,461: Logger: Robot --> R5 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 13:06:04,461: Logger: Robot --> R5 moved to location=[4, 10]
+2023-03-27 13:06:04,461: Logger: Control : move : 0.00028634071350097656 -->
+2023-03-27 13:06:04,557: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 13:06:04,558: Logger: Robot --> R1 moved to location=[8, 6]
+2023-03-27 13:06:04,558: Logger: Control : move : 0.0003483295440673828 -->
+2023-03-27 13:06:04,662: Logger: Robot --> R6 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:06:04,662: Logger: Robot --> R6 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:06:04,662: Logger: Robot --> R6 moved to location=[9, 4]
+2023-03-27 13:06:04,663: Logger: Control : move : 0.0003867149353027344 -->
+2023-03-27 13:06:04,800: Logger: Control : steps_map_to_shelf : 0.33921337127685547 -->
+2023-03-27 13:06:04,816: Logger: Control : steps_map : 0.36058974266052246 -->
+2023-03-27 13:06:04,819: Logger: Control : query_recived_order_shelfs_from_file : 0.002658843994140625 -->
+2023-03-27 13:06:04,822: Logger: Control : query_recived_order_shelfs_from_file : 0.002592325210571289 -->
+2023-03-27 13:06:04,962: Logger: Robot --> R1 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:06:04,962: Logger: Robot --> R1 moved to location=[8, 7]
+2023-03-27 13:06:04,963: Logger: Control : move : 0.00037407875061035156 -->
+2023-03-27 13:06:05,117: Logger: Robot --> R6 moved to location=[9, 5]
+2023-03-27 13:06:05,117: Logger: Control : move : 0.00023794174194335938 -->
+2023-03-27 13:06:05,315: Logger: Control : steps_map_to_shelf : 0.4935574531555176 -->
+2023-03-27 13:06:05,334: Logger: Control : steps_map : 0.518242359161377 -->
+2023-03-27 13:06:05,337: Logger: Control : query_recived_order_shelfs_from_file : 0.002552032470703125 -->
+2023-03-27 13:06:05,340: Logger: Control : query_recived_order_shelfs_from_file : 0.002330303192138672 -->
+2023-03-27 13:06:05,530: Logger: Robot --> R1 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 13:06:05,530: Logger: Robot --> R1 moved to location=[7, 7]
+2023-03-27 13:06:05,530: Logger: Control : move : 0.00036334991455078125 -->
+2023-03-27 13:06:05,957: Logger: Control : steps_map_to_shelf : 0.6170217990875244 -->
+2023-03-27 13:06:05,973: Logger: Control : steps_map : 0.6380331516265869 -->
+2023-03-27 13:06:05,976: Logger: Control : query_recived_order_shelfs_from_file : 0.0027539730072021484 -->
+2023-03-27 13:06:05,979: Logger: Control : query_recived_order_shelfs_from_file : 0.002672910690307617 -->
+2023-03-27 13:06:06,729: Logger: Control : steps_map_to_shelf : 0.7500689029693604 -->
+2023-03-27 13:06:06,745: Logger: Control : steps_map : 0.7721250057220459 -->
+2023-03-27 13:06:06,748: Logger: Control : query_recived_order_shelfs_from_file : 0.0025959014892578125 -->
+2023-03-27 13:06:06,750: Logger: Control : query_recived_order_shelfs_from_file : 0.0023207664489746094 -->
+2023-03-27 13:06:07,645: Logger: Control : steps_map_to_shelf : 0.8943092823028564 -->
+2023-03-27 13:06:07,661: Logger: Control : steps_map : 0.9152650833129883 -->
+2023-03-27 13:06:07,664: Logger: Control : query_recived_order_shelfs_from_file : 0.0026955604553222656 -->
+2023-03-27 13:06:07,666: Logger: Control : query_recived_order_shelfs_from_file : 0.002363443374633789 -->
+2023-03-27 13:06:08,696: Logger: Control : steps_map_to_shelf : 1.0291719436645508 -->
+2023-03-27 13:06:08,712: Logger: Control : steps_map : 1.0505824089050293 -->
+2023-03-27 13:06:08,715: Logger: Control : query_recived_order_shelfs_from_file : 0.0026950836181640625 -->
+2023-03-27 13:06:08,717: Logger: Control : query_recived_order_shelfs_from_file : 0.002410888671875 -->
+2023-03-27 13:06:09,894: Logger: Control : steps_map_to_shelf : 1.1768734455108643 -->
+2023-03-27 13:06:09,914: Logger: Control : steps_map : 1.2025485038757324 -->
+2023-03-27 13:06:09,918: Logger: Control : query_recived_order_shelfs_from_file : 0.002823352813720703 -->
+2023-03-27 13:06:09,920: Logger: Control : query_recived_order_shelfs_from_file : 0.0026116371154785156 -->
+2023-03-27 13:06:11,234: Logger: Control : steps_map_to_shelf : 1.3136539459228516 -->
+2023-03-27 13:06:11,251: Logger: Control : steps_map : 1.335789442062378 -->
+2023-03-27 13:06:11,254: Logger: Control : query_recived_order_shelfs_from_file : 0.0027000904083251953 -->
+2023-03-27 13:06:11,256: Logger: Control : query_recived_order_shelfs_from_file : 0.0025556087493896484 -->
+2023-03-27 13:06:12,636: Logger: Control : steps_map_to_shelf : 1.3797950744628906 -->
+2023-03-27 13:06:12,649: Logger: Control : steps_map : 1.3979172706604004 -->
+2023-03-27 13:06:12,649: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:06:14,717: Logger: Shelf --> S1 is created with intial_location=[9, 9]
+2023-03-27 13:06:14,717: Logger: Shelf --> S2 is created with intial_location=[3, 6]
+2023-03-27 13:06:14,717: Logger: Shelf --> S3 is created with intial_location=[9, 8]
+2023-03-27 13:06:14,717: Logger: Shelf --> S4 is created with intial_location=[9, 1]
+2023-03-27 13:06:14,717: Logger: Shelf --> S5 is created with intial_location=[9, 12]
+2023-03-27 13:06:14,718: Logger: Robot --> R1 is created with speed=1, intial_location=[3, 3], intial_orientation=right battery_precentage=100
+2023-03-27 13:06:14,718: Logger: Robot --> R2 is created with speed=1, intial_location=[5, 13], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:14,718: Logger: Robot --> R3 is created with speed=1, intial_location=[10, 0], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:14,718: Logger: Robot --> R4 is created with speed=1, intial_location=[0, 2], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:14,718: Logger: Robot --> R5 is created with speed=1, intial_location=[1, 3], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:14,718: Logger: Robot --> R6 is created with speed=1, intial_location=[13, 8], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:14,718: Logger: Robot --> R7 is created with speed=1, intial_location=[12, 3], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:14,739: Logger: Control : query_recived_order_shelfs_from_file : 0.0034279823303222656 -->
+2023-03-27 13:06:14,742: Logger: Control : query_recived_order_shelfs_from_file : 0.0023794174194335938 -->
+2023-03-27 13:06:14,742: Logger: Control : min_cost_robots : 0.0027687549591064453 -->S1 ----> R6 (Min cost = 5) (Costs: [['R6', 5], ['R2', 8], ['R7', 9], ['R3', 10], ['R1', 12], ['R5', 14], ['R4', 16]])
+2023-03-27 13:06:14,742: Logger: Control : min_cost_robots : 0.003050565719604492 -->S3 ----> R7 (Min cost = 8) (Costs: [['R7', 8], ['R2', 9], ['R3', 9], ['R1', 11], ['R5', 13], ['R4', 15]])
+2023-03-27 13:06:14,743: Logger: Control : min_cost_robots : 0.0032753944396972656 -->S2 ----> R1 (Min cost = 3) (Costs: [['R1', 3], ['R5', 5], ['R4', 7], ['R2', 9], ['R3', 13]])
+2023-03-27 13:06:14,743: Logger: Robot --> R6 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:06:14,743: Logger: Robot --> R6 moved to location=[12, 8]
+2023-03-27 13:06:14,744: Logger: Control : move : 0.00041031837463378906 -->
+2023-03-27 13:06:15,134: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:06:15,137: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:06:15,137: Logger: Robot --> R7 moved to location=[12, 4]
+2023-03-27 13:06:15,137: Logger: Control : move : 0.0035400390625 -->
+2023-03-27 13:06:15,233: Logger: Robot --> R1 moved to location=[3, 4]
+2023-03-27 13:06:15,233: Logger: Control : move : 0.00029158592224121094 -->
+2023-03-27 13:06:15,330: Logger: Control : steps_map_to_shelf : 0.5871469974517822 -->
+2023-03-27 13:06:15,346: Logger: Control : steps_map : 0.6105639934539795 -->
+2023-03-27 13:06:15,349: Logger: Control : query_recived_order_shelfs_from_file : 0.0026209354400634766 -->
+2023-03-27 13:06:15,352: Logger: Control : query_recived_order_shelfs_from_file : 0.002283811569213867 -->
+2023-03-27 13:06:15,352: Logger: Robot --> R6 moved to location=[11, 8]
+2023-03-27 13:06:15,352: Logger: Control : move : 0.00013875961303710938 -->
+2023-03-27 13:06:15,473: Logger: Robot --> R7 moved to location=[12, 5]
+2023-03-27 13:06:15,473: Logger: Control : move : 0.0002715587615966797 -->
+2023-03-27 13:06:15,595: Logger: Robot --> R1 moved to location=[3, 5]
+2023-03-27 13:06:15,596: Logger: Control : move : 0.0002970695495605469 -->
+2023-03-27 13:06:15,732: Logger: Control : steps_map_to_shelf : 0.38009166717529297 -->
+2023-03-27 13:06:15,749: Logger: Control : steps_map : 0.40212225914001465 -->
+2023-03-27 13:06:15,751: Logger: Control : query_recived_order_shelfs_from_file : 0.0025103092193603516 -->
+2023-03-27 13:06:15,754: Logger: Control : query_recived_order_shelfs_from_file : 0.0023887157440185547 -->
+2023-03-27 13:06:15,754: Logger: Robot --> R6 moved to location=[10, 8]
+2023-03-27 13:06:15,755: Logger: Control : move : 0.000118255615234375 -->
+2023-03-27 13:06:15,917: Logger: Robot --> R7 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 13:06:15,917: Logger: Robot --> R7 moved to location=[11, 5]
+2023-03-27 13:06:15,917: Logger: Control : move : 0.00033211708068847656 -->
+2023-03-27 13:06:16,270: Logger: Control : steps_map_to_shelf : 0.5160412788391113 -->
+2023-03-27 13:06:16,287: Logger: Control : steps_map : 0.5384821891784668 -->
+2023-03-27 13:06:16,290: Logger: Control : query_recived_order_shelfs_from_file : 0.002482891082763672 -->
+2023-03-27 13:06:16,293: Logger: Control : query_recived_order_shelfs_from_file : 0.0023450851440429688 -->
+2023-03-27 13:06:16,293: Logger: Robot --> R6 moved to location=[9, 8]
+2023-03-27 13:06:16,293: Logger: Control : move : 0.00019884109497070312 -->
+2023-03-27 13:06:16,718: Logger: Control : steps_map_to_shelf : 0.4244678020477295 -->
+2023-03-27 13:06:16,733: Logger: Control : steps_map : 0.44531869888305664 -->
+2023-03-27 13:06:16,736: Logger: Control : query_recived_order_shelfs_from_file : 0.0025742053985595703 -->
+2023-03-27 13:06:16,739: Logger: Control : query_recived_order_shelfs_from_file : 0.002430438995361328 -->
+2023-03-27 13:06:16,975: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:06:16,975: Logger: Robot --> R7 moved to location=[11, 6]
+2023-03-27 13:06:16,975: Logger: Control : move : 0.0006070137023925781 -->
+2023-03-27 13:06:17,495: Logger: Control : steps_map_to_shelf : 0.7559323310852051 -->
+2023-03-27 13:06:17,511: Logger: Control : steps_map : 0.7776529788970947 -->
+2023-03-27 13:06:17,514: Logger: Control : query_recived_order_shelfs_from_file : 0.0026035308837890625 -->
+2023-03-27 13:06:17,517: Logger: Control : query_recived_order_shelfs_from_file : 0.002322673797607422 -->
+2023-03-27 13:06:17,806: Logger: Robot --> R7 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 13:06:17,806: Logger: Robot --> R7 moved to location=[10, 6]
+2023-03-27 13:06:17,806: Logger: Control : move : 0.0005095005035400391 -->
+2023-03-27 13:06:18,407: Logger: Control : steps_map_to_shelf : 0.8899896144866943 -->
+2023-03-27 13:06:18,423: Logger: Control : steps_map : 0.9111728668212891 -->
+2023-03-27 13:06:18,425: Logger: Control : query_recived_order_shelfs_from_file : 0.0025331974029541016 -->
+2023-03-27 13:06:18,428: Logger: Control : query_recived_order_shelfs_from_file : 0.0023040771484375 -->
+2023-03-27 13:06:18,771: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:06:18,772: Logger: Robot --> R7 moved to location=[10, 7]
+2023-03-27 13:06:18,772: Logger: Control : move : 0.0005950927734375 -->
+2023-03-27 13:06:19,461: Logger: Control : steps_map_to_shelf : 1.0331287384033203 -->
+2023-03-27 13:06:19,476: Logger: Control : steps_map : 1.0532312393188477 -->
+2023-03-27 13:06:19,479: Logger: Control : query_recived_order_shelfs_from_file : 0.002515554428100586 -->
+2023-03-27 13:06:19,481: Logger: Control : query_recived_order_shelfs_from_file : 0.002323627471923828 -->
+2023-03-27 13:06:19,819: Logger: Robot --> R7 has rotated 90-degree-anti-clock-wise, orientation now is up
+2023-03-27 13:06:19,819: Logger: Robot --> R7 moved to location=[9, 7]
+2023-03-27 13:06:19,820: Logger: Control : move : 0.0005717277526855469 -->
+2023-03-27 13:06:20,391: Logger: Control : steps_map_to_shelf : 0.9088461399078369 -->
+2023-03-27 13:06:20,401: Logger: Control : steps_map : 0.9247152805328369 -->
+2023-03-27 13:06:20,403: Logger: Control : query_recived_order_shelfs_from_file : 0.0019223690032958984 -->
+2023-03-27 13:06:20,405: Logger: Control : query_recived_order_shelfs_from_file : 0.0017824172973632812 -->
+2023-03-27 13:06:21,240: Logger: Control : steps_map_to_shelf : 0.8341794013977051 -->
+2023-03-27 13:06:21,250: Logger: Control : steps_map : 0.8486149311065674 -->
+2023-03-27 13:06:21,252: Logger: Control : query_recived_order_shelfs_from_file : 0.0019826889038085938 -->
+2023-03-27 13:06:21,254: Logger: Control : query_recived_order_shelfs_from_file : 0.0016744136810302734 -->
+2023-03-27 13:06:22,176: Logger: Control : steps_map_to_shelf : 0.9212896823883057 -->
+2023-03-27 13:06:22,186: Logger: Control : steps_map : 0.9356484413146973 -->
+2023-03-27 13:06:22,186: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:06:24,609: Logger: Shelf --> S1 is created with intial_location=[3, 5]
+2023-03-27 13:06:24,610: Logger: Shelf --> S2 is created with intial_location=[9, 12]
+2023-03-27 13:06:24,610: Logger: Shelf --> S3 is created with intial_location=[5, 8]
+2023-03-27 13:06:24,610: Logger: Shelf --> S4 is created with intial_location=[5, 1]
+2023-03-27 13:06:24,610: Logger: Shelf --> S5 is created with intial_location=[8, 9]
+2023-03-27 13:06:24,610: Logger: Robot --> R1 is created with speed=1, intial_location=[9, 6], intial_orientation=right battery_precentage=100
+2023-03-27 13:06:24,610: Logger: Robot --> R2 is created with speed=1, intial_location=[1, 11], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:24,610: Logger: Robot --> R3 is created with speed=1, intial_location=[5, 10], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:24,610: Logger: Robot --> R4 is created with speed=1, intial_location=[14, 5], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:24,611: Logger: Robot --> R5 is created with speed=1, intial_location=[1, 10], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:24,611: Logger: Robot --> R6 is created with speed=1, intial_location=[14, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:24,611: Logger: Robot --> R7 is created with speed=1, intial_location=[0, 4], intial_orientation=left battery_precentage=100
+2023-03-27 13:06:24,632: Logger: Control : query_recived_order_shelfs_from_file : 0.004288196563720703 -->
+2023-03-27 13:06:24,635: Logger: Control : query_recived_order_shelfs_from_file : 0.002801656723022461 -->
+2023-03-27 13:06:24,636: Logger: Control : min_cost_robots : 0.0033066272735595703 -->S2 ----> R6 (Min cost = 5) (Costs: [['R6', 5], ['R1', 6], ['R3', 6], ['R2', 9], ['R5', 10], ['R4', 12], ['R7', 17]])
+2023-03-27 13:06:24,636: Logger: Control : min_cost_robots : 0.0035932064056396484 -->S1 ----> R7 (Min cost = 4) (Costs: [['R7', 4], ['R1', 7], ['R3', 7], ['R5', 7], ['R2', 8], ['R4', 11]])
+2023-03-27 13:06:24,636: Logger: Control : min_cost_robots : 0.0037784576416015625 -->S3 ----> R3 (Min cost = 2) (Costs: [['R3', 2], ['R1', 6], ['R5', 6], ['R2', 7], ['R4', 12]])
+2023-03-27 13:06:24,637: Logger: Robot --> R6 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:06:24,637: Logger: Robot --> R6 moved to location=[13, 12]
+2023-03-27 13:06:24,637: Logger: Control : move : 0.0003905296325683594 -->
+2023-03-27 13:06:25,011: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:06:25,011: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is right
+2023-03-27 13:06:25,012: Logger: Robot --> R7 moved to location=[0, 5]
+2023-03-27 13:06:25,012: Logger: Control : move : 0.0005753040313720703 -->
+2023-03-27 13:06:25,101: Logger: Robot --> R3 moved to location=[5, 9]
+2023-03-27 13:06:25,101: Logger: Control : move : 0.00030612945556640625 -->
+2023-03-27 13:06:25,201: Logger: Control : steps_map_to_shelf : 0.5642349720001221 -->
+2023-03-27 13:06:25,218: Logger: Control : steps_map : 0.589714527130127 -->
+2023-03-27 13:06:25,220: Logger: Control : query_recived_order_shelfs_from_file : 0.002465486526489258 -->
+2023-03-27 13:06:25,223: Logger: Control : query_recived_order_shelfs_from_file : 0.0022704601287841797 -->
+2023-03-27 13:06:25,223: Logger: Robot --> R6 moved to location=[12, 12]
+2023-03-27 13:06:25,223: Logger: Control : move : 0.00010895729064941406 -->
+2023-03-27 13:06:25,335: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is down
+2023-03-27 13:06:25,335: Logger: Robot --> R7 moved to location=[1, 5]
+2023-03-27 13:06:25,335: Logger: Control : move : 0.00045680999755859375 -->
+2023-03-27 13:06:25,604: Logger: Control : steps_map_to_shelf : 0.3812122344970703 -->
+2023-03-27 13:06:25,620: Logger: Control : steps_map : 0.40213775634765625 -->
+2023-03-27 13:06:25,623: Logger: Control : query_recived_order_shelfs_from_file : 0.0024552345275878906 -->
+2023-03-27 13:06:25,625: Logger: Control : query_recived_order_shelfs_from_file : 0.0023953914642333984 -->
+2023-03-27 13:06:25,626: Logger: Robot --> R6 moved to location=[11, 12]
+2023-03-27 13:06:25,626: Logger: Control : move : 0.00011348724365234375 -->
+2023-03-27 13:06:25,794: Logger: Robot --> R7 moved to location=[2, 5]
+2023-03-27 13:06:25,794: Logger: Control : move : 0.0002605915069580078 -->
+2023-03-27 13:06:26,148: Logger: Control : steps_map_to_shelf : 0.5228335857391357 -->
+2023-03-27 13:06:26,164: Logger: Control : steps_map : 0.5439615249633789 -->
+2023-03-27 13:06:26,167: Logger: Control : query_recived_order_shelfs_from_file : 0.0024864673614501953 -->
+2023-03-27 13:06:26,170: Logger: Control : query_recived_order_shelfs_from_file : 0.0024085044860839844 -->
+2023-03-27 13:06:26,170: Logger: Robot --> R6 moved to location=[10, 12]
+2023-03-27 13:06:26,170: Logger: Control : move : 0.00012540817260742188 -->
+2023-03-27 13:06:26,826: Logger: Control : steps_map_to_shelf : 0.6567080020904541 -->
+2023-03-27 13:06:26,842: Logger: Control : steps_map : 0.6778733730316162 -->
+2023-03-27 13:06:26,845: Logger: Control : query_recived_order_shelfs_from_file : 0.002683401107788086 -->
+2023-03-27 13:06:26,848: Logger: Control : query_recived_order_shelfs_from_file : 0.002262592315673828 -->
+2023-03-27 13:06:27,646: Logger: Control : steps_map_to_shelf : 0.7978575229644775 -->
+2023-03-27 13:06:27,662: Logger: Control : steps_map : 0.8190898895263672 -->
+2023-03-27 13:06:27,665: Logger: Control : query_recived_order_shelfs_from_file : 0.002562999725341797 -->
+2023-03-27 13:06:27,667: Logger: Control : query_recived_order_shelfs_from_file : 0.0025811195373535156 -->
+2023-03-27 13:06:28,631: Logger: Control : steps_map_to_shelf : 0.963639497756958 -->
+2023-03-27 13:06:28,647: Logger: Control : steps_map : 0.9853026866912842 -->
+2023-03-27 13:06:28,650: Logger: Control : query_recived_order_shelfs_from_file : 0.0027055740356445312 -->
+2023-03-27 13:06:28,653: Logger: Control : query_recived_order_shelfs_from_file : 0.002633810043334961 -->
+2023-03-27 13:06:29,741: Logger: Control : steps_map_to_shelf : 1.0871250629425049 -->
+2023-03-27 13:06:29,756: Logger: Control : steps_map : 1.108642816543579 -->
+2023-03-27 13:06:29,759: Logger: Control : query_recived_order_shelfs_from_file : 0.0026416778564453125 -->
+2023-03-27 13:06:29,762: Logger: Control : query_recived_order_shelfs_from_file : 0.002537250518798828 -->
+2023-03-27 13:06:30,874: Logger: Control : steps_map_to_shelf : 1.1118464469909668 -->
+2023-03-27 13:06:30,886: Logger: Control : steps_map : 1.1291205883026123 -->
+2023-03-27 13:06:30,888: Logger: Control : query_recived_order_shelfs_from_file : 0.002121448516845703 -->
+2023-03-27 13:06:30,890: Logger: Control : query_recived_order_shelfs_from_file : 0.0018968582153320312 -->
+2023-03-27 13:06:31,787: Logger: Control : steps_map_to_shelf : 0.8966386318206787 -->
+2023-03-27 13:06:31,797: Logger: Control : steps_map : 0.9107403755187988 -->
+2023-03-27 13:06:31,800: Logger: Control : query_recived_order_shelfs_from_file : 0.0023615360260009766 -->
+2023-03-27 13:06:31,801: Logger: Control : query_recived_order_shelfs_from_file : 0.0015854835510253906 -->
+2023-03-27 13:06:32,758: Logger: Control : steps_map_to_shelf : 0.9560258388519287 -->
+2023-03-27 13:06:32,767: Logger: Control : steps_map : 0.9702975749969482 -->
+2023-03-27 13:06:32,768: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:33:48,878: Logger: Shelf --> S1 is created with intial_location=[4, 6]
+2023-03-27 13:33:48,878: Logger: Shelf --> S2 is created with intial_location=[5, 10]
+2023-03-27 13:33:48,878: Logger: Shelf --> S3 is created with intial_location=[8, 12]
+2023-03-27 13:33:48,878: Logger: Shelf --> S4 is created with intial_location=[10, 6]
+2023-03-27 13:33:48,878: Logger: Shelf --> S5 is created with intial_location=[7, 7]
+2023-03-27 13:33:48,878: Logger: Robot --> R1 is created with speed=1, intial_location=[12, 5], intial_orientation=right battery_precentage=100
+2023-03-27 13:33:48,878: Logger: Robot --> R2 is created with speed=1, intial_location=[8, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:33:48,879: Logger: Robot --> R3 is created with speed=1, intial_location=[3, 14], intial_orientation=left battery_precentage=100
+2023-03-27 13:33:48,879: Logger: Robot --> R4 is created with speed=1, intial_location=[3, 13], intial_orientation=left battery_precentage=100
+2023-03-27 13:33:48,879: Logger: Robot --> R5 is created with speed=1, intial_location=[1, 1], intial_orientation=left battery_precentage=100
+2023-03-27 13:33:48,879: Logger: Robot --> R6 is created with speed=1, intial_location=[10, 2], intial_orientation=left battery_precentage=100
+2023-03-27 13:33:48,879: Logger: Robot --> R7 is created with speed=1, intial_location=[5, 13], intial_orientation=left battery_precentage=100
+2023-03-27 13:33:48,901: Logger: Control : query_recived_order_shelfs_from_file : 0.004381418228149414 -->
+2023-03-27 13:33:48,905: Logger: Control : query_recived_order_shelfs_from_file : 0.0033240318298339844 -->
+2023-03-27 13:33:48,905: Logger: Control : min_cost_robots : 0.003920078277587891 -->S1 ----> R4 (Min cost = 8) (Costs: [['R4', 8], ['R5', 8], ['R7', 8], ['R1', 9], ['R3', 9], ['R2', 10], ['R6', 10]])
+2023-03-27 13:33:48,906: Logger: Control : min_cost_robots : 0.004189729690551758 -->S3 ----> R2 (Min cost = 0) (Costs: [['R2', 0], ['R7', 4], ['R3', 7], ['R1', 11], ['R6', 12], ['R5', 18]])
+2023-03-27 13:33:48,906: Logger: Control : min_cost_robots : 0.004387855529785156 -->S2 ----> R7 (Min cost = 3) (Costs: [['R7', 3], ['R3', 6], ['R1', 12], ['R5', 13], ['R6', 13]])
+2023-03-27 13:33:48,906: Logger: Robot --> R4 moved to location=[3, 12]
+2023-03-27 13:33:48,906: Logger: Control : move : 0.00014472007751464844 -->
+2023-03-27 13:33:49,429: Logger: Robot --> R7 moved to location=[5, 12]
+2023-03-27 13:33:49,430: Logger: Control : move : 0.00028967857360839844 -->
+2023-03-27 13:33:49,528: Logger: Control : steps_map_to_shelf : 0.6223831176757812 -->
+2023-03-27 13:33:49,547: Logger: Control : steps_map : 0.6498961448669434 -->
+2023-03-27 13:33:49,549: Logger: Control : query_recived_order_shelfs_from_file : 0.002474069595336914 -->
+2023-03-27 13:33:49,552: Logger: Control : query_recived_order_shelfs_from_file : 0.0023088455200195312 -->
+2023-03-27 13:33:49,552: Logger: Robot --> R4 moved to location=[3, 11]
+2023-03-27 13:33:49,552: Logger: Control : move : 0.00011324882507324219 -->
+2023-03-27 13:33:49,790: Logger: Robot --> R7 moved to location=[5, 11]
+2023-03-27 13:33:49,791: Logger: Control : move : 0.00033736228942871094 -->
+2023-03-27 13:33:49,930: Logger: Control : steps_map_to_shelf : 0.37841796875 -->
+2023-03-27 13:33:49,947: Logger: Control : steps_map : 0.40015602111816406 -->
+2023-03-27 13:33:49,950: Logger: Control : query_recived_order_shelfs_from_file : 0.0024039745330810547 -->
+2023-03-27 13:33:49,952: Logger: Control : query_recived_order_shelfs_from_file : 0.0022847652435302734 -->
+2023-03-27 13:33:49,952: Logger: Robot --> R4 moved to location=[3, 10]
+2023-03-27 13:33:49,953: Logger: Control : move : 0.00012063980102539062 -->
+2023-03-27 13:33:50,466: Logger: Control : steps_map_to_shelf : 0.5139977931976318 -->
+2023-03-27 13:33:50,483: Logger: Control : steps_map : 0.5355713367462158 -->
+2023-03-27 13:33:50,486: Logger: Control : query_recived_order_shelfs_from_file : 0.002575397491455078 -->
+2023-03-27 13:33:50,488: Logger: Control : query_recived_order_shelfs_from_file : 0.00241851806640625 -->
+2023-03-27 13:33:50,489: Logger: Robot --> R4 moved to location=[3, 9]
+2023-03-27 13:33:50,489: Logger: Control : move : 0.00011467933654785156 -->
+2023-03-27 13:33:51,153: Logger: Control : steps_map_to_shelf : 0.6646633148193359 -->
+2023-03-27 13:33:51,170: Logger: Control : steps_map : 0.6872067451477051 -->
+2023-03-27 13:33:51,173: Logger: Control : query_recived_order_shelfs_from_file : 0.0027992725372314453 -->
+2023-03-27 13:33:51,176: Logger: Control : query_recived_order_shelfs_from_file : 0.0025093555450439453 -->
+2023-03-27 13:33:51,176: Logger: Robot --> R4 moved to location=[3, 8]
+2023-03-27 13:33:51,177: Logger: Control : move : 0.00014853477478027344 -->
+2023-03-27 13:33:51,970: Logger: Control : steps_map_to_shelf : 0.7941069602966309 -->
+2023-03-27 13:33:51,986: Logger: Control : steps_map : 0.8159699440002441 -->
+2023-03-27 13:33:51,989: Logger: Control : query_recived_order_shelfs_from_file : 0.002584218978881836 -->
+2023-03-27 13:33:51,992: Logger: Control : query_recived_order_shelfs_from_file : 0.0024068355560302734 -->
+2023-03-27 13:33:51,992: Logger: Robot --> R4 moved to location=[3, 7]
+2023-03-27 13:33:51,992: Logger: Control : move : 0.00010371208190917969 -->
+2023-03-27 13:33:52,916: Logger: Control : steps_map_to_shelf : 0.9233145713806152 -->
+2023-03-27 13:33:52,931: Logger: Control : steps_map : 0.9440677165985107 -->
+2023-03-27 13:33:52,934: Logger: Control : query_recived_order_shelfs_from_file : 0.002705812454223633 -->
+2023-03-27 13:33:52,937: Logger: Control : query_recived_order_shelfs_from_file : 0.0026025772094726562 -->
+2023-03-27 13:33:52,937: Logger: Robot --> R4 moved to location=[3, 6]
+2023-03-27 13:33:52,937: Logger: Control : move : 0.00018596649169921875 -->
+2023-03-27 13:33:54,001: Logger: Control : steps_map_to_shelf : 1.0636003017425537 -->
+2023-03-27 13:33:54,016: Logger: Control : steps_map : 1.0849504470825195 -->
+2023-03-27 13:33:54,019: Logger: Control : query_recived_order_shelfs_from_file : 0.002613544464111328 -->
+2023-03-27 13:33:54,022: Logger: Control : query_recived_order_shelfs_from_file : 0.0022988319396972656 -->
+2023-03-27 13:33:55,231: Logger: Control : steps_map_to_shelf : 1.2097580432891846 -->
+2023-03-27 13:33:55,247: Logger: Control : steps_map : 1.230787992477417 -->
+2023-03-27 13:33:55,250: Logger: Control : query_recived_order_shelfs_from_file : 0.0026988983154296875 -->
+2023-03-27 13:33:55,253: Logger: Control : query_recived_order_shelfs_from_file : 0.002425670623779297 -->
+2023-03-27 13:33:56,595: Logger: Control : steps_map_to_shelf : 1.3413023948669434 -->
+2023-03-27 13:33:56,610: Logger: Control : steps_map : 1.3622310161590576 -->
+2023-03-27 13:33:56,613: Logger: Control : query_recived_order_shelfs_from_file : 0.0025446414947509766 -->
+2023-03-27 13:33:56,615: Logger: Control : query_recived_order_shelfs_from_file : 0.002368927001953125 -->
+2023-03-27 13:33:57,982: Logger: Control : steps_map_to_shelf : 1.36612868309021 -->
+2023-03-27 13:33:57,993: Logger: Control : steps_map : 1.3831267356872559 -->
+2023-03-27 13:33:57,994: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:35:37,212: Logger: Shelf --> S1 is created with intial_location=[9, 1]
+2023-03-27 13:35:37,212: Logger: Shelf --> S2 is created with intial_location=[4, 5]
+2023-03-27 13:35:37,212: Logger: Shelf --> S3 is created with intial_location=[7, 4]
+2023-03-27 13:35:37,212: Logger: Shelf --> S4 is created with intial_location=[6, 10]
+2023-03-27 13:35:37,212: Logger: Shelf --> S5 is created with intial_location=[5, 9]
+2023-03-27 13:35:37,212: Logger: Robot --> R1 is created with speed=1, intial_location=[12, 8], intial_orientation=right battery_precentage=100
+2023-03-27 13:35:37,212: Logger: Robot --> R2 is created with speed=1, intial_location=[11, 5], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:37,212: Logger: Robot --> R3 is created with speed=1, intial_location=[6, 4], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:37,213: Logger: Robot --> R4 is created with speed=1, intial_location=[2, 6], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:37,213: Logger: Robot --> R5 is created with speed=1, intial_location=[10, 13], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:37,213: Logger: Robot --> R6 is created with speed=1, intial_location=[2, 7], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:37,213: Logger: Robot --> R7 is created with speed=1, intial_location=[2, 7], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:37,236: Logger: Control : query_recived_order_shelfs_from_file : 0.004960775375366211 -->
+2023-03-27 13:35:37,239: Logger: Control : query_recived_order_shelfs_from_file : 0.0031309127807617188 -->
+2023-03-27 13:35:37,240: Logger: Control : min_cost_robots : 0.0037250518798828125 -->S1 ----> R2 (Min cost = 6) (Costs: [['R2', 6], ['R3', 6], ['R1', 10], ['R4', 12], ['R5', 13], ['R6', 13], ['R7', 13]])
+2023-03-27 13:35:37,240: Logger: Control : min_cost_robots : 0.003962278366088867 -->S3 ----> R3 (Min cost = 1) (Costs: [['R3', 1], ['R4', 7], ['R6', 8], ['R7', 8], ['R1', 9], ['R5', 12]])
+2023-03-27 13:35:37,240: Logger: Control : min_cost_robots : 0.004122257232666016 -->S2 ----> R4 (Min cost = 3) (Costs: [['R4', 3], ['R6', 4], ['R7', 4], ['R1', 11], ['R5', 14]])
+2023-03-27 13:35:37,241: Logger: Robot --> R2 moved to location=[11, 4]
+2023-03-27 13:35:37,241: Logger: Control : move : 0.00011801719665527344 -->
+2023-03-27 13:35:37,827: Logger: Robot --> R4 moved to location=[2, 5]
+2023-03-27 13:35:37,828: Logger: Control : move : 0.0003688335418701172 -->
+2023-03-27 13:35:37,917: Logger: Control : steps_map_to_shelf : 0.6766514778137207 -->
+2023-03-27 13:35:37,935: Logger: Control : steps_map : 0.7042298316955566 -->
+2023-03-27 13:35:37,938: Logger: Control : query_recived_order_shelfs_from_file : 0.003064870834350586 -->
+2023-03-27 13:35:37,941: Logger: Control : query_recived_order_shelfs_from_file : 0.0029213428497314453 -->
+2023-03-27 13:35:37,942: Logger: Robot --> R2 moved to location=[11, 3]
+2023-03-27 13:35:37,942: Logger: Control : move : 0.0001285076141357422 -->
+2023-03-27 13:35:38,201: Logger: Robot --> R4 has rotated 90-degree-anti-clock-wise, orientation now is down
+2023-03-27 13:35:38,201: Logger: Robot --> R4 moved to location=[3, 5]
+2023-03-27 13:35:38,202: Logger: Control : move : 0.0005135536193847656 -->
+2023-03-27 13:35:38,338: Logger: Control : steps_map_to_shelf : 0.39683961868286133 -->
+2023-03-27 13:35:38,356: Logger: Control : steps_map : 0.4211442470550537 -->
+2023-03-27 13:35:38,359: Logger: Control : query_recived_order_shelfs_from_file : 0.0025997161865234375 -->
+2023-03-27 13:35:38,362: Logger: Control : query_recived_order_shelfs_from_file : 0.0023729801177978516 -->
+2023-03-27 13:35:38,362: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:35:38,362: Logger: Robot --> R2 moved to location=[10, 3]
+2023-03-27 13:35:38,362: Logger: Control : move : 0.00023031234741210938 -->
+2023-03-27 13:35:38,889: Logger: Control : steps_map_to_shelf : 0.5267820358276367 -->
+2023-03-27 13:35:38,904: Logger: Control : steps_map : 0.5479459762573242 -->
+2023-03-27 13:35:38,907: Logger: Control : query_recived_order_shelfs_from_file : 0.0025899410247802734 -->
+2023-03-27 13:35:38,910: Logger: Control : query_recived_order_shelfs_from_file : 0.0023822784423828125 -->
+2023-03-27 13:35:38,910: Logger: Robot --> R2 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-27 13:35:38,910: Logger: Robot --> R2 moved to location=[10, 2]
+2023-03-27 13:35:38,910: Logger: Control : move : 0.00021719932556152344 -->
+2023-03-27 13:35:39,571: Logger: Control : steps_map_to_shelf : 0.6613554954528809 -->
+2023-03-27 13:35:39,587: Logger: Control : steps_map : 0.6827123165130615 -->
+2023-03-27 13:35:39,590: Logger: Control : query_recived_order_shelfs_from_file : 0.002843618392944336 -->
+2023-03-27 13:35:39,593: Logger: Control : query_recived_order_shelfs_from_file : 0.0023238658905029297 -->
+2023-03-27 13:35:39,594: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:35:39,594: Logger: Robot --> R2 moved to location=[9, 2]
+2023-03-27 13:35:39,594: Logger: Control : move : 0.0003719329833984375 -->
+2023-03-27 13:35:40,395: Logger: Control : steps_map_to_shelf : 0.8018033504486084 -->
+2023-03-27 13:35:40,412: Logger: Control : steps_map : 0.8241653442382812 -->
+2023-03-27 13:35:40,415: Logger: Control : query_recived_order_shelfs_from_file : 0.0027718544006347656 -->
+2023-03-27 13:35:40,418: Logger: Control : query_recived_order_shelfs_from_file : 0.002442598342895508 -->
+2023-03-27 13:35:41,365: Logger: Control : steps_map_to_shelf : 0.9473764896392822 -->
+2023-03-27 13:35:41,381: Logger: Control : steps_map : 0.9687564373016357 -->
+2023-03-27 13:35:41,384: Logger: Control : query_recived_order_shelfs_from_file : 0.0025789737701416016 -->
+2023-03-27 13:35:41,386: Logger: Control : query_recived_order_shelfs_from_file : 0.002332925796508789 -->
+2023-03-27 13:35:42,476: Logger: Control : steps_map_to_shelf : 1.089132308959961 -->
+2023-03-27 13:35:42,493: Logger: Control : steps_map : 1.111391305923462 -->
+2023-03-27 13:35:42,495: Logger: Control : query_recived_order_shelfs_from_file : 0.002641916275024414 -->
+2023-03-27 13:35:42,498: Logger: Control : query_recived_order_shelfs_from_file : 0.002610445022583008 -->
+2023-03-27 13:35:43,728: Logger: Control : steps_map_to_shelf : 1.2290854454040527 -->
+2023-03-27 13:35:43,743: Logger: Control : steps_map : 1.2503533363342285 -->
+2023-03-27 13:35:43,746: Logger: Control : query_recived_order_shelfs_from_file : 0.0026476383209228516 -->
+2023-03-27 13:35:43,749: Logger: Control : query_recived_order_shelfs_from_file : 0.002740144729614258 -->
+2023-03-27 13:35:45,118: Logger: Control : steps_map_to_shelf : 1.3683497905731201 -->
+2023-03-27 13:35:45,134: Logger: Control : steps_map : 1.390415906906128 -->
+2023-03-27 13:35:45,137: Logger: Control : query_recived_order_shelfs_from_file : 0.0027260780334472656 -->
+2023-03-27 13:35:45,140: Logger: Control : query_recived_order_shelfs_from_file : 0.0025055408477783203 -->
+2023-03-27 13:35:46,488: Logger: Control : steps_map_to_shelf : 1.34828519821167 -->
+2023-03-27 13:35:46,499: Logger: Control : steps_map : 1.3649191856384277 -->
+2023-03-27 13:35:46,499: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
+2023-03-27 13:35:56,045: Logger: Shelf --> S1 is created with intial_location=[8, 9]
+2023-03-27 13:35:56,045: Logger: Shelf --> S2 is created with intial_location=[13, 9]
+2023-03-27 13:35:56,045: Logger: Shelf --> S3 is created with intial_location=[5, 9]
+2023-03-27 13:35:56,045: Logger: Shelf --> S4 is created with intial_location=[8, 11]
+2023-03-27 13:35:56,046: Logger: Shelf --> S5 is created with intial_location=[5, 6]
+2023-03-27 13:35:56,046: Logger: Robot --> R1 is created with speed=1, intial_location=[0, 2], intial_orientation=right battery_precentage=100
+2023-03-27 13:35:56,046: Logger: Robot --> R2 is created with speed=1, intial_location=[8, 9], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:56,046: Logger: Robot --> R3 is created with speed=1, intial_location=[2, 1], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:56,046: Logger: Robot --> R4 is created with speed=1, intial_location=[0, 9], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:56,046: Logger: Robot --> R5 is created with speed=1, intial_location=[12, 5], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:56,046: Logger: Robot --> R6 is created with speed=1, intial_location=[13, 12], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:56,046: Logger: Robot --> R7 is created with speed=1, intial_location=[11, 11], intial_orientation=left battery_precentage=100
+2023-03-27 13:35:56,067: Logger: Control : query_recived_order_shelfs_from_file : 0.003480672836303711 -->
+2023-03-27 13:35:56,070: Logger: Control : query_recived_order_shelfs_from_file : 0.0026962757110595703 -->
+2023-03-27 13:35:56,070: Logger: Control : min_cost_robots : 0.003183126449584961 -->S2 ----> R6 (Min cost = 3) (Costs: [['R6', 3], ['R7', 4], ['R2', 5], ['R5', 5], ['R4', 13], ['R3', 19], ['R1', 20]])
+2023-03-27 13:35:56,070: Logger: Control : min_cost_robots : 0.0034558773040771484 -->S3 ----> R2 (Min cost = 3) (Costs: [['R2', 3], ['R4', 5], ['R7', 8], ['R3', 11], ['R5', 11], ['R1', 12]])
+2023-03-27 13:35:56,071: Logger: Control : min_cost_robots : 0.003683328628540039 -->S1 ----> R7 (Min cost = 5) (Costs: [['R7', 5], ['R4', 8], ['R5', 8], ['R3', 14], ['R1', 15]])
+2023-03-27 13:35:56,071: Logger: Robot --> R6 moved to location=[13, 11]
+2023-03-27 13:35:56,071: Logger: Control : move : 0.00012063980102539062 -->
+2023-03-27 13:35:56,442: Logger: Robot --> R2 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:35:56,442: Logger: Robot --> R2 moved to location=[7, 9]
+2023-03-27 13:35:56,442: Logger: Control : move : 0.0004570484161376953 -->
+2023-03-27 13:35:56,549: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:35:56,550: Logger: Robot --> R7 moved to location=[10, 11]
+2023-03-27 13:35:56,550: Logger: Control : move : 0.00036334991455078125 -->
+2023-03-27 13:35:56,653: Logger: Control : steps_map_to_shelf : 0.5819199085235596 -->
+2023-03-27 13:35:56,669: Logger: Control : steps_map : 0.6056954860687256 -->
+2023-03-27 13:35:56,672: Logger: Control : query_recived_order_shelfs_from_file : 0.002480030059814453 -->
+2023-03-27 13:35:56,675: Logger: Control : query_recived_order_shelfs_from_file : 0.003032684326171875 -->
+2023-03-27 13:35:56,675: Logger: Robot --> R6 moved to location=[13, 10]
+2023-03-27 13:35:56,675: Logger: Control : move : 0.00011706352233886719 -->
+2023-03-27 13:35:56,790: Logger: Robot --> R2 moved to location=[6, 9]
+2023-03-27 13:35:56,790: Logger: Control : move : 0.00026726722717285156 -->
+2023-03-27 13:35:56,918: Logger: Robot --> R7 moved to location=[9, 11]
+2023-03-27 13:35:56,919: Logger: Control : move : 0.0003235340118408203 -->
+2023-03-27 13:35:57,059: Logger: Control : steps_map_to_shelf : 0.3837158679962158 -->
+2023-03-27 13:35:57,075: Logger: Control : steps_map : 0.4062337875366211 -->
+2023-03-27 13:35:57,078: Logger: Control : query_recived_order_shelfs_from_file : 0.002420663833618164 -->
+2023-03-27 13:35:57,080: Logger: Control : query_recived_order_shelfs_from_file : 0.002168416976928711 -->
+2023-03-27 13:35:57,420: Logger: Robot --> R7 has rotated 90-degree-anti-clock-wise, orientation now is left
+2023-03-27 13:35:57,421: Logger: Robot --> R7 moved to location=[9, 10]
+2023-03-27 13:35:57,421: Logger: Control : move : 0.0005648136138916016 -->
+2023-03-27 13:35:57,606: Logger: Control : steps_map_to_shelf : 0.5249946117401123 -->
+2023-03-27 13:35:57,621: Logger: Control : steps_map : 0.5458681583404541 -->
+2023-03-27 13:35:57,624: Logger: Control : query_recived_order_shelfs_from_file : 0.002593517303466797 -->
+2023-03-27 13:35:57,627: Logger: Control : query_recived_order_shelfs_from_file : 0.002328634262084961 -->
+2023-03-27 13:35:58,063: Logger: Robot --> R7 has rotated 90-degree-clock-wise, orientation now is up
+2023-03-27 13:35:58,064: Logger: Robot --> R7 moved to location=[8, 10]
+2023-03-27 13:35:58,064: Logger: Control : move : 0.0005931854248046875 -->
+2023-03-27 13:35:58,298: Logger: Control : steps_map_to_shelf : 0.6712160110473633 -->
+2023-03-27 13:35:58,314: Logger: Control : steps_map : 0.6927342414855957 -->
+2023-03-27 13:35:58,317: Logger: Control : query_recived_order_shelfs_from_file : 0.0026133060455322266 -->
+2023-03-27 13:35:58,320: Logger: Control : query_recived_order_shelfs_from_file : 0.0026323795318603516 -->
+2023-03-27 13:35:59,119: Logger: Control : steps_map_to_shelf : 0.7988855838775635 -->
+2023-03-27 13:35:59,137: Logger: Control : steps_map : 0.8223011493682861 -->
+2023-03-27 13:35:59,140: Logger: Control : query_recived_order_shelfs_from_file : 0.002756834030151367 -->
+2023-03-27 13:35:59,143: Logger: Control : query_recived_order_shelfs_from_file : 0.00238037109375 -->
+2023-03-27 13:36:00,098: Logger: Control : steps_map_to_shelf : 0.9552338123321533 -->
+2023-03-27 13:36:00,114: Logger: Control : steps_map : 0.976900577545166 -->
+2023-03-27 13:36:00,117: Logger: Control : query_recived_order_shelfs_from_file : 0.002758502960205078 -->
+2023-03-27 13:36:00,120: Logger: Control : query_recived_order_shelfs_from_file : 0.002589702606201172 -->
+2023-03-27 13:36:01,202: Logger: Control : steps_map_to_shelf : 1.0816268920898438 -->
+2023-03-27 13:36:01,218: Logger: Control : steps_map : 1.1035957336425781 -->
+2023-03-27 13:36:01,221: Logger: Control : query_recived_order_shelfs_from_file : 0.0027070045471191406 -->
+2023-03-27 13:36:01,224: Logger: Control : query_recived_order_shelfs_from_file : 0.002499103546142578 -->
+2023-03-27 13:36:02,441: Logger: Control : steps_map_to_shelf : 1.2173113822937012 -->
+2023-03-27 13:36:02,458: Logger: Control : steps_map : 1.239443302154541 -->
+2023-03-27 13:36:02,461: Logger: Control : query_recived_order_shelfs_from_file : 0.002574920654296875 -->
+2023-03-27 13:36:02,463: Logger: Control : query_recived_order_shelfs_from_file : 0.0024352073669433594 -->
+2023-03-27 13:36:03,814: Logger: Control : steps_map_to_shelf : 1.3508131504058838 -->
+2023-03-27 13:36:03,831: Logger: Control : steps_map : 1.372668743133545 -->
+2023-03-27 13:36:03,834: Logger: Control : query_recived_order_shelfs_from_file : 0.0025947093963623047 -->
+2023-03-27 13:36:03,836: Logger: Control : query_recived_order_shelfs_from_file : 0.0023050308227539062 -->
+2023-03-27 13:36:05,156: Logger: Control : steps_map_to_shelf : 1.3195960521697998 -->
+2023-03-27 13:36:05,167: Logger: Control : steps_map : 1.3359897136688232 -->
+2023-03-27 13:36:05,167: Logger: ---------------------------------------------- Line breaker ----------------------------------------------
+
