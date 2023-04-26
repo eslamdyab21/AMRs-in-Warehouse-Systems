@@ -1,0 +1,157 @@
+{
+  "main": {
+    "id": "9c02d550e8801248",
+    "type": "split",
+    "children": [
+      {
+        "id": "2c48d7417fe4c8ff",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a9057a44e95858f9",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "60d1923e60b93f17",
+    "type": "split",
+    "children": [
+      {
+        "id": "edc96046ca282814",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4d54c092d4bafea9",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "34f8c44036b032b7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "59e9578467af91a8",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          },
+          {
+            "id": "3584851e793a1867",
+            "type": "leaf",
+            "state": {
+              "type": "mk-file-view",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "a4ca25487eb098b2",
+    "type": "split",
+    "children": [
+      {
+        "id": "451fbd41f68c07a6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "407e43dbe727f4c5",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "67f9c9f72e3f61dd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "99707310be537838",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "1d65acce541485a1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "a9057a44e95858f9",
+  "lastOpenFiles": [
+    "Embedded/integrate ros with micro-controller in arduino @17.md",
+    "Embedded/ARM-MCAL-core-peripheral-drivers@12.md",
+    "Embedded/ARM embedded-c encoders code @14.md",
+    "Context",
+    "Embedded/Embedded.md"
+  ]
+}
