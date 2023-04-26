@@ -1,7 +1,7 @@
 ## <u> About the database </u> ##
 Our database is a _Relational Database_ (i.e. it stores and organizes data in table consisting of rows and columns). In a relational database, data is organized into one or more tables, where each table represents a specific type of entity or object, such as customers, orders, or products.
 
-It's built with the help of MySQL server and consists of 3 groups of tables, each group integrates with a part of our system. There's a group that integrates with the customers website, another group that integrates with the robots and shelves in the warehouse, and the last group integrates with the Admin's web application.
+It has been built with the help of _PostgreSQL_ server and consists of 3 groups of tables, each group integrates with a part of our system. There's a group that integrates with the customers website, another group that integrates with the robots and shelves in the warehouse, and the last group integrates with the Admin's web application.
 
 Mainly, the relaltionship between tables is established through a common field, known as a key, which is used to link related data across tables. The most common type of keys is _primary key_ and _foreign key_.
 
@@ -18,26 +18,45 @@ It also has some _triggers_. A trigger is a database object that is associated w
 As mentioned above, the tables in our database is divided into 3 groups, each group integrates with a part of the system. Each table in any group of them has its primary key and may or may not have one or more foreign key(s).
 
 - Tables that integrate with the website
-  - __Users__
-     - PK &rarr; UserID
+  - __Customers__
+     - PK &rarr; CustomerID
+
   - __Products__
      - PK &rarr; ProductID
-  - __Orders__
+
+  - __Orders_Details__
      - PK &rarr; OrderID
-     - FKs &rarr; UserID - ProductID
-		><span style="color:#73c6b6; font-weight:bold;">UserID</span> &rarr; Link _Orders_ table with _Users_ table to know which customer ordered this order.
-		>
-		><span style="color: #73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Products_ table with _Users_ table to know which product is ordered in this order.
+     - FKs &rarr; CustomerID
+         ><span style="color:#73c6b6; font-weight:bold;">CustomeRID</span> &rarr; Link _Orders_ table with _Customers_ table to know which customer ordered this order.
+
+   - __Orders__
+     - Composite PK &rarr; OrderID, ProductID
+     - FKs &rarr; OrderID, ProductID
+         ><span style="color: #73c6b6; font-weight:bold;">OrderID</span> &rarr; Link _Orders_ table with _Orders_Details_ table as they've the same Order IDs.
+
+         ><span style="color: #73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Orders_ table with _Products_ table as they've the same products.
+
+   - __Wishlist__
+     - FKs &rarr; CustomerID, ProductID
+         ><span style="color: #73c6b6; font-weight:bold;">CustomerID</span> &rarr; Link _Wishlist_ table with _Customers_ table to know information about the customer.
+
+         ><span style="color: #73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Wishlist_ table with _Products_ table.
+
+   - Customer_Services
+     - PK &rarr; MessageID
+     - FK &rarr; CustomerID
+         ><span style="color: #73c6b6; font-weight:bold;">CustomerID</span> &rarr; Link _Customer_Services_ table with _Customers_ table to who sends a message to the website.
 
 - Tables that integrate with the robots
-  - __Robots__
-  	- PK &rarr; RobotID
-  	- FK &rarr; ShelfID
-		><span style="color:#73c6b6; font-weight:bold;">ShelfID</span> &rarr; Link _Robots_ table with _Shelves_ table to know which shelf is connected to that robot.
   - __Shelves__
   	- PK &rarr; ShelfID
   	- FK &rarr; ProductID
 		><span style="color:#73c6b6; font-weight:bold;">ProductID</span> &rarr; Link _Shelves_ table with _Products_ table to know which product is on that shelf.
+
+  - __Robots__
+  	- PK &rarr; RobotID
+  	- FK &rarr; ShelfID
+		><span style="color:#73c6b6; font-weight:bold;">ShelfID</span> &rarr; Link _Robots_ table with _Shelves_ table to know which shelf is connected to that robot.
   
 - Tables that integrate with the Admin's web application
   - __Notifications__
@@ -48,13 +67,21 @@ As mentioned above, the tables in our database is divided into 3 groups, each gr
 ## <u>Database Objects</u> ##
 
 - Triggers  
-   - __NewOrder__
-     - Adds the order information in the __Notifications__ table
-     - Decreases _ItemsInStock_ in the __Products__ table by _Quantity_ required by the user 
-   - __CheckStates__
-      - Once the _HavingOrder_ status be zero, the _ShelfID_ in the __Robots__ table be NULL
-   - __CheckCost__
-      - Calculates the cost of new orders (quantity x price)
+   - __New Order__
+     - Decrease the number of items in stock in Products table by the quantity of each product
+     - Increment the number of orders for each shelf by 1 it the order contains the product that this shelf holds
+     - Calculate the total cost of the orderrequired by the user 
+
+   - __Items In Stock Updates__
+     - If ItemsInStock < 10: Sends a notification with the product and its remaining number of items
+     - If ItemsInStock = 0: Sends a notification that the product is out of stock
+
+   - __Check Order Status__
+     - Decrement the number of orders on each shelf once the order is marked as "Completed"
+
+- Views
+  - __Admin View__
+    - Shows some information to the admin about the orders such as the products of each order, their quantities, their shelves, the status of the order, and the order date.
 
 <hr>
 
