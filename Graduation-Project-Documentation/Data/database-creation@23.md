@@ -98,7 +98,7 @@ As mentioned above, the tables in our database is divided into 3 groups, each gr
 The following Entitty Relationship Diagram (ERD) was built with the help of [Diagrams.net](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjEiMzopcj-AhXEYcAKHU1aAjMQFnoECAwQAQ&url=http%3A%2F%2Fdraw.io%2F&usg=AOvVaw3exHXDNauG59ZYpUDzrlsu) website.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/70551007/229638460-40991392-d75f-4b93-b39e-c09313050cad.png">
+<img src="https://user-images.githubusercontent.com/70551007/234699657-a2f923dd-0539-4abe-94ab-bfce5fb260d9.png">
 </p>
 
 It explains the information stored in each table in the database, and the relationships between all tables using their primary keys and foreign keys.
