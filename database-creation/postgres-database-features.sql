@@ -1,7 +1,7 @@
 /*
 TRIGGERS:
 ---------
-1. New Order
+1. NewOrder
     This trigger does 3 task for each new order:
         1. Decrease the number of items in stock in Products table by the quantity of each product
         2. Increment the number of orders for each shelf by 1 it the order contains the product that this shelf holds
@@ -15,6 +15,14 @@ TRIGGERS:
 3. CheckOrderStatus
     This tigger does only one task for each update on orders_details table:
         1. Decrement the number of orders on each shelf once the order is marked as "Completed"
+
+VIEWS:
+-----
+1. AdminView
+    This view views the following information to the admin:
+        1. OrderID     2. ProductID     3. Quantity
+        4. ShelfID     5. OrderStatus   6. OrderDate
+    To monitor the orders and the shelves.
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -100,3 +108,17 @@ FOR EACH ROW
 EXECUTE FUNCTION check_order_status_function();
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/* View for the web application */
+
+CREATE VIEW admin_view AS
+    SELECT O.OrderID, O.ProductID, O.Quantity, S.ShelfID, OD.OrderStatus, OD.OrderDate
+    FROM Orders AS O
+    INNER JOIN Orders_Details AS OD
+        ON OD.OrderID = O.OrderID
+    INNER JOIN Shelves AS S
+        ON S.ProductID = O.ProductID
+    ORDER BY OD.OrderDate;
+
+-- To view it
+SELECT * FROM admin_view;

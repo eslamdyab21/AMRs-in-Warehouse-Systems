@@ -81,6 +81,17 @@ CREATE TABLE IF NOT EXISTS Wishlist(
     CONSTRAINT FK_products_in_wishlist FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
+CREATE TABLE IF NOT EXISTS Customer_Services(
+    MessageID VARCHAR(7),
+    CustomerID VARCHAR(5),
+    PhoneNumber VARCHAR(13) NOT NULL,
+    Message VARCHAR(255),
+
+    -- Constraints
+    CONSTRAINT PK_Customer_Services PRIMARY KEY(MessageID),
+    CONSTRAINT FK_customers_in_customer_services FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /* Interacting with the warehouse */
@@ -127,29 +138,4 @@ CREATE TABLE IF NOT EXISTS Notifications(
     CONSTRAINT PK_Notifications PRIMARY KEY(NotificationID)
 );
 
-CREATE TABLE IF NOT EXISTS Customer_Services(
-    MessageID VARCHAR(7),
-    CustomerID VARCHAR(5),
-    PhoneNumber VARCHAR(13) NOT NULL,
-    Message VARCHAR(255),
-
-    -- Constraints
-    CONSTRAINT PK_Customer_Services PRIMARY KEY(MessageID),
-    CONSTRAINT FK_customers_in_customer_services FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
-);
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/* View for the web application */
-
-CREATE VIEW admin_view AS
-    SELECT O.OrderID, O.ProductID, O.Quantity, S.ShelfID, OD.OrderStatus, OD.OrderDate
-    FROM Orders AS O
-    INNER JOIN Orders_Details AS OD
-        ON OD.OrderID = O.OrderID
-    INNER JOIN Shelves AS S
-        ON S.ProductID = O.ProductID
-    ORDER BY OD.OrderDate;
-
--- To view it
-SELECT * FROM admin_view;
