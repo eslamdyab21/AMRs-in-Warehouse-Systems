@@ -111,7 +111,7 @@ psql -h 172.17.0.2 -p 5433 -U postgres -d postgres
 where `172.17.0.2` is the ip address of the container running postgres, and `5433` is the port which the container forwards to in our host machine.
 
 
-![[images/docker_postgres_image.png]]
+![](images/docker_postgres_image.png)
 
 
 <br>
