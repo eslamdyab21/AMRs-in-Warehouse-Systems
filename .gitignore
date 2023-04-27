@@ -8,5 +8,8 @@ dashboard-web-application/server/node_modules/*
 qr-codes-with-locations/__pycache__/*
 .obsidian/*
 Graduation Project Documentation/.obsidian/*
+Graduation-Project-Documentation/.obsidian/
 database-servers-comparison/.env
 database-servers-comparison/images/*
+dashboard-web-application/
+docker-with-databases/__pycache__
