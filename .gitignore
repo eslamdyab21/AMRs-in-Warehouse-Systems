@@ -3,3 +3,4 @@ Graduation-Project-Documentation/.obsidian/
 database-servers-comparison/.env
 database-servers-comparison/images/*
 dashboard-web-application/
+docker-with-databases/__pycache__
