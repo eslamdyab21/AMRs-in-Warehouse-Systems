@@ -54,6 +54,8 @@ class Control():
 
   
     def ros_order_at_shelf_callback(self, data):
+        start_time = time.time()
+
         order_at_shelf = str(data.data)
         robot_id, shelf_id, shelf_loc = order_at_shelf.split('_')
         if robot_id == self.robot.id:
@@ -61,15 +63,21 @@ class Control():
             self.shelf.id = shelf_id
             self.shelf.current_location = [int(shelf_loc.split(',')[0]), int(shelf_loc.split(',')[1])]
             self.robot.paired_with_shelf = self.shelf
+        
+        self.logger.log(f'Control : ros_order_at_shelf_callback : {time.time()-start_time} -->')
 
 
     def ros_2dmap_callback(self, data):
+        start_time = time.time()
+
         mapp = data.data
         map_str = mapp.strip()
         self.map.map = np.asarray(np.matrix(map_str)) 
         self.map.map = self.map.map.astype('object')
         self.map.map = np.resize(self.map.map,(self.map.size_x,self.map.size_y))
         self.map.map = np.squeeze(self.map.map)
+
+        self.logger.log(f'Control : ros_2dmap_callback : {time.time()-start_time} -->')
 
 
 
@@ -106,7 +114,21 @@ class Control():
 
             horizontal_steps = 0
             vertical_steps = 0
+
+            # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+            robot.paired_with_shelf.current_location = robot.current_location
+                
+            # robot is now physically connected to shelf
+            robot.physically_connected_to_shelf = robot.paired_with_shelf
+            robot.paired_with_shelf.physically_connected_to_robot = robot
             
+            self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+
+
+            self.ros_map.publish(str(self.map.map))
+            self.ros_topic_robot.publish(f'{robot.id}:{"None"}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
+            
+
         elif len(route) > 2:
             horizontal_steps = route[1][1] - robot.current_location[1] 
             vertical_steps = route[1][0] - robot.current_location[0]
@@ -128,37 +150,13 @@ class Control():
                     # want to move left
                     self.move(robot, 'left')
 
-                else:
-                    robot.paired_with_shelf.current_location = robot.current_location
-                
-                    # robot is now physically connected to shelf
-                    robot.physically_connected_to_shelf = robot.paired_with_shelf
-                    robot.paired_with_shelf.physically_connected_to_robot = robot
-
-
-        if len(route) == 2:
-            # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
-
-            if horizontal_steps == 0 and vertical_steps == 0:
-                robot.paired_with_shelf.current_location = robot.current_location
-                
-                # robot is now physically connected to shelf
-                robot.physically_connected_to_shelf = robot.paired_with_shelf
-                robot.paired_with_shelf.physically_connected_to_robot = robot
-                
-                self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
-                self.ros_map.publish(str(self.map.map))
-
-        elif len(route) >2:
             self.map.update_objects_locations({robot.id:robot.locations})
             # self.map.update_objects_locations({self.shelf.id:self.shelf.locations})
 
-            self.ros_map.publish(str(self.map.map))
+            self.ros_map.publish(str(self.map.map))   
         
-        
+
         # self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)    
-            
-        
         self.logger.log(f'Control : steps_map_to_shelf : {time.time()-start_time} -->')
 
 
@@ -220,6 +218,10 @@ class Control():
             self.steps_map_to_shelf(self.robot)
             self.map.show_map()
         # self.steps_map_to_packaging()
+
+        if self.robot.active_order_status == False:
+            self.map.update_objects_locations({self.robot.id:self.robot.locations})
+            self.ros_map.publish(str(self.map.map))
         
 
         
