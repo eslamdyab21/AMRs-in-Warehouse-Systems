@@ -5,10 +5,15 @@ There is Certain steps in order to Fabricate the PCB
 -After finishing the Design on Eagle Software (Discussed before ) we have to check
 
 *A complete engineering review for circuitry
+
 *Synchronized schematic and layout databases
+
 *Complete circuit simulation, signal integrity, and power integrity analysis
+
 *Checked PCB design rules and constraints
+
 *Bill of materials and design for manufacturing rules are reviewed
+
 -then we have to print the design on sitting paper
 
 -We need heat in order to make sure the Traces to be printed on the board without any kind of short circuit or open circuit
