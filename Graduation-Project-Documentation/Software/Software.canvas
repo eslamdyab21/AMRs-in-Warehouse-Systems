@@ -1,0 +1,23 @@
+{
+	"nodes":[
+		{"id":"4d1888ac62bd39b9","x":193,"y":-96,"width":400,"height":473,"color":"6","type":"file","file":"Software/Create a 2d map to update robots and shelves locations @1.md"},
+		{"id":"550b4d6dda12f247","x":701,"y":31,"width":444,"height":217,"color":"5","type":"text","text":"- Then we started to focus on the third issue @3, first attempt to get the min cost robot for a given shelf was not working for all cases.\n- we simply got the closest robot for a given shelf, although this may sound correct at the begging but this is correct (it gives min cost) for the given shelf only, that doesn't nessearly mean it's the min cost for all shelves."},
+		{"id":"e3c7c74d131b5210","x":1242,"y":85,"width":286,"height":111,"color":"5","type":"text","text":"- so we took another approach to get optimal solution for all shelves."},
+		{"id":"2610aee8ee0481ad","x":-165,"y":98,"width":283,"height":86,"color":"6","type":"text","text":"First we began to create the 2d map python script to show the robots and shelves locations."},
+		{"id":"6a01c11ab558d8e0","x":-324,"y":116,"width":106,"height":50,"color":"6","type":"text","text":"Start"},
+		{"id":"da4980d1bc15c3a5","x":649,"y":417,"width":318,"height":350,"color":"5","type":"file","file":"Software/images/problem-cost.png"},
+		{"id":"c3984ad6de8d930e","x":1006,"y":417,"width":615,"height":298,"color":"5","type":"file","file":"Software/images/solution-cost.png"},
+		{"id":"ac742fb56a4cc16a","x":468,"y":848,"width":499,"height":230,"color":"5","type":"text","text":"```python\nfor shelf in [S2, S1]:\n\tshelf.closest_robot = find_closest_root();\n```\n\n- for this scenario each shelf sees the map as if there was no other shelves.\n- we see S2 took R1, and S1 took R2. this isn't optimal.\n- the optimal choice here is S2 takes R2 and S1 takes R1."},
+		{"id":"5651c4572ec14586","x":1100,"y":866,"width":428,"height":152,"color":"5","type":"text","text":"- simply sum all costs for a given shelf, the shelf who has the higher costs_sum will take the min cost robot (the nearest)\n- and so on for second higher costs_sum shelf and then for the third and so on...."}
+	],
+	"edges":[
+		{"id":"697ad784f2bbf9df","fromNode":"2610aee8ee0481ad","fromSide":"right","toNode":"4d1888ac62bd39b9","toSide":"left"},
+		{"id":"e6d369c31e3ca91a","fromNode":"6a01c11ab558d8e0","fromSide":"right","toNode":"2610aee8ee0481ad","toSide":"left"},
+		{"id":"4a9abf5f65613626","fromNode":"4d1888ac62bd39b9","fromSide":"right","toNode":"550b4d6dda12f247","toSide":"left"},
+		{"id":"59b6439ac2ef39f3","fromNode":"550b4d6dda12f247","fromSide":"bottom","toNode":"da4980d1bc15c3a5","toSide":"top","label":"problem"},
+		{"id":"aeef0b596ffd4922","fromNode":"da4980d1bc15c3a5","fromSide":"bottom","toNode":"ac742fb56a4cc16a","toSide":"top"},
+		{"id":"56fb45894c255027","fromNode":"550b4d6dda12f247","fromSide":"right","toNode":"e3c7c74d131b5210","toSide":"left"},
+		{"id":"cd231b5e2193d12d","fromNode":"e3c7c74d131b5210","fromSide":"bottom","toNode":"c3984ad6de8d930e","toSide":"top","label":"solution"},
+		{"id":"9bca8f2c75f3f594","fromNode":"c3984ad6de8d930e","fromSide":"bottom","toNode":"5651c4572ec14586","toSide":"top"}
+	]
+}

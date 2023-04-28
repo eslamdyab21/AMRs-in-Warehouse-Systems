@@ -1,0 +1,2 @@
+qrcode
+opencv-python
