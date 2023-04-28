@@ -18,7 +18,9 @@ There is Certain steps in order to Fabricate the PCB
 
 -We need heat in order to make sure the Traces to be printed on the board without any kind of short circuit or open circuit
 
--we can use iron for this operation it should last for 15 minute to be sure that all the traces is printed correctly -The next is step is Oxidation
+-we can use iron for this operation it should last for 15 minute to be sure that all the traces is printed correctly 
+
+-The next is step is Oxidation
 
 With all of the layers etched, a chemical treatment called oxide is applied to the inner layers of a printed circuit board to improve the strength of the bond
 
