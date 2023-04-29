@@ -1,3 +1,5 @@
+# language: dockerfile
+
 FROM postgres:15.2
 
 ARG POSTGRES_PASSWORD
