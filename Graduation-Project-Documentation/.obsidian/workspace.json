@@ -1,0 +1,158 @@
+{
+  "main": {
+    "id": "a4331ad06748b1dc",
+    "type": "split",
+    "children": [
+      {
+        "id": "5c6f61e23033bdd8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3e562fac5223c1fa",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Embedded/MCAL-internal-peripheral-drivers@35.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "561db922bc58252f",
+    "type": "split",
+    "children": [
+      {
+        "id": "64aba9d11d795e3b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "431d688ff0ba3708",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "94ae8c5120129fa8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "927d51bc00e0dd6c",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "8fb51b8df051002c",
+    "type": "split",
+    "children": [
+      {
+        "id": "4e7ae682eedf7c35",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ad1bc4f92b5f134",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Embedded/MCAL-internal-peripheral-drivers@35.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d1770f040027b2f2",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Embedded/MCAL-internal-peripheral-drivers@35.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "38a0d49847e5d5fd",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "59f3c47b27ee0c4c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Embedded/MCAL-internal-peripheral-drivers@35.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "3e562fac5223c1fa",
+  "lastOpenFiles": [
+    "Screenshot from 2023-04-18 01-35-21.png",
+    "Embedded/MCAL-internal-peripheral-drivers@35.md",
+    "Screenshot from 2023-04-18 01-35-21 1.png",
+    "Embedded/Embedded.md",
+    "Embedded/ARM-MCAL-core-peripheral-drivers@12.md",
+    "Embedded/ARM embedded-c encoders code @14.md"
+  ]
+}
