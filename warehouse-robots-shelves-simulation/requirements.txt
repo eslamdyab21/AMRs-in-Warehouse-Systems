@@ -1,3 +1,0 @@
-python-doten
-numpy
-pandas
