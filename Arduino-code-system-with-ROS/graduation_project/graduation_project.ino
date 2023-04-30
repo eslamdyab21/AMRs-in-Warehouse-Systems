@@ -5,11 +5,11 @@
 #include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/Byte.h>
-
+#include "PID.h"
 
 // REALLY IMPORTANT TO DECREASE INPUT AND OUTPUT BUFFER SIZE, here set to 100 bytes each
 ros::NodeHandle_<ArduinoHardware, 2, 1, 2048, 2048> nh;
-
+PID yawPID(1);
 
 // left motor pins on cytron
 #define dir_left_motor PA5 
@@ -64,7 +64,10 @@ double prev_time = 0, speed_timer = 100;
 double action_timer = 10, last_action = 0;
 double feedback_timer = 1000, prev_feedback_timer = 0;
 
+// PID constants
+float kp = 0, ki = 0, kd = 0;
 
+// Speeds feedback
 short int speeds_temp[2] = {0, 0};
 /*---------------- Publishers for ros ----------------*/
 
@@ -140,8 +143,16 @@ void setYaw(const std_msgs::Float32& yaw)
 
 }
 
+void setYawPid(const std_msgs::Float32MultiArray& constants)
+{
+  kp = constants.data[0];
+  ki = constants.data[1];
+  ki = constants.data[2];
+}
+
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speeds("speeds", &setSpeeds );
 ros::Subscriber<std_msgs::Float32> sub_yaw("yaw", &setYaw );
+ros::Subscriber<std_msgs::Float32MultiArray> sub_yaw_pid("yaw_pid", &setYawPid );
 
 
 /*---------------- Applying speed calculations function ----------------*/
@@ -156,6 +167,7 @@ void apply_speeds(int pwm_pin_number, int dir_pin_number, int pwm_value)
       digitalWrite(dir_pin_number, LOW);
     }
 }
+
 
 void setup() {
   Serial.begin(9600);
@@ -183,7 +195,12 @@ void setup() {
   nh.initNode();
   nh.subscribe(sub_speeds);
   nh.subscribe(sub_yaw);
+  nh.subscribe(sub_yaw_pid);
   nh.advertise(pub_feedback);
+  
+  // PID constants and constraints
+  yawPID.set_constants(kp, ki,kd);
+  yawPID.set_constrains(-255, 255);
   
 }
 
