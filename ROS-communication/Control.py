@@ -8,6 +8,7 @@ import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Float32
 import os
+import ast
 
 
 class Control():
@@ -27,6 +28,8 @@ class Control():
         self.shelf = shelf
         self.map = map
 
+        self.ros_robots_status_dict = None
+
         self.path_algorithms = Algorithms()
 
         local_ip = robot_ip
@@ -36,12 +39,22 @@ class Control():
         os.environ['ROS_MASTER_URI'] = 'http://' + roscore_ip + ':' + str(roscore_port)
 
         rospy.init_node(robot.id, anonymous=True)
-        #robot_id:movement:speed:location-shelf_id:location
-        self.ros_topic_robot = rospy.Publisher(f'{robot.id}_topic', String, queue_size=10)
+
+        # ros_Rx_topic topic: has robot movement related info 
+        # robot_id:movement:speed:location-shelf_id:location
+        self.ros_topic_robot = rospy.Publisher(f'ros_{robot.id}_topic', String, queue_size=10)
+
+        # ros_2dmap topic: 2dmap is self.map.map
         self.ros_map = rospy.Publisher('ros_2dmap', String, queue_size=10)
+
+        # ros_robots_status topic: dictionary of robots movement status 
+        # ros_robots_status_dict = {'robot_id':'moving or charging or waiting for order', ....}
+        self.ros_robots_movement_status_pub = rospy.Publisher('ros_robots_movement_status', String, queue_size=10)
+
 
         rospy.Subscriber("order_at_shelf", String, self.ros_order_at_shelf_callback)
         rospy.Subscriber("ros_2dmap", String, self.ros_2dmap_callback)
+        rospy.Subscriber("ros_robots_movement_status", String, self.ros_robots_movement_status_callback)
 
 
     def ros_move(self, movement):
@@ -78,6 +91,17 @@ class Control():
         self.map.map = np.squeeze(self.map.map)
 
         self.logger.log(f'Control : ros_2dmap_callback : {time.time()-start_time} -->')
+
+
+    def ros_robots_movement_status_callback(self, data):
+        start_time = time.time()
+
+        ros_robots_status_dict = data.data
+        ros_robots_status_dict = str(data.data)
+        self.ros_robots_status_dict = ast.literal_eval(ros_robots_status_dict)
+        
+
+        self.logger.log(f'Control : ros_robots_movement_status_callback : {time.time()-start_time} -->')
 
 
 
@@ -215,11 +239,19 @@ class Control():
 
 
         if self.robot.active_order_status and self.robot.physically_connected_to_shelf == None:
+            if self.ros_robots_status_dict is not None:
+                self.ros_robots_status_dict[self.robot.id] = 'moving'
+                self.self.ros_robots_movement_status_pub.publish(str(self.ros_robots_status_dict))
+
             self.steps_map_to_shelf(self.robot)
             self.map.show_map()
         # self.steps_map_to_packaging()
 
         if self.robot.active_order_status == False:
+            if self.ros_robots_status_dict is not None:
+                self.ros_robots_status_dict[self.robot.id] = 'waiting for order'
+                self.self.ros_robots_movement_status_pub.publish(str(self.ros_robots_status_dict))
+
             self.map.update_objects_locations({self.robot.id:self.robot.locations})
             self.ros_map.publish(str(self.map.map))
         
