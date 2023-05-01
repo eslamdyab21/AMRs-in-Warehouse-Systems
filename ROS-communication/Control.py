@@ -28,7 +28,7 @@ class Control():
         self.shelf = shelf
         self.map = map
 
-        self.ros_robots_status_dict = None
+        self.ros_robots_movement_status_dict = None
 
         self.path_algorithms = Algorithms()
 
@@ -48,12 +48,14 @@ class Control():
         self.ros_map = rospy.Publisher('ros_2dmap', String, queue_size=10)
 
         # ros_robots_status topic: dictionary of robots movement status 
-        # ros_robots_status_dict = {'robot_id':'moving or charging or waiting for order', ....}
+        # ros_robots_status_dict = {'robot_id':['moving or charging or waiting for order', x,y], ....}
         self.ros_robots_movement_status_pub = rospy.Publisher('ros_robots_movement_status', String, queue_size=10)
 
 
-        rospy.Subscriber("order_at_shelf", String, self.ros_order_at_shelf_callback)
+        rospy.Subscriber("ros_assign_robot_2_shelf", String, self.ros_assign_robot_2_shelf_callback)
         rospy.Subscriber("ros_2dmap", String, self.ros_2dmap_callback)
+
+        # subscripted only once at starting from master node to get initial robot position
         rospy.Subscriber("ros_robots_movement_status", String, self.ros_robots_movement_status_callback)
 
 
@@ -66,7 +68,7 @@ class Control():
         self.speed.publish(speed)
 
   
-    def ros_order_at_shelf_callback(self, data):
+    def ros_assign_robot_2_shelf_callback(self, data):
         start_time = time.time()
 
         order_at_shelf = str(data.data)
@@ -77,7 +79,7 @@ class Control():
             self.shelf.current_location = [int(shelf_loc.split(',')[0]), int(shelf_loc.split(',')[1])]
             self.robot.paired_with_shelf = self.shelf
         
-        self.logger.log(f'Control : ros_order_at_shelf_callback : {time.time()-start_time} -->')
+        self.logger.log(f'Control : ros_assign_robot_2_shelf_callback : {time.time()-start_time} -->')
 
 
     def ros_2dmap_callback(self, data):
@@ -96,11 +98,11 @@ class Control():
     def ros_robots_movement_status_callback(self, data):
         start_time = time.time()
 
-        ros_robots_status_dict = data.data
-        ros_robots_status_dict = str(data.data)
-        self.ros_robots_status_dict = ast.literal_eval(ros_robots_status_dict)
+        ros_robots_movement_status_dict = data.data
+        ros_robots_movement_status_dict = str(data.data)
+        self.ros_robots_movement_status_dict = ast.literal_eval(ros_robots_movement_status_dict)
         
-
+        self.robot.current_location = self.ros_robots_movement_status_dict[self.robot.id][1]
         self.logger.log(f'Control : ros_robots_movement_status_callback : {time.time()-start_time} -->')
 
 
@@ -240,7 +242,7 @@ class Control():
 
         if self.robot.active_order_status and self.robot.physically_connected_to_shelf == None:
             if self.ros_robots_status_dict is not None:
-                self.ros_robots_status_dict[self.robot.id] = 'moving'
+                self.ros_robots_status_dict[self.robot.id][0] = 'moving'
                 self.self.ros_robots_movement_status_pub.publish(str(self.ros_robots_status_dict))
 
             self.steps_map_to_shelf(self.robot)
@@ -249,8 +251,8 @@ class Control():
 
         if self.robot.active_order_status == False:
             if self.ros_robots_status_dict is not None:
-                self.ros_robots_status_dict[self.robot.id] = 'waiting for order'
-                self.self.ros_robots_movement_status_pub.publish(str(self.ros_robots_status_dict))
+                self.ros_robots_status_dict[self.robot.id][0] = 'waiting for order'
+                self.ros_robots_movement_status_pub.publish(str(self.ros_robots_status_dict))
 
             self.map.update_objects_locations({self.robot.id:self.robot.locations})
             self.ros_map.publish(str(self.map.map))
