@@ -1,7 +1,7 @@
 from Map2D import Map2D
 from Robot import Robot
 from Shelf import Shelf
-from Control import Control
+from Robot_Control import Control
 from Logger import Logger
 
 from random import randrange
