@@ -4,8 +4,8 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
 };
@@ -39,38 +39,38 @@ include 'components/wishlist_cart.php';
 
    <?php
      $pid = $_GET['pid'];
-     $select_products = $conn->prepare("SELECT * FROM `products` WHERE id = ?"); 
+     $select_products = $conn->prepare("SELECT * FROM Products WHERE ProductID = ?"); 
      $select_products->execute([$pid]);
      if($select_products->rowCount() > 0){
      $fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)
    ?>
    <form action="" method="post" class="box">
-      <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_product['name']; ?>">
+      <input type="hidden" name="pid" value="<?= $fetch_product['productid']; ?>">
+      <input type="hidden" name="name" value="<?= $fetch_product['productname']; ?>">
       <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
+      <input type="hidden" name="image" value="<?= $fetch_product['image_1']; ?>">
       <div class="row">
          <div class="image-container">
             <div class="main-image">
-               <img src="uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
+               <img src="uploaded_img/<?= $fetch_product['image_1']; ?>" alt="">
             </div>
             <div class="sub-image">
-               <img src="uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
-               <img src="uploaded_img/<?= $fetch_product['image_02']; ?>" alt="">
-               <img src="uploaded_img/<?= $fetch_product['image_03']; ?>" alt="">
+               <img src="uploaded_img/<?= $fetch_product['image_1']; ?>" alt="">
+               <img src="uploaded_img/<?= $fetch_product['image_2']; ?>" alt="">
+               <img src="uploaded_img/<?= $fetch_product['image_3']; ?>" alt="">
             </div>
          </div>
          <div class="content">
-            <div class="name"><?= $fetch_product['name']; ?></div>
+            <div class="name"><?= $fetch_product['productname']; ?></div>
             <div class="flex">
                <div class="price"><span>$</span><?= $fetch_product['price']; ?><span>/-</span></div>
-               <input type="number" name="qty" class="qty" min="1" max="<?php echo $fetch_product['InStock']; ?>" onkeypress="if(this.value.length == 2) return false;" value="1">
+               <input type="number" name="qty" class="qty" min="1" max="<?php echo $fetch_product['itemsinstock']; ?>" onkeypress="if(this.value.length == 2) return false;" value="1">
             </div>
-            <div class="details"><?= $fetch_product['details']; ?></div>
+            <div class="details"><?= $fetch_product['description']; ?></div>
             <div class="flex-btn">
 
             <?php
-               if($fetch_product['InStock']>0)
+               if($fetch_product['itemsinstock'] > 0)
                { ?>
                   <input type="submit" value="add to cart" class="btn" name="add_to_cart">
                   <?php
@@ -88,7 +88,7 @@ include 'components/wishlist_cart.php';
    </form>
    <?php
    }else{
-      echo '<p class="empty">no products added yet!</p>';
+      echo '<p class="empty">No products added yet!</p>';
    }
    ?>
 
