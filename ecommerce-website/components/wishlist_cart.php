@@ -5,7 +5,7 @@ if(isset($_POST['add_to_wishlist'])){
       header('location:user_login.php');
    }else{
 
-      $pid = $_POST['id'];
+      $pid = $_POST['pid'];
       $pid = filter_var($pid, FILTER_SANITIZE_STRING);
       $name = $_POST['name'];
       $name = filter_var($name, FILTER_SANITIZE_STRING);
