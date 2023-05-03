@@ -4,8 +4,8 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
 };
@@ -23,19 +23,32 @@ if(isset($_POST['submit'])){
    $gender = $_POST['Gender'];
    $gender = filter_var($gender, FILTER_SANITIZE_STRING);
 
-   $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
+   $select_user = $conn->prepare("SELECT * FROM Customers WHERE Email = ?");
    $select_user->execute([$email,]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if($select_user->rowCount() > 0){
-      $message[] = 'email already exists!';
+      $message[] = 'Email already exists!';
    }else{
       if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
+         $message[] = 'Confirm password not matched!';
       }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password,gender) VALUES(?,?,?,?)");
-         $insert_user->execute([$name, $email, $cpass,$gender]);
-         $message[] = 'registered successfully, login now please!';
+         $last_id = $conn->prepare("SELECT CustomerID FROM Customers ORDER BY CustomerID DESC LIMIT 1");
+         $last_id->execute();
+
+         if ($last_id->rowCount() > 0) {
+            $row = $last_id->fetch(PDO::FETCH_ASSOC);
+            $last_id_num = (int)substr(strval($row["customerid"]), 1);
+            $next_id_num = $last_id_num + 1;
+            $next_id = 'C' . strval($next_id_num);
+            }
+         else {
+            $next_id = "C1";
+         }
+
+         $insert_user = $conn->prepare("INSERT INTO Customers(CustomerID, FullName, Email, Password, Gender) VALUES(?,?,?,?,?)");
+         $insert_user->execute([$next_id, $name, $email, $cpass,$gender]);
+         $message[] = 'Registered successfully. Login now please!';
       }
    }
 
