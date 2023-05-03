@@ -4,8 +4,8 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
 };
@@ -17,15 +17,15 @@ if(isset($_POST['submit'])){
    $pass = $_POST['pass'];
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
 
-   $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
+   $select_user = $conn->prepare("SELECT * FROM Customers WHERE Email = ? AND password = ?");
    $select_user->execute([$email, $pass]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if($select_user->rowCount() > 0){
-      $_SESSION['user_id'] = $row['id'];
+      $_SESSION['CustomerID'] = $row['customerid'];
       header('location:home.php');
    }else{
-      $message[] = 'incorrect username or password!';
+      $message[] = 'Incorrect username or password!';
    }
 
 }
