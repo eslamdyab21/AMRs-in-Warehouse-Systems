@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS Customer_Services(
 CREATE TABLE Cart(
     CustomerID VARCHAR(7),
     ProductID VARCHAR(7),
+    Quantity INT CHECK(Quantity > 0),
 
     -- Constraints
     CONSTRAINT PK_Cart PRIMARY KEY(CustomerID, ProductID),
