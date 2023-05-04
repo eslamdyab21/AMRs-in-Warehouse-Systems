@@ -61,7 +61,7 @@ if(isset($_POST['update_qty'])){
 
    <?php
       $grand_total = 0;
-      $select_cart = $conn->prepare("SELECT *, P.Image_1, P.ProductName, P.Price FROM Cart AS C
+      $select_cart = $conn->prepare("SELECT *, P.Image_1, P.ProductName, P.Price, P.ItemsInStock FROM Cart AS C
                                        INNER JOIN Products AS P
                                           ON P.ProductID = C.ProductID
                                        WHERE C.CustomerID = ?");
@@ -76,7 +76,7 @@ if(isset($_POST['update_qty'])){
       <div class="flex">
          <div class="price">$<?= $fetch_cart['price']; ?>/-</div>
          <input type="hidden" name="pid" value="<?= $fetch_cart['productid']; ?>">
-         <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="<?= $fetch_cart['quantity']; ?>">
+         <input type="number" name="qty" class="qty" min="1" max="<?php echo $fetch_cart['itemsinstock']; ?>" onkeypress="if(this.value.length == 2) return false;" value="<?= $fetch_cart['quantity']; ?>">
          <button type="submit" class="fas fa-edit" name="update_qty"></button>
       </div>
       <div class="sub-total"> sub total : <span>$<?= $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?>/-</span> </div>
