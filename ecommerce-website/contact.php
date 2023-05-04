@@ -4,16 +4,14 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
 };
 
 if(isset($_POST['send'])){
 
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
    $email = $_POST['email'];
    $email = filter_var($email, FILTER_SANITIZE_STRING);
    $number = $_POST['number'];
@@ -21,15 +19,31 @@ if(isset($_POST['send'])){
    $msg = $_POST['msg'];
    $msg = filter_var($msg, FILTER_SANITIZE_STRING);
 
-   $select_message = $conn->prepare("SELECT * FROM `messages` WHERE name = ? AND email = ? AND number = ? AND message = ?");
-   $select_message->execute([$name, $email, $number, $msg]);
+   $select_message = $conn->prepare("SELECT * FROM Customer_Services AS CS
+                                       INNER JOIN Customers AS C
+                                          ON C.CustomerID = CS.CustomerID
+                                       WHERE C.Email = ? AND CS.Message = ?");
+   $select_message->execute([$email, $msg]);
 
    if($select_message->rowCount() > 0){
       $message[] = 'already sent message!';
    }else{
 
-      $insert_message = $conn->prepare("INSERT INTO `messages`(user_id, name, email, number, message) VALUES(?,?,?,?,?)");
-      $insert_message->execute([$user_id, $name, $email, $number, $msg]);
+      $last_id = $conn->prepare("SELECT MessageID FROM Customer_Services ORDER BY MessageID DESC LIMIT 1");
+      $last_id->execute();
+
+      if ($last_id->rowCount() > 0) {
+         $row = $last_id->fetch(PDO::FETCH_ASSOC);
+         $last_id_num = (int)substr(strval($row["messageid"]), 1);
+         $next_id_num = $last_id_num + 1;
+         $next_id = 'M' . strval($next_id_num);
+         }
+      else {
+         $next_id = "M1";
+      }
+
+      $insert_message = $conn->prepare("INSERT INTO Customer_Services(MessageID, CustomerID, PhoneNumber, Message) VALUES(?,?,?,?)");
+      $insert_message->execute([$next_id, $user_id, $number, $msg]);
 
       $message[] = 'sent message successfully!';
 
