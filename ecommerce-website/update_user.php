@@ -4,8 +4,8 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
 };
@@ -17,16 +17,16 @@ if(isset($_POST['submit'])){
    $email = $_POST['email'];
    $email = filter_var($email, FILTER_SANITIZE_STRING);
 
-   $update_profile = $conn->prepare("UPDATE `users` SET name = ?, email = ? WHERE id = ?");
+   $update_profile = $conn->prepare("UPDATE Customers SET FullName = ?, Email = ? WHERE CustomerID = ?");
    $update_profile->execute([$name, $email, $user_id]);
 
    $empty_pass = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
    $prev_pass = $_POST['prev_pass'];
-   $old_pass = sha1($_POST['old_pass']);
+   $old_pass = $_POST['old_pass'];
    $old_pass = filter_var($old_pass, FILTER_SANITIZE_STRING);
-   $new_pass = sha1($_POST['new_pass']);
+   $new_pass = $_POST['new_pass'];
    $new_pass = filter_var($new_pass, FILTER_SANITIZE_STRING);
-   $cpass = sha1($_POST['cpass']);
+   $cpass = $_POST['cpass'];
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
 
    if($old_pass == $empty_pass){
@@ -37,7 +37,7 @@ if(isset($_POST['submit'])){
       $message[] = 'confirm password not matched!';
    }else{
       if($new_pass != $empty_pass){
-         $update_admin_pass = $conn->prepare("UPDATE `users` SET password = ? WHERE id = ?");
+         $update_admin_pass = $conn->prepare("UPDATE Customers SET Password = ? WHERE CustomerID = ?");
          $update_admin_pass->execute([$cpass, $user_id]);
          $message[] = 'password updated successfully!';
       }else{
@@ -73,7 +73,7 @@ if(isset($_POST['submit'])){
    <form action="" method="post">
       <h3>update now</h3>
       <input type="hidden" name="prev_pass" value="<?= $fetch_profile["password"]; ?>">
-      <input type="text" name="name" required placeholder="enter your username" maxlength="20"  class="box" value="<?= $fetch_profile["name"]; ?>">
+      <input type="text" name="name" required placeholder="enter your username" maxlength="20"  class="box" value="<?= $fetch_profile["fullname"]; ?>">
       <input type="email" name="email" required placeholder="enter your email" maxlength="50"  class="box" oninput="this.value = this.value.replace(/\s/g, '')" value="<?= $fetch_profile["email"]; ?>">
       <input type="password" name="old_pass" placeholder="enter your old password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="new_pass" placeholder="enter your new password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
