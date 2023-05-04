@@ -4,31 +4,31 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
    header('location:user_login.php');
 };
 
 if(isset($_POST['delete'])){
-   $cart_id = $_POST['cart_id'];
-   $delete_cart_item = $conn->prepare("DELETE FROM `cart` WHERE id = ?");
-   $delete_cart_item->execute([$cart_id]);
+   $product_id = $_POST['pid'];
+   $delete_cart_item = $conn->prepare("DELETE FROM Cart WHERE CustomerID = ? AND ProductID = ?");
+   $delete_cart_item->execute([$user_id, $product_id]);
 }
 
 if(isset($_GET['delete_all'])){
-   $delete_cart_item = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
+   $delete_cart_item = $conn->prepare("DELETE FROM Cart WHERE CustomerID = ?");
    $delete_cart_item->execute([$user_id]);
    header('location:cart.php');
 }
 
 if(isset($_POST['update_qty'])){
-   $cart_id = $_POST['cart_id'];
+   $product_id = $_POST['pid'];
    $qty = $_POST['qty'];
    $qty = filter_var($qty, FILTER_SANITIZE_STRING);
-   $update_qty = $conn->prepare("UPDATE `cart` SET quantity = ? WHERE id = ?");
-   $update_qty->execute([$qty, $cart_id]);
+   $update_qty = $conn->prepare("UPDATE Cart SET Quantity = ? WHERE ProductID = ? AND CustomerID = ?");
+   $update_qty->execute([$qty, $product_id, $user_id]);
    $message[] = 'cart quantity updated';
 }
 
@@ -61,18 +61,21 @@ if(isset($_POST['update_qty'])){
 
    <?php
       $grand_total = 0;
-      $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+      $select_cart = $conn->prepare("SELECT *, P.Image_1, P.ProductName, P.Price FROM Cart AS C
+                                       INNER JOIN Products AS P
+                                          ON P.ProductID = C.ProductID
+                                       WHERE C.CustomerID = ?");
       $select_cart->execute([$user_id]);
       if($select_cart->rowCount() > 0){
          while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="box">
-      <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
-      <a href="quick_view.php?pid=<?= $fetch_cart['pid']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
-      <div class="name"><?= $fetch_cart['name']; ?></div>
+      <a href="quick_view.php?pid=<?= $fetch_cart['productid']; ?>" class="fas fa-eye"></a>
+      <img src="uploaded_img/<?= $fetch_cart['image_1']; ?>" alt="">
+      <div class="name"><?= $fetch_cart['productname']; ?></div>
       <div class="flex">
          <div class="price">$<?= $fetch_cart['price']; ?>/-</div>
+         <input type="hidden" name="pid" value="<?= $fetch_cart['productid']; ?>">
          <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="<?= $fetch_cart['quantity']; ?>">
          <button type="submit" class="fas fa-edit" name="update_qty"></button>
       </div>
