@@ -4,8 +4,8 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
    header('location:user_login.php');
@@ -26,15 +26,40 @@ if(isset($_POST['order'])){
    $total_products = $_POST['total_products'];
    $total_price = $_POST['total_price'];
 
-   $check_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+   $check_cart = $conn->prepare("SELECT * FROM Cart WHERE CustomerID = ?");
    $check_cart->execute([$user_id]);
 
    if($check_cart->rowCount() > 0){
 
-      $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price) VALUES(?,?,?,?,?,?,?,?)");
-      $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
+      $num_of_orders = $conn->prepare("SELECT COUNT(OrderID) AS num_orders FROM Orders_Details");
+      $num_of_orders->execute();
+      $result = $num_of_orders->fetch(PDO::FETCH_ASSOC);
+      $num_of_orders = $result["num_orders"];
+      $order_id = $num_of_orders + 1;
+      $order_id = 'O' . strval($order_id);
 
-      $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
+      $insert_order = $conn->prepare("INSERT INTO Orders_Details(OrderID, CustomerID, PhoneNumber, PaymentMethod, Address, TotalCost) VALUES(?,?,?,?,?,?)");
+      $insert_order->execute([$order_id, $user_id, $number, $method, $address, $total_price]);
+
+      $show_products = $conn->prepare("SELECT ProductID, Quantity FROM Cart WHERE CustomerID = ?");
+      $show_products->execute([$user_id]);
+
+      if ($show_products->rowCount() > 0) {
+         while($row = $show_products->fetch(PDO::FETCH_ASSOC)){
+               $product_id = $row["productid"];
+               $quantity = $row["quantity"];
+               $insert_product = $conn->prepare("INSERT INTO Orders(OrderID, ProductID, Quantity) VALUES(?,?,?)");
+               $insert_product->execute([$order_id, $product_id, $quantity]);
+            }
+      }
+      else {
+         echo "No products!";
+      }
+
+      #$insert_products = $conn->prepare("INSERT INTO Orders(OrderID, ProductID, Quantity) VALUES(?,?,?)");
+      #$insert_products->execute([$next_id, $productid, $quantity]);
+
+      $delete_cart = $conn->prepare("DELETE FROM Cart WHERE CustomerID = ?");
       $delete_cart->execute([$user_id]);
 
       $message[] = 'order placed successfully!';
@@ -75,15 +100,18 @@ if(isset($_POST['order'])){
       <?php
          $grand_total = 0;
          $cart_items[] = '';
-         $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+         $select_cart = $conn->prepare("SELECT *, P.Price, P.ProductName FROM Cart AS C
+                                          INNER JOIN Products AS P
+                                             ON P.ProductID = C.ProductID
+                                          WHERE C.CustomerID = ?");
          $select_cart->execute([$user_id]);
          if($select_cart->rowCount() > 0){
             while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
-               $cart_items[] = $fetch_cart['name'].' ('.$fetch_cart['price'].' x '. $fetch_cart['quantity'].') - ';
+               $cart_items[] = $fetch_cart['productname'].' ('.$fetch_cart['price'].' x '. $fetch_cart['quantity'].') - ';
                $total_products = implode($cart_items);
                $grand_total += ($fetch_cart['price'] * $fetch_cart['quantity']);
       ?>
-         <p> <?= $fetch_cart['name']; ?> <span>(<?= '$'.$fetch_cart['price'].'/- x '. $fetch_cart['quantity']; ?>)</span> </p>
+         <p> <?= $fetch_cart['productname']; ?> <span>(<?= '$'.$fetch_cart['price'].'/- x '. $fetch_cart['quantity']; ?>)</span> </p>
       <?php
             }
          }else{
@@ -113,10 +141,10 @@ if(isset($_POST['order'])){
          <div class="inputBox">
             <span>payment method :</span>
             <select name="method" class="box" required>
-               <option value="cash on delivery">cash on delivery</option>
-               <option value="credit card">credit card</option>
-               <option value="paytm">paytm</option>
-               <option value="paypal">paypal</option>
+               <option value="Cash on Delivery">Cash on Delivery</option>
+               <option value="Credit Card">Credit Card</option>
+               <option value="Paytm">Paytm</option>
+               <option value="Paypal">Paypal</option>
             </select>
          </div>
          <div class="inputBox">
