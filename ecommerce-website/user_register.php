@@ -33,21 +33,16 @@ if(isset($_POST['submit'])){
       if($pass != $cpass){
          $message[] = 'Confirm password not matched!';
       }else{
-         $last_id = $conn->prepare("SELECT CustomerID FROM Customers ORDER BY CustomerID DESC LIMIT 1");
-         $last_id->execute();
 
-         if ($last_id->rowCount() > 0) {
-            $row = $last_id->fetch(PDO::FETCH_ASSOC);
-            $last_id_num = (int)substr(strval($row["customerid"]), 1);
-            $next_id_num = $last_id_num + 1;
-            $next_id = 'C' . strval($next_id_num);
-            }
-         else {
-            $next_id = "C1";
-         }
+         $num_of_customers = $conn->prepare("SELECT COUNT(CustomerID) AS num_customers FROM Customers");
+         $num_of_customers->execute();
+         $result = $num_of_customers->fetch(PDO::FETCH_ASSOC);
+         $num_of_customers = $result["num_customers"];
+         $customer_id = $num_of_customers + 1;
+         $customer_id = 'C' . strval($customer_id);
 
          $insert_user = $conn->prepare("INSERT INTO Customers(CustomerID, FullName, Email, Password, Gender) VALUES(?,?,?,?,?)");
-         $insert_user->execute([$next_id, $name, $email, $cpass,$gender]);
+         $insert_user->execute([$customer_id, $name, $email, $cpass,$gender]);
          $message[] = 'Registered successfully. Login now please!';
       }
    }
