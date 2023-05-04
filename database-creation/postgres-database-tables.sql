@@ -92,6 +92,16 @@ CREATE TABLE IF NOT EXISTS Customer_Services(
     CONSTRAINT FK_customers_in_customer_services FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
+CREATE TABLE Cart(
+    CustomerID VARCHAR(7),
+    ProductID VARCHAR(7),
+
+    -- Constraints
+    CONSTRAINT PK_Cart PRIMARY KEY(CustomerID, ProductID),
+    CONSTRAINT FK_customers_in_cart FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    CONSTRAINT FK_products_in_cart FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /* Interacting with the warehouse */
