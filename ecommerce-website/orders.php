@@ -4,8 +4,8 @@ include 'components/connect.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $user_id = $_SESSION['user_id'];
+if(isset($_SESSION['CustomerID'])){
+   $user_id = $_SESSION['CustomerID'];
 }else{
    $user_id = '';
 };
@@ -41,20 +41,34 @@ if(isset($_SESSION['user_id'])){
       if($user_id == ''){
          echo '<p class="empty">please login to see your orders</p>';
       }else{
-         $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
+         $select_orders = $conn->prepare("SELECT OD.*, C.FullName, C.Email
+                                             FROM Orders_Details AS OD
+                                             INNER JOIN Customers AS C
+                                                ON C.CustomerID = OD.CustomerID
+                                             WHERE OD.CustomerID = ?");
          $select_orders->execute([$user_id]);
+
          if($select_orders->rowCount() > 0){
             while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+
+               $fetch_products = $conn->prepare("SELECT STRING_AGG(CONCAT(P.ProductName, ': ', O.Quantity), ' - ') AS total_products
+                                                   FROM Orders AS O
+                                                   INNER JOIN Products AS P
+                                                      ON P.ProductID = O.ProductID
+                                                   WHERE O.OrderID = ?");
+               $fetch_products->execute([$fetch_orders['orderid']]);
+               $fetch_products = $fetch_products->fetch(PDO::FETCH_ASSOC);
+
    ?>
    <div class="box">
-      <p>placed on : <span><?= $fetch_orders['placed_on']; ?></span></p>
-      <p>name : <span><?= $fetch_orders['name']; ?></span></p>
+      <p>placed on : <span><?= $fetch_orders['orderdate']; ?></span></p>
+      <p>name : <span><?= $fetch_orders['fullname']; ?></span></p>
       <p>email : <span><?= $fetch_orders['email']; ?></span></p>
-      <p>number : <span><?= $fetch_orders['number']; ?></span></p>
+      <p>number : <span><?= $fetch_orders['phonenumber']; ?></span></p>
       <p>address : <span><?= $fetch_orders['address']; ?></span></p>
-      <p>payment method : <span><?= $fetch_orders['method']; ?></span></p>
-      <p>your orders : <span><?= $fetch_orders['total_products']; ?></span></p>
-      <p>total price : <span>$<?= $fetch_orders['total_price']; ?>/-</span></p>
+      <p>payment method : <span><?= $fetch_orders['paymentmethod']; ?></span></p>
+      <p>your orders : <span><?= $fetch_products['total_products']; ?></span></p>
+      <p>total price : <span>$<?= $fetch_orders['totalcost']; ?>/-</span></p>
    </div>
    <?php
       }
