@@ -29,21 +29,15 @@ if(isset($_POST['send'])){
       $message[] = 'already sent message!';
    }else{
 
-      $last_id = $conn->prepare("SELECT MessageID FROM Customer_Services ORDER BY MessageID DESC LIMIT 1");
-      $last_id->execute();
-
-      if ($last_id->rowCount() > 0) {
-         $row = $last_id->fetch(PDO::FETCH_ASSOC);
-         $last_id_num = (int)substr(strval($row["messageid"]), 1);
-         $next_id_num = $last_id_num + 1;
-         $next_id = 'M' . strval($next_id_num);
-         }
-      else {
-         $next_id = "M1";
-      }
+      $num_of_msgs = $conn->prepare("SELECT COUNT(MessageID) AS num_msgs FROM Customer_Services");
+      $num_of_msgs->execute();
+      $result = $num_of_msgs->fetch(PDO::FETCH_ASSOC);
+      $num_of_msgs = $result["num_msgs"];
+      $msg_id = $num_of_msgs + 1;
+      $msg_id = 'M' . strval($msg_id);
 
       $insert_message = $conn->prepare("INSERT INTO Customer_Services(MessageID, CustomerID, PhoneNumber, Message) VALUES(?,?,?,?)");
-      $insert_message->execute([$next_id, $user_id, $number, $msg]);
+      $insert_message->execute([$msg_id, $user_id, $number, $msg]);
 
       $message[] = 'sent message successfully!';
 
