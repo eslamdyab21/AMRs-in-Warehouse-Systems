@@ -7,4 +7,4 @@ dashboard-web-application/client/node_modules/*
 dashboard-web-application/server/node_modules/*
 qr-codes-with-locations/__pycache__/*
 .obsidian/*
-ecommerce-website\components\.env
+ecommerce-website/components/.env
