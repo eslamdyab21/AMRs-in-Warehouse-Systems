@@ -4,12 +4,11 @@
 
 ## Table of Contents ##
 
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [Sign-up Page](#sign-up-page)
 - [Log-in Page](#log-in-page)
 - [Update Profile Page](#update-profile-page)
-- [Shop Page](#shop-page)
+- [Shop and Quick View Pages](#shop-page)
 - [Orders Page](#orders-page)
 - [Contact Page](#contact-page)
 - [Search Page](#search-page)
