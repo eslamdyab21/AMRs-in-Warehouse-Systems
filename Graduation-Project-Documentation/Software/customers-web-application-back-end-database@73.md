@@ -2,6 +2,19 @@
 
 <hr>
 
+## Table of Contents ##
+
+* [Introduction](#introduction)
+* [Sign-up Page](#sign-up-page)
+* [Log-in Page](#log-in-page)
+* [Update Profile](#update-profile-page)
+* [Shop Page](#shop-page)
+* [Orders Page](#orders-page)
+* [Contact Page](#contact-page)
+* [Search Page](#search-page)
+
+<hr>
+
 ## Introduction ##
 
 Each page on the website needs a link between the customer and the system's database in order to store all the information we need as well as make the shopping process easier to the user.
