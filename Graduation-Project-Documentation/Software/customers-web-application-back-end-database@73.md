@@ -26,7 +26,7 @@ Each page on the website needs a link between the customer and the system's data
 When a customer needs to sign-up to our website, he enters his information and just register.
 
 <p align="center">
-<img src="images/web-application-back-end/Register.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686155-3e7f71ea-537e-46d6-9b0a-daefd19ad992.png">
 </p>
 
 Once he presses enter, the database stores his information.
@@ -46,13 +46,13 @@ AMR_Warehouse=# SELECT * FROM Customers;
 I already have an account on the website and needs to log-in.
 
 <p align="center">
-<img src="images/web-application-back-end/Log-in.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686183-9a76af2f-ad09-418f-ae26-4ffaf7875cee.png">
 </p>
 
 The database searches for the email entered. If it exists in the database, the user can log-in successfully and the database direct the customer to the Home Page.
 
 <p align="center">
-<img src="images/web-application-back-end/Home-Page.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686201-bbde4fc8-887a-4a23-bda4-873218ae23e1.png">
 </p>
 
 If the email doesn't exist in the __Customers__ table or the user entered wrong password, the website tells the user that he entered incorrect username or password.
@@ -64,7 +64,7 @@ If the email doesn't exist in the __Customers__ table or the user entered wrong 
 If the user wants to update his password, he visits the update profile page and enters the new information.
 
 <p align="center">
-<img src="images/web-application-back-end/Update-user.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686218-bc04f926-6d07-4993-9e0e-100227ea3639.png">
 </p>
 
 After that, the new information is stored in the database.
@@ -81,10 +81,10 @@ AMR_Warehouse=# SELECT * FROM Customers;
 
 ## Shop Page ##
 
-The shop page has all the products listed with their names, prices, and images. It retrieves all these information from the database.
+The shop page has all the products listed with their names, prices, and images. It retrieves this information from the database.
 
 <p align="center">
-<img src="images/web-application-back-end/Shop-page.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686245-a90d94ba-8a12-41cd-89e2-5f54e370048f.png">
 </p>
 
 
@@ -102,7 +102,7 @@ AMR_Warehouse=# SELECT ProductID, ProductName, Price FROM Products ORDER BY Prod
 Each product has a _Quick View_ option to show more information about it.
 
 <p align="center">
-<img src="images/web-application-back-end/QuickView.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686307-00ceda26-b72e-4280-be75-f40310774862.png">
 </p>
 
 In this page, a customer can add a product to his wishlist, or his cart, with the quantity he needs.
@@ -111,7 +111,7 @@ In this page, a customer can add a product to his wishlist, or his cart, with th
 
    * Add a product to the Wishlist
        <p align="center">
-       <img src="images/web-application-back-end/Wishlist2.png">
+       <img src="https://user-images.githubusercontent.com/70551007/236686342-bf3f16b4-ebaa-4c14-a9c0-afe0a302e5c2.png">
        </p>
 
        ```sql
@@ -125,7 +125,7 @@ In this page, a customer can add a product to his wishlist, or his cart, with th
    * Delete a product from the Wishlist
 
        <p align="center">
-       <img src="images/web-application-back-end/Wishlist3.png">
+       <img src="https://user-images.githubusercontent.com/70551007/236686369-061082ef-abca-47d0-8380-aca8a072b7a2.png">
        </p>
 
        ```sql
@@ -140,7 +140,7 @@ In this page, a customer can add a product to his wishlist, or his cart, with th
    * Add products to the cart
 
        <p align="center">
-       <img src="images/web-application-back-end/Cart.png">
+       <img src="https://user-images.githubusercontent.com/70551007/236686395-d0114d22-5767-4ce8-930f-53b5eb8f1881.png">
        </p>
 
        ```sql
@@ -155,7 +155,7 @@ In this page, a customer can add a product to his wishlist, or his cart, with th
    * Proceed to Checkout
 
        <p align="center">
-       <img src="images/web-application-back-end/Proceed-to-checkout.png">
+       <img src="https://user-images.githubusercontent.com/70551007/236686425-13597f06-dbca-484e-992c-65293975a0a7.png">
        </p>
 
        ```sql
@@ -180,7 +180,7 @@ In this page, a customer can add a product to his wishlist, or his cart, with th
 This page shows all the orders which the logged-in customer ordered.
 
 <p align="center">
-<img src="images/web-application-back-end/Orders.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686452-bf2cb0ff-daad-462b-952d-d702fe156592.png">
 </p>
 
 This information is retrieved from the database.
@@ -210,7 +210,7 @@ This information is retrieved from the database.
 This page lets the customer contact with our customer services. He can send any message he wants to our admins.
 
 <p align="center">
-<img src="images/web-application-back-end/Contact.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686470-0501b38f-af94-438f-9a82-c02674990890.png">
 </p>
 
 ```sql
@@ -232,7 +232,7 @@ SELECT * FROM Products WHERE LOWER(ProductName) LIKE LOWER('%{$search_box}%');
 ```
 
 <p align="center">
-<img src="images/web-application-back-end/Search.png">
+<img src="https://user-images.githubusercontent.com/70551007/236686500-bae9304a-4490-4c0d-bd84-39f7795dbdfb.png">
 </p>
 
 <hr>
