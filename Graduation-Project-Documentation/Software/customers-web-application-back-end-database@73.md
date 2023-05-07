@@ -4,14 +4,15 @@
 
 ## Table of Contents ##
 
-* [Introduction](#introduction)
-* [Sign-up Page](#sign-up-page)
-* [Log-in Page](#log-in-page)
-* [Update Profile](#update-profile-page)
-* [Shop Page](#shop-page)
-* [Orders Page](#orders-page)
-* [Contact Page](#contact-page)
-* [Search Page](#search-page)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Sign-up Page](#sign-up-page)
+- [Log-in Page](#log-in-page)
+- [Update Profile Page](#update-profile-page)
+- [Shop Page](#shop-page)
+- [Orders Page](#orders-page)
+- [Contact Page](#contact-page)
+- [Search Page](#search-page)
 
 <hr>
 
@@ -83,18 +84,23 @@ AMR_Warehouse=# SELECT * FROM Customers;
 
 The shop page has all the products listed with their names, prices, and images. It retrieves all these information from the database.
 
+<p align="center">
+<img src="images/web-application-back-end/Shop-page.png">
+</p>
+
+
 ```sql
-AMR_Warehouse=# SELECT ProductID, ProductName, Price FROM Products;
+AMR_Warehouse=# SELECT ProductID, ProductName, Price FROM Products ORDER BY ProductID;
  productid | productname |  price
 -----------+-------------+----------
- P4        | Mixer       |   844.00
+ P1        | Laptop      | 13000.00
  P2        | Mouse       |  1899.00
  P3        | Camera      | 15000.00
- P1        | Laptop      | 13000.00
+ P4        | Mixer       |   844.00
 (4 rows)
 ```
 
-Each product has a _Quick View_ option to show more information about products.
+Each product has a _Quick View_ option to show more information about it.
 
 <p align="center">
 <img src="images/web-application-back-end/QuickView.png">
@@ -178,7 +184,7 @@ This page shows all the orders which the logged-in customer ordered.
 <img src="images/web-application-back-end/Orders.png">
 </p>
 
-These information is retrieved from the database.
+This information is retrieved from the database.
 
 * Main information about the order
     ```sql
@@ -202,7 +208,7 @@ These information is retrieved from the database.
 
 ## Contact Page ##
 
-This page lets the user contact with our customer services. He can send any message he wants to our admins.
+This page lets the customer contact with our customer services. He can send any message he wants to our admins.
 
 <p align="center">
 <img src="images/web-application-back-end/Contact.png">
