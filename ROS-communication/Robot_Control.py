@@ -28,7 +28,8 @@ class Control():
         self.shelf = shelf
         self.map = map
 
-        self.ros_robots_movement_status_dict = None
+        self.ros_robots_status_dict = None
+        self.ros_shelves_status_dict = None
 
         self.path_algorithms = Algorithms()
 
@@ -48,15 +49,22 @@ class Control():
         self.ros_map = rospy.Publisher('ros_2dmap', String, queue_size=10)
 
         # ros_robots_status topic: dictionary of robots movement status 
-        # ros_robots_status_dict = {'robot_id':['moving or charging or waiting for order', x,y], ....}
-        self.ros_robots_movement_status_pub = rospy.Publisher('ros_robots_movement_status', String, queue_size=10)
+        # ros_robots_status_dict = {'robot_id':{movement_status:'moving or charging or waiting for order', locations:[current, next], battery:x}, ....}
+        self.ros_robots_status_topic = rospy.Publisher('ros_robots_status', String, queue_size=10)
+
+        self.ros_shelves_status_topic = rospy.Publisher('ros_shelves_status', String, queue_size=10)
 
 
         rospy.Subscriber("ros_assign_robot_2_shelf", String, self.ros_assign_robot_2_shelf_callback)
         rospy.Subscriber("ros_2dmap", String, self.ros_2dmap_callback)
 
         # subscripted only once at starting from master node to get initial robot position
-        rospy.Subscriber("ros_robots_movement_status", String, self.ros_robots_movement_status_callback)
+        rospy.Subscriber("ros_robots_status", String, self.ros_robots_status_callback)
+
+        # dictionary of shelves orders and their locations
+        # {shelf_id:{shelf_id:Sx, movement_status:'moving or waiting', received_order_status:'True or False', 'paired_with_robot':R.id}, ....}
+        rospy.Subscriber("ros_shelves_status", String, self.ros_shelves_status_callback)
+
 
 
     def ros_move(self, movement):
@@ -72,14 +80,15 @@ class Control():
         start_time = time.time()
 
         order_at_shelf = str(data.data)
-        robot_id, shelf_id, shelf_loc = order_at_shelf.split('_')
+        robot_id, shelf_id = order_at_shelf.split('-')
+
         if robot_id == self.robot.id:
             self.robot.active_order_status = True
             self.shelf.id = shelf_id
-            self.shelf.current_location = [int(shelf_loc.split(',')[0]), int(shelf_loc.split(',')[1])]
+            self.shelf.current_location = self.ros_shelves_status_dict[shelf_id]['current_location']
             self.robot.paired_with_shelf = self.shelf
         
-        self.logger.log(f'Control : ros_assign_robot_2_shelf_callback : {time.time()-start_time} -->')
+        self.logger.log(f'Robot_Control : ros_assign_robot_2_shelf_callback : {time.time()-start_time} -->')
 
 
     def ros_2dmap_callback(self, data):
@@ -95,17 +104,23 @@ class Control():
         self.logger.log(f'Control : ros_2dmap_callback : {time.time()-start_time} -->')
 
 
-    def ros_robots_movement_status_callback(self, data):
+    def ros_robots_status_callback(self, data):
         start_time = time.time()
 
-        ros_robots_movement_status_dict = data.data
-        ros_robots_movement_status_dict = str(data.data)
-        self.ros_robots_movement_status_dict = ast.literal_eval(ros_robots_movement_status_dict)
+        ros_robots_status_dict = data.data
+        ros_robots_status_dict = str(data.data)
+        self.ros_robots_status_dict = ast.literal_eval(ros_robots_status_dict)
         
-        self.robot.current_location = self.ros_robots_movement_status_dict[self.robot.id][1]
-        self.logger.log(f'Control : ros_robots_movement_status_callback : {time.time()-start_time} -->')
+
+        self.logger.log(f'Robot_Control : ros_robots_movement_status_callback : {time.time()-start_time} -->')
 
 
+    def ros_shelves_status_callback(self, data):
+        start_time = time.time()
+
+        ros_shelves_status_dict = str(data.data)
+        self.ros_shelves_status_dict = ast.literal_eval(ros_shelves_status_dict)
+    
 
     def ros_close(self):
         rospy.signal_shutdown('break')
@@ -124,9 +139,9 @@ class Control():
         start = robot.current_location
         goal = robot.paired_with_shelf.current_location
 
-        robot.astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
+        astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
 
-        route = self.path_algorithms.astar(robot.astart_map, start, goal)
+        route = self.path_algorithms.astar(astart_map, start, goal)
         print(robot.id, route)
         
         # skip if no path is found
@@ -143,7 +158,7 @@ class Control():
 
             # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
             robot.paired_with_shelf.current_location = robot.current_location
-                
+            
             # robot is now physically connected to shelf
             robot.physically_connected_to_shelf = robot.paired_with_shelf
             robot.paired_with_shelf.physically_connected_to_robot = robot
@@ -242,8 +257,8 @@ class Control():
 
         if self.robot.active_order_status and self.robot.physically_connected_to_shelf == None:
             if self.ros_robots_status_dict is not None:
-                self.ros_robots_status_dict[self.robot.id][0] = 'moving'
-                self.self.ros_robots_movement_status_pub.publish(str(self.ros_robots_status_dict))
+                self.ros_robots_status_dict[self.robot.id]['movement_status'] = 'moving'
+                self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
 
             self.steps_map_to_shelf(self.robot)
             self.map.show_map()
@@ -251,8 +266,8 @@ class Control():
 
         if self.robot.active_order_status == False:
             if self.ros_robots_status_dict is not None:
-                self.ros_robots_status_dict[self.robot.id][0] = 'waiting for order'
-                self.ros_robots_movement_status_pub.publish(str(self.ros_robots_status_dict))
+                self.ros_robots_status_dict[self.robot.id]['movement_status'] = 'waiting for order'
+                self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
 
             self.map.update_objects_locations({self.robot.id:self.robot.locations})
             self.ros_map.publish(str(self.map.map))
