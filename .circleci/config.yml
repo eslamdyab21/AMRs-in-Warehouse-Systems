@@ -32,8 +32,8 @@ jobs:
             cd dashboard-web-application
             cd server
             npm install
-           # npm run build
-            echo "building here"
+            echo "npm run build"
+           
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
