@@ -11,6 +11,7 @@ jobs:
       - run:
           name: Build front-end
           command: |
+            cd dashboard-web-application
             cd client
             npm install
             npm run build
@@ -28,6 +29,7 @@ jobs:
       - run:
           name: Back-end build
           command: |
+            cd dashboard-web-application
             cd server
             npm install
             npm run build
@@ -45,6 +47,7 @@ jobs:
       - run:
           name: frontend-scan
           command: |
+            cd dashboard-web-application
             cd client
             npm install
             npm audit fix --force --audit-level=critical
@@ -60,6 +63,7 @@ jobs:
       - run:
           name: backend-scan
           command: |
+            cd dashboard-web-application
             cd server
             npm install
             npm audit fix --force --audit-level=critical
