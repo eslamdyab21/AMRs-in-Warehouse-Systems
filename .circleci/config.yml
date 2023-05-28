@@ -34,8 +34,8 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
-          
-scan-frontend:
+
+  scan-frontend:
     docker:
       - image: cimg/node:13.8.0
     steps:
