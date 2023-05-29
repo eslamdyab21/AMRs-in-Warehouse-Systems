@@ -83,7 +83,7 @@ class master():
         start_time = time.time()
 
         ros_shelves_status_dict = str(data.data)
-        ros_shelves_status_dict = ast.literal_eval(ros_shelves_status_dict)
+        self.ros_shelves_status_dict = ast.literal_eval(ros_shelves_status_dict)
 
 
         # self.logger.log(f'Control : ros_order_at_shelf_callback : {time.time()-start_time} -->')
@@ -135,8 +135,8 @@ class master():
         min_cost = 100000
         min_cost_robot_id = None        
         for robot_id in available_robots_for_order:
-            robot_current_location = self.ros_robots_status_dict[robot_id]['current_location']
-            shelf_current_location = self.ros_shelves_status_dict[order_at_shelf_id]['current_location']
+            robot_current_location = self.ros_robots_status_dict[robot_id]['locations'][1]
+            shelf_current_location = self.ros_shelves_status_dict[order_at_shelf_id]['locations'][1]
             
             cost_vector = abs(np.subtract(robot_current_location, shelf_current_location))
             cost = cost_vector[0] + cost_vector[1]
@@ -150,12 +150,12 @@ class master():
 
             info = order_at_shelf_id + " ----> " + min_cost_robot_id + " (Min cost = " + str(min_cost) + ")"
             print(info)
-            self.logger.log(f'Master : min_cost_robot : {time.time()-start_time} -->' + info)
+            # self.logger.log(f'Master : min_cost_robot : {time.time()-start_time} -->' + info)
 
         else:
             info = order_at_shelf_id + " ----> " + "None" + " (Min cost)"
             print(info)
-            self.logger.log(f'Master : min_cost_robots : {time.time()-start_time} -->' + info)
+            # self.logger.log(f'Master : min_cost_robots : {time.time()-start_time} -->' + info)
             
 
         return min_cost_robot_id

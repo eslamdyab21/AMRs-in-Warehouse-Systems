@@ -5,7 +5,7 @@ import time
 from Path_Planning_Algorithms import Algorithms
 import utils
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import String, Int16MultiArray, Int16
 from std_msgs.msg import Float32
 import os
 import ast
@@ -31,6 +31,8 @@ class Control():
         self.ros_robots_status_dict = None
         self.ros_shelves_status_dict = None
 
+        self.robot_feedback_stm_flag = 0
+
         self.path_algorithms = Algorithms()
 
         local_ip = robot_ip
@@ -55,6 +57,8 @@ class Control():
         self.ros_shelves_status_topic = rospy.Publisher('ros_shelves_status', String, queue_size=10)
 
 
+        self.ros_robot_move_stm_topic = rospy.Publisher('ros_robot_move_stm', Int16MultiArray, queue_size=10)
+
         rospy.Subscriber("ros_assign_robot_2_shelf", String, self.ros_assign_robot_2_shelf_callback)
         rospy.Subscriber("ros_2dmap", String, self.ros_2dmap_callback)
 
@@ -64,6 +68,8 @@ class Control():
         # dictionary of shelves orders and their locations
         # {shelf_id:{shelf_id:Sx, movement_status:'moving or waiting', received_order_status:'True or False', 'paired_with_robot':R.id}, ....}
         rospy.Subscriber("ros_shelves_status", String, self.ros_shelves_status_callback)
+
+        rospy.Subscriber("ros_robot_moved_feedback_stm_callback", Int16, self.ros_robot_moved_feedback_stm_callback)
 
 
 
@@ -85,7 +91,7 @@ class Control():
         if robot_id == self.robot.id:
             self.robot.active_order_status = True
             self.shelf.id = shelf_id
-            self.shelf.current_location = self.ros_shelves_status_dict[shelf_id]['current_location']
+            self.shelf.current_location = self.ros_shelves_status_dict[shelf_id]['locations'][1]
             self.robot.paired_with_shelf = self.shelf
         
         self.logger.log(f'Robot_Control : ros_assign_robot_2_shelf_callback : {time.time()-start_time} -->')
@@ -106,11 +112,13 @@ class Control():
 
     def ros_robots_status_callback(self, data):
         start_time = time.time()
-
+        
         ros_robots_status_dict = data.data
         ros_robots_status_dict = str(data.data)
         self.ros_robots_status_dict = ast.literal_eval(ros_robots_status_dict)
         
+        self.robot.locations = self.ros_robots_status_dict[self.robot.id]['locations']
+        self.robot.current_location = self.ros_robots_status_dict[self.robot.id]['locations'][1]
 
         self.logger.log(f'Robot_Control : ros_robots_movement_status_callback : {time.time()-start_time} -->')
 
@@ -121,6 +129,12 @@ class Control():
         ros_shelves_status_dict = str(data.data)
         self.ros_shelves_status_dict = ast.literal_eval(ros_shelves_status_dict)
     
+
+    def ros_robot_moved_feedback_stm_callback(self, data):
+        start_time = time.time()
+
+        self.robot_feedback_stm_flag = int(data.data)
+
 
     def ros_close(self):
         rospy.signal_shutdown('break')
@@ -136,8 +150,11 @@ class Control():
         start_time = time.time()
 
 
-        start = robot.current_location
-        goal = robot.paired_with_shelf.current_location
+        # start = robot.current_location
+        # goal = robot.paired_with_shelf.current_location
+
+        start = self.ros_robots_status_dict[robot.id]['locations'][1]
+        goal = self.ros_shelves_status_dict[self.shelf.id]['locations'][1]
 
         astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
 
@@ -191,11 +208,16 @@ class Control():
                     # want to move left
                     self.move(robot, 'left')
 
+            
             self.map.update_objects_locations({robot.id:robot.locations})
             # self.map.update_objects_locations({self.shelf.id:self.shelf.locations})
 
             self.ros_map.publish(str(self.map.map))   
         
+        self.ros_robots_status_dict[robot.id]['locations'] = robot.locations
+        self.ros_shelves_status_dict[self.shelf.id]['locations'] = self.shelf.locations
+        self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
+        self.ros_shelves_status_topic.publish(str(self.ros_shelves_status_dict))
 
         # self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)    
         self.logger.log(f'Control : steps_map_to_shelf : {time.time()-start_time} -->')
@@ -253,24 +275,27 @@ class Control():
         steps_map function gets the steps needed for each robot reach its goal
         """
         start_time = time.time()
-
+        
 
         if self.robot.active_order_status and self.robot.physically_connected_to_shelf == None:
             if self.ros_robots_status_dict is not None:
                 self.ros_robots_status_dict[self.robot.id]['movement_status'] = 'moving'
-                self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
+                #self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
 
-            self.steps_map_to_shelf(self.robot)
-            self.map.show_map()
+                self.steps_map_to_shelf(self.robot)
+                # print(self.robot.locations)
+                # print(self.ros_robots_status_dict[self.robot.id]['locations'])
+                self.map.show_map()
         # self.steps_map_to_packaging()
 
         if self.robot.active_order_status == False:
             if self.ros_robots_status_dict is not None:
+                # print(self.ros_robots_status_dict)
                 self.ros_robots_status_dict[self.robot.id]['movement_status'] = 'waiting for order'
                 self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
 
-            self.map.update_objects_locations({self.robot.id:self.robot.locations})
-            self.ros_map.publish(str(self.map.map))
+                self.map.update_objects_locations({self.robot.id:self.robot.locations})
+                self.ros_map.publish(str(self.map.map))
         
 
         
@@ -292,8 +317,11 @@ class Control():
         if direction == 'down':
             self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'down':
+                # self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
                 robot.move_forward()
+                
             elif robot.orientation == 'up':
+                # self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
                 robot.rotate_90_degree_clock_wise()
                 robot.rotate_90_degree_clock_wise()
                 robot.move_forward()

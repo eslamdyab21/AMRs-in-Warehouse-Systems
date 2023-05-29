@@ -20,7 +20,7 @@ logger = Logger()
 
 
 x_y = [randrange(map_size_y), randrange(map_size_y)]
-R = Robot(logger, id = f'R{sys.argv[1]}', intial_location = x_y, intial_orientation = 'right', speed=1, map_size = [map_size_x, map_size_y])
+R = Robot(logger, id = f'R{sys.argv[1]}', intial_location = x_y, intial_orientation = 'right', speed=100, map_size = [map_size_x, map_size_y])
 S = Shelf(logger, id = f'S{sys.argv[1]}', intial_location = x_y, map_size = [map_size_x, map_size_y])
 
 control = Control(logger, robot = R, shelf = S, map = map, robot_ip = '127.0.0.1', roscore_ip = '127.0.0.1')
