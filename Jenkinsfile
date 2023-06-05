@@ -20,10 +20,16 @@ pipeline {
 
         stage("build frontend node app") {
             steps {
-                script {
-                    gv_job_script.build_node()
-                    // sh 'echo building'
-                }
+                    sh "pwd"
+                    dir('dashboard-web-application/client') {
+                        sh "pwd"
+
+                        script {
+                            gv_job_script.build_node()
+                            // sh 'echo building'
+                        }
+                    }
+                    sh "pwd"
             }
         }
 

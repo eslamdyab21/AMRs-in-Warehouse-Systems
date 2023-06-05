@@ -1,7 +1,7 @@
 def build_node() {
     echo "building the node application..."
 
-    sh 'cd dashboard-web-application/client'
+    // sh 'cd dashboard-web-application/client'
     sh 'npm install'
     sh 'npm run build'
 } 
