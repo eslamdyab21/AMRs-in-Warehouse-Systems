@@ -20,23 +20,20 @@ pipeline {
 
         stage("build frontend node app") {
             steps {
-                    sh "pwd"
                     dir('dashboard-web-application/client') {
-                        sh "pwd"
 
                         script {
                             gv_job_script.build_node()
                             // sh 'echo building'
                         }
                     }
-                    sh "pwd"
             }
         }
 
-        stage("build frontend docker image") {
+        stage("create frontend docker image") {
             steps {
                 script {
-                    gv_job_script.build_docker_image()
+                    gv_job_script.create_docker_image()
                     // sh 'echo building'
                 }
             }
