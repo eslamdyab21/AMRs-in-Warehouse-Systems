@@ -11,9 +11,9 @@ def build_node() {
 def create_docker_image() {
     echo "creating the docker image..."
     withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t docker/eslamdyba/amrs-in-warehouse-systems:dashboard-0.0 .'
+        sh 'docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-0.0 .'
         sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh 'docker push docker/eslamdyba/amrs-in-warehouse-systems:dashboard-0.1'
+        sh 'docker push eslamdyba/amrs-in-warehouse-systems:dashboard-0.0'
     }
 
 } 
