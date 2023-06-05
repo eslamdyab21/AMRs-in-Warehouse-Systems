@@ -13,7 +13,7 @@ def create_docker_image() {
     withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh 'docker build -t docker/eslamdyba/amrs-in-warehouse-systems:dashboard-0.0 .'
         sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh 'docker push nanajanashia/demo-app:jma-2.0'
+        sh 'docker push docker/eslamdyba/amrs-in-warehouse-systems:dashboard-0.1'
     }
 
 } 
