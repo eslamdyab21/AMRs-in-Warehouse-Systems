@@ -6,6 +6,6 @@ COPY dashboard-web-application/client/build /home/app
 
 EXPOSE 5000
 
-RUN npm install serve
+RUN npm install -g serve
 
 CMD ["serve -s", "/home/app/build/"]
