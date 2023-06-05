@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-// def gv_job_script
+def gv_job_script
 
 pipeline {
     agent any
@@ -12,31 +12,31 @@ pipeline {
         stage("init") {
             steps {
                 script {
-                    // gv_job_script = load "scripts.groovy"
                     sh 'echo init'
+                    gv_job_script = load "scripts.groovy"
                 }
             }
         }
 
-        stage("build node app") {
+        stage("build frontend node app") {
             steps {
                 script {
-                    // gv_job_script.build_node()
-                    sh 'echo building'
+                    gv_job_script.build_node()
+                    // sh 'echo building'
                 }
             }
         }
 
-        stage("build image") {
+        stage("build frontend docker image") {
             steps {
                 script {
-                    // gv_job_script.build_docker_image()
-                    sh 'echo building'
+                    gv_job_script.build_docker_image()
+                    // sh 'echo building'
                 }
             }
         }
 
-        stage("deploy") {
+        stage("deploy docker frontend") {
             steps {
                 script {
                     // gv_job_script.deploy()
