@@ -18,13 +18,23 @@ pipeline {
             }
         }
 
+        stage("install frontend node app dependencies") {
+            steps {
+                    dir('dashboard-web-application/client') {
+
+                        script {
+                            gv_job_script.install_node_dependencies()
+                        }
+                    }
+            }
+        }
+
         stage("build frontend node app") {
             steps {
                     dir('dashboard-web-application/client') {
 
                         script {
                             gv_job_script.build_node()
-                            // sh 'echo building'
                         }
                     }
             }
@@ -34,15 +44,21 @@ pipeline {
             steps {
                 script {
                     gv_job_script.create_docker_image()
-                    // sh 'echo building'
                 }
             }
         }
 
-        stage("deploy docker frontend") {
+        stage("push frontend docker image") {
             steps {
                 script {
-                    // gv_job_script.deploy()
+                    gv_job_script.push_docker_image()
+                }
+            }
+        }
+
+        stage("dev deploy docker frontend") {
+            steps {
+                script {
                     sh 'echo deploying'
                 }
             }
