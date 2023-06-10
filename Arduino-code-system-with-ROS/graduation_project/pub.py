@@ -34,13 +34,13 @@ def talker():
                     yaw = int(input("vertical limit = "))
             
                 if e == 'w':
-                    y = 200
+                    y = 100
                 elif e == 's':
-                    y = -200
+                    y = -100
                 if e == 'd':
-                    yaw = 200
+                    yaw = 100
                 elif e == 'a':
-                    yaw = -200
+                    yaw = -100
 
                 
 

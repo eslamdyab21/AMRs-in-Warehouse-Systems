@@ -46,7 +46,7 @@ void setup()
 {
   Wire.begin(Master_address);
 
-  //Serial.begin(9600);
+  Serial.begin(9600);
 
   delay(500);
   imu.intilaize();
@@ -71,7 +71,7 @@ void loop()
  
     yaw.data = yaw_angle;
     pub_yaw.publish(&yaw); 
-      //Serial.println(yaw_angle);
+    Serial.println(yaw_angle);
   }
 
    
