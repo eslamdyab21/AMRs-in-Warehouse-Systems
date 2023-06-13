@@ -39,13 +39,13 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   {
-    text: "Client Facing",
+    text: "Warehouse data",
     icon: null,
   },
-  {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
+  // {
+  //   text: "Products",
+  //   icon: <ShoppingCartOutlined />,
+  // },
   {
     text: "Robots",
     icon: <Groups2Outlined />,
@@ -58,10 +58,10 @@ const navItems = [
     text: "Transactions",
     icon: <ReceiptLongOutlined />,
   },
-  {
-    text: "Geography",
-    icon: <PublicOutlined />,
-  },
+  // {
+  //   text: "Geography",
+  //   icon: <PublicOutlined />,
+  // },
   {
     text: "Sales",
     icon: null,
@@ -136,7 +136,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
+                    Warehouse Administration
                   </Typography>
                 </Box>
                 {!isNonMobile && (
