@@ -17,10 +17,8 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  ShoppingCartOutlined,
   Groups2Outlined,
   ReceiptLongOutlined,
-  PublicOutlined,
   PointOfSaleOutlined,
   TodayOutlined,
   CalendarMonthOutlined,
@@ -42,10 +40,6 @@ const navItems = [
     text: "Warehouse data",
     icon: null,
   },
-  // {
-  //   text: "Products",
-  //   icon: <ShoppingCartOutlined />,
-  // },
   {
     text: "Robots",
     icon: <Groups2Outlined />,
@@ -58,10 +52,6 @@ const navItems = [
     text: "Transactions",
     icon: <ReceiptLongOutlined />,
   },
-  // {
-  //   text: "Geography",
-  //   icon: <PublicOutlined />,
-  // },
   {
     text: "Sales",
     icon: null,
