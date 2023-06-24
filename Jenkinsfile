@@ -20,7 +20,7 @@ pipeline {
 
         stage("install backend node app dependencies") {
             steps {
-                    dir('dashboard-web-application/client') {
+                    dir('dashboard-web-application/server') {
 
                         script {
                             gv_job_script.install_node_dependencies()
