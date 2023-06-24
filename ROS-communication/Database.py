@@ -1,4 +1,4 @@
-import mysql.connector as connector
+import psycopg2
 from dotenv import load_dotenv
 import time
 import os
@@ -31,22 +31,23 @@ class Database():
         start_time = time.time()
 
         load_dotenv()
-        ENV_MYSQL_USER = os.getenv('MYSQL_USER')
-        ENV_MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
-        ENV_MYSQL_HOST = os.getenv('MYSQL_HOST')
-        ENV_MYSQL_DATABASE = os.getenv('MYSQL_DATABASE')
+        ENV_DATABASE_USER = os.getenv('DATABASE_USER')
+        ENV_DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+        ENV_DATABASE_HOST = os.getenv('DATABASE_HOST')
+        ENV_DATABASE_NAME = os.getenv('DATABASE_NAME')
+        ENV_DATABASE_PORT = os.getenv('DATABASE_PORT')
 
-        self.connection = connector.connect(
-            user=ENV_MYSQL_USER,
-            password=ENV_MYSQL_PASSWORD,
-            port=3306,
-            host=ENV_MYSQL_HOST,
-            database=ENV_MYSQL_DATABASE
+        self.connection = psycopg2.connect(
+            user=ENV_DATABASE_USER,
+            password=ENV_DATABASE_PASSWORD,
+            port=ENV_DATABASE_PORT,
+            host=ENV_DATABASE_HOST,
+            database=ENV_DATABASE_NAME
         )
 
         self.cursor = self.connection.cursor()
         self.logger.log(f'Database : connect_to_db : {time.time()-start_time} --> ' + "Connection is done")
-        self.cursor.execute(f"""USE {ENV_MYSQL_DATABASE}""")
+        # self.cursor.execute(f"""USE {ENV_DATABASE_NAME}""")
         self.logger.log('Database --> ' + "testing_AMRs Database is in use")
 
 
@@ -60,7 +61,7 @@ class Database():
         # This query returns a list of all the shelves which their products are ordered
         query_shelves_ids = (
             """
-                SELECT ShelfID FROM Shelves WHERE HavingOrder = 1;
+                SELECT ShelfID FROM Shelves WHERE NumOfOrders > 0;
             """
         )
 
@@ -75,43 +76,6 @@ class Database():
         self.logger.log(f"Database : query_recived_order_shelfs_id : {time.time()-start_time} --> Shelves that have recived an order: " + str(shelves_id_recived_order_list))
         
         return shelves_id_recived_order_list
-
-
-    def write_to_db(self, id, object):
-        """
-        write_to_db function is responsible of adding new objects to the database whether this object is a robot or a shelf
-        and for both, all the information required from the database for the object must be added
-        
-        this function defines the object to be added by the first letter of its ID (R: Robot, S: Shelf)
-        """
-
-        start_time = time.time()
-
-        if id[0] == 'R':
-            robot = object
-            robot_parameters = (id, robot.speed, robot.battery_precentage, robot.prev_location[0], robot.prev_location[1], robot.current_location[0], robot.current_location[1], 'None')
-            write_to_robots = (
-                """
-                    INSERT INTO Robots(RobotID, Speed, BatteryLife, CurrentLocationX, CurrentLocationY, NextLocationX, NextLocationY, ShelfID)
-                    VALUES(%s, %s, %s, %s, %s, %s, %s, %s)
-                """
-            )
-            self.cursor.execute(write_to_robots, robot_parameters)
-            self.logger.log('Database --> ' + id + " robot is added with its health")
-
-        else:
-            shelf = object
-            shelf_parameters = (id, shelf.prev_location[0], shelf.prev_location[1], shelf.id, shelf.recived_order_status)
-            write_to_shelves = (
-                """
-                    INSERT INTO Shelves(ShelfID, LocationX, LocationY, ProductID, HavingOrder)
-                    VALUES(%s, %s, %s, %s, %s)
-                """
-            )
-            self.cursor.execute(write_to_shelves, shelf_parameters)
-            self.logger.log(f'Database : write_to_db : {time.time()-start_time} --> ' + id + " shelf is added")
-
-        self.connection.commit()
 
 
 
