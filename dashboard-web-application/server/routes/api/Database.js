@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const { Client } = require('pg');
 
 class database{
@@ -15,8 +15,7 @@ class database{
 	
 	//methods
     connect_to_postgress_db(){
-
-        dotenv.config({ path: 'routes/api/.env' })
+        // dotenv.config({ path: 'routes/api/.env' })
         this.db = new Client({
             host : process.env.POSTGRES_HOST,
             user : process.env.POSTGRES_USER,
@@ -30,7 +29,7 @@ class database{
                 console.log('problem connecting to database....')
                 throw err
             }
-            console.log(`connected to ${process.env.MYSQL_DATABASE} database`)
+            console.log(`connected to ${process.env.POSTGRES_DATABASE} database`)
         })
 
         return this.db
