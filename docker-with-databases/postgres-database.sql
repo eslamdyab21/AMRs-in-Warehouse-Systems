@@ -13,6 +13,10 @@
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+CREATE DATABASE "AMR_Warehouse";
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 /* Interacting with the website */
 
 CREATE TABLE IF NOT EXISTS Customers(
@@ -60,6 +64,7 @@ CREATE TABLE IF NOT EXISTS Orders(
     OrderID VARCHAR(7),
     ProductID VARCHAR(7),
     Quantity INT CHECK(Quantity > 0),
+    OrderProductStatus VARCHAR(15) DEFAULT 'New' CHECK(OrderProductStatus IN ('New', 'In progress', 'Completed')),
 
     -- Constraints
     CONSTRAINT PK_Orders PRIMARY KEY(OrderID, ProductID),
@@ -75,6 +80,28 @@ CREATE TABLE IF NOT EXISTS Wishlist(
     CONSTRAINT PK_Wishlist PRIMARY KEY(CustomerID, ProductID),
     CONSTRAINT FK_customers_in_wishlist FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
     CONSTRAINT FK_products_in_wishlist FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+CREATE TABLE IF NOT EXISTS Customer_Services(
+    MessageID VARCHAR(7),
+    CustomerID VARCHAR(5),
+    PhoneNumber VARCHAR(13) NOT NULL,
+    Message VARCHAR(255),
+
+    -- Constraints
+    CONSTRAINT PK_Customer_Services PRIMARY KEY(MessageID),
+    CONSTRAINT FK_customers_in_customer_services FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+CREATE TABLE Cart(
+    CustomerID VARCHAR(7),
+    ProductID VARCHAR(7),
+    Quantity INT CHECK(Quantity > 0),
+
+    -- Constraints
+    CONSTRAINT PK_Cart PRIMARY KEY(CustomerID, ProductID),
+    CONSTRAINT FK_customers_in_cart FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    CONSTRAINT FK_products_in_cart FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -123,17 +150,6 @@ CREATE TABLE IF NOT EXISTS Notifications(
     CONSTRAINT PK_Notifications PRIMARY KEY(NotificationID)
 );
 
-CREATE TABLE IF NOT EXISTS Customer_Services(
-    MessageID VARCHAR(7),
-    CustomerID VARCHAR(5),
-    PhoneNumber VARCHAR(13) NOT NULL,
-    Message VARCHAR(255),
-
-    -- Constraints
-    CONSTRAINT PK_Customer_Services PRIMARY KEY(MessageID),
-    CONSTRAINT FK_customers_in_customer_services FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
-);
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /*
@@ -150,16 +166,23 @@ TRIGGERS:
         1. If ItemsInStock < 10: Sends a notification with the product and its remaining number of items
         2. If ItemsInStock = 0: Sends a notification that the product is out of stock
 
-3. CheckOrderStatus
-    This tigger does only one task for each update on orders_details table:
-        1. Decrement the number of orders on each shelf once the order is marked as "Completed"
+3. ShelfPairedWithRobot
+    This trigger does only one task for each update on robots table:
+        When a robot is paired with a shelf (the database knows this information from the algorithm),
+        it updates each orderid and productid (on the paired shelf) pair in the orders table as in progress instead of new.
+
+4. CompletedOrders
+    This trigger does 2 tasks for each update on order tables:
+        1.  Decrement the number of orders on each shelf (according to its product) once the order and product pair is marked as "Completed"
+        2. If all the products of any order is marked as completed, it updates the order status of this order in the orders_details table as "Completed" 
+
 
 VIEWS:
 -----
 1. AdminView
     This view views the following information to the admin:
         1. OrderID     2. ProductID     3. Quantity
-        4. ShelfID     5. OrderStatus   6. OrderDate
+        4. ShelfID     5. OrderProductStatus   6. OrderDate
     To monitor the orders and the shelves.
 */
 
@@ -227,30 +250,64 @@ EXECUTE FUNCTION items_in_stock_updates_function();
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Trigger number 3 : CheckOrderStatus
-CREATE OR REPLACE FUNCTION check_order_status_function()
+-- Trigger number 3 : ShelfPairedWithRobot
+CREATE OR REPLACE FUNCTION shelf_paired_with_robot_function()
 RETURNS TRIGGER AS $$
+DECLARE
+    product_id VARCHAR(7) := (SELECT ProductID FROM Shelves WHERE ShelfID = NEW.ShelfID);
 BEGIN
-    IF NEW.OrderStatus = 'Completed' THEN
-        UPDATE Shelves SET NumOfOrders = NumOfOrders - 1
-            WHERE ProductID IN (SELECT ProductID FROM Orders WHERE OrderID = NEW.OrderID);
+    IF NEW.ShelfID IS NOT NULL THEN
+        UPDATE Orders SET OrderProductStatus = 'In progress'
+            WHERE OrderID IN (SELECT OrderID FROM Orders WHERE ProductID = product_id) AND ProductID = product_id;
     END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_order_status_trigger
-AFTER UPDATE ON Orders_Details
+CREATE TRIGGER shelf_paired_with_robot_trigger
+AFTER UPDATE OF ShelfID ON Robots
 FOR EACH ROW
-EXECUTE FUNCTION check_order_status_function();
+EXECUTE FUNCTION shelf_paired_with_robot_function();
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Trigger number 4 : CompletedOrders
+CREATE OR REPLACE FUNCTION completed_order_function()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    order_id VARCHAR(7) := NEW.OrderID;
+
+    total_products INT := (SELECT COUNT(OrderID) FROM Orders WHERE OrderID = order_id);
+    total_completed_products INT := (SELECT COUNT(OrderID) FROM Orders WHERE OrderID = order_id AND OrderProductStatus = 'Completed');
+
+    product_id VARCHAR(7) := NEW.ProductID;
+    shelf_id VARCHAR(7) := (SELECT ShelfID FROM Shelves WHERE ProductID = product_id);
+
+BEGIN
+    UPDATE Shelves SET NumOfOrders = NumOfOrders - 1 WHERE ShelfID = shelf_id;
+
+    IF total_completed_products = total_products THEN
+        UPDATE Orders_Details SET OrderStatus = 'Completed' WHERE OrderID = order_id;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER completed_order_trigger
+AFTER UPDATE
+ON Orders
+FOR EACH ROW
+EXECUTE FUNCTION completed_order_function();
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /* View for the web application */
 
 CREATE VIEW admin_view AS
-    SELECT O.OrderID, O.ProductID, O.Quantity, S.ShelfID, OD.OrderStatus, OD.OrderDate
+    SELECT O.OrderID, O.ProductID, O.Quantity, S.ShelfID, O.OrderProductStatus, OD.OrderDate
     FROM Orders AS O
     INNER JOIN Orders_Details AS OD
         ON OD.OrderID = O.OrderID
