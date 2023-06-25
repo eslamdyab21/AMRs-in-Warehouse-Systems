@@ -61,7 +61,8 @@ class Database():
         # This query returns a list of all the shelves which their products are ordered
         query_shelves_ids = (
             """
-                SELECT ShelfID FROM Shelves WHERE NumOfOrders > 0;
+                SELECT ShelfID FROM Shelves WHERE NumOfOrders > 0
+                AND ShelfID NOT IN (SELECT ShelfID FROM Robots WHERE ShelfID IS NOT NULL);
             """
         )
 
