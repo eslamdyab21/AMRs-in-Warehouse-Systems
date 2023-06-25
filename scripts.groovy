@@ -1,7 +1,7 @@
 def create_docker_image() {
     echo "creating the docker image..."
     withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t eslamdyba/amrs-in-warehouse-systems:postgressql-server-dev-0.0 --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DB=$POSTGRES_DATABASE --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD docker-with-databases/Dockerfile'
+        sh 'docker build -t eslamdyba/amrs-in-warehouse-systems:postgressql-server-dev-0.0 --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DB=$POSTGRES_DATABASE --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD docker-with-databases/Dockerfile .'
     }
 } 
 
