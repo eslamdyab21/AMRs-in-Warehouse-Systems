@@ -13,4 +13,4 @@ ENV POSTGRES_DB $POSTGRES_DB
 
 EXPOSE 5432
 
-COPY postgres-database.sql /docker-entrypoint-initdb.d/
+COPY docker-with-databases/postgres-database.sql /docker-entrypoint-initdb.d/
