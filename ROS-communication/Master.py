@@ -64,7 +64,7 @@ class master():
         min_cost_robot_id = self.min_cost_robot(order_at_shelf_id, available_robots_for_order)
 
         # update ros_shelves_status_dict with shelf paired_with_robot
-        if min_cost_robot_id != None:
+        if min_cost_robot_id != None and self.ros_shelves_status_dict[order_at_shelf_id]['paired_with_robot_status'] == False:
             self.ros_robots_status_dict[min_cost_robot_id]['paired_with_shelf_status'] = True
             self.ros_robots_status_dict[min_cost_robot_id]['paired_with_shelf'] = order_at_shelf_id
             self.ros_shelves_status_dict[order_at_shelf_id]['paired_with_robot_status'] = True
@@ -103,7 +103,7 @@ class master():
         available_robots_for_order = []
 
         for robot_id in self.ros_robots_status_dict.keys():
-            if self.ros_robots_status_dict[robot_id]['movement_status'] == 'waiting for order':
+            if self.ros_robots_status_dict[robot_id]['paired_with_shelf_status'] == False:
                 available_robots_for_order.append(robot_id)
 
 
@@ -163,8 +163,5 @@ class master():
 master_node = master(local_ip='192.168.1.146', roscore_ip='192.168.1.146')
 
 while True:
-
-    for i in range(1000):
-        x = i
-        x = x + 1
+    rospy.spin()
 
