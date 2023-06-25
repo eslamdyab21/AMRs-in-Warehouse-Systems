@@ -36,6 +36,8 @@ The backend will start at localhost at port 5000.
 ### Method 2, run the application using Docker (recommended)
 >Easy one command, make sure you have docker installed 
 
+</br>
+
 #### Front-end
 ```bash
 ❯ docker run --name dashboard-frontend --network warehouse-network -p 3000:3000 -d eslamdyba/amrs-in-warehouse-systems:dashboard-dev-0.1

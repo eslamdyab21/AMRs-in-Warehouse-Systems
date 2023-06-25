@@ -36,6 +36,10 @@ The backend will start at localhost at port 5000.
 ### Method 2, run the application using Docker (recommended)
 >Easy one command, make sure you have docker installed 
 
+</br>
+
+#### Front-end
+
 ```bash
 ❯ docker run --name dashboard-dev-0.1 -p 3000:3000 -d eslamdyba/amrs-in-warehouse-systems:dashboard-dev-0.1
 ```
@@ -48,3 +52,16 @@ CONTAINER ID   IMAGE                                                   COMMAND  
 ```
 
 ![](/Graduation-Project-Documentation/Software/images/dashboard.png)
+
+</br>
+
+#### Back-end
+```bash
+❯ docker run -d --name dashboard-backend --network warehouse-network -p 5000:5000  eslamdyba/amrs-in-warehouse-systems:dashboard-backend-dev-0.0
+```
+
+It will pull the image from docker-hub and start the container at localhost port 5000. And the front-end will talk to the back-end through the `warehouse-network`, you need to create this network first
+```bash
+❯ docker network create warehouse-network
+```
+

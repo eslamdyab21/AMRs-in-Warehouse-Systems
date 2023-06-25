@@ -7,7 +7,7 @@
 [[configure communication with raspberrypi over wifi @10]]
 [[ros noetic on raspberrypi @26]]
 [[backeend for a dashboard web application @6]]
-[[dashboard-web-application @5]]
+[[dashboard-web-application@5]]
 [[raspbian os on raspberrypi @7]]
 
 
