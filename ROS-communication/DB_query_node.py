@@ -109,7 +109,7 @@ class DB_query_node():
 db_query_node = DB_query_node(local_ip='127.0.0.1', roscore_ip='127.0.0.1')
 
 while True:
-    time.sleep(2)
     db_query_node.query_recived_order_shelfs_from_db()
+    rospy.spin()
 
 

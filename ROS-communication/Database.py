@@ -48,7 +48,7 @@ class Database():
         self.cursor = self.connection.cursor()
         self.logger.log(f'Database : connect_to_db : {time.time()-start_time} --> ' + "Connection is done")
         # self.cursor.execute(f"""USE {ENV_DATABASE_NAME}""")
-        self.logger.log('Database --> ' + "testing_AMRs Database is in use")
+        self.logger.log('Database --> ' + f"{ENV_DATABASE_NAME} Database is in use")
 
 
     def query_recived_order_shelfs_id(self):

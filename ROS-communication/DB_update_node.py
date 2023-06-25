@@ -46,9 +46,9 @@ class DB_update_node():
         ros_shelves_status_dict = ast.literal_eval(ros_shelves_status_dict)
 
         for shelf_id,shelf_data in ros_shelves_status_dict.items():
-            self.database.update_db(table="Shelves", id=shelf_id, parameters={"currentlocation_x":shelf_data['locations'][1][0], "currentlocation_y":shelf_data['locations'][1][1]})
+            self.database.update_db(table="Shelves", id=shelf_id, parameters={"location_x":shelf_data['locations'][1][0], "location_y":shelf_data['locations'][1][1]})
 
-        # self.logger.log(f'Control : ros_order_at_shelf_callback : {time.time()-start_time} -->')
+        self.logger.log(f'DB_update_node : ros_shelves_status_callback : {time.time()-start_time} -->')
 
 
     def ros_robots_status_callback(self, data):
@@ -58,15 +58,15 @@ class DB_update_node():
         ros_robots_status_dict = ast.literal_eval(ros_robots_status_dict)
         
         for robot_id,robot_data in ros_robots_status_dict.items():
-            self.database.update_db(table="Shelves", id=robot_id, 
+            self.database.update_db(table="Robots", id=robot_id, 
             parameters={"currentlocation_x":robot_data['locations'][1][0],
                         "currentlocation_y":robot_data['locations'][1][1], 
                         "shelfid":robot_data['paired_with_shelf'], 
                         "speed":robot_data['speed'],
-                        "batteryPercentage":robot_data['battery']})
+                        "batterypercentage":robot_data['battery']})
             # ,"isCharging":robot_data['is_charging']
 
-        # self.logger.log(f'Control : ros_robots_movement_status_callback : {time.time()-start_time} -->')
+        self.logger.log(f'DB_update_node : ros_robots_status_callback : {time.time()-start_time} -->')
     
 
 
