@@ -153,13 +153,16 @@ EXECUTE FUNCTION completed_order_function();
 /* View for the web application */
 
 CREATE VIEW admin_view AS
-    SELECT O.OrderID, O.ProductID, O.Quantity, S.ShelfID, O.OrderProductStatus, OD.OrderDate
+    SELECT O.OrderID, O.ProductID, P.ProductName, O.Quantity, S.ShelfID, O.OrderProductStatus,
+            CAST(OD.OrderDate AS DATE) AS OrderDate, CAST(OD.OrderDate AS TIME) AS OrderTime
     FROM Orders AS O
     INNER JOIN Orders_Details AS OD
         ON OD.OrderID = O.OrderID
     INNER JOIN Shelves AS S
         ON S.ProductID = O.ProductID
-    ORDER BY OD.OrderDate;
+    INNER JOIN Products AS P
+        ON P.ProductID = O.ProductID
+    ORDER BY OD.OrderID, OD.OrderDate;
 
 -- To view it
 SELECT * FROM admin_view;
