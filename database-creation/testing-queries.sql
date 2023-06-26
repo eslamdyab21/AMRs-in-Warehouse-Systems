@@ -1,6 +1,8 @@
 -- Inserting queries: The following queries has to be inserted in order
 
-INSERT INTO Customers VALUES('C1', 'menna@gmail', 'mennapassword', 'Mennatallah Mamdouh', 'Female');
+INSERT INTO Customers VALUES('C1', 'menna@gmail', 'mennapassword', 'Mennatallah Mamdouh', 'Female'),
+                             ('C2', 'mennamam@gmail', 'mennapassword', 'Mennatallah Mamdouh', 'Female'),
+                             ('C3', 'eslamdyab@gmail', 'eslampassword', 'Eslam Dyab', 'Male');
 
 INSERT INTO Products VALUES('P1', 'Hair Shampoo', 250, 'It is a hair product. It contains Sulfates', 500, 'URL1', 'URL2', 'URL3'),
                             ('P2', 'Hair Conditioner', 300, 'It is a hair product. It controls frizzness', 500, 'URL1', 'URL2', 'URL3');
