@@ -41,6 +41,10 @@ const navItems = [
     icon: null,
   },
   {
+    text: "Map2d",
+    icon: <Groups2Outlined />,
+  },
+  {
     text: "Robots",
     icon: <Groups2Outlined />,
   },
@@ -49,9 +53,13 @@ const navItems = [
     icon: <Groups2Outlined />,
   },
   {
-    text: "Transactions",
-    icon: <ReceiptLongOutlined />,
+    text: "Orders",
+    icon: <Groups2Outlined />,
   },
+  // {
+  //   text: "Transactions",
+  //   icon: <ReceiptLongOutlined />,
+  // },
   {
     text: "Sales",
     icon: null,
