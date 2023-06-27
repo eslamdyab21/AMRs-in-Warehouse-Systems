@@ -15,15 +15,16 @@ let c
 let x = 0
 let y = 0
 let api_url = "http://localhost:5000/api/map2d"
+let tile
+
 function Map2d() {
     const theme = useTheme();
 
-    // let data = funcName(api_url, board)
 
     setInterval(function(){
-        // funcName(api_url, board)
         Fill(board)
     }, 500);
+
 
     useEffect(() => {
         if (board != undefined){
@@ -42,17 +43,12 @@ function Map2d() {
             }
 
             board.push(row);
-            
         }
         
         Fill(board)
         
         }, []);
-            
 
-
-    console.log('in Fill 0000')
-    
     
     return (
         <div id="board" >
@@ -67,36 +63,56 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function Fill(board){
-    // for(let k=0; k<10; k++){
 
-        let data = funcName(api_url, board)
-    // }
+async function Fill(board){
+    funcName(api_url, board)
 }
 
-async function fill_board(data, board){
-    console.log('in fill_board')
 
+function clear_board(board){
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            let tile = board[r][c];
+            tile.innerText = " ";
+        }
+    }
+    
+    return board
+
+}
+
+
+
+async function fill_board(data, board){
+
+    board = clear_board(board)
     for (let i=0; i<2; i++){
         let data_section = data[i]
         for (let j=0; j < data_section.length; j++){
 
-            console.log(data_section[j])
+            // console.log(data_section[j])
             if ('robotid' in data_section[j]){
-                console.log(data_section[j]['robotid'])
+                // console.log(data_section[j]['robotid'])
                 r = data_section[j]['currentlocation_y']
                 c = data_section[j]['currentlocation_x']
-                console.log(r,c)
                 
                 x = parseInt(r,10)
                 y = parseInt(c,10)
                 
 
-                let tile = board[x][y];
+                tile = board[x][y];
                 tile.innerText = data_section[j]['robotid'];
+            }
 
-                // console.log(x,y)
+            else if ('shelfid' in data_section[j]){
+                r = data_section[j]['location_y']
+                c = data_section[j]['location_x']
+                
+                x = parseInt(r,10)
+                y = parseInt(c,10)
 
+                tile = board[x][y];
+                tile.innerText = data_section[j]['shelfid'];
             }
         }
     }
