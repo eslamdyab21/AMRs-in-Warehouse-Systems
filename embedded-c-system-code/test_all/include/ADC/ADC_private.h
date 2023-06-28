@@ -35,6 +35,6 @@ typedef	struct
 
 #define		ADC1		(( ADC1_Type * )0X40012400)
 
-static void (*ADC1_GlobalPtr) (void) = '\0';
+//static void (*ADC1_GlobalPtr) (void) = '\0';
 
 #endif

@@ -13,6 +13,17 @@ RM := rm -rf
 -include system/src/diag/subdir.mk
 -include system/src/cortexm/subdir.mk
 -include system/src/cmsis/subdir.mk
+-include src/UART2/subdir.mk
+-include src/TIM3/subdir.mk
+-include src/TIM2/subdir.mk
+-include src/STK/subdir.mk
+-include src/RCC/subdir.mk
+-include src/NVIC/subdir.mk
+-include src/Encoder/subdir.mk
+-include src/EXTI/subdir.mk
+-include src/DIO/subdir.mk
+-include src/AFIO/subdir.mk
+-include src/ADC/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk

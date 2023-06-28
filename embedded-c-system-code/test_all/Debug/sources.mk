@@ -27,6 +27,17 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+src/ADC \
+src/AFIO \
+src/DIO \
+src/EXTI \
+src/Encoder \
+src/NVIC \
+src/RCC \
+src/STK \
+src/TIM2 \
+src/TIM3 \
+src/UART2 \
 src \
 system/src/cmsis \
 system/src/cortexm \

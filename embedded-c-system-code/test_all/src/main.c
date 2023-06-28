@@ -23,51 +23,51 @@
 
 #include <math.h>
 
+/**/
 /* Notes : stepper motor , while + communication */
 
 
 /* Left Encoder */
 u8 left_MotorDirection;
-s32 left_counts = 0, left_countsPerSec = 0;
-f32 left_RevPerMin = 0, left_distance = 0;
-
+s32 left_counts = 0, left_RPM = 0;
+f32 left_distance = 0;
 
 /* Right Encoder */
  u8 right_MotorDirection;
-s32 right_counts = 0, right_countsPerSec = 0;
-f32 right_RevPerMin = 0, right_distance = 0;
-
+s32 right_counts = 0 ,right_RPM = 0;
+f32 right_distance = 0;
 
 /* ADC variables */
 u16 adc_value = 0;
 f32 reading = 0 ,adc_volt = 0;
 u16 R1 = 30000, R2 = 7500;
 
-/*ISR of Systick*/
+/* flags */
+s8 rotate_flag = 1;
+u8 distance_flag = 1;
+
+f32 right_angle = 0;
+f32 left_angle = 0;
+
+/* Elapsed time */
+u32 elapsed_time = 0;
+
 void EncoderCounts(void)
 {
-	static s32 left_LastCounts = 0;
-	static s32 right_LastCounts = 0;
-
+	if(rotate_flag == 0)
+	{
 	/* left motor (encoder readings) */
-	left_MotorDirection = HENCODER_u8GetMotorDirection(GPIOA,PIN8);
-
-	//left_counts = HENCODER_s32GetEncoderCounts();
-	left_countsPerSec = left_counts - left_LastCounts;
-	left_LastCounts = left_counts;
-
-	left_RevPerMin = HENCODER_s32GetRevPerMin(left_countsPerSec);
+	left_MotorDirection = HENCODER_u8GetMotorDirection(PIN8);
+	left_RPM = HENCODER_s32GetRevPerMin(left_counts, elapsed_time);
 	left_distance = HENCODER_f32GetDistance(left_counts);
+	HENCODER_s32GetZeroCounts(PIN8);
 
 	/* right motor (encoder readings) */
-	right_MotorDirection = HENCODER_u8GetMotorDirection(GPIOB,PIN10);
-
-	//right_counts = HENCODER_s32GetEncoderCounts();
-	right_countsPerSec = right_counts - right_LastCounts;
-	right_LastCounts = right_counts;
-
-	right_RevPerMin = HENCODER_s32GetRevPerMin(right_countsPerSec);
+	right_MotorDirection = HENCODER_u8GetMotorDirection(PIN10);
+	right_RPM = HENCODER_s32GetRevPerMin(right_counts, elapsed_time);
 	right_distance = HENCODER_f32GetDistance(right_counts);
+	HENCODER_s32GetZeroCounts(PIN10);
+	}
 }
 
 /*ISR of EXTI8 (left encoder)*/
@@ -84,29 +84,60 @@ void RightEncoderGetReading (void)
 
 void RotateLeft()
 {
-	s16 left_angle = 0;
+	HENCODER_s32GetZeroCounts(PIN8);
+
 	MTIM2_voidOutputPWM_C2(30);
-	MTIM3_voidOutputPWM(0);
+	MTIM3_voidOutputPWM(30);
 
 	/* motor direction */
 	MGPIO_VoidSetPinValue(GPIOA,PIN5,HIGH);
-	MGPIO_VoidSetPinValue(GPIOA,PIN0,HIGH);
+	MGPIO_VoidSetPinValue(GPIOA,PIN0,LOW);
 
 	while(1)
 	{
-		left_angle = (left_counts/230)*(7/31)*360;
+		left_angle = left_counts*0.3733;
 		if(left_angle >= 90)
 		{
 			MTIM2_voidOutputPWM_C2(0);
+			MTIM3_voidOutputPWM(0);
 			break;
 		}
 	}
+	HENCODER_s32GetZeroCounts(PIN8);
+	MUSART2_voidSendData(1);
+	rotate_flag = 0;
+
 }
 
 void RotateRight()
 {
-	s16 right_angle = 0;
-	MTIM2_voidOutputPWM_C2(0);
+	HENCODER_s32GetZeroCounts(PIN10);
+
+	MTIM2_voidOutputPWM_C2(30);
+	MTIM3_voidOutputPWM(30);
+
+	/* motor direction */
+	MGPIO_VoidSetPinValue(GPIOA,PIN5,LOW);
+	MGPIO_VoidSetPinValue(GPIOA,PIN0,HIGH);
+
+	while(1)
+	{
+		right_angle = right_counts*.3733;
+		if(right_angle >= 90)
+		{
+			MTIM3_voidOutputPWM(0);
+			MTIM2_voidOutputPWM_C2(0);
+			break;
+		}
+	}
+	HENCODER_s32GetZeroCounts(PIN10);
+	MUSART2_voidSendData(1);
+	rotate_flag = 0;
+}
+
+void TargetDistance()
+{
+	MTIM2_voidOutputPWM_C2(30);
 	MTIM3_voidOutputPWM(30);
 
 	/* motor direction */
@@ -115,13 +146,17 @@ void RotateRight()
 
 	while(1)
 	{
-		right_angle = (right_counts/230)*(7/31)*360;
-		if(right_angle >= 90)
+		//EncoderCounts();
+		if(left_distance == 70)
 		{
 			MTIM3_voidOutputPWM(0);
+			MTIM2_voidOutputPWM_C2(0);
 			break;
 		}
 	}
+	MUSART2_voidSendData(1);
+	HENCODER_f32GetZeroDistance();
+	distance_flag = 0;
 }
 
 void VoltageReading()
@@ -135,7 +170,7 @@ void VoltageReading()
 	MUSART2_voidSendNumbers(reading);
 }
 
-void main (void)
+int main (void)
 {
 	/*initialize RCC*/
 	RCC_voidInitSysClock();
@@ -163,8 +198,8 @@ void main (void)
 	MGPIO_VoidSetPinDirection(GPIOA,PIN9,INPUT_FLOATING);
 
 	/* Left encoder */
-	MGPIO_VoidSetPinDirection(GPIOA,PIN10,INPUT_FLOATING);
-	MGPIO_VoidSetPinDirection(GPIOA,PIN11,INPUT_FLOATING);
+	MGPIO_VoidSetPinDirection(GPIOB,PIN10,INPUT_FLOATING);
+	MGPIO_VoidSetPinDirection(GPIOB,PIN11,INPUT_FLOATING);
 
 	/* voltage sensor */
 	MGPIO_VoidSetPinDirection(GPIOB, PIN0, INPUT_ANALOG);
@@ -197,17 +232,44 @@ void main (void)
 	MUSART2_voidInit();
 
 
-	/*start timer 1sec*/
-	MSTK_voidSetIntervalPeriodic(1000000,EncoderCounts);
+	/*start timer 3sec*/
+	MSTK_voidSetIntervalPeriodic(3000000);
 
-	MSTK_voidSetIntervalPeriodic(1000000,VoltageReading);
+
 
 	while(1)
 	{
-//		MGPIO_VoidSetPinValue(GPIOA,PIN5,HIGH);
-//		MGPIO_VoidSetPinValue(GPIOA,PIN0,HIGH);
+		MGPIO_VoidSetPinValue(GPIOA,PIN5,LOW);
+		MGPIO_VoidSetPinValue(GPIOA,PIN0,LOW);
+
+		MTIM2_voidOutputPWM_C2(30);
+		MTIM3_voidOutputPWM(30);
+
+		elapsed_time = MSTK_u32GetElapsedTime();
+		if ((elapsed_time >= 1000) && (elapsed_time <= 1050))
+		{
+			EncoderCounts();
+			if (distance_flag == 1)
+			{
+				TargetDistance();
+			}
+		}
+
+		else if(((MSTK_u32GetElapsedTime()) >= 1000000) && ((MSTK_u32GetElapsedTime()) <= 1000050))
+		{
+			VoltageReading();
+		}
+
+//		if (rotate_flag == 1)
+//		{
+//			RotateRight();
+//			//RotateLeft();
+//		}
+
+
 	}
 
 
 
 }
+

@@ -10,7 +10,7 @@
 //#define channel1	GPIOA,8
 //#define channel2	GPIOA,9
 
-#define		EncoderResolution   	 230
+#define		EncoderResolution   	 225
 #define 	  WheelRadius			  3.5
 
 
