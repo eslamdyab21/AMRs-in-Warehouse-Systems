@@ -1,0 +1,5 @@
+../Src/UART2/USART_program.c:21:6:MUSART2_voidInit	8	static
+../Src/UART2/USART_program.c:43:6:MUSART2_voidSendData	16	static
+../Src/UART2/USART_program.c:51:6:MUSART2_voidSendString	16	static
+../Src/UART2/USART_program.c:60:6:MUSART2_voidSendNumbers	40	static
+../Src/UART2/USART_program.c:71:4:MUSART2_u8ReceiveData	16	static

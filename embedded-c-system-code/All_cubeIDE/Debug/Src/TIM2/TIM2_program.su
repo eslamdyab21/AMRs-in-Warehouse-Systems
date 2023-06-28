@@ -1,0 +1,5 @@
+../Src/TIM2/TIM2_program.c:14:6:MTIM2_voidInitC2	4	static
+../Src/TIM2/TIM2_program.c:51:6:MTIM2_voidInitC4	4	static
+../Src/TIM2/TIM2_program.c:89:6:MTIM2_voidSetBusyWait	16	static
+../Src/TIM2/TIM2_program.c:104:6:MTIM2_voidOutputPWM_C2	16	static
+../Src/TIM2/TIM2_program.c:110:6:MTIM2_voidOutputPWM_C4	16	static

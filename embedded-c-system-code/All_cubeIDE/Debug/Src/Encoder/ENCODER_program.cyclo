@@ -1,0 +1,6 @@
+ENCODER_program.c:22:4:HENCODER_u8GetMotorDirection	2
+ENCODER_program.c:34:5:HENCODER_voidEncoderCounts	6
+ENCODER_program.c:75:6:HENCODER_s32GetZeroCounts	3
+ENCODER_program.c:89:5:HENCODER_s32GetRevPerMin	1
+ENCODER_program.c:97:5:HENCODER_f32GetDistance	1
+ENCODER_program.c:103:6:HENCODER_f32GetZeroDistance	1

@@ -1,0 +1,4 @@
+DIO_program.c:14:6:MGPIO_VoidSetPinDirection	11
+DIO_program.c:77:6:MGPIO_VoidSetPinValue	11
+DIO_program.c:126:4:MGPIO_u8GetPinValue	5
+DIO_program.c:152:6:MGPIO_VoidLockPin	5

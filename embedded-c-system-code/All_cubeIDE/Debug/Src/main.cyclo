@@ -1,0 +1,8 @@
+main.c:55:6:EncoderCounts	2
+main.c:74:6:LeftEncoderGetReading	1
+main.c:80:6:RightEncoderGetReading	1
+main.c:85:6:RotateLeft	2
+main.c:112:6:RotateRight	2
+main.c:138:6:TargetDistance	2
+main.c:162:6:VoltageReading	1
+main.c:173:5:main	6

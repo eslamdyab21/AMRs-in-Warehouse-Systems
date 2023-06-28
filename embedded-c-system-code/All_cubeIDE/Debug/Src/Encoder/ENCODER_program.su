@@ -1,0 +1,6 @@
+../Src/Encoder/ENCODER_program.c:22:4:HENCODER_u8GetMotorDirection	16	static
+../Src/Encoder/ENCODER_program.c:34:5:HENCODER_voidEncoderCounts	24	static
+../Src/Encoder/ENCODER_program.c:75:6:HENCODER_s32GetZeroCounts	16	static
+../Src/Encoder/ENCODER_program.c:89:5:HENCODER_s32GetRevPerMin	24	static
+../Src/Encoder/ENCODER_program.c:97:5:HENCODER_f32GetDistance	24	static
+../Src/Encoder/ENCODER_program.c:103:6:HENCODER_f32GetZeroDistance	4	static

@@ -1,0 +1,3 @@
+../Src/ADC/ADC_program.c:20:6:MADC1_voidInit	4	static
+../Src/ADC/ADC_program.c:40:6:MADC1_voidStartConversion	16	static
+../Src/ADC/ADC_program.c:70:5:MADC1_u16ReadValue	4	static
