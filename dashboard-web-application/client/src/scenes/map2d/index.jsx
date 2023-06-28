@@ -65,7 +65,7 @@ function sleep(ms) {
 
 
 async function Fill(board){
-    funcName(api_url, board)
+    get_data_backend(api_url, board)
 }
 
 
@@ -76,7 +76,7 @@ function clear_board(board){
             tile.innerText = " ";
         }
     }
-    
+
     return board
 
 }
@@ -122,7 +122,7 @@ async function fill_board(data, board){
 
 
 
-async function funcName(url, board){
+async function get_data_backend(url, board){
     const response = await fetch(url);
     var data = await response.json();
 

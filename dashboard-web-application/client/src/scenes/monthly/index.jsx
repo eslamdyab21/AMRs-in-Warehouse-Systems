@@ -4,14 +4,29 @@ import Header from "components/Header";
 import { ResponsiveLine } from "@nivo/line";
 import { useGetSalesQuery } from "state/api";
 
+let monthlyDataMock = [{'month':'January', 'totalSales':10, 'totalUnits':5},
+                 {'month':'February', 'totalSales':20, 'totalUnits':6},
+                 {'month':'March', 'totalSales':5, 'totalUnits':1},
+                 {'month':'April', 'totalSales':8, 'totalUnits':5},
+                 {'month':'May', 'totalSales':14, 'totalUnits':6},
+                 {'month':'June', 'totalSales':21, 'totalUnits':9},
+                 {'month':'July', 'totalSales':65, 'totalUnits':30},
+                 {'month':'August', 'totalSales':15, 'totalUnits':11},
+                 {'month':'September', 'totalSales':252, 'totalUnits':100},
+                 {'month':'October', 'totalSales':15, 'totalUnits':7},
+                 {'month':'November', 'totalSales':100, 'totalUnits':40},
+                 {'month':'December', 'totalSales':152, 'totalUnits':30}]
+
 const Monthly = () => {
-  const { data } = useGetSalesQuery();
+  // const { data } = useGetSalesQuery();
+  const data = monthlyDataMock
   const theme = useTheme();
 
   const [formattedData] = useMemo(() => {
     if (!data) return [];
 
-    const { monthlyData } = data;
+    // const { monthlyData } = data;
+    const monthlyData = data;
     const totalSalesLine = {
       id: "totalSales",
       color: theme.palette.secondary.main,
@@ -89,7 +104,7 @@ const Monthly = () => {
               reverse: false,
             }}
             yFormat=" >-.2f"
-            // curve="catmullRom"
+            curve="catmullRom"
             axisTop={null}
             axisRight={null}
             axisBottom={{
