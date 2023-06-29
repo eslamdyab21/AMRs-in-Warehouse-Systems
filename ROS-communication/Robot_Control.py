@@ -169,7 +169,7 @@ class Control():
             prev_location = robot.current_location.copy()
             robot.current_location = list(route[-1])
             robot.locations = [prev_location, robot.current_location]
-            self.shelf.locations = [prev_location, robot.current_location]
+            self.shelf.locations = [prev_location, robot.current_location].copy()
 
             horizontal_steps = 0
             vertical_steps = 0
@@ -237,12 +237,11 @@ class Control():
         # goal = robot.paired_with_shelf.current_location
 
         start = self.ros_robots_status_dict[robot.id]['locations'][1]
-        goal = [1,1]
+        goal = [0,0]
 
         astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
 
         route = self.path_algorithms.astar(astart_map, start, goal)
-        print(robot.id, route)
         
         # skip if no path is found
         # if route == False:
@@ -252,7 +251,7 @@ class Control():
             prev_location = robot.current_location.copy()
             robot.current_location = list(route[-1])
             robot.locations = [prev_location, robot.current_location]
-            self.shelf.locations = [prev_location, robot.current_location]
+            self.shelf.locations = [prev_location, robot.current_location].copy()
 
             horizontal_steps = 0
             vertical_steps = 0
@@ -274,7 +273,7 @@ class Control():
         elif len(route) > 2:
             horizontal_steps = route[1][1] - robot.current_location[1] 
             vertical_steps = route[1][0] - robot.current_location[0]
-        
+
             if vertical_steps > 0:
                 # want to move down
                 self.move(robot, 'down')
@@ -300,7 +299,8 @@ class Control():
             self.ros_map.publish(str(self.map.map))   
         
         self.ros_robots_status_dict[robot.id]['locations'] = robot.locations
-        self.ros_shelves_status_dict[self.shelf.id]['locations'] = self.shelf.locations
+        self.ros_shelves_status_dict[self.shelf.id]['locations'] = robot.locations
+        self.shelf.locations = robot.locations.copy()
         self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
         self.ros_shelves_status_topic.publish(str(self.ros_shelves_status_dict))
 
@@ -342,10 +342,14 @@ class Control():
         self.logger.log(f'Control : steps_map : {time.time()-start_time} -->')
 
 
+
+
     def wait_for_stm_response(self):
         # while self.robot_feedback_stm_flag == 0:
         #     pass
         self.robot_feedback_stm_flag = 0
+
+
 
     def move(self, robot, direction):
         """
@@ -487,6 +491,7 @@ class Control():
             if robot.orientation == 'left':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
                 self.wait_for_stm_response()
+                robot.move_forward()
 
             elif robot.orientation == 'right':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))

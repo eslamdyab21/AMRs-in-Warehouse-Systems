@@ -61,7 +61,7 @@ class DB_update_node():
             self.database.update_db(table="Robots", id=robot_id, 
             parameters={"currentlocation_x":robot_data['locations'][1][0],
                         "currentlocation_y":robot_data['locations'][1][1], 
-                        "shelfid":"'" +robot_data['paired_with_shelf'] + "'", 
+                        "shelfid":robot_data['paired_with_shelf'] , 
                         "speed":robot_data['speed'],
                         "batterypercentage":robot_data['battery']})
             # ,"isCharging":robot_data['is_charging']

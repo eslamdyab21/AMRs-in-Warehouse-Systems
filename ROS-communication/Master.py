@@ -66,7 +66,7 @@ class master():
         # update ros_shelves_status_dict with shelf paired_with_robot
         if min_cost_robot_id != None and self.ros_shelves_status_dict[order_at_shelf_id]['paired_with_robot_status'] == False:
             self.ros_robots_status_dict[min_cost_robot_id]['paired_with_shelf_status'] = True
-            self.ros_robots_status_dict[min_cost_robot_id]['paired_with_shelf'] = order_at_shelf_id
+            self.ros_robots_status_dict[min_cost_robot_id]['paired_with_shelf'] = "'" + order_at_shelf_id + "'"
             self.ros_shelves_status_dict[order_at_shelf_id]['paired_with_robot_status'] = True
             self.ros_robots_status_dict[min_cost_robot_id]['paired_with_robot'] = min_cost_robot_id
             
