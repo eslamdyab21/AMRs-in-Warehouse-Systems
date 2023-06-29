@@ -160,7 +160,7 @@ class master():
 
         return min_cost_robot_id
 
-master_node = master(local_ip='192.168.1.146', roscore_ip='192.168.1.146')
+master_node = master(local_ip='127.0.0.1', roscore_ip='127.0.0.1')
 
 while True:
     rospy.spin()

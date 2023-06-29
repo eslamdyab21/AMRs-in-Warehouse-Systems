@@ -105,7 +105,6 @@ class Database():
                     WHERE {} = {}
                 """
             ).format(table, column, value, primary_key, "'" + id + "'")
-            
             self.cursor.execute(update_robots)
 
         self.connection.commit()

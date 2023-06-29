@@ -336,14 +336,15 @@ class Control():
         
 
         elif self.robot.physically_connected_to_shelf != None:
-            self.steps_map_to_packaging()
+            # self.steps_map_to_packaging()
+            pass
         
         self.logger.log(f'Control : steps_map : {time.time()-start_time} -->')
 
 
     def wait_for_stm_response(self):
-        while self.robot_feedback_stm_flag == 0:
-            pass
+        # while self.robot_feedback_stm_flag == 0:
+        #     pass
         self.robot_feedback_stm_flag = 0
 
     def move(self, robot, direction):
