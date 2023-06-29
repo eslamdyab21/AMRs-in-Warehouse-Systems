@@ -167,7 +167,7 @@ class Control():
 
         if len(route) == 2:
             prev_location = robot.current_location.copy()
-            robot.current_location = route[-1]
+            robot.current_location = list(route[-1])
             robot.locations = [prev_location, robot.current_location]
             self.shelf.locations = [prev_location, robot.current_location]
 
@@ -250,7 +250,7 @@ class Control():
 
         if len(route) == 2:
             prev_location = robot.current_location.copy()
-            robot.current_location = route[-1]
+            robot.current_location = list(route[-1])
             robot.locations = [prev_location, robot.current_location]
             self.shelf.locations = [prev_location, robot.current_location]
 
@@ -336,8 +336,8 @@ class Control():
         
 
         elif self.robot.physically_connected_to_shelf != None:
-            # self.steps_map_to_packaging()
-            pass
+            self.steps_map_to_packaging(self.robot)
+            self.map.show_map()
         
         self.logger.log(f'Control : steps_map : {time.time()-start_time} -->')
 
