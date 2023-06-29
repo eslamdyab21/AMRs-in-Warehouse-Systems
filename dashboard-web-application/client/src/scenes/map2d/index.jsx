@@ -93,26 +93,37 @@ async function fill_board(data, board){
             // console.log(data_section[j])
             if ('robotid' in data_section[j]){
                 // console.log(data_section[j]['robotid'])
-                r = data_section[j]['currentlocation_y']
-                c = data_section[j]['currentlocation_x']
+                c = data_section[j]['currentlocation_y']
+                r = data_section[j]['currentlocation_x']
                 
                 x = parseInt(r,10)
                 y = parseInt(c,10)
                 
 
                 tile = board[x][y];
-                tile.innerText = data_section[j]['robotid'];
+                if (tile.innerText == undefined){
+                    tile.innerText = data_section[j]['robotid'];
+                }
+                else {
+                    tile.innerText = data_section[j]['robotid'] + tile.innerText;
+                }
+                
             }
 
             else if ('shelfid' in data_section[j]){
-                r = data_section[j]['location_y']
-                c = data_section[j]['location_x']
+                c = data_section[j]['location_y']
+                r = data_section[j]['location_x']
                 
                 x = parseInt(r,10)
                 y = parseInt(c,10)
 
                 tile = board[x][y];
-                tile.innerText = data_section[j]['shelfid'];
+                if (tile.innerText == undefined){
+                    tile.innerText = data_section[j]['shelfid'];
+                }
+                else {
+                    tile.innerText = tile.innerText + data_section[j]['shelfid'];
+                }
             }
         }
     }
