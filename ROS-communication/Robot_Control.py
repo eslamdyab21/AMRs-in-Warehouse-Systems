@@ -5,7 +5,7 @@ import time
 from Path_Planning_Algorithms import Algorithms
 import utils
 import rospy
-from std_msgs.msg import String, Int16MultiArray, Int16
+from std_msgs.msg import String, Int16MultiArray, Int8
 from std_msgs.msg import Float32
 import os
 import ast
@@ -69,7 +69,7 @@ class Control():
         # {shelf_id:{shelf_id:Sx, movement_status:'moving or waiting', received_order_status:'True or False', 'paired_with_robot':R.id}, ....}
         rospy.Subscriber("ros_shelves_status", String, self.ros_shelves_status_callback)
 
-        rospy.Subscriber("ros_robot_moved_feedback_stm_callback", Int16, self.ros_robot_moved_feedback_stm_callback)
+        rospy.Subscriber("ros_robot_moved_feedback_stm_callback", Int8, self.ros_robot_moved_feedback_stm_callback)
 
 
 
@@ -364,85 +364,98 @@ class Control():
 
         # print(robot.id, robot.current_location, direction)
         if direction == 'down':
-            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'down':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
 
             elif robot.orientation == 'up':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
                 
-
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
 
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'right':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
 
             elif robot.orientation == 'left':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, 1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_anti_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_anti_clock_wise()
 
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
 
         elif direction == 'up':
-            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'up':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'down':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'right':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, 1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_anti_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_anti_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'left':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
@@ -451,37 +464,45 @@ class Control():
             self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'right':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'left':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'down':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, 1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_anti_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_anti_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'up':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
@@ -490,37 +511,45 @@ class Control():
             self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'left':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'right':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'up':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, 1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_anti_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_anti_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
 
             elif robot.orientation == 'down':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[0, -1]))
+                self.ros_topic_robot.publish(f'{robot.id}:"rotate_90_degree_clock_wise":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.rotate_90_degree_clock_wise()
 
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
+                self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 self.wait_for_stm_response()
                 robot.move_forward()
         
