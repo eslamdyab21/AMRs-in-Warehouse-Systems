@@ -161,6 +161,26 @@ class Control():
         route = self.path_algorithms.astar(astart_map, start, goal)
         print(robot.id, route)
         
+        horizontal_steps = route[1][1] - robot.current_location[1] 
+        vertical_steps = route[1][0] - robot.current_location[0]
+    
+        if vertical_steps > 0:
+            # want to move down
+            self.move(robot, 'down')
+
+        elif vertical_steps < 0:
+            # want to move up
+            self.move(robot, 'up')
+        
+        elif vertical_steps == 0:
+            if horizontal_steps > 0:
+                # want to move right
+                self.move(robot, 'right')
+
+            elif horizontal_steps < 0:
+                # want to move left
+                self.move(robot, 'left')
+
         # skip if no path is found
         # if route == False:
         #     continue
@@ -181,44 +201,26 @@ class Control():
             robot.physically_connected_to_shelf = robot.paired_with_shelf
             robot.paired_with_shelf.physically_connected_to_robot = robot
             
+            self.map.map[route[0][0]][route[0][1]] = 0
             self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
 
 
             self.ros_map.publish(str(self.map.map))
             self.ros_topic_robot.publish(f'{robot.id}:{"None"}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             
+            self.ros_shelves_status_dict[self.shelf.id]['locations'] = self.shelf.locations
+            self.ros_shelves_status_topic.publish(str(self.ros_shelves_status_dict))
+
 
         elif len(route) > 2:
-            horizontal_steps = route[1][1] - robot.current_location[1] 
-            vertical_steps = route[1][0] - robot.current_location[0]
-        
-            if vertical_steps > 0:
-                # want to move down
-                self.move(robot, 'down')
-
-            elif vertical_steps < 0:
-                # want to move up
-                self.move(robot, 'up')
-            
-            elif vertical_steps == 0:
-                if horizontal_steps > 0:
-                    # want to move right
-                    self.move(robot, 'right')
-
-                elif horizontal_steps < 0:
-                    # want to move left
-                    self.move(robot, 'left')
-
-            
             self.map.update_objects_locations({robot.id:robot.locations})
             # self.map.update_objects_locations({self.shelf.id:self.shelf.locations})
 
             self.ros_map.publish(str(self.map.map))   
         
         self.ros_robots_status_dict[robot.id]['locations'] = robot.locations
-        self.ros_shelves_status_dict[self.shelf.id]['locations'] = self.shelf.locations
+        
         self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
-        self.ros_shelves_status_topic.publish(str(self.ros_shelves_status_dict))
 
         # self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)    
         self.logger.log(f'Control : steps_map_to_shelf : {time.time()-start_time} -->')
@@ -461,7 +463,6 @@ class Control():
 
 
         elif direction == 'right':
-            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'right':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
                 self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
@@ -508,7 +509,6 @@ class Control():
 
 
         elif direction == 'left':
-            self.ros_topic_robot.publish(f'{robot.id}:{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
             if robot.orientation == 'left':
                 self.ros_robot_move_stm_topic.publish(Int16MultiArray(data=[robot.speed, 0]))
                 self.ros_topic_robot.publish(f'{robot.id}:"move_forward":{direction}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
