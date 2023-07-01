@@ -22,7 +22,7 @@ os.environ['ROS_MASTER_URI'] = 'http://' + roscore_ip + ':' + str(roscore_port)
 rospy.init_node('test_robot_movement', anonymous=True)
 ros_robot_move_stm_topic = rospy.Publisher('ros_robot_move_stm', Int16MultiArray, queue_size=10)
 
-speed = 30
+speed = 25
 
 @contextlib.contextmanager
 def raw_mode(file):
@@ -52,7 +52,7 @@ def main():
         try:
             while True:
                 ch = sys.stdin.read(1)
-                if not ch or ch == chr(4):
+                if not ch or ch == 'c':
                     break
                 print(ch)
                 move(ch)
