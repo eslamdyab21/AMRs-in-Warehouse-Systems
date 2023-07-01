@@ -1,15 +1,12 @@
 import React , { useEffect } from "react";
-import { Box, useTheme } from "@mui/material";
-import { useGetMap2dQuery } from "state/api";
-import Header from "components/Header";
-import { DataGrid } from "@mui/x-data-grid";
-import { Title } from "@mui/icons-material";
+// import { useTheme } from "@mui/material";
+
 
 
 
 var board = [];
-var rows = 9;
-var columns = 9;
+var rows = 15;
+var columns = 15;
 let r
 let c
 let x = 0
@@ -18,7 +15,7 @@ let api_url = "http://localhost:5000/api/map2d"
 let tile
 
 function Map2d() {
-    const theme = useTheme();
+    // const theme = useTheme();
 
 
     setInterval(function(){
@@ -27,7 +24,7 @@ function Map2d() {
 
 
     useEffect(() => {
-        if (board != undefined){
+        if (board !== undefined){
             board = []
         }
 
@@ -59,9 +56,9 @@ function Map2d() {
 }
 
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+// function sleep(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 
 async function Fill(board){
@@ -101,7 +98,7 @@ async function fill_board(data, board){
                 
 
                 tile = board[x][y];
-                if (tile.innerText == undefined){
+                if (tile.innerText === undefined){
                     tile.innerText = data_section[j]['robotid'];
                 }
                 else {
@@ -118,7 +115,7 @@ async function fill_board(data, board){
                 y = parseInt(c,10)
 
                 tile = board[x][y];
-                if (tile.innerText == undefined){
+                if (tile.innerText === undefined){
                     tile.innerText = data_section[j]['shelfid'];
                 }
                 else {
