@@ -1,8 +1,7 @@
 version: 2.1
 
 commands:
- 
- install_tar:
+  install_tar:
     description: Install Tar 
     steps:
       - run:
