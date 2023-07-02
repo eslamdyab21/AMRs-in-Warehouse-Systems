@@ -18,42 +18,89 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
+import { useGetOrdersQuery } from "state/api";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
 
-const Dashboard = () => {
+
+let api_url = "http://localhost:5000/api/orders"
+
+async function get_data_backend(url){
+  const response = await fetch(url);
+  var data = await response.json();
+
+  return data
+}
+
+
+
+function Dashboard(){
+
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
+  const { data_orders, isLoading2 } = useGetOrdersQuery();
   const { data, isLoading } = useGetDashboardQuery();
+  console.log(isLoading)
+
+  console.log("data_orders", data_orders);
+
+  const printAddress = async () => {
+    const data_orders = await get_data_backend(api_url)
+    console.log("data_orders", data_orders);
+    console.log("isLoading2", isLoading2);
+
+    let data_grid = document.getElementById("dashboard_table")
+    console.log("data_grid", data_grid)
+  };
+
+  setInterval(function(){
+    printAddress()
+
+  }, 5000);
+
+  // setInterval(function(){
+  //   // const { data_orders, isLoading2 } = useGetOrdersQuery();
+    
+
+  //   <DataGrid
+  //           loading={isLoading2 || !data_orders}
+  //           getRowId={(row : any) => row.orderid+row.productid}
+  //           rows={data_orders || []}
+  //           columns={columns}
+  //   />
+
+  // }, 500);
 
   const columns = [
     {
-      field: "_id",
-      headerName: "ID",
-      flex: 1,
-    },
-    {
-      field: "userId",
-      headerName: "User ID",
-      flex: 1,
-    },
-    {
-      field: "createdAt",
-      headerName: "CreatedAt",
-      flex: 1,
-    },
-    {
-      field: "products",
-      headerName: "# of Products",
+      field: "orderid",
+      headerName: "Order ID",
       flex: 0.5,
-      sortable: false,
-      renderCell: (params) => params.value.length,
     },
     {
-      field: "cost",
-      headerName: "Cost",
-      flex: 1,
-      renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
+      field: "productid",
+      headerName: "Product ID",
+      flex: 0.5,
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      flex: 0.5,
+    },
+    {
+      field: "shelfid",
+      headerName: "Shelf ID",
+      flex: 0.4,
+    },
+    {
+      field: "orderproductstatus",
+      headerName: "Order-Product Status",
+      flex: 0.4,
+    },
+    {
+      field: "orderdate",
+      headerName: "Order Date-Time",
+      flex: 0.4,
     },
   ];
 
@@ -173,12 +220,14 @@ const Dashboard = () => {
             },
           }}
         >
-          <DataGrid
-            loading={isLoading || !data}
-            getRowId={(row) => row._id}
-            rows={(data && data.transactions) || []}
+          {/* <div id ='dashboard_table' style={{ height: 350, width: '100%' }}> */}
+          <DataGrid 
+            loading={isLoading2 || !data_orders}
+            getRowId={(row : any) => row.orderid+row.productid}
+            rows={data_orders || []}
             columns={columns}
           />
+          {/* </div> */}
         </Box>
         <Box
           gridColumn="span 4"

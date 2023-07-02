@@ -1,16 +1,29 @@
 import React, { useMemo } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
-import { useGetSalesQuery } from "state/api";
+// import { useGetSalesQuery } from "state/api";
 
 const OverviewChart = ({ isDashboard = false, view }) => {
   const theme = useTheme();
-  const { data, isLoading } = useGetSalesQuery();
+  // const { data, isLoading } = useGetSalesQuery();
+  let monthlyData = [{'month':'January', 'totalSales':10, 'totalUnits':5},
+                 {'month':'February', 'totalSales':20, 'totalUnits':6},
+                 {'month':'March', 'totalSales':5, 'totalUnits':1},
+                 {'month':'April', 'totalSales':8, 'totalUnits':5},
+                 {'month':'May', 'totalSales':14, 'totalUnits':6},
+                 {'month':'June', 'totalSales':21, 'totalUnits':9},
+                 {'month':'July', 'totalSales':65, 'totalUnits':30},
+                 {'month':'August', 'totalSales':15, 'totalUnits':11},
+                 {'month':'September', 'totalSales':252, 'totalUnits':100},
+                 {'month':'October', 'totalSales':15, 'totalUnits':7},
+                 {'month':'November', 'totalSales':100, 'totalUnits':40},
+                 {'month':'December', 'totalSales':152, 'totalUnits':30}]
 
+  let data = monthlyData
   const [totalSalesLine, totalUnitsLine] = useMemo(() => {
     if (!data) return [];
 
-    const { monthlyData } = data;
+    // const { monthlyData } = data;
     const totalSalesLine = {
       id: "totalSales",
       color: theme.palette.secondary.main,
@@ -44,7 +57,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
     return [[totalSalesLine], [totalUnitsLine]];
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!data || isLoading) return "Loading...";
+  // if (!data || isLoading) return "Loading...";
 
   return (
     <ResponsiveLine

@@ -30,7 +30,7 @@ class database{
                 console.log('problem connecting to database....')
                 throw err
             }
-            console.log(`connected to ${process.env.MYSQL_DATABASE} database`)
+            console.log(`connected to ${process.env.POSTGRES_DATABASE} database`)
         })
 
         return this.db

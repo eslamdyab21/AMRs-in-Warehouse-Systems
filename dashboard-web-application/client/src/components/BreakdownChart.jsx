@@ -1,13 +1,25 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { Box, Typography, useTheme } from "@mui/material";
-import { useGetSalesQuery } from "state/api";
+// import { useGetSalesQuery } from "state/api";
 
 const BreakdownChart = ({ isDashboard = false }) => {
-  const { data, isLoading } = useGetSalesQuery();
+  const data = {'salesByCategory': {'shoes': 6515,
+                                    'clothing': 22803,
+                                    'accessories': 16288,
+                                    'misc': 19545
+                                    },
+                'totalCustomers': 5251,
+                'yearlySalesTotal': 65152,
+                'yearlyTotalSoldUnits': 12969}
+               
+  console.log(data)
+  console.log(data.salesByCategory)
+  // const { data, isLoading } = useGetSalesQuery();
   const theme = useTheme();
 
-  if (!data || isLoading) return "Loading...";
+  
+  // if (!data || isLoading) return "Loading...";
 
   const colors = [
     theme.palette.secondary[500],

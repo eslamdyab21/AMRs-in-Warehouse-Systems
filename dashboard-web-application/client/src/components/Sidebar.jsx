@@ -17,10 +17,8 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  ShoppingCartOutlined,
   Groups2Outlined,
-  ReceiptLongOutlined,
-  PublicOutlined,
+  // ReceiptLongOutlined,
   PointOfSaleOutlined,
   TodayOutlined,
   CalendarMonthOutlined,
@@ -39,12 +37,12 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   {
-    text: "Client Facing",
+    text: "Data",
     icon: null,
   },
   {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
+    text: "Map2d",
+    icon: <Groups2Outlined />,
   },
   {
     text: "Robots",
@@ -55,13 +53,13 @@ const navItems = [
     icon: <Groups2Outlined />,
   },
   {
-    text: "Transactions",
-    icon: <ReceiptLongOutlined />,
+    text: "Orders",
+    icon: <Groups2Outlined />,
   },
-  {
-    text: "Geography",
-    icon: <PublicOutlined />,
-  },
+  // {
+  //   text: "Transactions",
+  //   icon: <ReceiptLongOutlined />,
+  // },
   {
     text: "Sales",
     icon: null,
@@ -135,8 +133,8 @@ const Sidebar = ({
             <Box m="1.5rem 2rem 2rem 3rem">
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
+                  <Typography align="center" variant="h4" fontWeight="bold">
+                    Warehouse Administration
                   </Typography>
                 </Box>
                 {!isNonMobile && (

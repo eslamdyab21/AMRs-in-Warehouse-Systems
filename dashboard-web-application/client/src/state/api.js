@@ -7,9 +7,11 @@ export const api = createApi({
   tagTypes: [
     "User",
     "Products",
+    "Map2d",
     "Robots",
     "Shelves",
-    "Transactions",
+    "Orders",
+    // "Transactions",
     "Sales",
     "Admins",
     "Performance",
@@ -24,6 +26,10 @@ export const api = createApi({
       query: () => "client/products",
       providesTags: ["Products"],
     }),
+    getMap2d: build.query({
+      query: () => "api/map2d",
+      providesTags: ["Map2d"],
+    }),
     getRobots: build.query({
       query: () => "api/robots",
       providesTags: ["Robots"],
@@ -32,6 +38,10 @@ export const api = createApi({
         query: () => "api/shelves",
         providesTags: ["Shelves"],
       }),
+    getOrders: build.query({
+      query: () => "api/orders",
+      providesTags: ["Orders"],
+    }),
     getTransactions: build.query({
       query: ({ page, pageSize, sort, search }) => ({
         url: "client/transactions",
@@ -62,8 +72,10 @@ export const api = createApi({
 export const {
   useGetUserQuery,
   useGetProductsQuery,
+  useGetMap2dQuery,
   useGetRobotsQuery,
   useGetShelvesQuery,
+  useGetOrdersQuery,
   useGetTransactionsQuery,
   useGetSalesQuery,
   useGetAdminsQuery,
