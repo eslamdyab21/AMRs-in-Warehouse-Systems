@@ -1,0 +1,185 @@
+version: 2.1
+
+commands:
+ 
+ install_tar:
+    description: Install Tar 
+    steps:
+      - run:
+          name: Install Tar
+          command: |
+             yum install -y tar
+  
+  install_gzip:
+    description: Install gzip 
+    steps:
+      - run:
+          name: Install gzip
+          command: |
+            yum install -y tar gzip 
+
+  install_awscli:
+    description: Install AWS CLI v2
+    steps:
+      - run:
+          name: Install AWS CLI v2
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+  
+  install_ansible:
+    description: Install Ansible
+    steps:
+      - run:
+          name: Install Ansible
+          command: |
+            sudo add-apt-repository universe
+            sudo apt-get update
+            sudo apt install python3-pip -y
+            python3 -m pip install --user ansible
+
+
+
+jobs:
+  build-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-build-deps]
+      - run:
+          name: Build front-end
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+            npm run build
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build-deps
+
+  build-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: Back-end build
+          command: |
+            cd dashboard-web-application
+            cd server
+            npm install
+            echo "npm run build"
+        - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
+
+  scan-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: frontend-scan
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
+
+  scan-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: backend-scan
+          command: |
+            cd dashboard-web-application
+            cd server
+            npm install
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
+
+  create-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - install_tar
+      - install_gzip
+      - run:
+          name: Ensure web applications infrastructure exist
+          command: |
+            aws cloudformation deploy \
+            --template-file .circleci/files/webapplications.yml \
+            --tags project=AMRs-in-Warehouse-Systems \
+            --stack-name "AMRs-in-Warehouse-Systems-webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
+      - run:
+          name: Add webapplications instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
+
+
+  # configure-infrastructure:
+  #   docker:
+  #     # Docker image here that supports Ansible
+  #     - image: cimg/base:stable
+  #   steps:
+  #     # Checkout code from git
+  #     - checkout
+  #     - install_awscli
+  #     - install_ansible
+  #     # Add ssh keys with fingerprint
+  #     - add_ssh_keys:
+  #         fingerprints: ["5e:7b:6e:dd:c9:e1:95:3f:65:a3:86:d3:6d:6f:78:ac"]
+  #     # attach workspace
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Configure server
+  #         command: |
+  #           cat ~/project/.circleci/ansible/inventory.txt
+  #           export ANSIBLE_HOST_KEY_CHECKING=False
+  #           ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
+  #     # Here's where you will add some code to rollback on failure    
+  #     # - destroy-environment:
+  #     #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+
+workflows:
+  default:
+    jobs:
+      - build-frontend
+      - build-backend
+      - scan-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
+      - create-infrastructure:
+          requires: [scan-frontend, scan-backend]
+          filters:
+            branches:
+              only: [main]
+      # - configure-infrastructure:
+      #     requires: [create-infrastructure]
