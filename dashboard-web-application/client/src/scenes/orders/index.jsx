@@ -6,7 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 
 function Data5(){
-  const { data, isLoading } = useGetOrdersQuery();
+  const { data } = useGetOrdersQuery();
   console.log("data", data);
   return data
 }

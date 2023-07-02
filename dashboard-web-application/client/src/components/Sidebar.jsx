@@ -18,7 +18,7 @@ import {
   ChevronRightOutlined,
   HomeOutlined,
   Groups2Outlined,
-  ReceiptLongOutlined,
+  // ReceiptLongOutlined,
   PointOfSaleOutlined,
   TodayOutlined,
   CalendarMonthOutlined,
