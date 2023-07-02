@@ -57,7 +57,7 @@ class Control():
         self.ros_shelves_status_topic = rospy.Publisher('ros_shelves_status', String, queue_size=10)
 
 
-        self.ros_robot_move_stm_topic = rospy.Publisher('ros_robot_move_stm', Int16MultiArray, queue_size=10)
+        self.ros_robot_move_stm_topic = rospy.Publisher(f'ros_robot{robot.id}_move_stm', Int16MultiArray, queue_size=10)
 
         rospy.Subscriber("ros_assign_robot_2_shelf", String, self.ros_assign_robot_2_shelf_callback)
         rospy.Subscriber("ros_2dmap", String, self.ros_2dmap_callback)
@@ -69,7 +69,7 @@ class Control():
         # {shelf_id:{shelf_id:Sx, movement_status:'moving or waiting', received_order_status:'True or False', 'paired_with_robot':R.id}, ....}
         rospy.Subscriber("ros_shelves_status", String, self.ros_shelves_status_callback)
 
-        rospy.Subscriber("ros_robot_moved_feedback_stm_callback", Int8, self.ros_robot_moved_feedback_stm_callback)
+        rospy.Subscriber(f"ros_robot{robot.id}_moved_feedback_stm_callback", Int8, self.ros_robot_moved_feedback_stm_callback)
 
 
 
