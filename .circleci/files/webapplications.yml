@@ -32,7 +32,7 @@ Resources:
       KeyName: AMRs-in-Warehouse-Systems
       # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
       # Ubuntu 18 or higher works fine
-      ImageId: ami-08766f81ab52792ce
+      ImageId: ami-0261755bbcb8c4a84
       Tags:
         - Key: Name
           Value: !Sub webapplications-${ID}
