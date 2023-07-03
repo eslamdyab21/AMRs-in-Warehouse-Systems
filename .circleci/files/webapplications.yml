@@ -9,11 +9,11 @@ Parameters:
 Resources:
 
 
-  MySubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: vpc-0c907ea59099c91f7
-      CidrBlock: 10.0.0.0/24
+  # MySubnet:
+  #   Type: AWS::EC2::Subnet
+  #   Properties:
+  #     VpcId: vpc-0c907ea59099c91f7
+  #     CidrBlock: 10.0.0.0/24
 
 
   EC2Instance:
@@ -25,7 +25,8 @@ Resources:
         - sg-025d04f688b5439b0
 
       # VpcId: vpc-0c907ea59099c91f7
-      SubnetId: !Ref MySubnet
+      # SubnetId: !Ref MySubnet
+      SubnetId: subnet-0e9946a7639f4e206
           
       KeyName: AMRs-in-Warehouse-Systems
       # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
