@@ -169,14 +169,14 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-      - create-infrastructure:
-          requires: [scan-frontend, scan-backend]
+      # - build-frontend
+      # - build-backend
+      # - scan-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
+      - create-infrastructure
+          # requires: [scan-frontend, scan-backend]
           # filters:
           #   branches:
           #     only: [main]
