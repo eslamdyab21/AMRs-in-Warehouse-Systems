@@ -5,28 +5,16 @@ Parameters:
   ID:
     Description: Unique identifier.
     Type: String
-
-Resources:
-  InstanceSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupName: !Sub AMRs-in-Warehouse-Systems-${ID}
-      GroupDescription: Allow port 22 and port 3000.
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp
-          FromPort: 3000
-          ToPort: 3000
-          CidrIp: 0.0.0.0/0
       
 
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t3.micro
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${EnvironmentName}-VPCID"
+          
       SecurityGroupIds:
         - sg-080689485792a93d7
           
