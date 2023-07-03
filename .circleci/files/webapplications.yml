@@ -11,9 +11,6 @@ Parameters:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t3.micro
-      VpcId:
-        Fn::ImportValue:
-          !Sub "${EnvironmentName}-VPCID"
           
       SecurityGroupIds:
         - sg-080689485792a93d7
