@@ -10,16 +10,14 @@
     dest: ~/backend-app
 
 
-# - name: "install node dependencies"
-#   shell: |
-#     cd ~/backend-app
-#     npm i
+- name: "install serve dependency"
+  shell: |
+    npm install -g serve
 
 - name: "execute node app with npm"
   shell: |
     cd ~/backend-app
-    npm install -g serve
-    npm serve
+    serve -s build
 
   register: execute_node_output
 
