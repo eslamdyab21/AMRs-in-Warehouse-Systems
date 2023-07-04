@@ -177,8 +177,8 @@ workflows:
           requires: [build-frontend]
       - create-infrastructure
           requires: [scan-frontend, scan-backend]
-          filters:
-            branches:
-              only: [main]
+          # filters:
+          #   branches:
+          #     only: [main]
       - configure-infrastructure:
           requires: [create-infrastructure]
