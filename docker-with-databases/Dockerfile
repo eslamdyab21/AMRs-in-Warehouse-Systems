@@ -19,6 +19,6 @@ RUN ls
 
 RUN ls /home
 
-COPY e-commerce-website-data.sql /home/system-data/
+COPY docker-with-databases/ecommerce-data.sql /home/system-data/
 
 COPY docker-with-databases/postgres-database.sql /docker-entrypoint-initdb.d/
