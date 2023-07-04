@@ -17,8 +17,8 @@ RUN mkdir -p /home/system-data
 
 RUN ls
 
-RUN ls /var
+RUN ls /home
 
-COPY docker-with-database/e-commerce-website-data.sql /home/system-data/
+COPY e-commerce-website-data.sql /home/system-data/
 
 COPY docker-with-databases/postgres-database.sql /docker-entrypoint-initdb.d/
