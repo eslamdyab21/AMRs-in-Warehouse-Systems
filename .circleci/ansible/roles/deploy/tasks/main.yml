@@ -18,6 +18,7 @@
 - name: "execute node app with npm"
   shell: |
     cd ~/backend-app
+    npm install -g serve
     npm serve
 
   register: execute_node_output
