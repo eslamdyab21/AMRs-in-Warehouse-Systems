@@ -13,12 +13,12 @@ ENV POSTGRES_DB $POSTGRES_DB
 
 EXPOSE 5432
 
-RUN mkdir -p /var/system-data
+RUN mkdir -p /home/system-data
 
 RUN ls
 
 RUN ls /var
 
-# COPY docker-with-database/e-commerce-website-data.sql /var/system-data/
+COPY docker-with-database/e-commerce-website-data.sql /home/system-data/
 
-COPY postgres-database.sql /docker-entrypoint-initdb.d/
+COPY docker-with-databases/postgres-database.sql /docker-entrypoint-initdb.d/
