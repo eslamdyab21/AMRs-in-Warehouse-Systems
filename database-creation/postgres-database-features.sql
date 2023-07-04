@@ -27,9 +27,14 @@ VIEWS:
 -----
 1. AdminView
     This view views the following information to the admin:
-        1. OrderID     2. ProductID     3. Quantity
-        4. ShelfID     5. OrderProductStatus   6. OrderDate
+        1. OrderID     2. ProductID            3. ProductName      4. Quantity
+        5. ShelfID     6. OrderProductStatus   7. OrderDate        8. OrderTime
     To monitor the orders and the shelves.
+
+2. DashboardSummaryView
+    This view views the following information in the dashboard page of the web application
+        1. Number of customers      2. Daily sales
+        3. Monthly sales            4. Yearly sales
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
