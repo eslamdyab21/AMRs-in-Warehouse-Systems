@@ -37,7 +37,7 @@ commands:
             sudo apt-get update
             sudo apt install python3-pip -y
             python3 -m pip install --user ansible
-            
+
   install_nodejs:
     description: Install nodejs 13
     steps:
@@ -198,8 +198,7 @@ jobs:
               --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
-            echo "API_URL=http://${FRONTEND_PUBLIC_IP}:3000" >> frontend/.env
-            cat frontend/.env
+
       - run:
           name: Deploy frontend objects
           command: |
@@ -228,4 +227,5 @@ workflows:
           requires: [scan-frontend, scan-backend]
       - configure-infrastructure:
           requires: [create-infrastructure]
-      - deploy-frontend
+      - deploy-frontend:
+          requires: [configure-infrastructure]
