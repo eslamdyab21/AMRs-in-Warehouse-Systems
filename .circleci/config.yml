@@ -163,10 +163,59 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
 
+  deploy-frontend:
+    docker:
+      # Docker image here that supports AWS CLI
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      - install_nodejs
+      - restore_cache:
+          keys: [frontend-build-deps]
+      - run:
+          name: Install dependencies
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+      - run:
+          name: Get frontend url
+          command: |
+            FRONTEND_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            echo "API_URL=http://${FRONTEND_PUBLIC_IP}:3000" >> frontend/.env
+            cat frontend/.env
+      - run:
+          name: Deploy frontend objects
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+            npm run build
+            tar -C build -czvf artifact.tar.gz .
+            cp artifact.tar.gz .circleci/ansible/roles/deploy/files
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
 
+      # Here's where you will add some code to rollback on failure 
 workflows:
   default:
     jobs:
-      - create-infrastructure
+    - build-frontend
+      - build-backend
+      - scan-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
+      - create-infrastructure:
+          requires: [scan-frontend, scan-backend]
       - configure-infrastructure:
           requires: [create-infrastructure]
+      - deploy-frontend
