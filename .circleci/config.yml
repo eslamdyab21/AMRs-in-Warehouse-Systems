@@ -168,3 +168,5 @@ workflows:
   default:
     jobs:
       - create-infrastructure
+      - configure-infrastructure:
+          requires: [create-infrastructure]
