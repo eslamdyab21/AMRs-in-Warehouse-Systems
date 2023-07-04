@@ -141,44 +141,44 @@ jobs:
             - project/.circleci/ansible/inventory.txt
 
 
-  # configure-infrastructure:
-  #   docker:
-  #     # Docker image here that supports Ansible
-  #     - image: cimg/base:stable
-  #   steps:
-  #     # Checkout code from git
-  #     - checkout
-  #     - install_awscli
-  #     - install_ansible
-  #     # Add ssh keys with fingerprint
-  #     - add_ssh_keys:
-  #         fingerprints: ["5e:7b:6e:dd:c9:e1:95:3f:65:a3:86:d3:6d:6f:78:ac"]
-  #     # attach workspace
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: Configure server
-  #         command: |
-  #           cat ~/project/.circleci/ansible/inventory.txt
-  #           export ANSIBLE_HOST_KEY_CHECKING=False
-  #           ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
-  #     # Here's where you will add some code to rollback on failure    
-  #     # - destroy-environment:
-  #     #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+  configure-infrastructure:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Configure server
+          command: |
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
+      # Here's where you will add some code to rollback on failure    
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
 workflows:
   default:
     jobs:
-      # - build-frontend
-      # - build-backend
-      # - scan-backend:
-      #     requires: [build-backend]
-      # - scan-frontend:
-      #     requires: [build-frontend]
+      - build-frontend
+      - build-backend
+      - scan-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
       - create-infrastructure
-          # requires: [scan-frontend, scan-backend]
-          # filters:
-          #   branches:
-          #     only: [main]
-      # - configure-infrastructure:
-      #     requires: [create-infrastructure]
+          requires: [scan-frontend, scan-backend]
+          filters:
+            branches:
+              only: [main]
+      - configure-infrastructure:
+          requires: [create-infrastructure]
