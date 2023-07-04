@@ -1,0 +1,28 @@
+---
+- name: "Create backend app dir"
+  file:
+    path: ~/backend-app
+    state: directory
+
+- name: "untar backend files"
+  unarchive:
+    src: artifact.tar.gz
+    dest: ~/backend-app
+
+
+- name: "install node dependencies"
+  shell: |
+    cd ~/backend-app
+    npm i
+
+- name: "execute node app with pm2"
+  shell: |
+    cd ~/backend-app/dist
+    pm2 stop default
+    pm2 start main.js
+
+  register: execute_node_output
+
+- name: "print message"
+  debug:
+    msg: "{{ execute_node_output.stdout_lines }}"

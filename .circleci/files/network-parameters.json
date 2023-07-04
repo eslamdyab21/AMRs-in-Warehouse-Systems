@@ -1,0 +1,19 @@
+[
+	{
+		"ParameterKey": "EnvironmentName",
+		"ParameterValue": "AMRs-in-Warehouse-Systems"
+	},
+	{
+		"ParameterKey": "VpcCIDR",
+		"ParameterValue": "10.0.0.0/16"
+	},
+	{
+		"ParameterKey": "PublicSubnet1CIDR",
+		"ParameterValue": "10.0.0.0/24"
+	},
+	{
+		"ParameterKey": "PrivateSubnet1CIDR",
+		"ParameterValue": "10.0.2.0/24"
+	}
+	
+]
