@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS Orders(
     OrderID VARCHAR(7),
     ProductID VARCHAR(7),
     Quantity INT CHECK(Quantity > 0),
+    OrderProductStatus VARCHAR(15) DEFAULT 'New' CHECK(OrderProductStatus IN ('New', 'In progress', 'Completed')),
 
     -- Constraints
     CONSTRAINT PK_Orders PRIMARY KEY(OrderID, ProductID),
@@ -148,5 +149,3 @@ CREATE TABLE IF NOT EXISTS Notifications(
     -- Constraints
     CONSTRAINT PK_Notifications PRIMARY KEY(NotificationID)
 );
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
