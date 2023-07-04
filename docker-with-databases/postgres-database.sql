@@ -177,9 +177,14 @@ VIEWS:
 -----
 1. AdminView
     This view views the following information to the admin:
-        1. OrderID     2. ProductID     3. Quantity
-        4. ShelfID     5. OrderProductStatus   6. OrderDate
+        1. OrderID     2. ProductID            3. ProductName      4. Quantity
+        5. ShelfID     6. OrderProductStatus   7. OrderDate        8. OrderTime
     To monitor the orders and the shelves.
+
+2. DashboardSummaryView
+    This view views the following information in the dashboard page of the web application
+        1. Number of customers      2. Daily sales
+        3. Monthly sales            4. Yearly sales
 */
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -303,13 +308,16 @@ EXECUTE FUNCTION completed_order_function();
 /* View for the web application */
 
 CREATE VIEW admin_view AS
-    SELECT O.OrderID, O.ProductID, O.Quantity, S.ShelfID, O.OrderProductStatus, OD.OrderDate
+    SELECT O.OrderID, O.ProductID, P.ProductName, O.Quantity, S.ShelfID, O.OrderProductStatus,
+            CAST(OD.OrderDate AS DATE) AS OrderDate, CAST(OD.OrderDate AS TIME) AS OrderTime
     FROM Orders AS O
     INNER JOIN Orders_Details AS OD
         ON OD.OrderID = O.OrderID
     INNER JOIN Shelves AS S
         ON S.ProductID = O.ProductID
-    ORDER BY OD.OrderDate;
+    INNER JOIN Products AS P
+        ON P.ProductID = O.ProductID
+    ORDER BY OD.OrderID, OD.OrderDate;
 
 -- To view it
 SELECT * FROM admin_view;
@@ -318,24 +326,24 @@ SELECT * FROM admin_view;
 
 /* View for the dashboard main page */
 CREATE VIEW dashboard_summary_view AS
-    WITH daily_cost AS(
+    WITH daily_sales AS(
         SELECT SUM(OD.TotalCost) AS SalesToday FROM Orders_Details AS OD
         WHERE DATE_TRUNC('DAY', OD.OrderDate) = DATE_TRUNC('DAY', CURRENT_DATE)
     ),
-    monthly_cost AS(
-        SELECT SUM(OD.TotalCost) AS MonthlyCost FROM Orders_Details AS OD
+    monthly_sales AS(
+        SELECT SUM(OD.TotalCost) AS MonthlySales FROM Orders_Details AS OD
         WHERE DATE_TRUNC('MONTH', OD.OrderDate) = DATE_TRUNC('MONTH', CURRENT_DATE)
     ),
-    yearly_cost AS(
-        SELECT SUM(OD.TotalCost) AS YearlyCost FROM Orders_Details AS OD
+    yearly_sales AS(
+        SELECT SUM(OD.TotalCost) AS YearlySales FROM Orders_Details AS OD
         WHERE DATE_TRUNC('YEAR', OD.OrderDate) = DATE_TRUNC('YEAR', CURRENT_DATE)
     ),
     total_customers AS(
         SELECT COUNT(DISTINCT C.CustomerID) AS TotalCustomers FROM Customers AS C
     )
 
-    SELECT C.TotalCustomers, D.SalesToday, M.MonthlyCost, Y.YearlyCost
-    FROM total_customers AS C, daily_cost AS D, monthly_cost AS M, yearly_cost AS Y;
+    SELECT C.TotalCustomers, D.SalesToday, M.MonthlySales, Y.YearlySales
+    FROM total_customers AS C, daily_sales AS D, monthly_sales AS M, yearly_sales AS Y;
 
 -- To view it
 SELECT * FROM dashboard_summary_view;
