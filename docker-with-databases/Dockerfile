@@ -15,6 +15,10 @@ EXPOSE 5432
 
 RUN mkdir -p /var/system-data
 
+RUN ls
+
+RUN ls /var
+
 COPY docker-with-database/e-commerce-website-data.sql /var/system-data/
 
 COPY docker-with-databases/postgres-database.sql /docker-entrypoint-initdb.d/
