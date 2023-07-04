@@ -117,7 +117,7 @@ jobs:
       - install_tar
       - install_gzip
       - run:
-          name: Ensure web applications infrastructure exist
+          name: Create web applications infrastructure exist
           command: |
             aws cloudformation deploy \
             --template-file .circleci/files/webapplications.yml \
@@ -162,9 +162,7 @@ jobs:
             cat ~/project/.circleci/ansible/inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
-      # Here's where you will add some code to rollback on failure    
-      # - destroy-environment:
-      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+
 
 workflows:
   default:
@@ -180,5 +178,5 @@ workflows:
           # filters:
           #   branches:
           #     only: [main]
-      - configure-infrastructure:
-          requires: [create-infrastructure]
+      # - configure-infrastructure:
+      #     requires: [create-infrastructure]
