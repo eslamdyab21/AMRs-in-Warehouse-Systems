@@ -1,18 +1,30 @@
 ---
+# - name: "Create backend app dir"
+#   file:
+#     path: ~/backend-app
+#     state: directory
+
+
+
 - name: "Create backend app dir"
-  file:
-    path: ~/backend-app
-    state: directory
+  shell: |
+    mkdir ~/backend-app
+
 
 - name: "untar build of frontend files"
   unarchive:
     src: artifact.tar.gz
     dest: ~/backend-app
-
+    
 
 - name: "install serve dependency"
   shell: |
     npm install -g serve
+
+
+- name: "ls"
+  shell: |
+    ls
 
 - name: "execute node app with npm"
   shell: |
