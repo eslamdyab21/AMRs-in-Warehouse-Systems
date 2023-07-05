@@ -213,12 +213,12 @@ jobs:
             cd client
             npm install
             npm run build
-            tar -C build -czvf artifact.tar.gz .
+            cd .. 
+            tar -C client -czvf artifact.tar.gz .
+            
             
             cd ..
-            cd ..
-            cp dashboard-web-application/client/artifact.tar.gz .circleci/ansible/roles/deploy/files
-            ls .circleci/ansible/roles/deploy/files
+            cp dashboard-web-application/artifact.tar.gz .circleci/ansible/roles/deploy/files
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat ~/project/.circleci/ansible/inventory.txt
