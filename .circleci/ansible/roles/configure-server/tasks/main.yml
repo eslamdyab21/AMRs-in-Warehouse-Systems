@@ -11,6 +11,19 @@
     state: latest
     update_cache: yes
 
+- name: "install nvm"
+  shell: |
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+ - name: "install nodejs and npm"
+  shell: |
+    source /home/ubuntu/.bashrc 
+    nvm install node
+
+
+
+
+
 
 # - name: "Install pm2"
 #   become: true

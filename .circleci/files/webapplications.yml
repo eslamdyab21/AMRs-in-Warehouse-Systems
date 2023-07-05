@@ -19,7 +19,7 @@ Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      InstanceType: t3.micro
+      InstanceType: t3.small
           
       SecurityGroupIds:
         - sg-025d04f688b5439b0
