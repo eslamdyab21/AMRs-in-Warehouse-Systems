@@ -4,16 +4,17 @@
   apt:
     upgrade: "yes"
 
-- name: "install nodejs and npm dependencies"
-  become: true
-  apt:
-    name: ["nodejs", "npm"]
-    state: latest
-    update_cache: yes
+# - name: "install nodejs and npm dependencies"
+#   become: true
+#   apt:
+#     name: ["nodejs", "npm"]
+#     state: latest
+#     update_cache: yes
 
 - name: "install nvm"
   shell: |
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    source /home/ubuntu/.bashrc 
 
 - name: "install nodejs and npm"
   shell: |
