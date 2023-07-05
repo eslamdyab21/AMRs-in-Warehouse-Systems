@@ -1,20 +1,20 @@
 ---
-# - name: "Create backend app dir"
-#   file:
-#     path: ~/backend-app
-#     state: directory
-
-
-
 - name: "Create backend app dir"
-  shell: |
-    mkdir ~/backend-app
+  file:
+    path: /home/ubuntu/backend-app
+    state: directory
+
+
+
+# - name: "Create backend app dir"
+#   shell: |
+#     mkdir ~/backend-app
 
 
 - name: "untar build of frontend files"
   unarchive:
     src: artifact.tar.gz
-    dest: ~/backend-app
+    dest: /home/ubuntu/backend-app
     
 
 - name: "install serve dependency"
@@ -28,7 +28,7 @@
 
 - name: "execute node app with npm"
   shell: |
-    cd ~/backend-app
+    cd /home/ubuntu/backend-app
     serve -s build
 
   register: execute_node_output
