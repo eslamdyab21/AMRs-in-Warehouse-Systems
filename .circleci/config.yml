@@ -65,10 +65,10 @@ jobs:
             cd client
             npm install
             npm run build
-            
+
       - setup_remote_docker:
-        version: 20.10.14
-        docker_layer_caching: true
+          version: 20.10.14
+          docker_layer_caching: true
 
       - run:
           name: Build docker image for frontend
