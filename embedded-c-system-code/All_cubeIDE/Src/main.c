@@ -21,6 +21,8 @@
 #include"UART2/USART_interface.h"
 #include"Encoder/ENCODER_interface.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 /**/
@@ -32,9 +34,9 @@
 s32 right_counts = 0 , left_counts = 0;
 
 /* ADC variables */
-//u16 adc_value = 0;
-//f32 reading = 0 ,adc_volt = 0;
-//u16 R1 = 30000, R2 = 7500;
+u16 adc_value = 0;
+f32 reading = 0 ,adc_volt = 0;
+u16 R1 = 30000, R2 = 7500;
 
 /* Communication */
 u8 Rx_arrlength = 0, data_arr[20] = {0} ;
@@ -54,7 +56,6 @@ void RightEncoderGetReading (void)
 {
 	right_counts = HENCODER_voidEncoderCounts(GPIOB,PIN10);
 }
-
 
 
 s16 Get_Reading(void)
@@ -85,8 +86,6 @@ s16 Get_Reading(void)
 }
 
 
-
-
 void RotateRight()
 {
 
@@ -96,8 +95,6 @@ void RotateRight()
 
 
 	Reading = Get_Reading() ;
-//	MUSART2_voidSendNumbers(Reading);
-//	MUSART2_voidSendString((u8*)"/r/n");
 
 	Final_Value = Reading + 90 ;
 
@@ -132,21 +129,19 @@ void RotateRight()
 		HENCODER_s32GetZeroCounts(PIN8);
 		HENCODER_s32GetZeroCounts(PIN10);
 
-//		MUSART2_voidSendString((u8*)"s2");
-//		MUSART2_voidSendString((u8*)"/r/n");
+		MUSART2_voidSendString((u8*)"s2");
+		MUSART2_voidSendString((u8*)"\r\n");
+
+		MUSART2_voidSendNumbers(reading);
+		MUSART2_voidSendString((u8*)"\r\n");
 		break ;
 	}
 	Reading = Get_Reading() ;
 	error = Final_Value - Reading ;
 
-//	MUSART2_voidSendNumbers(Reading);
-//	MUSART2_voidSendString((u8*)"/r/n");
-
     }
 
-
 }
-
 
 
 void RotateLeft()
@@ -158,11 +153,6 @@ void RotateLeft()
 
 
 	Reading = Get_Reading() ;
-//	MUSART2_voidSendNumbers(Reading);
-//	MUSART2_voidSendString((u8*)"/r/n");
-
-//	MGPIO_VoidSetPinValue(GPIOA, 0, HIGH);
-//	MGPIO_VoidSetPinValue(GPIOA, 5, LOW);
 
 	Final_Value = Reading - 90 ;
 
@@ -197,19 +187,20 @@ void RotateLeft()
 		HENCODER_s32GetZeroCounts(PIN8);
 		HENCODER_s32GetZeroCounts(PIN10);
 
-//		MUSART2_voidSendString((u8*)"s2");
-//		MUSART2_voidSendString((u8*)"/r/n");
+		MUSART2_voidSendString((u8*)"s2");
+		MUSART2_voidSendString((u8*)"\r\n");
+
+		MUSART2_voidSendNumbers(reading);
+		MUSART2_voidSendString((u8*)"\r\n");
+
 		break ;
 	}
 	Reading = Get_Reading() ;
 	error = Final_Value - Reading ;
-//	MUSART2_voidSendNumbers(Reading);
-//	MUSART2_voidSendString((u8*)"/r/n");
+
     }
 
-
 }
-
 
 
 void TargetDistance()
@@ -226,9 +217,6 @@ void TargetDistance()
 		MTIM2_voidOutputPWM_C2((u16)Rx_pwm);
 		MTIM3_voidOutputPWM((u16)Rx_pwm);
 
-//		MUSART2_voidSendNumbers(right_counts);
-//		MUSART2_voidSendString((u8*)"\r\n");
-
 		if(abs(right_counts) >= target_count)
 		{
 			HENCODER_s32GetZeroCounts(PIN8);
@@ -241,25 +229,26 @@ void TargetDistance()
 
 			MUSART2_voidSendString((u8*) "s1");
 			MUSART2_voidSendString((u8*)"\r\n");
-//			MUSART2_voidSendNumbers(reading);
-//			MUSART2_voidSendString((u8*)"\r\n");
+
+			MUSART2_voidSendNumbers(reading);
+			MUSART2_voidSendString((u8*)"\r\n");
 
 			break;
 		}
 	}
 }
 
-//void VoltageReading()
-//{
-//	adc_value = MADC1_u16ReadValue();
-//	adc_volt = (adc_value*3.3)/4096;    //3.3
-//	reading = (adc_volt*(R1+R2))/R2;
-//
-////	reading = floor(reading * 100) / 100;    // %.2f
-//
-////	MUSART2_voidSendNumbers(reading);
-////	MUSART2_voidSendString((u8*)"\r\n");
-//}
+
+void VoltageReading()
+{
+	adc_value = MADC1_u16ReadValue();
+	adc_volt = (adc_value*3.3)/4096;
+	reading = (adc_volt*(R1+R2))/R2;
+
+//	MUSART2_voidSendNumbers(reading);
+//	MUSART2_voidSendString((u8*)"\r\n");
+}
+
 
 int main (void)
 {
@@ -322,13 +311,8 @@ int main (void)
 	MTIM3_voidInit();
 	MUSART2_voidInit();
 
-
 	/*start timer 1sec*/
-	//MSTK_voidSetIntervalPeriodic(1000000, VoltageReading);
-
-
-//	MTIM2_voidOutputPWM_C2(0);
-//	MTIM3_voidOutputPWM(0);
+	MSTK_voidSetIntervalPeriodic(1000000, VoltageReading);
 
 	while(1)
 	{
@@ -350,7 +334,7 @@ int main (void)
 				}
 
 				TargetDistance();
-				//Rx_pwm = 0;
+
 			}
 			else
 			{
@@ -363,7 +347,7 @@ int main (void)
 				}
 
 				TargetDistance(Rx_pwm);
-				//Rx_pwm = 0;
+
 			}
 
 		}
@@ -377,21 +361,11 @@ int main (void)
 			{
 				/* rotate right */
 				RotateRight();
-
-				MUSART2_voidSendString((u8*)"s2");
-				MUSART2_voidSendString((u8*)"/r/n");
-
 			}
 			else
 			{
 				/* rotate left */
-//				MUSART2_voidSendString((u8*)"high");
-//				MUSART2_voidSendString((u8*)"/r/n");
-
 				RotateLeft();
-
-				MUSART2_voidSendString((u8*)"s2");
-				MUSART2_voidSendString((u8*)"/r/n");
 			}
 		}
 

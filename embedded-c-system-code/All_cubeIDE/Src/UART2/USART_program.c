@@ -63,7 +63,7 @@ void MUSART2_voidSendNumbers(s32 Copy_s32Number)
 {
 	char arr[15];
 	/* convert number to string */
-//	gcvt(Copy_s32Number, 8,arr);
+	//	gcvt(Copy_s32Number, 8,arr);
 	itoa(Copy_s32Number , arr , 10);
 	u8* string = (u8*)arr;
 
