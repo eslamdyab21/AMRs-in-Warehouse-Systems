@@ -61,6 +61,7 @@ jobs:
       - run:
           name: Build front-end
           command: |
+            docker image ls
             cd dashboard-web-application
             cd client
             npm install
@@ -68,7 +69,6 @@ jobs:
       - run:
           name: Build docker image for frontend
           command: |
-            sudo apt  install docker.io
             docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-1.0 .
       - run:
           name: Push docker image for frontend to dockerhub
