@@ -24,51 +24,24 @@
 #include <math.h>
 
 /**/
-/* Notes : stepper motor , while + communication */
+/* Notes : stepper motor */
 
+#define step_distance 	70
 
-/* Left Encoder */
-u8 left_MotorDirection;
-s32 left_counts = 0, left_RPM = 0;
-f32 left_distance = 0;
-
-/* Right Encoder */
- u8 right_MotorDirection;
-s32 right_counts = 0 ,right_RPM = 0;
-f32 right_distance = 0;
+/* Encoders */
+s32 right_counts = 0 , left_counts = 0;
 
 /* ADC variables */
-u16 adc_value = 0;
-f32 reading = 0 ,adc_volt = 0;
-u16 R1 = 30000, R2 = 7500;
+//u16 adc_value = 0;
+//f32 reading = 0 ,adc_volt = 0;
+//u16 R1 = 30000, R2 = 7500;
 
-/* flags */
-s8 rotate_flag = 1;
-u8 distance_flag = 1;
+/* Communication */
+u8 Rx_arrlength = 0, data_arr[20] = {0} ;
+u16 Rx_pwm = 0 ;
+s16 Rx_mpu = 0;
+s16 Local_Reading = 0;
 
-f32 right_angle = 0;
-f32 left_angle = 0;
-
-/* Elapsed time */
-u32 elapsed_time = 0;
-
-void EncoderCounts(void)
-{
-	if(rotate_flag == 0)
-	{
-	/* left motor (encoder readings) */
-	left_MotorDirection = HENCODER_u8GetMotorDirection(PIN8);
-	left_RPM = HENCODER_s32GetRevPerMin(left_counts, elapsed_time);
-	left_distance = HENCODER_f32GetDistance(left_counts);
-	HENCODER_s32GetZeroCounts(PIN8);
-
-	/* right motor (encoder readings) */
-	right_MotorDirection = HENCODER_u8GetMotorDirection(PIN10);
-	right_RPM = HENCODER_s32GetRevPerMin(right_counts, elapsed_time);
-	right_distance = HENCODER_f32GetDistance(right_counts);
-	HENCODER_s32GetZeroCounts(PIN10);
-	}
-}
 
 /*ISR of EXTI8 (left encoder)*/
 void LeftEncoderGetReading (void)
@@ -82,93 +55,211 @@ void RightEncoderGetReading (void)
 	right_counts = HENCODER_voidEncoderCounts(GPIOB,PIN10);
 }
 
-void RotateLeft()
+
+
+s16 Get_Reading(void)
 {
-	HENCODER_s32GetZeroCounts(PIN8);
+	Rx_arrlength = MUSART2_u8ReceiveDataBlock(data_arr);
+	Rx_mpu = 0;
 
-	MTIM2_voidOutputPWM_C2(30);
-	MTIM3_voidOutputPWM(30);
-
-	/* motor direction */
-	MGPIO_VoidSetPinValue(GPIOA,PIN5,HIGH);
-	MGPIO_VoidSetPinValue(GPIOA,PIN0,LOW);
-
-	while(1)
+	if(data_arr[0] == 'a')
 	{
-		left_angle = left_counts*0.3733;
-		if(left_angle >= 90)
+		if (data_arr[1] == '-')
 		{
-			MTIM2_voidOutputPWM_C2(0);
-			MTIM3_voidOutputPWM(0);
-			break;
+			for(u8 i = 2 ; i<Rx_arrlength ; i++)
+			{
+				Rx_mpu = Rx_mpu + (data_arr[i]-48)*pow(10,Rx_arrlength-1-i);
+			}
+			Rx_mpu = Rx_mpu*-1;
+
+		}
+		else
+		{
+			for(u8 i = 1 ; i<Rx_arrlength ; i++)
+			{
+				Rx_mpu = Rx_mpu + (data_arr[i]-48)*pow(10,Rx_arrlength-1-i);
+			}
 		}
 	}
-	HENCODER_s32GetZeroCounts(PIN8);
-	MUSART2_voidSendData(1);
-	rotate_flag = 0;
-
+		return Rx_mpu ;
 }
+
+
+
 
 void RotateRight()
 {
-	HENCODER_s32GetZeroCounts(PIN10);
 
-	MTIM2_voidOutputPWM_C2(30);
-	MTIM3_voidOutputPWM(30);
+	s16 Reading = 0 ;
+	s16 Final_Value = 0 ;
+	s16 error = 0;
 
-	/* motor direction */
-	MGPIO_VoidSetPinValue(GPIOA,PIN5,LOW);
-	MGPIO_VoidSetPinValue(GPIOA,PIN0,HIGH);
 
-	while(1)
+	Reading = Get_Reading() ;
+//	MUSART2_voidSendNumbers(Reading);
+//	MUSART2_voidSendString((u8*)"/r/n");
+
+	Final_Value = Reading + 90 ;
+
+
+	if (Final_Value > 180 )
 	{
-		right_angle = right_counts*.3733;
-		if(right_angle >= 90)
-		{
-			MTIM3_voidOutputPWM(0);
-			MTIM2_voidOutputPWM_C2(0);
-			break;
-		}
+		Final_Value = Final_Value - 360 ;
 	}
-	HENCODER_s32GetZeroCounts(PIN10);
-	MUSART2_voidSendData(1);
-	rotate_flag = 0;
+
+	error = Final_Value - Reading ;
+
+	while (1)
+	{
+		MGPIO_VoidSetPinValue(GPIOA, 0, HIGH);
+		MGPIO_VoidSetPinValue(GPIOA, 5, LOW);
+
+		MTIM2_voidOutputPWM_C2(30);
+		MTIM3_voidOutputPWM(30);
+
+	  if (error < -180 )
+	  {
+		  error += 360 ;
+
+	  }
+
+	if ( error <= 0 )
+	{
+
+		MTIM3_voidOutputPWM(0);
+		MTIM2_voidOutputPWM_C2(0);
+
+		HENCODER_s32GetZeroCounts(PIN8);
+		HENCODER_s32GetZeroCounts(PIN10);
+
+//		MUSART2_voidSendString((u8*)"s2");
+//		MUSART2_voidSendString((u8*)"/r/n");
+		break ;
+	}
+	Reading = Get_Reading() ;
+	error = Final_Value - Reading ;
+
+//	MUSART2_voidSendNumbers(Reading);
+//	MUSART2_voidSendString((u8*)"/r/n");
+
+    }
+
+
 }
+
+
+
+void RotateLeft()
+{
+
+	s16 Reading = 0 ;
+	s16 Final_Value = 0 ;
+	s16 error = 0;
+
+
+	Reading = Get_Reading() ;
+//	MUSART2_voidSendNumbers(Reading);
+//	MUSART2_voidSendString((u8*)"/r/n");
+
+//	MGPIO_VoidSetPinValue(GPIOA, 0, HIGH);
+//	MGPIO_VoidSetPinValue(GPIOA, 5, LOW);
+
+	Final_Value = Reading - 90 ;
+
+
+	if (Final_Value < -180 )
+	{
+		Final_Value = Final_Value + 360 ;
+	}
+
+	error = Final_Value - Reading ;
+
+	while (1)
+	{
+		MGPIO_VoidSetPinValue(GPIOA, 0, HIGH);
+		MGPIO_VoidSetPinValue(GPIOA, 5, LOW);
+
+		MTIM2_voidOutputPWM_C2(30);
+		MTIM3_voidOutputPWM(30);
+
+	  if (error  > 180 )
+	  {
+		  error -= 360 ;
+
+	  }
+
+	if ( error >= 0 )
+	{
+
+		MTIM3_voidOutputPWM(0);
+		MTIM2_voidOutputPWM_C2(0);
+
+		HENCODER_s32GetZeroCounts(PIN8);
+		HENCODER_s32GetZeroCounts(PIN10);
+
+//		MUSART2_voidSendString((u8*)"s2");
+//		MUSART2_voidSendString((u8*)"/r/n");
+		break ;
+	}
+	Reading = Get_Reading() ;
+	error = Final_Value - Reading ;
+//	MUSART2_voidSendNumbers(Reading);
+//	MUSART2_voidSendString((u8*)"/r/n");
+    }
+
+
+}
+
+
 
 void TargetDistance()
 {
-	MTIM2_voidOutputPWM_C2(30);
-	MTIM3_voidOutputPWM(30);
+	u32 target_count = 0;
+	HENCODER_s32GetZeroCounts(PIN8);
+	HENCODER_s32GetZeroCounts(PIN10);
+	HENCODER_f32GetZeroDistance();
 
-	/* motor direction */
-	MGPIO_VoidSetPinValue(GPIOA,PIN5,HIGH);
-	MGPIO_VoidSetPinValue(GPIOA,PIN0,HIGH);
+	target_count = step_distance*10.23;
 
 	while(1)
 	{
-		//EncoderCounts();
-		if(left_distance == 70)
+		MTIM2_voidOutputPWM_C2((u16)Rx_pwm);
+		MTIM3_voidOutputPWM((u16)Rx_pwm);
+
+//		MUSART2_voidSendNumbers(right_counts);
+//		MUSART2_voidSendString((u8*)"\r\n");
+
+		if(abs(right_counts) >= target_count)
 		{
+			HENCODER_s32GetZeroCounts(PIN8);
+			HENCODER_s32GetZeroCounts(PIN10);
+
+			Rx_pwm = 0;
 			MTIM3_voidOutputPWM(0);
 			MTIM2_voidOutputPWM_C2(0);
+
+
+			MUSART2_voidSendString((u8*) "s1");
+			MUSART2_voidSendString((u8*)"\r\n");
+//			MUSART2_voidSendNumbers(reading);
+//			MUSART2_voidSendString((u8*)"\r\n");
+
 			break;
 		}
 	}
-	MUSART2_voidSendData(1);
-	HENCODER_f32GetZeroDistance();
-	distance_flag = 0;
 }
 
-void VoltageReading()
-{
-	adc_value = MADC1_u16ReadValue();
-	adc_volt = (adc_value*2.82)/4096;    //3.3
-	reading = (adc_volt*(R1+R2))/R2;
-
-	reading = floor(reading * 100) / 100;    // %.2f
-
-	MUSART2_voidSendNumbers(reading);
-}
+//void VoltageReading()
+//{
+//	adc_value = MADC1_u16ReadValue();
+//	adc_volt = (adc_value*3.3)/4096;    //3.3
+//	reading = (adc_volt*(R1+R2))/R2;
+//
+////	reading = floor(reading * 100) / 100;    // %.2f
+//
+////	MUSART2_voidSendNumbers(reading);
+////	MUSART2_voidSendString((u8*)"\r\n");
+//}
 
 int main (void)
 {
@@ -232,43 +323,83 @@ int main (void)
 	MUSART2_voidInit();
 
 
-	/*start timer 3sec*/
-	MSTK_voidSetIntervalPeriodic(3000000);
+	/*start timer 1sec*/
+	//MSTK_voidSetIntervalPeriodic(1000000, VoltageReading);
 
 
+//	MTIM2_voidOutputPWM_C2(0);
+//	MTIM3_voidOutputPWM(0);
 
 	while(1)
 	{
-		MGPIO_VoidSetPinValue(GPIOA,PIN5,LOW);
-		MGPIO_VoidSetPinValue(GPIOA,PIN0,LOW);
+		Rx_arrlength = MUSART2_u8ReceiveDataBlock(data_arr);
 
-		MTIM2_voidOutputPWM_C2(30);
-		MTIM3_voidOutputPWM(30);
-
-		elapsed_time = MSTK_u32GetElapsedTime();
-		if ((elapsed_time >= 1000) && (elapsed_time <= 1050))
+		if (data_arr[0] == 'y')
 		{
-			EncoderCounts();
-			if (distance_flag == 1)
+			MTIM2_voidOutputPWM_C2(0);
+			MTIM3_voidOutputPWM(0);
+
+			if (data_arr[1] == '-')
 			{
+				MGPIO_VoidSetPinValue(GPIOA, 0, LOW);
+				MGPIO_VoidSetPinValue(GPIOA, 5, LOW);
+
+				for(u8 i = 2 ; i<Rx_arrlength ; i++)
+				{
+					Rx_pwm = Rx_pwm + (data_arr[i]-48)*pow(10,Rx_arrlength-1-i);
+				}
+
 				TargetDistance();
+				//Rx_pwm = 0;
+			}
+			else
+			{
+				MGPIO_VoidSetPinValue(GPIOA, 0, HIGH);
+				MGPIO_VoidSetPinValue(GPIOA, 5, HIGH);
+
+				for(u8 i = 1 ; i<Rx_arrlength ; i++)
+				{
+					Rx_pwm = Rx_pwm + (data_arr[i]-48)*pow(10,Rx_arrlength-1-i);
+				}
+
+				TargetDistance(Rx_pwm);
+				//Rx_pwm = 0;
+			}
+
+		}
+
+		else if(data_arr[0] == 'm')
+		{
+			MTIM2_voidOutputPWM_C2(0);
+			MTIM3_voidOutputPWM(0);
+
+			if(data_arr[1] == '-')
+			{
+				/* rotate right */
+				RotateRight();
+
+				MUSART2_voidSendString((u8*)"s2");
+				MUSART2_voidSendString((u8*)"/r/n");
+
+			}
+			else
+			{
+				/* rotate left */
+//				MUSART2_voidSendString((u8*)"high");
+//				MUSART2_voidSendString((u8*)"/r/n");
+
+				RotateLeft();
+
+				MUSART2_voidSendString((u8*)"s2");
+				MUSART2_voidSendString((u8*)"/r/n");
 			}
 		}
 
-		else if(((MSTK_u32GetElapsedTime()) >= 1000000) && ((MSTK_u32GetElapsedTime()) <= 1000050))
+		else
 		{
-			VoltageReading();
+			MTIM3_voidOutputPWM(0);
+			MTIM2_voidOutputPWM_C2(0);
 		}
 
-//		if (rotate_flag == 1)
-//		{
-//			RotateRight();
-//			//RotateLeft();
-//		}
-
-
 	}
-
-
-
 }

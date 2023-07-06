@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//u8 Global_u8ReceivedData = 0;
+
 void MUSART2_voidInit(void)
 {
 	/*Enable clock of GPIO, AFIO , USART2*/
@@ -57,12 +59,12 @@ void MUSART2_voidSendString(u8 *Copy_u8String)
 		}
 }
 
-void MUSART2_voidSendNumbers(f32 Copy_s32Number)
+void MUSART2_voidSendNumbers(s32 Copy_s32Number)
 {
 	char arr[15];
 	/* convert number to string */
-	gcvt(Copy_s32Number, 8,arr);
-	//itoa(Copy_s32Number , arr , 10);
+//	gcvt(Copy_s32Number, 8,arr);
+	itoa(Copy_s32Number , arr , 10);
 	u8* string = (u8*)arr;
 
 	MUSART2_voidSendString(string);
@@ -77,6 +79,22 @@ u8 MUSART2_u8ReceiveData(void)
 	return (Loc_u8ReceivedData);
 }
 
+u8 MUSART2_u8ReceiveDataBlock(u8* Copy_u8DataArr)
+{
+	u8 Loc_u8Data = 0;
+	u8 Loc_u8Index = 0;
+
+	Loc_u8Data = MUSART2_u8ReceiveData();
+
+	while(Loc_u8Data != '\0')
+	{
+		Copy_u8DataArr[Loc_u8Index] = Loc_u8Data;
+		Loc_u8Index++;
+		Loc_u8Data = MUSART2_u8ReceiveData();
+	}
+
+	return Loc_u8Index;
+}
 
 
 

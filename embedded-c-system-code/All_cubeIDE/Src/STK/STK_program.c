@@ -63,16 +63,16 @@ void MSTK_voidSetIntervalSingle  ( u32 Copy_u32Ticks, void (*Copy_ptr)(void) )
 }
 
 			/*Asynchronous function count periodic*/
-void MSTK_voidSetIntervalPeriodic( u32 Copy_u32Ticks )
+void MSTK_voidSetIntervalPeriodic( u32 Copy_u32Ticks, void (*Copy_ptr)(void) )
 {
 	/* Load ticks to load register */
 	MSTK -> LOAD = Copy_u32Ticks;
 	/* Start Timer */
 	SET_BIT(MSTK -> CTRL, 0);
 	/* Save CallBack */
-	//MSTK_GlobalPtr = Copy_ptr;
+	MSTK_GlobalPtr = Copy_ptr;
 	/* Set Mode to Single */
-	//MSTK_u8ModeOfInterval = MSTK_PERIOD_INTERVAL;
+	MSTK_u8ModeOfInterval = MSTK_PERIOD_INTERVAL;
 	/* Enable STK Interrupt */
 	SET_BIT(MSTK -> CTRL, 1);
 }
@@ -109,18 +109,18 @@ void SysTick_Handler(void)
 {
 	u8 Local_u8Temporary;
 
-//	if (MSTK_u8ModeOfInterval == MSTK_SINGLE_INTERVAL)
-//	{
-//		/* Disable STK Interrupt */
-//		CLR_BIT(MSTK -> CTRL, 1);
-//		/* Stop Timer */
-//		SET_BIT(MSTK -> CTRL, 0);
-//		MSTK -> LOAD = 0;
-//		MSTK -> VAL  = 0;
-//	}
-//
-//	/* Callback notification */
-//	MSTK_GlobalPtr();
+	if (MSTK_u8ModeOfInterval == MSTK_SINGLE_INTERVAL)
+	{
+		/* Disable STK Interrupt */
+		CLR_BIT(MSTK -> CTRL, 1);
+		/* Stop Timer */
+		SET_BIT(MSTK -> CTRL, 0);
+		MSTK -> LOAD = 0;
+		MSTK -> VAL  = 0;
+	}
+
+	/* Callback notification */
+	MSTK_GlobalPtr();
 
 	/* Clear interrupt flag */
 	Local_u8Temporary = GET_BIT(MSTK -> CTRL,16);
