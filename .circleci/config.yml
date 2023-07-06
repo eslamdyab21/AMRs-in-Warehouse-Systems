@@ -224,7 +224,7 @@ jobs:
           name: Deploy frontend app
           command: |
             echo "Contents  of the inventory.txt file is -------"
-            cat inventory.txt
+            cat ~/project/.circleci/ansible/inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
 
