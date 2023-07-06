@@ -61,11 +61,15 @@ jobs:
       - run:
           name: Build front-end
           command: |
-            docker image ls
             cd dashboard-web-application
             cd client
             npm install
             npm run build
+            
+      - setup_remote_docker:
+        version: 20.10.14
+        docker_layer_caching: true
+
       - run:
           name: Build docker image for frontend
           command: |
