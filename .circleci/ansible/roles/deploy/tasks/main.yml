@@ -10,6 +10,4 @@
   shell: |
     docker run --name dashboard-dev-0.1 -p 3000:3000 -d eslamdyba/amrs-in-warehouse-systems:dashboard-1.0
 
-- name: "print message"
-  debug:
-    msg: "{{ execute_node_output.stdout_lines }}"
+
