@@ -6,32 +6,9 @@
 
 
 
-# - name: "Create backend app dir"
-#   shell: |
-#     mkdir ~/backend-app
-
-
-- name: "untar build of frontend files"
-  unarchive:
-    src: artifact.tar.gz
-    dest: /home/ubuntu/backend-app
-    
-
-- name: "install serve dependency"
+- name: "pull and run docker image for frontend"
   shell: |
-    npm install -g serve
-
-
-- name: "ls"
-  shell: |
-    ls
-
-- name: "execute node app with npm"
-  shell: |
-    cd /home/ubuntu/backend-app
-    serve -s build
-
-  register: execute_node_output
+    docker run --name dashboard-dev-0.1 -p 3000:3000 -d eslamdyba/amrs-in-warehouse-systems:dashboard-1.0
 
 - name: "print message"
   debug:

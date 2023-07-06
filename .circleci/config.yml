@@ -65,6 +65,16 @@ jobs:
             cd client
             npm install
             npm run build
+      - run:
+          name: Build docker image for frontend
+          command: |
+            sudo apt  install docker.io
+            docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-1.0 .
+      - run:
+          name: Push docker image for frontend to dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin  
+            docker push eslamdyba/amrs-in-warehouse-systems:dashboard-1.0
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build-deps
@@ -209,19 +219,6 @@ jobs:
       - run:
           name: Deploy frontend app
           command: |
-            cd dashboard-web-application
-            cd client
-            npm install
-            npm run build
-            cd .. 
-            tar -C client -czvf artifact.tar.gz .
-            
-            
-            cd ..
-            cp dashboard-web-application/artifact.tar.gz .circleci/ansible/roles/deploy/files
-            cd .circleci/ansible
-            echo "Contents  of the inventory.txt file is -------"
-            cat ~/project/.circleci/ansible/inventory.txt
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
