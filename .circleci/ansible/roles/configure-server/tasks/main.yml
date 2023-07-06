@@ -11,9 +11,16 @@
 #     state: latest
 #     update_cache: yes
 
+# - name: "install docker"
+#   shell: |
+#     sudo apt  install docker.io
+
 - name: "install docker"
-  shell: |
-    sudo apt  install docker.io
+  become: true
+  apt:
+    name: ["docker.io"]
+    state: latest
+    update_cache: yes
 
 
 # - name: "install nodejs and npm"
