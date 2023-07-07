@@ -424,13 +424,13 @@ workflows:
       #     requires: [build-frontend]
       # - build-database:
       #     requires: [scan-frontend, scan-backend]
-      - create-infrastructure:
+      - create-infrastructure
           # requires: [scan-frontend, scan-backend]
       # - configure-infrastructure:
       #     requires: [create-infrastructure]
       # - deploy-frontend:
       #     requires: [configure-infrastructure]
-      - create-infrastructure-database:
+      - create-infrastructure-database
           # requires: [deploy-frontend, build-database]
       # - configure-infrastructure-database:
       #     requires: [create-infrastructure-database]
