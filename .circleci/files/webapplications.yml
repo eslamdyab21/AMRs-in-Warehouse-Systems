@@ -16,7 +16,7 @@ Resources:
   #     CidrBlock: 10.0.0.0/24
 
 
-  EC2Instance:
+  EC2Instance1:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t3.small
@@ -39,7 +39,7 @@ Resources:
         - Key: Project
           Value: AMRs-in-Warehouse-Systems
 
-  EC2Instance:
+  EC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
