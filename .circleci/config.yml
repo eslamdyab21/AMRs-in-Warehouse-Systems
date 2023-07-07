@@ -137,7 +137,7 @@ jobs:
     docker:
       - image: cimg/node:13.8.0
     steps:
-      - ckeckout 
+      - checkout 
       - run:
           name: create docker image 
           command: |
