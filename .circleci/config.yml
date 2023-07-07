@@ -268,12 +268,12 @@ jobs:
             --template-file .circleci/files/database.yml \
             --tags project=AMRs-in-Warehouse-Systems \
             --stack-name "AMRs-in-Warehouse-Systems-webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:5}"
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
       - run:
           name: Add database instance ip to ansible inventory
           command: |
             WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
-              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:5}" \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             rm .circleci/ansible/inventory.txt
@@ -430,8 +430,8 @@ workflows:
       #     requires: [create-infrastructure]
       # - deploy-frontend:
       #     requires: [configure-infrastructure]
-      # - create-infrastructure-database:
-          # requires: [create-infrastructure]
+      - create-infrastructure-database:
+          requires: [create-infrastructure]
           # requires: [deploy-frontend, build-database]
       # - configure-infrastructure-database:
       #     requires: [create-infrastructure-database]

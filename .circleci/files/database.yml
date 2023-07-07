@@ -16,7 +16,7 @@ Resources:
   #     CidrBlock: 10.0.0.0/24
 
 
-  EC2Instance:
+  EC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
