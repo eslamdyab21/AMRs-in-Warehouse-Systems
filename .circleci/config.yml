@@ -138,6 +138,9 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout 
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - run:
           name: create docker image 
           command: |
@@ -425,7 +428,7 @@ workflows:
       - deploy-frontend:
           requires: [configure-infrastructure]
       - create-infrastructure-database:
-          requires: [deploy-frontend]
+          requires: [deploy-frontend, build-database]
       - configure-infrastructure-database:
           requires: [create-infrastructure-database]
       - deploy-database:
