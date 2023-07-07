@@ -277,6 +277,7 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
             echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
 
@@ -311,6 +312,7 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
             echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
 
@@ -350,6 +352,7 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
             echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
 
