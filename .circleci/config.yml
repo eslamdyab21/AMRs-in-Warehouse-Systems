@@ -430,7 +430,8 @@ workflows:
       #     requires: [create-infrastructure]
       # - deploy-frontend:
       #     requires: [configure-infrastructure]
-      - create-infrastructure-database
+      - create-infrastructure-database:
+          requires: [create-infrastructure]
           # requires: [deploy-frontend, build-database]
       # - configure-infrastructure-database:
       #     requires: [create-infrastructure-database]
