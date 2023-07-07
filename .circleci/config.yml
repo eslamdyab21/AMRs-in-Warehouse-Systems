@@ -292,6 +292,46 @@ jobs:
             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-database.yml
       # - destroy-environment:
       #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}      
+  
+  configure-infrastructure-database:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: Add database instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+      - run:
+          name: Configure server
+          command: |
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
 
   deploy-backend:
     docker:
