@@ -41,4 +41,4 @@
         state: present
         
   roles:
-    - deploy
+    - deploy-database

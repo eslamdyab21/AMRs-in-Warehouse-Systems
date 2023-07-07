@@ -133,6 +133,25 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
 
+  build-database:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - ckeckout 
+      - run:
+          name: create docker image 
+          command: |
+            git clone https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems.git
+            cd AMRs-in-Warehouse-Systems
+            git checkout feature/data/48
+            docker build -t eslamdyba/amrs-in-warehouse-systems:database-postgres-server-1.0 --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DB=$POSTGRES_DATABASE --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -f docker-with-databases/Dockerfile .
+      - run:
+          name: Push docker image for database to dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin  
+            docker push eslamdyba/amrs-in-warehouse-systems:database-postgres-server-1.0
+       
+
   create-infrastructure:
     docker:
       - image: amazon/aws-cli
@@ -192,6 +211,8 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
 
+  
+
   deploy-frontend:
     docker:
       # Docker image here that supports AWS CLI
@@ -226,9 +247,166 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat ~/project/.circleci/ansible/inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
-            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-frontend.yml
 
       # Here's where you will add some code to rollback on failure 
+
+  create-infrastructure-database:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - install_tar
+      - install_gzip
+      - run:
+          name: Create database infrastructure 
+          command: |
+            aws cloudformation deploy \
+            --template-file .circleci/files/database.yml \
+            --tags project=AMRs-in-Warehouse-Systems \
+            --stack-name "AMRs-in-Warehouse-Systems-webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
+      - run:
+          name: Add database instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
+
+
+  configure-infrastructure-database:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: Add database instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+      - run:
+          name: Configure server
+          command: |
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
+  
+  deploy-database:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: Add database instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+      - run:
+          name: Deploy database
+          command: |
+            echo "Contents  of the inventory.txt file is -------"
+            cat ~/project/.circleci/ansible/inventory.txt
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-database.yml
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}      
+
+  deploy-backend:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      - install_nodejs
+      - restore_cache:
+          keys: [backend-build-deps]
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            cd dashboard-web-application
+            cd server
+            npm install
+      - run:
+          name: Deploy backend
+          command: |
+            ls backend
+            cd backend
+            
+            npm run build
+            cd ..
+
+            tar -C backend -czvf artifact.tar.gz .
+            cp artifact.tar.gz .circleci/ansible/roles/deploy/files
+
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
+
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}  
+
+
 workflows:
   default:
     jobs:
@@ -238,9 +416,19 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
+      - build-database:
+          requires: [scan-frontend, scan-backend]
       - create-infrastructure:
           requires: [scan-frontend, scan-backend]
       - configure-infrastructure:
           requires: [create-infrastructure]
       - deploy-frontend:
           requires: [configure-infrastructure]
+      - create-infrastructure-database:
+          requires: [deploy-frontend]
+      - configure-infrastructure-database:
+          requires: [create-infrastructure-database]
+      - deploy-database:
+          requires: [create-infrastructure-database]
+      # - deploy-backend:
+      #     requires: [deploy-database]

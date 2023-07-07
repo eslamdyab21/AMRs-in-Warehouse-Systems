@@ -19,7 +19,7 @@ Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      InstanceType: t3.small
+      InstanceType: t2.micro
           
       SecurityGroupIds:
         - sg-083b3df2f4969ce3e
@@ -35,6 +35,6 @@ Resources:
 
       Tags:
         - Key: Name
-          Value: !Sub webapplications-${ID}
+          Value: !Sub database-${ID}
         - Key: Project
           Value: AMRs-in-Warehouse-Systems

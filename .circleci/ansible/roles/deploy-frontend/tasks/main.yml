@@ -1,8 +1,8 @@
 ---
-- name: "Create backend app dir"
-  file:
-    path: /home/ubuntu/backend-app
-    state: directory
+# - name: "Create frontend app dir"
+#   file:
+#     path: /home/ubuntu/frontend-app
+#     state: directory
 
 
 
