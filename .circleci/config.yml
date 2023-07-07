@@ -268,7 +268,7 @@ jobs:
             --template-file .circleci/files/database.yml \
             --tags project=AMRs-in-Warehouse-Systems \
             --stack-name "AMRs-in-Warehouse-Systems-webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
+            --parameter-overrides ID="65${CIRCLE_WORKFLOW_ID:0:7}"
       - run:
           name: Add database instance ip to ansible inventory
           command: |
@@ -416,25 +416,25 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-      - build-database:
-          requires: [scan-frontend, scan-backend]
+      # - build-frontend
+      # - build-backend
+      # - scan-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
+      # - build-database:
+      #     requires: [scan-frontend, scan-backend]
       - create-infrastructure:
-          requires: [scan-frontend, scan-backend]
-      - configure-infrastructure:
-          requires: [create-infrastructure]
-      - deploy-frontend:
-          requires: [configure-infrastructure]
+          # requires: [scan-frontend, scan-backend]
+      # - configure-infrastructure:
+      #     requires: [create-infrastructure]
+      # - deploy-frontend:
+      #     requires: [configure-infrastructure]
       - create-infrastructure-database:
-          requires: [deploy-frontend, build-database]
-      - configure-infrastructure-database:
-          requires: [create-infrastructure-database]
-      - deploy-database:
-          requires: [create-infrastructure-database]
+          # requires: [deploy-frontend, build-database]
+      # - configure-infrastructure-database:
+      #     requires: [create-infrastructure-database]
+      # - deploy-database:
+      #     requires: [create-infrastructure-database]
       # - deploy-backend:
       #     requires: [deploy-database]
