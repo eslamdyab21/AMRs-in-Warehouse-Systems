@@ -155,7 +155,7 @@ jobs:
             docker push eslamdyba/amrs-in-warehouse-systems:database-postgres-server-1.0
        
 
-  configure-infrastructure-webappication:
+  create-infrastructure:
     docker:
       - image: amazon/aws-cli
     steps:
@@ -187,7 +187,7 @@ jobs:
             - project/.circleci/ansible/inventory.txt
 
 
-  configure-infrastructure:
+  configure-infrastructure-webappication:
     docker:
       # Docker image here that supports Ansible
       - image: cimg/base:stable
@@ -253,39 +253,6 @@ jobs:
             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-frontend.yml
 
       # Here's where you will add some code to rollback on failure 
-
-  create-infrastructure-database:
-    docker:
-      - image: amazon/aws-cli
-    steps:
-      - checkout
-      - install_tar
-      - install_gzip
-      - run:
-          name: Create database infrastructure 
-          command: |
-            aws cloudformation deploy \
-            --template-file .circleci/files/database.yml \
-            --tags project=AMRs-in-Warehouse-Systems \
-            --stack-name "AMRs-in-Warehouse-Systems-webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-      - run:
-          name: Add database instance ip to ansible inventory
-          command: |
-            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
-              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --output text)
-            rm .circleci/ansible/inventory.txt
-            echo [web] >> .circleci/ansible/inventory.txt
-            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
-            cat .circleci/ansible/inventory.txt
-
-
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/.circleci/ansible/inventory.txt
 
 
   
@@ -390,7 +357,7 @@ workflows:
       - configure-infrastructure-webappication:
           requires: [create-infrastructure]
       - deploy-frontend:
-          requires: [configure-infrastructure]
+          requires: [configure-infrastructure-webappication]
       - configure-infrastructure-database:
           requires: [create-infrastructure]
       - deploy-database:
