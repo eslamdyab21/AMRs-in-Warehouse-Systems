@@ -113,7 +113,7 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             rm ~/project/dashboard-web-application/client/.env.local
-            echo REACT_APP_BASE_URL=http://$WEBAPPLICATIONS_PUBLIC_IP:5000 ~/project/dashboard-web-application/client/.env.local
+            echo REACT_APP_BASE_URL=http://$WEBAPPLICATIONS_PUBLIC_IP:5000 >> ~/project/dashboard-web-application/client/.env.local
             docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-1.0 .
       - run:
           name: Push docker image for frontend to dockerhub
