@@ -109,7 +109,9 @@ jobs:
             DATBASE_PUBLIC_IP=$(aws ec2 describe-instances \
               --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --output text)    
+              --output text)   
+            echo $DATBASE_PUBLIC_IP >> test.txt
+            cat test.txt
 
       - run:
           name: Build docker image for backend
@@ -122,6 +124,8 @@ jobs:
             npm install
             cd ..
             cd ..   
+            echo $DATBASE_PUBLIC_IP >> test.txt
+            cat test.txt
             docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-backend-1.0 --build-arg POSTGRES_HOST=$DATBASE_PUBLIC_IP --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DATABASE=$POSTGRES_DB --build-arg POSTGRES_PORT=$POSTGRES_PORT --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD .
       
       - run:
