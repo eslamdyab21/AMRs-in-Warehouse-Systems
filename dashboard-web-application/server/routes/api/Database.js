@@ -14,8 +14,14 @@ class database{
 	}
 	
 	//methods
+    
     connect_to_postgress_db(){
         // dotenv.config({ path: 'routes/api/.env' })
+        console.log("POSTGRES_HOST", process.env.POSTGRES_HOST)
+        console.log("POSTGRES_USER", process.env.POSTGRES_USER)
+        console.log("POSTGRES_PASSWORD", process.env.POSTGRES_PASSWORD)
+        console.log("POSTGRES_DATABASE", process.env.POSTGRES_DATABASE)
+        console.log("POSTGRES_PORT", process.env.POSTGRES_PORT)
         this.db = new Client({
             host : process.env.POSTGRES_HOST,
             user : process.env.POSTGRES_USER,
