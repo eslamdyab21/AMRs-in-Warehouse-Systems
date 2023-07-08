@@ -73,6 +73,46 @@ jobs:
       - run:
           name: Build docker image for frontend
           command: |
+            rm ~/project/dashboard-web-application/client/.env.local
+            echo REACT_APP_BASE_URL=http://
+            docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-1.0 .
+      - run:
+          name: Push docker image for frontend to dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin  
+            docker push eslamdyba/amrs-in-warehouse-systems:dashboard-1.0
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build-deps
+
+  build-docker-image-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-build-deps]
+      - run:
+          name: Build front-end
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+            npm run build
+
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+
+      - run:
+          name: Build docker image for frontend
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm ~/project/dashboard-web-application/client/.env.local
+            echo REACT_APP_BASE_URL=http://$WEBAPPLICATIONS_PUBLIC_IP:5000 ~/project/dashboard-web-application/client/.env.local
             docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-1.0 .
       - run:
           name: Push docker image for frontend to dockerhub
@@ -466,3 +506,5 @@ workflows:
           requires: [deploy-database]
       - deploy-backend:
           requires: [build-docker-image-backend]
+      - build-docker-image-frontend:
+          requires: [create-infrastructure]
