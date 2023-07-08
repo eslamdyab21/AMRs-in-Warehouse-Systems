@@ -117,6 +117,11 @@ jobs:
             git clone https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems.git
             cd AMRs-in-Warehouse-Systems
             git checkout feature/software/75
+            cd dashboard-web-appication
+            cd server
+            npm install
+            cd ..
+            cd ..   
             docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-backend-1.0 --build-arg POSTGRES_HOST=$DATBASE_PUBLIC_IP --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DATABASE=$POSTGRES_DB --build-arg POSTGRES_PORT=$POSTGRES_PORT --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD .
       
       - run:
