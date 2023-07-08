@@ -103,7 +103,7 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
 
-      -run:
+      - run:
           name: get database server IP
           command: |
             DATBASE_PUBLIC_IP=$(aws ec2 describe-instances \
