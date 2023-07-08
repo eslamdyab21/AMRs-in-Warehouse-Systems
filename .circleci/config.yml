@@ -117,7 +117,7 @@ jobs:
             git clone https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems.git
             cd AMRs-in-Warehouse-Systems
             git checkout feature/software/75
-            cd dashboard-web-appication
+            cd dashboard-web-application
             cd server
             npm install
             cd ..
