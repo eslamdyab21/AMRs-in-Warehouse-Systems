@@ -83,6 +83,55 @@ jobs:
           paths: [frontend/node_modules]
           key: frontend-build-deps
 
+  build-docker-image-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - install_awscli
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: Back-end build
+          command: |
+            cd dashboard-web-application
+            cd server
+            npm install
+            echo "npm run build"
+
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+
+      -run:
+          name: get database server IP
+          command: |
+            DATBASE_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)    
+
+      - run:
+          name: Build docker image for backend
+          command: |
+            git clone https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems.git
+            cd AMRs-in-Warehouse-Systems
+            git checkout feature/software/75
+            docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-backend-1.0 --build-arg POSTGRES_HOST=$DATBASE_PUBLIC_IP --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DATABASE=$POSTGRES_DB --build-arg POSTGRES_PORT=$POSTGRES_PORT --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD .
+      
+      - run:
+          name: Push docker image for Backend to dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin  
+            docker push eslamdyba/amrs-in-warehouse-systems:dashboard-backend-1.0  
+
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
+
+
+
+
   build-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -97,6 +146,7 @@ jobs:
             cd server
             npm install
             echo "npm run build"
+
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
@@ -147,7 +197,7 @@ jobs:
             git clone https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems.git
             cd AMRs-in-Warehouse-Systems
             git checkout feature/data/48
-            docker build -t eslamdyba/amrs-in-warehouse-systems:database-postgres-server-1.0 --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DB=$POSTGRES_DATABASE --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -f docker-with-databases/Dockerfile .
+            docker build -t eslamdyba/amrs-in-warehouse-systems:database-postgres-server-1.0 --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DB=$POSTGRES_DB --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -f docker-with-databases/Dockerfile .
       - run:
           name: Push docker image for database to dockerhub
           command: |
@@ -342,7 +392,7 @@ jobs:
       - checkout
       - install_awscli
       - install_ansible
-      - install_nodejs
+      # - install_nodejs
       - restore_cache:
           keys: [backend-build-deps]
       # Add ssh keys with fingerprint
@@ -352,31 +402,24 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Install dependencies
+          name: Add webapplications instance ip to ansible inventory
           command: |
-            cd dashboard-web-application
-            cd server
-            npm install
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
       - run:
-          name: Deploy backend
+          name: Deploy backend app
           command: |
-            ls backend
-            cd backend
-            
-            npm run build
-            cd ..
-
-            tar -C backend -czvf artifact.tar.gz .
-            cp artifact.tar.gz .circleci/ansible/roles/deploy/files
-
-            export TYPEORM_MIGRATIONS_DIR=./migrations
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-            export TYPEORM_MIGRATIONS=./migrations/*.ts
-
-            cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
-            cat inventory.txt
-            ansible-playbook -i inventory.txt deploy-backend.yml
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
       # - destroy-environment:
       #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}  
 
@@ -402,5 +445,7 @@ workflows:
           requires: [create-infrastructure]
       - deploy-database:
           requires: [configure-infrastructure-database]
-      # - deploy-backend:
-      #     requires: [deploy-database]
+      - build-docker-image-backend:
+          requires: [deploy-database]
+      - deploy-backend:
+          requires: [build-docker-image-backend]
