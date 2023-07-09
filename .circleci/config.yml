@@ -98,6 +98,14 @@ jobs:
           command: |
             cd dashboard-web-application
             cd client
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .env.local
+            echo REACT_APP_BASE_URL=http://$WEBAPPLICATIONS_PUBLIC_IP:5000 >> .env.local
+            echo $REACT_APP_BASE_URL
+            cat .env.local
             npm install
             npm run build
 
@@ -108,12 +116,6 @@ jobs:
       - run:
           name: Build docker image for frontend
           command: |
-            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
-              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --output text)
-            rm ~/project/dashboard-web-application/client/.env.local
-            echo REACT_APP_BASE_URL=http://$WEBAPPLICATIONS_PUBLIC_IP:5000 >> ~/project/dashboard-web-application/client/.env.local
             docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-1.0 .
       - run:
           name: Push docker image for frontend to dockerhub
