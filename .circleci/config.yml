@@ -481,7 +481,31 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
       # - destroy-environment:
-      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}  
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+
+  smoke-test:
+   docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - run: 
+          name: test website
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            if curl -s --head "$WEBAPPLICATIONS_PUBLIC_IP:3000" 
+            then
+              echo "It worked!"
+            else
+              echo "It failed"
+              return 1
+            fi
+
 
 
 workflows:
@@ -511,3 +535,5 @@ workflows:
           requires: [build-docker-image-backend]
       - build-docker-image-frontend:
           requires: [create-infrastructure]
+      - smoke-test:
+          requires: [deploy-backend]
