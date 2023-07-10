@@ -19,6 +19,8 @@ app.listen('5000', () => {
 app.use('/api/shelves', require('./routes/api/shelves'));
 app.use('/api/robots', require('./routes/api/robots'));
 app.use('/api/products', require('./routes/api/products'));
+app.use('/api/orders', require('./routes/api/orders'));
+app.use('/api/map2d', require('./routes/api/map2d'));
 
 
 
