@@ -28,7 +28,7 @@
 /**/
 /* Notes : stepper motor */
 
-#define step_distance 	70
+#define step_distance 	50
 
 /* Encoders */
 s32 right_counts = 0 , left_counts = 0;
@@ -41,20 +41,22 @@ u16 R1 = 30000, R2 = 7500;
 /* Communication */
 u8 Rx_arrlength = 0, data_arr[20] = {0} ;
 u16 Rx_pwm = 0 ;
-s16 Rx_mpu = 0;
+s16 Rx_mpu = 0 ;
 s16 Local_Reading = 0;
-
+s16 PID_Error = 0 ;
+s16 Final_Value = 0 ;
+s16 Reading = 0 ;
 
 /*ISR of EXTI8 (left encoder)*/
-void LeftEncoderGetReading (void)
+void RightEncoderGetReading (void)
 {
-	left_counts = HENCODER_voidEncoderCounts(GPIOA,PIN8);
+	right_counts = HENCODER_voidEncoderCounts(GPIOA,PIN8);
 }
 
 /*ISR of EXTI10 (right encoder)*/
-void RightEncoderGetReading (void)
+void LeftEncoderGetReading (void)
 {
-	right_counts = HENCODER_voidEncoderCounts(GPIOB,PIN10);
+	left_counts = HENCODER_voidEncoderCounts(GPIOB,PIN10);
 }
 
 
@@ -88,14 +90,9 @@ s16 Get_Reading(void)
 
 void RotateRight()
 {
-
-	s16 Reading = 0 ;
-	s16 Final_Value = 0 ;
 	s16 error = 0;
 
-
 	Reading = Get_Reading() ;
-
 	Final_Value = Reading + 90 ;
 
 
@@ -111,8 +108,8 @@ void RotateRight()
 		MGPIO_VoidSetPinValue(GPIOA, 0, HIGH);
 		MGPIO_VoidSetPinValue(GPIOA, 5, LOW);
 
-		MTIM2_voidOutputPWM_C2(30);
-		MTIM3_voidOutputPWM(30);
+		MTIM2_voidOutputPWM_C2(15);
+		MTIM3_voidOutputPWM(15);
 
 	  if (error < -180 )
 	  {
@@ -132,11 +129,16 @@ void RotateRight()
 		MUSART2_voidSendString((u8*)"s2");
 		MUSART2_voidSendString((u8*)"\r\n");
 
+		MUSART2_voidSendString((u8*)"p");
+		MUSART2_voidSendNumbers(Final_Value);
+		MUSART2_voidSendString((u8*)"\r\n");
+
+		MUSART2_voidSendString((u8*)"v");
 		MUSART2_voidSendNumbers(reading);
 		MUSART2_voidSendString((u8*)"\r\n");
 		break ;
 	}
-	Reading = Get_Reading() ;
+	 Reading = Get_Reading() ;
 	error = Final_Value - Reading ;
 
     }
@@ -146,14 +148,9 @@ void RotateRight()
 
 void RotateLeft()
 {
-
-	s16 Reading = 0 ;
-	s16 Final_Value = 0 ;
 	s16 error = 0;
 
-
 	Reading = Get_Reading() ;
-
 	Final_Value = Reading - 90 ;
 
 
@@ -166,11 +163,11 @@ void RotateLeft()
 
 	while (1)
 	{
-		MGPIO_VoidSetPinValue(GPIOA, 0, HIGH);
-		MGPIO_VoidSetPinValue(GPIOA, 5, LOW);
+		MGPIO_VoidSetPinValue(GPIOA, 0, LOW);
+		MGPIO_VoidSetPinValue(GPIOA, 5, HIGH);
 
-		MTIM2_voidOutputPWM_C2(30);
-		MTIM3_voidOutputPWM(30);
+		MTIM2_voidOutputPWM_C2(15);
+		MTIM3_voidOutputPWM(15);
 
 	  if (error  > 180 )
 	  {
@@ -190,6 +187,11 @@ void RotateLeft()
 		MUSART2_voidSendString((u8*)"s2");
 		MUSART2_voidSendString((u8*)"\r\n");
 
+		MUSART2_voidSendString((u8*)"p");
+		MUSART2_voidSendNumbers(Final_Value);
+		MUSART2_voidSendString((u8*)"\r\n");
+
+		MUSART2_voidSendString((u8*)"v");
 		MUSART2_voidSendNumbers(reading);
 		MUSART2_voidSendString((u8*)"\r\n");
 
@@ -206,6 +208,9 @@ void RotateLeft()
 void TargetDistance()
 {
 	u32 target_count = 0;
+	s16 error = 0 ;
+
+
 	HENCODER_s32GetZeroCounts(PIN8);
 	HENCODER_s32GetZeroCounts(PIN10);
 	HENCODER_f32GetZeroDistance();
@@ -214,8 +219,16 @@ void TargetDistance()
 
 	while(1)
 	{
-		MTIM2_voidOutputPWM_C2((u16)Rx_pwm);
-		MTIM3_voidOutputPWM((u16)Rx_pwm);
+		Reading = Get_Reading();
+		PID_Error = Final_Value - Reading ;
+		 error = 4*PID_Error ;
+		/*left then right*/
+		MTIM2_voidOutputPWM_C2((Rx_pwm + error) );
+		MTIM3_voidOutputPWM((Rx_pwm - error));
+
+		MUSART2_voidSendString((u8*)"t");
+		MUSART2_voidSendNumbers(error);
+		MUSART2_voidSendString((u8*)"\r\n");
 
 		if(abs(right_counts) >= target_count)
 		{
@@ -226,10 +239,10 @@ void TargetDistance()
 			MTIM3_voidOutputPWM(0);
 			MTIM2_voidOutputPWM_C2(0);
 
-
 			MUSART2_voidSendString((u8*) "s1");
 			MUSART2_voidSendString((u8*)"\r\n");
 
+			MUSART2_voidSendString((u8*)"v");
 			MUSART2_voidSendNumbers(reading);
 			MUSART2_voidSendString((u8*)"\r\n");
 
@@ -245,8 +258,6 @@ void VoltageReading()
 	adc_volt = (adc_value*3.3)/4096;
 	reading = (adc_volt*(R1+R2))/R2;
 
-//	MUSART2_voidSendNumbers(reading);
-//	MUSART2_voidSendString((u8*)"\r\n");
 }
 
 
@@ -289,8 +300,8 @@ int main (void)
 	MAFIO_voidSetEXTIConfiguration(LINE10 , AFIOB);
 
 	/* call back for EXTI8,10*/
-	EXTI_voidSetCallBack(LeftEncoderGetReading,LINE8);
-	EXTI_voidSetCallBack(RightEncoderGetReading,LINE10);
+	EXTI_voidSetCallBack(LeftEncoderGetReading,LINE10);
+	EXTI_voidSetCallBack(RightEncoderGetReading,LINE8);
 
 	/* EXTI initialization */
 	MEXTI_voidInit();
@@ -313,6 +324,9 @@ int main (void)
 
 	/*start timer 1sec*/
 	MSTK_voidSetIntervalPeriodic(1000000, VoltageReading);
+
+	MTIM2_voidOutputPWM_C2(0);
+	MTIM3_voidOutputPWM(0);
 
 	while(1)
 	{

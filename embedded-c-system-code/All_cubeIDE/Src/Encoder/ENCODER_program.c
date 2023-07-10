@@ -59,12 +59,12 @@ s32 HENCODER_voidEncoderCounts(u8 Copy_u8Channel2Port ,u8 Copy_u8Channel2Pin)
 		if(Local_u8ChannelState == HIGH)
 		{
 			Global_u8MotorRightDirection = ClockwiseDirection;
-			Global_s32NumOfRightCounts--;
+			Global_s32NumOfRightCounts++;
 		}
 		else if (Local_u8ChannelState == LOW)
 		{
 			Global_u8MotorRightDirection = CounterClockwiseDirection;
-			Global_s32NumOfRightCounts++;
+			Global_s32NumOfRightCounts--;
 		}
 
 	return Global_s32NumOfRightCounts;

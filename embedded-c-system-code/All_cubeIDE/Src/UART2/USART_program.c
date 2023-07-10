@@ -33,7 +33,8 @@ void MUSART2_voidInit(void)
 	MGPIO_VoidSetPinDirection(GPIOA,PIN3,INPUT_FLOATING);   // RX
 
 	/*	baud rate = 9600		*/
-	USART2 -> BRR = 0x341;
+	//USART2 -> BRR = 0x341;
+	USART2 -> BRR = 0x45;
 
 	SET_BIT((USART2-> CR1), 3);			/* Enabling Transmitter */
 	SET_BIT((USART2-> CR1), 2);			/* Enabling Receiver */

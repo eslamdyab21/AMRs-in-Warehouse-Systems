@@ -1,6 +1,6 @@
 USART_program.c:23:6:MUSART2_voidInit	1
-USART_program.c:45:6:MUSART2_voidSendData	2
-USART_program.c:53:6:MUSART2_voidSendString	2
-USART_program.c:62:6:MUSART2_voidSendNumbers	1
-USART_program.c:73:4:MUSART2_u8ReceiveData	2
-USART_program.c:82:4:MUSART2_u8ReceiveDataBlock	2
+USART_program.c:46:6:MUSART2_voidSendData	2
+USART_program.c:54:6:MUSART2_voidSendString	2
+USART_program.c:63:6:MUSART2_voidSendNumbers	1
+USART_program.c:74:4:MUSART2_u8ReceiveData	2
+USART_program.c:83:4:MUSART2_u8ReceiveDataBlock	2
