@@ -1,6 +1,8 @@
 import React from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
+// require('dotenv').config()
+
 import {
   DownloadOutlined,
   Email,
@@ -22,8 +24,13 @@ import { useGetOrdersQuery } from "state/api";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
 
+// dotenv.config({ path: '../.env.local' })
+let baseQuery = process.env.REACT_APP_BASE_URL
 
-let api_url = "http://localhost:5000/api/orders"
+
+let api_url = baseQuery+'/api/orders'
+console.log(api_url)
+// let api_url = "http://localhost:5000/api/orders"
 
 async function get_data_backend(url){
   const response = await fetch(url);

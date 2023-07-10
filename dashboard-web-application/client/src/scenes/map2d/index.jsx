@@ -11,7 +11,12 @@ let r
 let c
 let x = 0
 let y = 0
-let api_url = "http://localhost:5000/api/map2d"
+
+let baseQuery = process.env.REACT_APP_BASE_URL
+let api_url = baseQuery+'/api/map2d'
+console.log(api_url)
+
+// let api_url = "http://localhost:5000/api/map2d"
 let tile
 
 function Map2d() {
