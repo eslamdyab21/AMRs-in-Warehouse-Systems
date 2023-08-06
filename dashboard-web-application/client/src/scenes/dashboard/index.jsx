@@ -17,7 +17,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+// import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
 import { useGetOrdersQuery } from "state/api";
@@ -78,38 +78,38 @@ function Dashboard(){
 
   // }, 500);
 
-  const columns = [
-    {
-      field: "orderid",
-      headerName: "Order ID",
-      flex: 0.5,
-    },
-    {
-      field: "productid",
-      headerName: "Product ID",
-      flex: 0.5,
-    },
-    {
-      field: "quantity",
-      headerName: "Quantity",
-      flex: 0.5,
-    },
-    {
-      field: "shelfid",
-      headerName: "Shelf ID",
-      flex: 0.4,
-    },
-    {
-      field: "orderproductstatus",
-      headerName: "Order-Product Status",
-      flex: 0.4,
-    },
-    {
-      field: "orderdate",
-      headerName: "Order Date-Time",
-      flex: 0.4,
-    },
-  ];
+  // const columns = [
+  //   {
+  //     field: "orderid",
+  //     headerName: "Order ID",
+  //     flex: 0.5,
+  //   },
+  //   {
+  //     field: "productid",
+  //     headerName: "Product ID",
+  //     flex: 0.5,
+  //   },
+  //   {
+  //     field: "quantity",
+  //     headerName: "Quantity",
+  //     flex: 0.5,
+  //   },
+  //   {
+  //     field: "shelfid",
+  //     headerName: "Shelf ID",
+  //     flex: 0.4,
+  //   },
+  //   {
+  //     field: "orderproductstatus",
+  //     headerName: "Order-Product Status",
+  //     flex: 0.4,
+  //   },
+  //   {
+  //     field: "orderdate",
+  //     headerName: "Order Date-Time",
+  //     flex: 0.4,
+  //   },
+  // ];
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -158,7 +158,7 @@ function Dashboard(){
           title="Sales Today"
           value={data && data.todayStats.totalSales}
           increase="+21%"
-          description="Since last month"
+          description="Since last day"
           icon={
             <PointOfSale
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -189,7 +189,7 @@ function Dashboard(){
           title="Yearly Sales"
           value={data && data.yearlySalesTotal}
           increase="+43%"
-          description="Since last month"
+          description="Since last year"
           icon={
             <Traffic
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -228,12 +228,12 @@ function Dashboard(){
           }}
         >
           {/* <div id ='dashboard_table' style={{ height: 350, width: '100%' }}> */}
-          <DataGrid 
+          {/* <DataGrid 
             loading={isLoading2 || !data_orders}
             getRowId={(row : any) => row.orderid+row.productid}
             rows={data_orders || []}
             columns={columns}
-          />
+          /> */}
           {/* </div> */}
         </Box>
         <Box

@@ -87,6 +87,7 @@ function clear_board(board){
 
 async function fill_board(data, board){
 
+    // console.log(data)
     board = clear_board(board)
     for (let i=0; i<2; i++){
         let data_section = data[i]

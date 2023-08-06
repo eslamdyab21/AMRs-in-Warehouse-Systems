@@ -22,8 +22,8 @@ import {
   PointOfSaleOutlined,
   TodayOutlined,
   CalendarMonthOutlined,
-  AdminPanelSettingsOutlined,
-  TrendingUpOutlined,
+  // AdminPanelSettingsOutlined,
+  // TrendingUpOutlined,
   PieChartOutlined,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
@@ -80,18 +80,18 @@ const navItems = [
     text: "Breakdown",
     icon: <PieChartOutlined />,
   },
-  {
-    text: "Management",
-    icon: null,
-  },
-  {
-    text: "Admin",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
-  },
+  // {
+  //   text: "Management",
+  //   icon: null,
+  // },
+  // {
+  //   text: "Admin",
+  //   icon: <AdminPanelSettingsOutlined />,
+  // },
+  // {
+  //   text: "Performance",
+  //   icon: <TrendingUpOutlined />,
+  // },
 ];
 
 const Sidebar = ({
