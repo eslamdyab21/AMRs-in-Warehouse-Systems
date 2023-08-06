@@ -87,7 +87,7 @@ jobs:
           command: |
             cd dashboard-web-application
             cd client
-            WEBAPPLICATIONS_PUBLIC_IP=dashboard-backend
+            WEBAPPLICATIONS_PUBLIC_IP=172.19.0.3
             rm .env.local
             echo REACT_APP_BASE_URL=http://$WEBAPPLICATIONS_PUBLIC_IP:5000 >> .env.local
             echo $REACT_APP_BASE_URL
