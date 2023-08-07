@@ -87,9 +87,9 @@ jobs:
           command: |
             cd dashboard-web-application
             cd client
-            WEBAPPLICATIONS_PUBLIC_IP=dashboardbackend
+            BACKEND_WEBAPPLICATIONS_PUBLIC_IP=localhost
             rm .env.local
-            echo REACT_APP_BASE_URL=http://$WEBAPPLICATIONS_PUBLIC_IP:5000 >> .env.local
+            echo REACT_APP_BASE_URL=http://$BACKEND_WEBAPPLICATIONS_PUBLIC_IP:5000 >> .env.local
             echo $REACT_APP_BASE_URL
             cat .env.local
             npm install
