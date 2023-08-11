@@ -36,9 +36,9 @@ class DB_update_node():
         
 
         self.ros_robots_status_dict = None
-        self.robots_update_db_timeout = 3
+        self.robots_update_db_timeout = 0
         self.robots_update_db_counter = 0
-        self.shelves_update_db_timeout = 4
+        self.shelves_update_db_timeout = 0
         self.shelves_update_db_counter = 0
 
     
@@ -51,7 +51,7 @@ class DB_update_node():
 
         if self.shelves_update_db_counter >= self.shelves_update_db_timeout:
             for shelf_id,shelf_data in ros_shelves_status_dict.items():
-                self.database.update_db(table="Shelves", id=shelf_id, parameters={"location_x":shelf_data['locations'][1][0], "location_y":shelf_data['locations'][1][1]})
+                self.database.update_db(table="Shelves", id=shelf_id, parameters={"location_x":shelf_data['locations'][1][0], "location_y":shelf_data['locations'][1][1], "numoforders":shelf_data['num_of_orders']})
 
             self.logger.log(f'DB_update_node : ros_shelves_status_callback : {time.time()-start_time} -->')
             

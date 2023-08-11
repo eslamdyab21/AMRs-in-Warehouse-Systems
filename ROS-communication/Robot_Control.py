@@ -36,6 +36,10 @@ class Control():
         self.counter = 0
         self.goal = None
         self.reached_packaging_spot_flag = False
+        self.unpacking_flag = False
+        self.robots_area_flag = False
+        self.worker_counter = 0 
+        self.worker_counter_timeout = 5
 
         self.path_algorithms = Algorithms()
 
@@ -202,6 +206,8 @@ class Control():
                 horizontal_steps = 0
                 vertical_steps = 0
 
+                self.goal = None
+
                 # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
                 robot.paired_with_shelf.current_location = robot.current_location
                 
@@ -216,6 +222,8 @@ class Control():
                 self.ros_map.publish(str(self.map.map))
                 self.ros_topic_robot.publish(f'{robot.id}:{"None"}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
                 
+                self.ros_shelves_status_dict[self.shelf.id]['paired_with_robot_status'] = True
+                self.ros_shelves_status_dict[self.shelf.id]['paired_with_robot'] = robot.id
                 self.ros_shelves_status_dict[self.shelf.id]['locations'] = self.shelf.locations
                 self.ros_shelves_status_topic.publish(str(self.ros_shelves_status_dict))
 
@@ -234,20 +242,36 @@ class Control():
         self.logger.log(f'Control : steps_map_to_shelf : {time.time()-start_time} -->')
 
 
-    def get_free_packaging_spot(self, mapp):
-        packaging_area = mapp[:,0]
+    def get_free_spot(self, mapp, spot_place):
+
+        if spot_place == 'packaging_area':
+            free_spot_col = 0
+            area = mapp[:,free_spot_col]
+
+        elif spot_place == 'unpacking_area':
+            free_spot_col = mapp.shape[1] - 1
+            area = mapp[:,free_spot_col]
+        
+        elif spot_place == 'robots_area':
+            free_spot_row = 0
+            area = mapp[free_spot_row,:]
+
 
         avalible_pos_row_lst = []
-        for index in range(len(packaging_area)):
-            if packaging_area[index] == '0':
+        for index in range(len(area)):
+            if area[index] == '0':
                 avalible_pos_row_lst.append(index)
 
-        free_spot_col = 0
-        free_spot_row = random.choice(avalible_pos_row_lst)
+        if spot_place == 'robots_area':
+            free_spot_col = random.choice(avalible_pos_row_lst)
+        else:
+            free_spot_row = random.choice(avalible_pos_row_lst)
+        
         free_spot = [free_spot_row, free_spot_col]
 
-
         return free_spot
+
+
 
     def steps_map_to_packaging(self, robot):
         """
@@ -259,7 +283,7 @@ class Control():
 
         start = self.ros_robots_status_dict[robot.id]['locations'][1]
         if self.goal is None and not self.reached_packaging_spot_flag:
-            self.goal = self.get_free_packaging_spot(self.map.map.copy())
+            self.goal = self.get_free_spot(self.map.map.copy(), 'packaging_area')
 
         if not self.reached_packaging_spot_flag:
             astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
@@ -268,9 +292,11 @@ class Control():
         else:
             route = [0]
 
+
         
         if type(route) == bool:
             print(robot.id, 'No path found')
+            self.goal = self.get_free_spot(self.map.map.copy(), 'packaging_area')
 
         elif len(route) < 2:
             self.goal = None
@@ -340,6 +366,199 @@ class Control():
         self.logger.log(f'Control : steps_map_to_packaging : {time.time()-start_time} -->')
 
 
+    def steps_map_to_unpacking(self, robot):
+        """
+        steps_map_to_packaging function uses A* algrothim to plan the path to 
+        the packaging location and moves the robot to it.
+        """
+        start_time = time.time()
+
+
+        start = self.ros_robots_status_dict[robot.id]['locations'][1]
+        if self.goal is None and not self.reached_unpacking_spot_flag:
+            self.goal = self.get_free_spot(self.map.map.copy(), 'unpacking_area')
+
+        if not self.reached_unpacking_spot_flag:
+            astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
+
+            route = self.path_algorithms.astar(astart_map, start, self.goal)
+        else:
+            route = [0]
+
+
+        
+        if type(route) == bool:
+            print(robot.id, 'No path found')
+            self.goal = self.get_free_spot(self.map.map.copy(), 'unpacking_area')
+
+        elif len(route) < 2:
+            self.goal = None
+            self.reached_unpacking_spot_flag = True
+            self.unpacking_flag = False
+            self.robots_area_flag = True
+
+            print(robot.id, 'Reached unpacking area !')
+
+            self.ros_shelves_status_dict[self.shelf.id]['received_order_status'] = False
+            self.ros_shelves_status_dict[self.shelf.id]['paired_with_robot_status'] = False
+            self.ros_shelves_status_dict[self.shelf.id]['paired_with_robot'] = 'NULL'
+            numoforders = self.ros_shelves_status_dict[self.shelf.id]['num_of_orders']
+            
+            if numoforders > 0:
+                self.ros_shelves_status_dict[self.shelf.id]['num_of_orders'] = numoforders - 1
+            print(numoforders)
+            self.ros_shelves_status_topic.publish(str(self.ros_shelves_status_dict))
+
+            self.ros_robots_status_dict[robot.id]['paired_with_shelf'] = 'NULL'
+            self.ros_robots_status_dict[robot.id]['paired_with_shelf_status'] = False
+            self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
+
+
+        else:
+            print(robot.id, route)
+
+            if len(route) == 2:
+                prev_location = robot.current_location.copy()
+                robot.current_location = list(route[-1])
+                robot.locations = [prev_location, robot.current_location]
+                self.shelf.locations = [prev_location, robot.current_location].copy()
+
+                horizontal_steps = 0
+                vertical_steps = 0
+
+                robot.paired_with_shelf.current_location = robot.current_location
+                
+                
+                self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+
+
+                self.ros_map.publish(str(self.map.map))
+                self.ros_topic_robot.publish(f'{robot.id}:{"None"}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
+                
+
+            elif len(route) > 2:
+                horizontal_steps = route[1][1] - robot.current_location[1] 
+                vertical_steps = route[1][0] - robot.current_location[0]
+
+                if vertical_steps > 0:
+                    # want to move down
+                    self.move(robot, 'down')
+
+                elif vertical_steps < 0:
+                    # want to move up
+                    self.move(robot, 'up')
+                
+                elif vertical_steps == 0:
+                    if horizontal_steps > 0:
+                        # want to move right
+                        self.move(robot, 'right')
+
+                    elif horizontal_steps < 0:
+                        # want to move left
+                        self.move(robot, 'left')
+
+                
+                # self.map.update_objects_locations({robot.id:robot.locations})
+                self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+                # self.map.update_objects_locations({self.shelf.id:self.shelf.locations})
+
+                self.ros_map.publish(str(self.map.map))   
+            
+            self.ros_robots_status_dict[robot.id]['locations'] = robot.locations
+            self.ros_shelves_status_dict[self.shelf.id]['locations'] = robot.locations
+            self.shelf.locations = robot.locations.copy()
+            self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
+            self.ros_shelves_status_topic.publish(str(self.ros_shelves_status_dict))
+
+        self.logger.log(f'Control : steps_map_to_packaging : {time.time()-start_time} -->')
+
+
+
+    def steps_map_to_robots_area(self, robot):
+        """
+        steps_map_to_packaging function uses A* algrothim to plan the path to 
+        the packaging location and moves the robot to it.
+        """
+        start_time = time.time()
+
+
+        start = self.ros_robots_status_dict[robot.id]['locations'][1]
+        if self.goal is None and not self.reached_robots_area_spot_flag:
+            self.goal = self.get_free_spot(self.map.map.copy(), 'robots_area')
+
+        if not self.reached_robots_area_spot_flag:
+            astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
+
+            route = self.path_algorithms.astar(astart_map, start, self.goal)
+        else:
+            route = [0]
+
+
+        
+        if type(route) == bool:
+            print(robot.id, 'No path found')
+            self.goal = self.get_free_spot(self.map.map.copy(), 'robots_area')
+
+        elif len(route) < 2:
+            self.goal = None
+            self.reached_robots_area_spot_flag = True
+            self.robots_area_flag = False
+            self.robot.active_order_status = False 
+            self.robot.physically_connected_to_shelf = None
+
+            print(robot.id, 'Reached robots area !')
+
+        else:
+            print(robot.id, route)
+
+            if len(route) == 2:
+                prev_location = robot.current_location.copy()
+                robot.current_location = list(route[-1])
+                robot.locations = [prev_location, robot.current_location]
+
+                horizontal_steps = 0
+                vertical_steps = 0
+                
+                self.map.update_objects_locations({robot.id:robot.locations})
+
+
+                self.ros_map.publish(str(self.map.map))
+                self.ros_topic_robot.publish(f'{robot.id}:{"None"}:{robot.locations}:{robot.speed}-{self.shelf.id}:{self.shelf.locations}')
+                
+
+            elif len(route) > 2:
+                horizontal_steps = route[1][1] - robot.current_location[1] 
+                vertical_steps = route[1][0] - robot.current_location[0]
+
+                if vertical_steps > 0:
+                    # want to move down
+                    self.move(robot, 'down')
+
+                elif vertical_steps < 0:
+                    # want to move up
+                    self.move(robot, 'up')
+                
+                elif vertical_steps == 0:
+                    if horizontal_steps > 0:
+                        # want to move right
+                        self.move(robot, 'right')
+
+                    elif horizontal_steps < 0:
+                        # want to move left
+                        self.move(robot, 'left')
+
+                
+                # self.map.update_objects_locations({robot.id:robot.locations})
+                self.map.update_objects_locations({robot.id:robot.locations})
+
+                self.ros_map.publish(str(self.map.map))   
+            
+            self.ros_robots_status_dict[robot.id]['locations'] = robot.locations
+            self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
+
+        self.logger.log(f'Control : steps_map_to_packaging : {time.time()-start_time} -->')
+
+
     def steps_map(self):
         """
         steps_map function gets the steps needed for each robot reach its goal
@@ -348,7 +567,6 @@ class Control():
 
         if self.robot.active_order_status and self.robot.physically_connected_to_shelf == None:
             if self.ros_robots_status_dict is not None:
-                self.reached_packaging_spot_flag = False
                 self.ros_robots_status_dict[self.robot.id]['movement_status'] = 'moving'
                 #self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
 
@@ -358,9 +576,40 @@ class Control():
                 self.map.show_map()
         # self.steps_map_to_packaging()
 
+        
+
+        elif self.robot.physically_connected_to_shelf != None and not self.unpacking_flag and not self.robots_area_flag:
+            self.ros_robots_status_dict[self.robot.id]['movement_status'] = 'moving'
+
+            self.steps_map_to_packaging(self.robot)
+
+            if self.reached_packaging_spot_flag:
+                if self.worker_counter >= self.worker_counter_timeout:
+                    self.unpacking_flag = True
+                    # self.robot.active_order_status = False
+                    # self.robot.physically_connected_to_shelf = None
+
+                self.worker_counter = self.worker_counter + 1
+
+            # self.map.show_map()
+        
+
+
+        elif self.unpacking_flag:
+            self.steps_map_to_unpacking(self.robot)
+
+
+        elif self.robots_area_flag:
+            self.steps_map_to_robots_area(self.robot)
+            self.counter = 0
+
+
         elif self.robot.active_order_status == False:
             if self.ros_robots_status_dict is not None and self.counter < 10:
                 self.reached_packaging_spot_flag = False
+                self.reached_unpacking_spot_flag = False
+                self.reached_robots_area_spot_flag = False
+
                 self.ros_robots_status_dict[self.robot.id]['movement_status'] = 'waiting for order'
                 self.ros_robots_status_topic.publish(str(self.ros_robots_status_dict))
 
@@ -368,10 +617,6 @@ class Control():
                 self.ros_map.publish(str(self.map.map))
                 self.counter = self.counter + 1
 
-        elif self.robot.physically_connected_to_shelf != None:
-            self.steps_map_to_packaging(self.robot)
-            # self.map.show_map()
-        
         self.logger.log(f'Control : steps_map : {time.time()-start_time} -->')
 
 
