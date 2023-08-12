@@ -639,6 +639,10 @@ class Control():
         """
         
         start_time = time.time()
+        
+        battery_level = self.ros_robots_status_dict[robot.id]['battery']
+        self.ros_robots_status_dict[robot.id]['battery'] = battery_level - 0.05
+        robot.battery_precentage = self.ros_robots_status_dict[robot.id]['battery']
 
         # print(robot.id, robot.current_location, direction)
         if direction == 'down':

@@ -11,8 +11,8 @@ import time
 
 
 
-local_ip='192.168.1.20'
-roscore_ip='192.168.1.20'
+local_ip='localhost'
+roscore_ip='localhost'
 roscore_port = 11311
 
 os.environ['ROS_IP'] = local_ip
@@ -20,7 +20,7 @@ os.environ['ROS_HOSTNAME'] = local_ip
 os.environ['ROS_MASTER_URI'] = 'http://' + roscore_ip + ':' + str(roscore_port)
 
 rospy.init_node('test_robot_movement', anonymous=True)
-ros_robot_move_stm_topic = rospy.Publisher('ros_robot_move_stm', Int16MultiArray, queue_size=10)
+ros_robot_move_stm_topic = rospy.Publisher('ros_robot_R1_move_stm', Int16MultiArray, queue_size=10)
 
 speed = 25
 

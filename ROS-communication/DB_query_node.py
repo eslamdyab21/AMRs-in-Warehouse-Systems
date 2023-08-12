@@ -9,7 +9,7 @@ import ast
 from Map2D import Map2D
 from Database import Database
 from Logger import Logger
-import time, threading
+import threading
 
 class DB_query_node():
 
