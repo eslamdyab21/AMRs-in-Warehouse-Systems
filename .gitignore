@@ -9,3 +9,5 @@ qr-codes-with-locations/__pycache__/*
 .obsidian/*
 ROS-communication/__pycache__
 ROS-communication/test.py
+docs/.obsidian/*
+docs/.trash/*
