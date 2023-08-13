@@ -1,0 +1,22 @@
+{
+	"nodes":[
+		{"type":"group","id":"1a8343bbf038a9f8","x":-580,"y":-240,"width":1560,"height":700,"color":"#4b4b4b","label":"ALGORITHM"},
+		{"type":"group","id":"34184cf15b0982c7","x":-20,"y":-165,"width":420,"height":570,"color":"6","label":"CORE ALGORITHM"},
+		{"type":"group","id":"5f8683de254a55ce","x":520,"y":-165,"width":400,"height":570,"color":"6","label":"EMBEDDED END"},
+		{"type":"group","id":"dda0bd683dd3479e","x":-520,"y":-160,"width":360,"height":560,"color":"6","label":"WEBSITE END"},
+		{"type":"text","text":" <h1 align=\"center\">ADMIN WEBSITE<h1>","id":"7d24c3855ac51f6c","x":-460,"y":200,"width":240,"height":180},
+		{"type":"text","text":" <h1 align=\"center\">CUSTOMERS WEBSITE <h1>","id":"ae17c85de1181069","x":-469,"y":-140,"width":259,"height":175},
+		{"type":"text","text":" <h1 align=\"center\">ROBOT 1 EMBEDDED<h1>","id":"8acc5190c15d17c3","x":561,"y":-145,"width":320,"height":180,"color":"6"},
+		{"type":"text","text":" <h1 align=\"center\">ROBOT N EMBEDDED<h1>","id":"ba84c984f6b7dc92","x":562,"y":195,"width":320,"height":180,"color":"6"},
+		{"type":"text","text":" <h1 align=\"center\">ROBOT COMPUTATIONS<h1>","id":"13c3f4472dd12a93","x":20,"y":185,"width":340,"height":200},
+		{"type":"text","text":" <h1 align=\"center\">ADMIN HOST COMPUTATIONS<h1>","id":"b2be93242f64416b","x":25,"y":-145,"width":330,"height":180},
+		{"type":"text","text":"o","id":"53ff708faf648dfd","x":689,"y":60,"width":65,"height":50},
+		{"type":"text","text":"o","id":"859bb40f8268d35a","x":689,"y":120,"width":65,"height":50}
+	],
+	"edges":[
+		{"id":"4b3081fc663de7ff","fromNode":"dda0bd683dd3479e","fromSide":"right","toNode":"34184cf15b0982c7","toSide":"left","fromEnd":"arrow","color":"2","label":"DB"},
+		{"id":"3516ac130502e796","fromNode":"ba84c984f6b7dc92","fromSide":"left","toNode":"34184cf15b0982c7","toSide":"right","fromEnd":"arrow","color":"2","label":"ROS"},
+		{"id":"e1d4c11c06d2da06","fromNode":"34184cf15b0982c7","fromSide":"right","toNode":"8acc5190c15d17c3","toSide":"left","fromEnd":"arrow","color":"2","label":"ROS"},
+		{"id":"0e9a9c99edbe5d28","fromNode":"b2be93242f64416b","fromSide":"bottom","toNode":"13c3f4472dd12a93","toSide":"top","fromEnd":"arrow","color":"6","label":"ROS"}
+	]
+}
