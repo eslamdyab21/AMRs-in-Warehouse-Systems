@@ -1,16 +1,18 @@
 # AMRs-in-Warehouse-Systems
-This repository will is for our graduation project ‫‪AMRs‬‬ ‫‪in‬‬ ‫‪Warehouse‬‬ ‫‪Systems, A team in the Faculty of Engineering, Alexandria university, majored in Electronics and Communication.
-![obsidian-nodes](README-images/agmedgpteam.jpg)
+This repository is for our graduation project ‫‪AMRs‬‬ ‫‪in‬‬ ‫‪Warehouse‬‬ ‫‪Systems, A team in the Faculty of Engineering, Alexandria university, majored in Electronics and Communication.
+![obsidian-nodes](docs/README-images/agmedgpteam.jpg)
 
 The repository have 5 main branches, main, software, embedded, data and devops. each branch has its corresponding tasks represented in issues.
 
 Inside the `docs` folder there is a documentation for each issue documenting producers taken to solve the issue. 
 
 Our team uses **Obsidian** for documentation and here is an image from the program visualizing each issue/task as a node and its connection to other nodes.
-![obsidian-nodes](README-images/obsidian-nodes.png)
+![obsidian-nodes](docs/README-images/obsidian-nodes.png)
+
+<br/>
 
 ## System overview 
-![obsidian-nodes](README-images/system-overview.png)
+![obsidian-nodes](docs/README-images/system-overview.png)
 Our project tackles a full end-to-end system to operates a warehouse starting from the client side to monitoring the warehouse at the admin side. A warehouse stores a number of packages which is stored inside different shelves, and robots move those shelves autonomously -when an order is made- from point A to B -their current location to the packaging location-. 
 
 To do so, the system was divided into the above parts: 
@@ -34,7 +36,7 @@ To do so, the system was divided into the above parts:
 The development of the system was inspired by the **micro services** design so that each part does a specific task and its failure doesn't directly affect the whole system. 
 
 Also some of the system components are **deodorized** so that the system can run on any machine with any os without compatibility issues with one command.
-![obsidian-nodes](README-images/dockerized_comp.png)
+![obsidian-nodes](docs/README-images/dockerized_comp.png)
 
 <br/>
 
@@ -42,11 +44,12 @@ Also some of the system components are **deodorized** so that the system can run
 
 ## Robot design and demo
 
-![obsidian-nodes](README-images/robot.jpeg)
+![obsidian-nodes](docs/README-images/robot.jpeg)
 
 
-[<img src="https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems/blob/main/README-images/canvas.png">](https://drive.google.com/file/d/1POiBVzRJETNpm45syickyt1VzkiT1Q69/view?usp=drive_link)
+[![Watch the video](https://img.youtube.com/vi/BpZr7LPZxno/maxresdefault.jpg)](https://youtu.be/BpZr7LPZxno)
 
+<br/>
 
 ## How to run the system locally
 For the admin website and the database, the easiest way is to install their docker images from dockerhub and run them with the following commands.
@@ -70,12 +73,34 @@ The database will be empty in a fresh install, you can add initial data with the
 ```bash
 docker exec -it dashboard-database sh
 ```
+
 2. login to the database
 ```bash
-
+psql -h host_name -p port_number -U user_name -d database_name
 ```
+
+- In our case
+```bash
+psql -h localhost -p 5432 -U postgres -d AMR_Warehouse
+```
+
 3. enter sql commands to insert some data
 ```bash
+INSERT INTO Customers VALUES('C1', 'menna@gmail', 'mennapassword', 'Mennatallah Mamdouh', 'Female');
+
+INSERT INTO Products VALUES('P1', 'Hair Shampoo', 250, 'It is a hair product. It contains Sulfates', 500, 'URL1', 'URL2', 'URL3'),
+                            ('P2', 'Hair Conditioner', 300, 'It is a hair product. It controls frizzness', 500, 'URL1', 'URL2', 'URL3');
+
+INSERT INTO Shelves(ShelfID, Location_X, Location_Y, ProductID, NumOfOrders)
+VALUES('S1', 0, 5, 'P1', 0), ('S2', 0, 10, 'P2', 0);
+
+INSERT INTO Orders_Details VALUES('O1', 'C1', NULL, NOW(), '+201234567890', 'Alexandria', 'Cash on Delivery', 'New'),
+                                    ('O2', 'C1', NULL, NOW(), '+201234567890', 'Alexandria', 'Cash on Delivery', 'New');
+
+INSERT INTO Orders(OrderID, ProductID, Quantity) VALUES('O1', 'P1', 5), ('O1', 'P2', 7), ('O2', 'P1', 7);
+
+INSERT INTO Robots(RobotID, Speed, BatteryPercentage, CurrentLocation_X, CurrentLocation_Y, isCharging, ShelfID)
+VALUES('R1', 90, 100, 5, 5, False, 'S1'), ('R2', 80, 50, 10, 10, False, 'S2');
 ```
 
 
@@ -100,10 +125,11 @@ This command will install the system admin website frontend docker image, make a
 <br/>
 
 Now you should see the container running when `docker ps`
-![obsidian-nodes](README-images/dockerized_comp.png)
+![obsidian-nodes](docs/README-images/dockerized_comp.png)
 you can either install ROS dirctly on your machine, or download its docker image from dockerhub.
 
 Then for the algorithm you can follow the above overview video which explains the different parts of the system and how to run it both as a simulation and hardware.
 
 <br/>
+
 You can find more information and explanation in the `docs` folder.

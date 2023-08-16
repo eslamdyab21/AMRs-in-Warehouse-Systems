@@ -1,5 +1,5 @@
 # AMRs-in-Warehouse-Systems
-This repository will is for our graduation project ‫‪AMRs‬‬ ‫‪in‬‬ ‫‪Warehouse‬‬ ‫‪Systems, A team in the Faculty of Engineering, Alexandria university, majored in Electronics and Communication.
+This repository is for our graduation project ‫‪AMRs‬‬ ‫‪in‬‬ ‫‪Warehouse‬‬ ‫‪Systems, A team in the Faculty of Engineering, Alexandria university, majored in Electronics and Communication.
 ![obsidian-nodes](README-images/agmedgpteam.jpg)
 
 The repository have 5 main branches, main, software, embedded, data and devops. each branch has its corresponding tasks represented in issues.
@@ -8,6 +8,8 @@ Inside the `docs` folder there is a documentation for each issue documenting pro
 
 Our team uses **Obsidian** for documentation and here is an image from the program visualizing each issue/task as a node and its connection to other nodes.
 ![obsidian-nodes](README-images/obsidian-nodes.png)
+
+<br/>
 
 ## System overview 
 ![obsidian-nodes](README-images/system-overview.png)
@@ -45,8 +47,10 @@ Also some of the system components are **deodorized** so that the system can run
 ![obsidian-nodes](README-images/robot.jpeg)
 
 
-[<img src="https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems/blob/main/README-images/canvas.png">](https://drive.google.com/file/d/1POiBVzRJETNpm45syickyt1VzkiT1Q69/view?usp=drive_link)
 
+[![Watch the video](https://img.youtube.com/vi/BpZr7LPZxno/maxresdefault.jpg)](https://youtu.be/BpZr7LPZxno)
+
+<br/>
 
 ## How to run the system locally
 For the admin website and the database, the easiest way is to install their docker images from dockerhub and run them with the following commands.
@@ -72,10 +76,29 @@ docker exec -it dashboard-database sh
 ```
 2. login to the database
 ```bash
-
+psql -h host_name -p port_number -U user_name -d database_name
+```
+- In our case
+```bash
+psql -h localhost -p 5432 -U postgres -d AMR_Warehouse
 ```
 3. enter sql commands to insert some data
 ```bash
+INSERT INTO Customers VALUES('C1', 'menna@gmail', 'mennapassword', 'Mennatallah Mamdouh', 'Female');
+
+INSERT INTO Products VALUES('P1', 'Hair Shampoo', 250, 'It is a hair product. It contains Sulfates', 500, 'URL1', 'URL2', 'URL3'),
+                            ('P2', 'Hair Conditioner', 300, 'It is a hair product. It controls frizzness', 500, 'URL1', 'URL2', 'URL3');
+
+INSERT INTO Shelves(ShelfID, Location_X, Location_Y, ProductID, NumOfOrders)
+VALUES('S1', 0, 5, 'P1', 0), ('S2', 0, 10, 'P2', 0);
+
+INSERT INTO Orders_Details VALUES('O1', 'C1', NULL, NOW(), '+201234567890', 'Alexandria', 'Cash on Delivery', 'New'),
+                                    ('O2', 'C1', NULL, NOW(), '+201234567890', 'Alexandria', 'Cash on Delivery', 'New');
+
+INSERT INTO Orders(OrderID, ProductID, Quantity) VALUES('O1', 'P1', 5), ('O1', 'P2', 7), ('O2', 'P1', 7);
+
+INSERT INTO Robots(RobotID, Speed, BatteryPercentage, CurrentLocation_X, CurrentLocation_Y, isCharging, ShelfID)
+VALUES('R1', 90, 100, 5, 5, False, 'S1'), ('R2', 80, 50, 10, 10, False, 'S2');
 ```
 
 
@@ -106,4 +129,5 @@ you can either install ROS dirctly on your machine, or download its docker image
 Then for the algorithm you can follow the above overview video which explains the different parts of the system and how to run it both as a simulation and hardware.
 
 <br/>
+
 You can find more information and explanation in the `docs` folder.
