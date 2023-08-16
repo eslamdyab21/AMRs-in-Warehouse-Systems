@@ -49,6 +49,8 @@ Also some of the system components are **deodorized** so that the system can run
 
 [![Watch the video](https://img.youtube.com/vi/BpZr7LPZxno/maxresdefault.jpg)](https://youtu.be/BpZr7LPZxno)
 
+[Demo Video](https://youtu.be/BpZr7LPZxno)
+
 <br/>
 
 ## How to run the system locally
