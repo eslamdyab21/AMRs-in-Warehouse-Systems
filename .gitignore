@@ -11,3 +11,10 @@ ROS-communication/__pycache__
 ROS-communication/test.py
 docs/.obsidian/*
 docs/.trash/*
+Graduation Project Documentation/.obsidian/*
+Graduation-Project-Documentation/.obsidian/
+database-servers-comparison/.env
+database-servers-comparison/images/*
+dashboard-web-application/
+docker-with-databases/__pycache__
+docker-with-databases/.env
