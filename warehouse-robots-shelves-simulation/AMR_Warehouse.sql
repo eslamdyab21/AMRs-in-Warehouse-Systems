@@ -1,18 +1,18 @@
--- To use MySQL here --
--- mysql -u username -p --
+/*
+To use MySQL here: mysql -u username -p
+To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
+*/
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- To enable or disable foreign key constraints: SET FOREIGN_KEY_CHECKS=0; or 1;
 CREATE DATABASE AMR_Warehouse;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Interacting with the website --
--- ALL IS ADDED --
+/* Interacting with the website */
 
 CREATE TABLE Users(
-    UserID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, -- No need to insert it manually
+    UserID VARCHAR(5) PRIMARY KEY,
     Email VARCHAR(50) NOT NULL UNIQUE,
     Password VARCHAR(50) NOT NULL,
     FullName VARCHAR(20) NOT NULL,
@@ -20,17 +20,17 @@ CREATE TABLE Users(
 );
 
 CREATE TABLE Products(
-    ProductID VARCHAR(5) NOT NULL PRIMARY KEY,
+    ProductID VARCHAR(5) PRIMARY KEY,
     Price INT NOT NULL CHECK(Price > 0),
     ItemsInStock INT NOT NULL CHECK(ItemsInStock >= 0)
 );
 
 CREATE TABLE Orders(
-    OrderID VARCHAR(5) NOT NULL PRIMARY KEY,
-    UserID INT NOT NULL,
+    OrderID VARCHAR(5) PRIMARY KEY,
+    UserID VARCHAR(5) NOT NULL,
     ProductID VARCHAR(5) NOT NULL,
-    Quantity INT NOT NULL CHECK(Quantity >= 0),
-    Cost DECIMAL(6 , 2) NOT NULL CHECK(Cost >= 0),
+    Quantity INT NOT NULL CHECK(Quantity > 0),
+    Cost DECIMAL(6 , 2) CHECK(Cost >= 0),
     DateTime DATETIME NOT NULL,
 
     -- Creating relations
@@ -41,14 +41,13 @@ CREATE TABLE Orders(
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Interacting with the warehouse --
--- ALL IS ADDED --
+/* Interacting with the warehouse */
 
 CREATE TABLE Shelves(
-    ShelfID VARCHAR(5) NOT NULL PRIMARY KEY,
-    LocationX INT NOT NULL UNIQUE CHECK(LocationX BETWEEN 0 AND 20),
-    LocationY INT NOT NULL UNIQUE CHECK(LocationY BETWEEN 0 AND 20),
-    ProductID VARCHAR(5) NOT NULL, -- The product that the shelf stores
+    ShelfID VARCHAR(5) PRIMARY KEY,
+    LocationX INT NOT NULL CHECK(LocationX BETWEEN 0 AND 20),
+    LocationY INT NOT NULL CHECK(LocationY BETWEEN 0 AND 20),
+    ProductID VARCHAR(5), -- The product that the shelf stores
     HavingOrder INT NOT NULL CHECK(HavingOrder IN (0, 1)), -- 0: Empty, 1: Occupied
 
     -- Creating relations
@@ -56,7 +55,7 @@ CREATE TABLE Shelves(
 );
 
 CREATE TABLE Robots(
-    RobotID VARCHAR(5) NOT NULL PRIMARY KEY,
+    RobotID VARCHAR(5) PRIMARY KEY,
     Speed INT NOT NULL CHECK(Speed >= 0),
     BatteryLife INT NOT NULL CHECK(BatteryLife BETWEEN 0 AND 100),
 
@@ -74,23 +73,31 @@ CREATE TABLE Robots(
     Moving INT NOT NULL CHECK(Moving IN (0, 1)), -- 0: Not moving, 1: Moving
 
     -- Creating relations
-    FOREIGN KEY (ShelfID) REFERENCES Shelves(ShelfID)
+    FOREIGN KEY (ShelfID) REFERENCES Shelves(ShelfID),
+
+    -- To add the constraint of unique location (x, y)
+    UNIQUE KEY (CurrentLocationX, CurrentLocationY), 
+    UNIQUE KEY (NextLocationX, NextLocationY)
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- For the developer --
--- ADDED --
+/* For the admin */
 
 CREATE TABLE Notifications(
-    NotificationID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    NotificationID INT PRIMARY KEY AUTO_INCREMENT,
     Notification VARCHAR(100),
     DateTime DATETIME NOT NULL
 );
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Trigger for notification a new order & decrease number of items in stock in products table (ADDED)
+/*
+This trigger does 2 tasks:
+1. Add a notification for each new order
+2. Decrease number of items in stock in products table
+*/
+
 DELIMITER //
 CREATE TRIGGER NewOrder AFTER INSERT ON Orders FOR EACH ROW
     BEGIN
@@ -103,75 +110,37 @@ CREATE TRIGGER NewOrder AFTER INSERT ON Orders FOR EACH ROW
     END //
 DELIMITER ;
 
--- STOP HERE --
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Function to send an order to the robot with the minimum cost & minimum ID to go
-CREATE FUNCTION RobotToGo()
-    RETURNS VARCHAR(5) DETERMINISTIC
-    RETURN(SELECT MIN(RobotID) FROM Robots WHERE CostToShelf = (SELECT MIN(CostToShelf) FROM Robots));
+-- This trigger does one task which is making the ShelfID in the Robots table becomes NULL once the HavingOrder state becomes 0
 
--- To call it: SELECT RobotToGo();
-
--- Trigger for deadlock state between 2 robots
-DELIMITER //
-CREATE TRIGGER DeadLock AFTER UPDATE ON Robots FOR EACH ROW
-    BEGIN
-        DECLARE deadlock VARCHAR(5);
-        -- This CTE returns all the robots' IDs which will be at the same location
-        WITH RobotsAtSameLocation AS
-        (
-            SELECT R1.RobotID FROM Robots AS R1
-            INNER JOIN Robots AS R2
-                ON R1.NextLocationX = R2.NextLocationX
-                    AND R1.NextLocationY = R2.NextLocationY
-            WHERE R1.RobotID <> R2.RobotID
-        )
-
-        -- For only 2 robots in the grid
-        SELECT MAX(RobotID) INTO deadlock FROM RobotsAtSameLocation;
-        UPDATE States SET Moving = 0 WHERE RobotID = deadlock;
-
-        -- For more than 2 robots in the grid
-        -- To loop over the CTE
-        -- DECLARE NumberOfDeadlocks INT;
-        -- SELECT COUNT(*) INTO NumberOfDeadlocks FROM RobotsAtSameLocation;
-        -- CALL LoopOverStates(NumberOfDeadlocks);
-    END//
-DELIMITER ;
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Things to do:
--- 1. Decrease the items in stock in Products table in the case of ordering an order (Done)
--- 2. Check the Cost in the Orders table that is equal to Quantity*Product.Price
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
--- LoopOverStates procedure to make all robots' states is deadlock except the one with minimum ID
-DELIMITER //
-CREATE PROCEDURE LoopOverStates(IN NIterations INT)
-    BEGIN
-        DECLARE inc INT;
-        SET inc = 0;
-        LABEL:
-            WHILE inc <= NIterations DO
-                UPDATE Robots SET Moving = 0 WHERE RobotID = CONCAT('R', inc);
-                SET inc = inc + 1;
-            END
-        WHILE LABEL;
-    END//
-DELIMITER ;
-
--- Trigger for states with shelves
 DELEMITER //
-CREATE TRIGGER CheckStates AFTER INSERT ON Robots FOR EACH ROW
+CREATE TRIGGER CheckStates BEFORE UPDATE ON Robots FOR EACH ROW
     BEGIN
-        DECLARE currentState VARCHAR(10);
-        SELECT HavingOrder INTO currentState FROM States;
+        DECLARE currentState INT;
+        SELECT NEW.HavingOrder INTO currentState FROM Robots;
         IF currentState = 0 THEN
-            REPLACE INTO Robots SET RobotID = New.RobotID, ShelfID = NULL, CostToShelf = 0;
+            SET NEW.ShelfID = NULL;
         END IF;
     END //
 DELEMITER ;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- This trigger does one task which is calculating the cost of new orders by multiplying the price of the product by the order's quantity
+
+DELIMITER //
+CREATE TRIGGER CheckCost BEFORE INSERT ON Orders FOR EACH ROW
+    BEGIN
+        DECLARE product_price INT;
+        SELECT Price INTO product_price FROM Products AS P WHERE P.ProductID = NEW.ProductID;
+        SET NEW.Cost = product_price * NEW.Quantity;
+    END //
+DELIMITER ;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+Things to do:
+-------------
+*/
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

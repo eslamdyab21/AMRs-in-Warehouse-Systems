@@ -1,0 +1,20 @@
+{
+	"nodes":[
+		{"type":"group","id":"2e49bf148640394a","x":-640,"y":-420,"width":1300,"height":620,"label":"SYSTEM OVERVIEW"},
+		{"type":"text","text":" <h1 align=\"center\">CUSTOMERS WEBSITE <h1>","id":"d548b108a2116beb","x":-140,"y":-380,"width":259,"height":175},
+		{"type":"text","text":" <h1 align=\"center\">ADMIN WEBSITE<h1>","id":"d4c678016ad2908f","x":-600,"y":-20,"width":240,"height":180},
+		{"type":"text","text":" <h1 align=\"center\">DB NODE<h1>","id":"eb29339b5568df19","x":-130,"y":0,"width":240,"height":140},
+		{"type":"text","text":" <h1 align=\"center\">EMBEDDED NODE<h1>","id":"091cfeecda389480","x":360,"y":-380,"width":260,"height":175},
+		{"type":"text","text":" <h1 align=\"center\">ALGORITHM NODE<h1>","id":"c9744d6cd2558c8e","x":360,"y":-15,"width":260,"height":170},
+		{"type":"text","text":" <h1 align=\"center\">CLOUD & DEVOPS<h1>","id":"9918a52ddd2165f2","x":-584,"y":-382,"width":209,"height":180}
+	],
+	"edges":[
+		{"id":"db8e0ad528abfb13","fromNode":"eb29339b5568df19","fromSide":"top","toNode":"d548b108a2116beb","toSide":"bottom","fromEnd":"arrow","color":"6","label":"DIRECT"},
+		{"id":"0267532dca10fd35","fromNode":"eb29339b5568df19","fromSide":"left","toNode":"d4c678016ad2908f","toSide":"right","fromEnd":"arrow","color":"6","label":"DIRECT"},
+		{"id":"e572ff284799404d","fromNode":"9918a52ddd2165f2","fromSide":"bottom","toNode":"d4c678016ad2908f","toSide":"top","color":"6"},
+		{"id":"506b382f6e02768c","fromNode":"eb29339b5568df19","fromSide":"right","toNode":"c9744d6cd2558c8e","toSide":"left","fromEnd":"arrow","color":"6","label":"INDIRECT"},
+		{"id":"04366913c42caffd","fromNode":"9918a52ddd2165f2","fromSide":"bottom","toNode":"eb29339b5568df19","toSide":"top","color":"6"},
+		{"id":"926ec75c3be65715","fromNode":"9918a52ddd2165f2","fromSide":"right","toNode":"d548b108a2116beb","toSide":"left","color":"6"},
+		{"id":"283329bc53780963","fromNode":"c9744d6cd2558c8e","fromSide":"top","toNode":"091cfeecda389480","toSide":"bottom","fromEnd":"arrow","color":"6","label":"INDIRECT"}
+	]
+}
