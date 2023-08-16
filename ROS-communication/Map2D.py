@@ -34,7 +34,6 @@ class Map2D():
         for object_id, locations in object_locations.items():
             prev_location = locations[0]
             crrent_location = locations[1]
-
             # erase prev location
             pos_x = prev_location[0]
             pos_y = prev_location[1]

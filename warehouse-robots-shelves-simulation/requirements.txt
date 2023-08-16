@@ -1,3 +1,5 @@
-python-doten
+python-dotenv
 numpy
 pandas
+mysql-connector
+matplotlib

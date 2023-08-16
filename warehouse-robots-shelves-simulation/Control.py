@@ -2,6 +2,7 @@ import numpy as np
 import time
 from Path_Planning_Algorithms import Algorithms
 import utils
+import pandas as pd
 
 
 class Control():
@@ -37,8 +38,10 @@ class Control():
         """
         start_time = time.time()
 
-
-        shelves_recived_order_list = self.query_recived_order_shelfs()
+        if self.database != None:
+            shelves_recived_order_list = self.query_recived_order_shelfs_from_db()
+        else:
+            shelves_recived_order_list = self.query_recived_order_shelfs_from_file()
 
         shelf_cost_vector = []
         shelf_costs_vector = []
@@ -70,13 +73,12 @@ class Control():
         # min path
         shelvs_recived_order = sorted(shelvs_recived_order, key=lambda x: x[1], reverse=True)
 
-        # print(shelvs_recived_order)
-        for i in range(len(shelvs_recived_order)):
+        for i in range(0,len(shelvs_recived_order)):
             shelf = shelvs_recived_order[i][0]
             robot = shelvs_recived_order[i][2][0][0]
 
-            shelf_costs_vector = shelvs_recived_order[i][2]
-            min_cost = shelf_costs_vector[0][2]
+            shelf_costs_vector = shelvs_recived_order[i][2].copy()
+            min_cost = shelf_costs_vector[0][2].copy()
 
             # robot.active_order_status = True
             robot.paired_with_shelf_status = True
@@ -100,31 +102,60 @@ class Control():
 
             
             # remove current robot from other potintal shelves, so it's not taken twice
-            for i in range(i+1,len(shelvs_recived_order)):
-                robot_index = shelvs_recived_order[i][2][1].index(shelf_costs_vector[0][1])                
-                del shelvs_recived_order[i][2][robot_index]
+            for j in range(i,len(shelvs_recived_order)):
+                for robot_robotid_cost in shelvs_recived_order[j][2]:
+                    if shelf_costs_vector[0][1] in robot_robotid_cost:
+                        shelvs_recived_order[j][2].remove(robot_robotid_cost)
                 
 
-    def query_recived_order_shelfs(self):
+    def query_recived_order_shelfs_from_db(self):
         """
-        query_recived_order_shelfs function queres shelves order status
+        query_recived_order_shelfs_from_db function queres shelves order status
 
         :return shelves_recived_order_list: a list of shelves ids who recived orders
         """
 
         start_time = time.time()
-        shelves_id_recived_order_list = self.database.query_recived_order_shelfs_id()
+        shelves_id_recived_order_list = self.database.query_recived_order_shelfs_from_db_id()
         
         shelves_recived_order_list = []
         for shelf in self.shelvs:
             if shelf.id in shelves_id_recived_order_list:
                 shelves_recived_order_list.append(shelf)
 
-        self.logger.log(f'Control : query_recived_order_shelfs : {time.time()-start_time} -->')
+        self.logger.log(f'Control : query_recived_order_shelfs_from_db : {time.time()-start_time} -->')
 
         return shelves_recived_order_list
         
 
+    def query_recived_order_shelfs_from_file(self):
+        """
+        query_recived_order_shelfs_from_file function queres shelves order status
+
+        :return shelves_recived_order_list: a list of shelves ids who recived orders
+        """
+
+        start_time = time.time()
+
+        file_name = "warehouse-robots-shelves-simulation/recived_order_shelfs.csv"
+        df = pd.read_csv(file_name)
+
+        # get shlves who recived order
+        shelves_id_recived_order_list = df[df['recived_order_status'] == 1]['shelf'].tolist()
+        
+        # put recived status to 0
+        df.loc[df.recived_order_status==1, 'recived_order_status'] = 0
+        # df.to_csv(file_name, encoding='utf-8', index=False)
+
+        shelves_recived_order_list = []
+        for shelf in self.shelvs:
+            if shelf.id in shelves_id_recived_order_list:
+                shelves_recived_order_list.append(shelf)
+                
+
+        self.logger.log(f'Control : query_recived_order_shelfs_from_file : {time.time()-start_time} -->')
+
+        return shelves_recived_order_list
 
 
     def steps_map_to_shelf(self):
@@ -135,7 +166,7 @@ class Control():
         start_time = time.time()
 
         i=0
-        print(self.robots_with_min_cost_list)
+        # print(self.robots_with_min_cost_list)
         for robot in self.robots_with_min_cost_list:
             if robot != None:
 
@@ -145,9 +176,12 @@ class Control():
                 robot.astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
 
                 route = self.path_algorithms.astar(robot.astart_map, start, goal)
-                print(route)
+                print(robot.id, route)
                 
-                
+                # skip if no path is found
+                if route == False:
+                    continue
+
                 if len(route) == 2:
                     prev_location = robot.current_location.copy()
                     robot.current_location = route[-1]
@@ -155,53 +189,54 @@ class Control():
 
                     horizontal_steps = 0
                     vertical_steps = 0
-                else:
+                elif len(route) > 2:
                     horizontal_steps = route[1][1] - robot.current_location[1] 
                     vertical_steps = route[1][0] - robot.current_location[0]
                 
+                if len(route) > 2:
+                    if vertical_steps > 0:
+                        # want to move down
+                        self.move(robot, 'down')
 
-                if vertical_steps > 0:
-                    # want to move down
-                    self.move(robot, 'down')
-
-                elif vertical_steps < 0:
-                    # want to move up
-                    self.move(robot, 'up')
-                
-                elif vertical_steps == 0:
-                    if horizontal_steps > 0:
-                        # want to move right
-                        self.move(robot, 'right')
-
-                    elif horizontal_steps < 0:
-                        # want to move left
-                        self.move(robot, 'left')
-
-                    else:
-                        robot.paired_with_shelf.current_location = robot.current_location
+                    elif vertical_steps < 0:
+                        # want to move up
+                        self.move(robot, 'up')
                     
-                        # robot is now physicly connected to shelf
-                        robot.physically_connected_to_shelf = robot.paired_with_shelf
-                        robot.paired_with_shelf.physically_connected_to_robot = robot
+                    elif vertical_steps == 0:
+                        if horizontal_steps > 0:
+                            # want to move right
+                            self.move(robot, 'right')
 
-                        # appending that robot to a list
-                        self.robots_physically_connected_to_shelves_list.append(robot)
+                        elif horizontal_steps < 0:
+                            # want to move left
+                            self.move(robot, 'left')
 
-                        # delete that robot from the robots_with_min_cost_list
-                        # del self.robots_with_min_cost_list[i]
-                        self.robots_with_min_cost_list[i] = None
-                        # self.steps_map_to_shelf()
+                        else:
+                            robot.paired_with_shelf.current_location = robot.current_location
+                        
+                            # robot is now physicly connected to shelf
+                            robot.physically_connected_to_shelf = robot.paired_with_shelf
+                            robot.paired_with_shelf.physically_connected_to_robot = robot
 
-            
-                # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+                            # appending that robot to a list
+                            self.robots_physically_connected_to_shelves_list.append(robot)
 
-                if horizontal_steps == 0 and vertical_steps == 0:
-                    self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+                            # delete that robot from the robots_with_min_cost_list
+                            # del self.robots_with_min_cost_list[i]
+                            self.robots_with_min_cost_list[i] = None
+                            # self.steps_map_to_shelf()
 
-                else:
+                if len(route) == 2:
+                    # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+
+                    if horizontal_steps == 0 and vertical_steps == 0:
+                        self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+
+                elif len(route) >2:
                     self.map.update_objects_locations({robot.id:robot.locations})
                 
-                self.map.show_astar_map(robot.astart_map, robot.current_location, goal, route)
+                
+                self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)
                 i = i + 1
             
             
@@ -245,8 +280,8 @@ class Control():
             robot.paired_with_shelf.locations = robot.locations
 
             
-            self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
-            self.database.update_db(table="Shelves", id=robot.paired_with_shelf.id, parameters={"LocationX":robot.current_location[0], "LocationY":robot.current_location[1]})
+            # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+            # self.database.update_db(table="Shelves", id=robot.paired_with_shelf.id, parameters={"LocationX":robot.current_location[0], "LocationY":robot.current_location[1]})
             
 
             self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
@@ -262,8 +297,11 @@ class Control():
         """
         start_time = time.time()
 
-        
-        self.query_recived_order_shelfs()
+        if self.database != None:
+            self.query_recived_order_shelfs_from_db()
+        else:
+            self.query_recived_order_shelfs_from_file()
+
         self.min_cost_robots()
         self.steps_map_to_shelf()
         # self.steps_map_to_packaging()
