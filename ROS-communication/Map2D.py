@@ -32,18 +32,22 @@ class Map2D():
         """
 
         for object_id, locations in object_locations.items():
-            prev_location = locations[0]
-            crrent_location = locations[1]
-            # erase prev location
-            pos_x = prev_location[0]
-            pos_y = prev_location[1]
-            self.map[pos_x][pos_y] = 0
+
+            try:
+                prev_location = locations[0]
+                crrent_location = locations[1]
+                # erase prev location
+                pos_x = prev_location[0]
+                pos_y = prev_location[1]
+                self.map[pos_x][pos_y] = 0
 
 
-            # add new location
-            pos_x = crrent_location[0]
-            pos_y = crrent_location[1]
-            self.map[pos_x][pos_y] = object_id
+                # add new location
+                pos_x = crrent_location[0]
+                pos_y = crrent_location[1]
+                self.map[pos_x][pos_y] = object_id
+            except:
+                print('glitch')
 
 
 
