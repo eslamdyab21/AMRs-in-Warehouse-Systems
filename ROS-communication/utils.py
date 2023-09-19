@@ -1,6 +1,6 @@
 import numpy as np
 
-def convert_warehouse_map_to_astart_map(warehouse_map, robot_id = None):
+def convert_warehouse_map_to_astart_map(warehouse_map, robot_id = None, goal_shelf = None):
     # print(warehouse_map)
 
     for x in range(0, warehouse_map.shape[0]):
@@ -9,9 +9,12 @@ def convert_warehouse_map_to_astart_map(warehouse_map, robot_id = None):
                 warehouse_map[x,y] = 0
 
             elif warehouse_map[x,y] != 0 and warehouse_map[x,y] != '0':
-
+                
                 if warehouse_map[x,y][0] == 'S':
-                    warehouse_map[x,y] = 0
+                    if [x,y] == goal_shelf:
+                        warehouse_map[x,y] = 0
+                    else:
+                        warehouse_map[x,y] = 1
 
                 else:
                     warehouse_map[x,y] = 1

@@ -164,7 +164,7 @@ class Control():
         start = self.ros_robots_status_dict[robot.id]['locations'][1]
         goal = self.ros_shelves_status_dict[self.shelf.id]['locations'][1]
 
-        astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
+        astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id, goal_shelf=goal)
 
         route = self.path_algorithms.astar(astart_map, start, goal)
         
@@ -259,7 +259,7 @@ class Control():
 
         avalible_pos_row_lst = []
         for index in range(len(area)):
-            if area[index] == '0':
+            if area[index] == '0' or area[index] == 0:
                 avalible_pos_row_lst.append(index)
 
         if spot_place == 'robots_area':
