@@ -44,6 +44,10 @@ Also some of the system components are **deodorized** so that the system can run
 
 ## Robot design and demo
 
+https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems/assets/77991372/3c8cc854-5e8b-4d0b-a788-fde1aca593cc
+
+<br/>
+
 ![obsidian-nodes](docs/README-images/robot.jpeg)
 
 
