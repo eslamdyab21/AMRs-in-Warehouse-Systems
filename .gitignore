@@ -18,3 +18,21 @@ database-servers-comparison/images/*
 dashboard-web-application/
 docker-with-databases/__pycache__
 docker-with-databases/.env
+warehouse-robots-shelves-simulation/.env
+
+# ---------client--------------
+# dependencies
+dashboard-web-application/client/node_modules
+dashboard-web-application/client/.pnp
+dashboard-web-application/client/.pnp.js
+
+# testing
+dashboard-web-application/client/coverage
+
+# production
+/build
+
+# ---------server--------------
+# server
+dashboard-web-application/server/node_modules
+dashboard-web-application/server/.env

@@ -1,0 +1,13 @@
+---
+# - name: "Create frontend app dir"
+#   file:
+#     path: /home/ubuntu/frontend-app
+#     state: directory
+
+
+
+- name: "pull and run docker image for backend"
+  shell: |
+    docker run --name dashboard-backend-1.0 -p 5000:5000 -d eslamdyba/amrs-in-warehouse-systems:dashboard-backend-1.0
+
+
