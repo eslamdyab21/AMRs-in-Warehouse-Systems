@@ -18,7 +18,29 @@ pipeline {
             }
         }
 
-        stage("create postgresql server docker image") {
+        stage("install frontend node app dependencies") {
+            steps {
+                    dir('dashboard-web-application/client') {
+
+                        script {
+                            gv_job_script.install_node_dependencies()
+                        }
+                    }
+            }
+        }
+
+        stage("build frontend node app") {
+            steps {
+                    dir('dashboard-web-application/client') {
+
+                        script {
+                            gv_job_script.build_node()
+                        }
+                    }
+            }
+        }
+
+        stage("create frontend docker image") {
             steps {
                 script {
                     gv_job_script.create_docker_image()
@@ -26,7 +48,7 @@ pipeline {
             }
         }
 
-        stage("push backend docker image") {
+        stage("push frontend docker image") {
             steps {
                 script {
                     gv_job_script.push_docker_image()
@@ -34,7 +56,7 @@ pipeline {
             }
         }
 
-        stage("dev deploy docker database server") {
+        stage("dev deploy docker frontend") {
             steps {
                 script {
                     sh 'echo deploying'

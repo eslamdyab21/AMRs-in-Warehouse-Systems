@@ -1,3 +1,14 @@
+def install_node_dependencies() {
+    echo "installing the node application dependencies..."
+    sh 'npm install'
+}
+
+
+def build_node() {
+    echo "building the node application..."
+    sh 'npm run build'
+} 
+
 def create_docker_image() {
     echo "creating the docker image..."
     withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {

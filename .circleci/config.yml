@@ -1,0 +1,523 @@
+version: 2.1
+
+commands:
+  install_tar:
+    description: Install Tar 
+    steps:
+      - run:
+          name: Install Tar
+          command: |
+             yum install -y tar
+  
+  install_gzip:
+    description: Install gzip 
+    steps:
+      - run:
+          name: Install gzip
+          command: |
+            yum install -y tar gzip 
+
+  install_awscli:
+    description: Install AWS CLI v2
+    steps:
+      - run:
+          name: Install AWS CLI v2
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+  
+  install_ansible:
+    description: Install Ansible
+    steps:
+      - run:
+          name: Install Ansible
+          command: |
+            sudo add-apt-repository universe
+            sudo apt-get update
+            sudo apt install python3-pip -y
+            python3 -m pip install --user ansible
+
+  install_nodejs:
+    description: Install nodejs 13
+    steps:
+      - run:
+          name: Install nodejs 13
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            sudo apt install -y nodejs
+
+
+
+
+jobs:
+  build-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-build-deps]
+      - run:
+          name: Build front-end
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+            npm run build
+
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build-deps
+
+  build-docker-image-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - install_awscli
+      - restore_cache:
+          keys: [frontend-build-deps]
+      - run:
+          name: Build front-end
+          command: |
+            cd dashboard-web-application
+            cd client
+            BACKEND_WEBAPPLICATIONS_PUBLIC_IP=localhost
+            rm .env.local
+            echo REACT_APP_BASE_URL=http://$BACKEND_WEBAPPLICATIONS_PUBLIC_IP:5000 >> .env.local
+            echo $REACT_APP_BASE_URL
+            cat .env.local
+            npm install
+            npm run build
+
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+
+      - run:
+          name: Build docker image for frontend
+          command: |
+            docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-frontend-1.0 .
+      - run:
+          name: Push docker image for frontend to dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin  
+            docker push eslamdyba/amrs-in-warehouse-systems:dashboard-frontend-1.0
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build-deps
+
+  build-docker-image-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - install_awscli
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: Back-end build
+          command: |
+            cd dashboard-web-application
+            cd server
+            npm install
+            echo "npm run build"
+
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+
+      # - run:
+      #     name: get database server IP
+      #     command: |
+      #       DATBASE_PUBLIC_IP=$(aws ec2 describe-instances \
+      #         --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+      #         --query 'Reservations[*].Instances[*].PublicIpAddress' \
+      #         --output text)   
+      #       echo $DATBASE_PUBLIC_IP >> test.txt
+      #       cat test.txt
+      #       echo $DATBASE_PUBLIC_IP
+      #       echo $DATBASE_PUBLIC_IP
+
+      - run:
+          name: Build docker image for backend
+          command: |
+            git clone https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems.git
+            cd AMRs-in-Warehouse-Systems
+            git checkout feature/software/75
+            cd dashboard-web-application
+            cd server
+            npm install
+            cd ..
+            cd ..   
+            DATBASE_PUBLIC_IP=dashboard-database 
+            echo $DATBASE_PUBLIC_IP
+            docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-backend-1.0 --build-arg POSTGRES_HOST=$DATBASE_PUBLIC_IP --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DATABASE=$POSTGRES_DB --build-arg POSTGRES_PORT=$POSTGRES_PORT --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD .
+      
+      - run:
+          name: Push docker image for Backend to dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin  
+            docker push eslamdyba/amrs-in-warehouse-systems:dashboard-backend-1.0  
+
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
+
+
+
+
+  build-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: Back-end build
+          command: |
+            cd dashboard-web-application
+            cd server
+            npm install
+            echo "npm run build"
+
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
+
+  scan-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: frontend-scan
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
+
+  scan-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build-deps]
+      - run:
+          name: backend-scan
+          command: |
+            cd dashboard-web-application
+            cd server
+            npm install
+            npm audit fix --force --audit-level=critical
+            npm audit --audit-level=critical
+
+  build-docker-image-database:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout 
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+      - run:
+          name: create docker image 
+          command: |
+            git clone https://github.com/eslamdyab21/AMRs-in-Warehouse-Systems.git
+            cd AMRs-in-Warehouse-Systems
+            git checkout feature/data/48
+            docker build -t eslamdyba/amrs-in-warehouse-systems:dashboard-database-postgres-1.0 --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_DB=$POSTGRES_DB --build-arg POSTGRES_PASSWORD=$POSTGRES_PASSWORD -f docker-with-databases/Dockerfile .
+      - run:
+          name: Push docker image for database to dockerhub
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin  
+            docker push eslamdyba/amrs-in-warehouse-systems:dashboard-database-postgres-1.0
+       
+
+  create-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - install_tar
+      - install_gzip
+      - run:
+          name: Create web applications infrastructure exist
+          command: |
+            aws cloudformation deploy \
+            --template-file .circleci/files/webapplications.yml \
+            --tags project=AMRs-in-Warehouse-Systems \
+            --stack-name "AMRs-in-Warehouse-Systems-webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
+      - run:
+          name: Add webapplications instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
+
+
+  configure-infrastructure-webappication:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Configure server
+          command: |
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
+
+  
+
+  deploy-frontend:
+    docker:
+      # Docker image here that supports AWS CLI
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      - install_nodejs
+      - restore_cache:
+          keys: [frontend-build-deps]
+      - run:
+          name: Install dependencies
+          command: |
+            cd dashboard-web-application
+            cd client
+            npm install
+      - run:
+          name: Add webapplications instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+      - run:
+          name: Deploy frontend app
+          command: |
+            echo "Contents  of the inventory.txt file is -------"
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-frontend.yml
+
+      # Here's where you will add some code to rollback on failure 
+
+
+  
+  deploy-database:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: Add database instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+      - run:
+          name: Deploy database
+          command: |
+            echo "Contents  of the inventory.txt file is -------"
+            cat ~/project/.circleci/ansible/inventory.txt
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-database.yml
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}      
+  
+  configure-infrastructure-database:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: Add database instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=database-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+      - run:
+          name: Configure server
+          command: |
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/ansible/inventory.txt
+
+  deploy-backend:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - install_ansible
+      # - install_nodejs
+      - restore_cache:
+          keys: [backend-build-deps]
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["bb:a3:ce:80:fc:42:42:be:eb:01:22:fb:ed:0f:92:cd"]
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Add webapplications instance ip to ansible inventory
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            rm .circleci/ansible/inventory.txt
+            echo [web] >> .circleci/ansible/inventory.txt
+            echo $WEBAPPLICATIONS_PUBLIC_IP >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+
+      - run:
+          name: Deploy backend app
+          command: |
+            echo "Contents  of the inventory.txt file is -------"
+            cat ~/project/.circleci/ansible/inventory.txt
+            export ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+
+  smoke-test:
+    docker:
+      # Docker image here that supports Ansible
+      - image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install_awscli
+      - run: 
+          name: test website
+          command: |
+            WEBAPPLICATIONS_PUBLIC_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=webapplications-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            if curl -s --head "$WEBAPPLICATIONS_PUBLIC_IP:3000" 
+            then
+              echo "It worked!"
+            else
+              echo "It failed"
+              return 1
+            fi
+
+
+
+workflows:
+  default:
+    jobs:
+      - build-frontend
+      - build-backend
+      - scan-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
+      - build-docker-image-database:
+          requires: [scan-frontend, scan-backend]
+      - build-docker-image-backend:
+          requires: [build-docker-image-database]
+      - build-docker-image-frontend:
+          requires: [build-docker-image-backend]
+      # - create-infrastructure:
+      #     requires: [scan-frontend, scan-backend, build-database]
+      # - configure-infrastructure-webappication:
+      #     requires: [create-infrastructure]
+      # - deploy-frontend:
+      #     requires: [configure-infrastructure-webappication]
+      # - configure-infrastructure-database:
+      #     requires: [create-infrastructure]
+      # - deploy-database:
+      #     requires: [configure-infrastructure-database]
+      # - build-docker-image-backend:
+      #     requires: [deploy-database]
+      # - deploy-backend:
+      #     requires: [build-docker-image-backend]
+      # - build-docker-image-frontend:
+      #     requires: [create-infrastructure]
+      # - smoke-test:
+      #     requires: [deploy-backend]

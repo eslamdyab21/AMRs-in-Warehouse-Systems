@@ -1,0 +1,16 @@
+---
+# - name: "Create frontend app dir"
+#   file:
+#     path: /home/ubuntu/frontend-app
+#     state: directory
+
+- name: "making volume for docker image for database"
+  shell: |
+    docker volume create database-volume
+
+
+- name: "pull and run docker image for database"
+  shell: |
+    docker run --name database-1.0 -v database-volume:/shared-volume -p 5432:5432 -d eslamdyba/amrs-in-warehouse-systems:database-postgres-server-1.0
+
+

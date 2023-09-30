@@ -1,0 +1,40 @@
+---
+- name: "upgrade packages."
+  become: true
+  apt:
+    upgrade: "yes"
+
+# - name: "install nodejs and npm dependencies"
+#   become: true
+#   apt:
+#     name: ["nodejs", "npm"]
+#     state: latest
+#     update_cache: yes
+
+# - name: "install docker"
+#   shell: |
+#     sudo apt  install docker.io
+
+- name: "install docker"
+  become: true
+  apt:
+    name: ["docker.io"]
+    state: latest
+    update_cache: yes
+
+
+# - name: "install nodejs and npm"
+#   shell: |
+#     source /home/ubuntu/.bashrc 
+#     nvm install node
+
+
+
+
+
+
+# - name: "Install pm2"
+#   become: true
+#   npm:
+#     name: pm2
+#     global: yes
