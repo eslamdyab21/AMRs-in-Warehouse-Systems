@@ -1,7 +1,9 @@
-import pandas as pd
 import numpy as np
 import string
-
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
+from matplotlib.text import TextPath
+import pandas as pd
 
 class Map2D():
     """
@@ -56,3 +58,40 @@ class Map2D():
             
         print('---------------------------------------')
 
+
+
+    def show_astar_map(self, name, astart_map, start, goal, route):
+        x_coords = []
+
+        y_coords = []
+
+        for i in (range(0,len(route))):
+            
+                x = route[i][0]
+
+                y = route[i][1]
+
+                x_coords.append(x)
+
+                y_coords.append(y)
+
+        # plot map and path
+
+        # plt.subplots(figsize=(20,20))
+    
+        plt.ion()
+
+        plt.imshow(astart_map, cmap=plt.cm.Dark2)
+
+
+        plt.plot(y_coords,x_coords, color = "black")
+
+        object_id = TextPath((0,0), name)
+
+        plt.scatter(goal[1],goal[0], marker = "*", color = "red", s = 300)
+        ac = plt.scatter(start[1],start[0], marker = object_id, edgecolors=None, color = "yellow", s = 700)
+
+
+        plt.show()
+        plt.pause(0.01)
+        ac.set_visible(False)

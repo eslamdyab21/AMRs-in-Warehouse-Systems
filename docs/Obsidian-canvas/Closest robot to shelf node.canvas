@@ -1,0 +1,28 @@
+{
+	"nodes":[
+		{"type":"group","id":"3ff8f8435519d6ed","x":-980,"y":-393,"width":1537,"height":713,"label":"CLOSEST ROBOT TO SHELF NODE"},
+		{"type":"text","text":" <h1 align=\"center\">ORDER AT SHELF CALLBACK<h1>","id":"da5be407c21dc57c","x":-894,"y":-282,"width":334,"height":222},
+		{"type":"text","text":" <h1 align=\"center\">GET AVAILABLE ROBOTS<h1>","id":"3c3ffe2279dd7e81","x":-340,"y":-373,"width":314,"height":182},
+		{"type":"text","text":" <h1 align=\"center\">MIN COST ROBOT<h1>","id":"a4a3440eeaa31675","x":180,"y":-282,"width":239,"height":182},
+		{"type":"text","text":" <h2 align=\"center\">ROBOTS AND SHELVES STATUS CALLBACK<h2>","id":"ebcad92298a24535","x":-323,"y":56,"width":280,"height":186,"color":"6"},
+		{"type":"text","text":" <h2 align=\"center\">ASSIGN ROBOT TO SHELF<h2>","id":"9b0c913b2107da1e","x":240,"y":74,"width":297,"height":150,"color":"6"},
+		{"type":"text","text":"# ROBOT 1","id":"70cf87600fb3b4fb","x":-920,"y":420,"width":200,"height":60},
+		{"type":"text","text":"# ROBOT N","id":"a4b245f223e6dd2e","x":319,"y":420,"width":200,"height":60},
+		{"type":"text","text":"o","id":"db48465fe6038c27","x":-58,"y":425,"width":65,"height":50},
+		{"type":"text","text":"o","id":"50892cae7f008cd0","x":175,"y":425,"width":65,"height":50},
+		{"type":"text","text":"o","id":"0f50020d62124173","x":-625,"y":425,"width":65,"height":50},
+		{"type":"text","text":"o","id":"625cfb2e9aa58640","x":-355,"y":425,"width":65,"height":50},
+		{"type":"text","text":" <h2 align=\"center\">ORDER AT SHELF<h2>","id":"66541a0bedf51d46","x":-1340,"y":92,"width":280,"height":132,"color":"6"}
+	],
+	"edges":[
+		{"id":"12b6f4f2852e6873","fromNode":"66541a0bedf51d46","fromSide":"top","toNode":"da5be407c21dc57c","toSide":"bottom","color":"6"},
+		{"id":"b59929521b785d84","fromNode":"da5be407c21dc57c","fromSide":"right","toNode":"3c3ffe2279dd7e81","toSide":"left"},
+		{"id":"d1deb2a5c8d569bd","fromNode":"3c3ffe2279dd7e81","fromSide":"right","toNode":"a4a3440eeaa31675","toSide":"left"},
+		{"id":"c9f9f4efa7ddd63e","fromNode":"a4a3440eeaa31675","fromSide":"bottom","toNode":"9b0c913b2107da1e","toSide":"top","color":"6"},
+		{"id":"efde44eb94495a78","fromNode":"ebcad92298a24535","fromSide":"top","toNode":"3c3ffe2279dd7e81","toSide":"bottom","label":"UPDATE ROBOTS AND\nSHELVES STATUS"},
+		{"id":"dfe9049608976138","fromNode":"70cf87600fb3b4fb","fromSide":"top","toNode":"ebcad92298a24535","toSide":"bottom","color":"2"},
+		{"id":"e41407c10b636d41","fromNode":"a4b245f223e6dd2e","fromSide":"top","toNode":"ebcad92298a24535","toSide":"bottom","color":"2"},
+		{"id":"7f3f199cfca0a200","fromNode":"9b0c913b2107da1e","fromSide":"bottom","toNode":"70cf87600fb3b4fb","toSide":"right","color":"6"},
+		{"id":"0fe5a391958f5c66","fromNode":"9b0c913b2107da1e","fromSide":"bottom","toNode":"a4b245f223e6dd2e","toSide":"right","color":"6"}
+	]
+}

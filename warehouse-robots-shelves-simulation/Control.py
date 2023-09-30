@@ -1,4 +1,8 @@
 import numpy as np
+import time
+from Path_Planning_Algorithms import Algorithms
+import utils
+import pandas as pd
 
 
 class Control():
@@ -11,13 +15,18 @@ class Control():
     :param shelves: (list) list of shelves objects in the warehouse [shelf1, shelf2,....., shelfn]
     :param map_size: (list) [map_size_x, map_size_y]
     """
-    def __init__(self, robots, shelvs, map_size):
+    def __init__(self, logger, database, robots, shelvs, map):
+        self.logger = logger
+        self.database = database
 
         self.robots = robots
         self.shelvs = shelvs
-        self.map_size = map_size
+        self.map = map
         # self.min_cost = map_size[0]
         self.robots_with_min_cost_list = []
+        self.robots_physically_connected_to_shelves_list = []
+
+        self.path_algorithms = Algorithms()
 
 
 
@@ -27,14 +36,21 @@ class Control():
         we iterate over all robots that are not paired with other shelves and compute the
         corresponding cost until the robot with minimum cost is found.
         """
+        start_time = time.time()
+
+        if self.database != None:
+            shelves_recived_order_list = self.query_recived_order_shelfs_from_db()
+        else:
+            shelves_recived_order_list = self.query_recived_order_shelfs_from_file()
+
         shelf_cost_vector = []
         shelf_costs_vector = []
         shelvs_recived_order = []
-        for shelf in self.shelvs:
-            if shelf.recived_order_status and shelf.paired_with_robot_status==False:   
+        for shelf in shelves_recived_order_list:
+            if shelf.paired_with_robot_status==False:   
                 for robot in self.robots:
                     if robot.paired_with_shelf_status == False:
-                        robot.active_order_status = False  
+                        # robot.active_order_status = False  
                         cost_vector = abs(np.subtract(robot.current_location, shelf.current_location))
                         cost = cost_vector[0] + cost_vector[1]
                         
@@ -57,17 +73,18 @@ class Control():
         # min path
         shelvs_recived_order = sorted(shelvs_recived_order, key=lambda x: x[1], reverse=True)
 
-        # print(shelvs_recived_order)
-        for i in range(len(shelvs_recived_order)):
+        for i in range(0,len(shelvs_recived_order)):
             shelf = shelvs_recived_order[i][0]
-            robot = shelvs_recived_order[i][2][i][0]
-            
-            shelf_costs_vector = shelvs_recived_order[i][2]
-            min_cost = shelf_costs_vector[i][2]
+            robot = shelvs_recived_order[i][2][0][0]
 
-            robot.active_order_status = True
+            shelf_costs_vector = shelvs_recived_order[i][2].copy()
+            min_cost = shelf_costs_vector[0][2].copy()
+
+            # robot.active_order_status = True
             robot.paired_with_shelf_status = True
             shelf.paired_with_robot_status = True
+
+            # self.database.update_db(table="Shelves", id=shelf.id, parameters={"HavingOrder":0})
 
             robot.paired_with_shelf = shelf
             shelf.paired_with_robot = robot
@@ -75,50 +92,223 @@ class Control():
             self.robots_with_min_cost_list.append(robot)
 
             if shelf.paired_with_robot == None:
-                print(str(shelf.id) + " ----> " + "None" + " (Min cost)")
+                info = str(shelf.id) + " ----> " + "None" + " (Min cost)"
+                print(info)
+                self.logger.log(f'Control : min_cost_robots : {time.time()-start_time} -->' + info)
             else:
-                print(str(shelf.id) + " ----> " + str(shelf.paired_with_robot.id) + " (Min cost = " + str(min_cost) + ")" + " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")")
+                info = str(shelf.id) + " ----> " + str(shelf.paired_with_robot.id) + " (Min cost = " + str(min_cost) + ")" + " (Costs: " + str([i[1:] for i in shelf_costs_vector]) + ")"
+                print(info)
+                self.logger.log(f'Control : min_cost_robots : {time.time()-start_time} -->' + info)
+
+            
+            # remove current robot from other potintal shelves, so it's not taken twice
+            for j in range(i,len(shelvs_recived_order)):
+                for robot_robotid_cost in shelvs_recived_order[j][2]:
+                    if shelf_costs_vector[0][1] in robot_robotid_cost:
+                        shelvs_recived_order[j][2].remove(robot_robotid_cost)
+                
+
+    def query_recived_order_shelfs_from_db(self):
+        """
+        query_recived_order_shelfs_from_db function queres shelves order status
+
+        :return shelves_recived_order_list: a list of shelves ids who recived orders
+        """
+
+        start_time = time.time()
+        shelves_id_recived_order_list = self.database.query_recived_order_shelfs_from_db_id()
+        
+        shelves_recived_order_list = []
+        for shelf in self.shelvs:
+            if shelf.id in shelves_id_recived_order_list:
+                shelves_recived_order_list.append(shelf)
+
+        self.logger.log(f'Control : query_recived_order_shelfs_from_db : {time.time()-start_time} -->')
+
+        return shelves_recived_order_list
         
 
-
-    def steps_map(self, map):
+    def query_recived_order_shelfs_from_file(self):
         """
-        steps_map function work on the robots in the robots_with_min_cost_list to get their
-        steps/movement instructions that they will take to reach the shelf.
+        query_recived_order_shelfs_from_file function queres shelves order status
 
-        :param map: (2d array) object of the warehouse
+        :return shelves_recived_order_list: a list of shelves ids who recived orders
         """
+
+        start_time = time.time()
+
+        file_name = "warehouse-robots-shelves-simulation/recived_order_shelfs.csv"
+        df = pd.read_csv(file_name)
+
+        # get shlves who recived order
+        shelves_id_recived_order_list = df[df['recived_order_status'] == 1]['shelf'].tolist()
         
-        self.min_cost_robots()
+        # put recived status to 0
+        df.loc[df.recived_order_status==1, 'recived_order_status'] = 0
+        # df.to_csv(file_name, encoding='utf-8', index=False)
 
-        for i in range(len(self.robots_with_min_cost_list)):
-            robot = self.robots_with_min_cost_list[i]
-            horizontal_steps = robot.paired_with_shelf.current_location[1] - robot.current_location[1]
-            vertical_steps = robot.paired_with_shelf.current_location[0] - robot.current_location[0]
+        shelves_recived_order_list = []
+        for shelf in self.shelvs:
+            if shelf.id in shelves_id_recived_order_list:
+                shelves_recived_order_list.append(shelf)
+                
 
-            if vertical_steps > 0:
-                # want to move down
-                self.move(robot, 'down')
+        self.logger.log(f'Control : query_recived_order_shelfs_from_file : {time.time()-start_time} -->')
 
-            elif vertical_steps < 0:
-                # want to move up
+        return shelves_recived_order_list
+
+
+    def steps_map_to_shelf(self):
+        """
+        steps_map_to_shelf function uses A* algrothim to plan the path to the shelf
+        and moves the robot to it.
+        """
+        start_time = time.time()
+
+        i=0
+        # print(self.robots_with_min_cost_list)
+        for robot in self.robots_with_min_cost_list:
+            if robot != None:
+
+                start = robot.current_location
+                goal = robot.paired_with_shelf.current_location
+
+                robot.astart_map = utils.convert_warehouse_map_to_astart_map(self.map.map.copy(), robot.id)
+
+                route = self.path_algorithms.astar(robot.astart_map, start, goal)
+                print(robot.id, route)
+                
+                # skip if no path is found
+                if route == False:
+                    continue
+
+                if len(route) == 2:
+                    prev_location = robot.current_location.copy()
+                    robot.current_location = route[-1]
+                    robot.locations = [prev_location, robot.current_location]
+
+                    horizontal_steps = 0
+                    vertical_steps = 0
+                elif len(route) > 2:
+                    horizontal_steps = route[1][1] - robot.current_location[1] 
+                    vertical_steps = route[1][0] - robot.current_location[0]
+                
+                if len(route) > 2:
+                    if vertical_steps > 0:
+                        # want to move down
+                        self.move(robot, 'down')
+
+                    elif vertical_steps < 0:
+                        # want to move up
+                        self.move(robot, 'up')
+                    
+                    elif vertical_steps == 0:
+                        if horizontal_steps > 0:
+                            # want to move right
+                            self.move(robot, 'right')
+
+                        elif horizontal_steps < 0:
+                            # want to move left
+                            self.move(robot, 'left')
+
+                        else:
+                            robot.paired_with_shelf.current_location = robot.current_location
+                        
+                            # robot is now physicly connected to shelf
+                            robot.physically_connected_to_shelf = robot.paired_with_shelf
+                            robot.paired_with_shelf.physically_connected_to_robot = robot
+
+                            # appending that robot to a list
+                            self.robots_physically_connected_to_shelves_list.append(robot)
+
+                            # delete that robot from the robots_with_min_cost_list
+                            # del self.robots_with_min_cost_list[i]
+                            self.robots_with_min_cost_list[i] = None
+                            # self.steps_map_to_shelf()
+
+                if len(route) == 2:
+                    # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+
+                    if horizontal_steps == 0 and vertical_steps == 0:
+                        self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+
+                elif len(route) >2:
+                    self.map.update_objects_locations({robot.id:robot.locations})
+                
+                
+                self.map.show_astar_map(robot.id, robot.astart_map, robot.current_location, goal, route)
+                i = i + 1
+            
+            
+        
+        self.logger.log(f'Control : steps_map_to_shelf : {time.time()-start_time} -->')
+
+
+    
+    def steps_map_to_packaging(self):
+        """
+        steps_map_to_packaging function uses A* algrothim to plan the path to 
+        the packaging location and moves the robot to it.
+        """
+        start_time = time.time()
+
+
+        i = 0
+        for robot in self.robots_physically_connected_to_shelves_list:
+            horizontal_steps = robot.current_location[1]
+            vertical_steps = robot.current_location[0]
+
+            if vertical_steps < horizontal_steps:
+                # want to move up to packaging
                 self.move(robot, 'up')
 
-            elif vertical_steps == 0:
-                if horizontal_steps > 0:
-                    # want to move right
-                    self.move(robot, 'right')
+            elif horizontal_steps < vertical_steps:
+                # want to left for packaging
+                self.move(robot, 'left')
 
-                elif horizontal_steps < 0:
-                    # want to move left
+            elif vertical_steps == horizontal_steps:
+                # check which region is less crowdy
+                top_free_locations = np.count_nonzero(self.map.map[0:vertical_steps][:] == '0')
+                left_free_locations = np.count_nonzero(self.map.map[:][0:horizontal_steps] == '0')
+
+                if top_free_locations < left_free_locations:
+                    self.move(robot, 'up')
+                else:
                     self.move(robot, 'left')
+                    
 
-            if (abs(horizontal_steps) == 1 or horizontal_steps == 0) and vertical_steps == 0:
-                map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
-            else:
-                map.update_objects_locations({robot.id:robot.locations})
+            robot.paired_with_shelf.locations = robot.locations
 
-        map.show_map()
+            
+            # self.database.update_db(table="Robots", id=robot.id, parameters={"CurrentLocationX":robot.current_location[0], "CurrentLocationY":robot.current_location[1]})
+            # self.database.update_db(table="Shelves", id=robot.paired_with_shelf.id, parameters={"LocationX":robot.current_location[0], "LocationY":robot.current_location[1]})
+            
+
+            self.map.update_objects_locations({robot.id+robot.paired_with_shelf.id:robot.locations})
+            
+            i = i + 1
+
+        self.logger.log(f'Control : steps_map_to_packaging : {time.time()-start_time} -->')
+
+
+    def steps_map(self):
+        """
+        steps_map function gets the steps needed for each robot reach its goal
+        """
+        start_time = time.time()
+
+        if self.database != None:
+            self.query_recived_order_shelfs_from_db()
+        else:
+            self.query_recived_order_shelfs_from_file()
+
+        self.min_cost_robots()
+        self.steps_map_to_shelf()
+        # self.steps_map_to_packaging()
+        
+
+        self.map.show_map()
+        self.logger.log(f'Control : steps_map : {time.time()-start_time} -->')
 
 
     def move(self, robot, direction):
@@ -130,6 +320,8 @@ class Control():
         :param direction: desired direction to move the robot
         """
         
+        start_time = time.time()
+
         # print(robot.id, robot.current_location, direction)
         if direction == 'down':
             if robot.orientation == 'down':
@@ -189,40 +381,5 @@ class Control():
             elif robot.orientation == 'down':
                 robot.rotate_90_degree_clock_wise()
                 robot.move_forward()
-
-
-"""
-problem:
-    A  B   C   D   E  F  G  H
-A  R3  0   0  R2   0  0  0  0
-B   0  0   0   0   0  0  0  0
-C   0  0  S2   0   0  0  0  0
-D   0  0   0  R1   0  0  0  0
-E   0  0   0   0   0  0  0  0
-F   0  0   0   0  S1  0  0  0
-G   0  0   0   0   0  0  0  0
-H   0  0   0   0   0  0  0  0
-------------------------------
-S2 ----> R1 (Min cost =2)
-S1 ----> R2 (Min cost =6)
-
-
-
-
-****************************************
-solution::
-implemented logic to get min path for each robot
-
-    A  B   C   D   E  F  G  H
-A  R3  0   0  R2   0  0  0  0
-B   0  0   0   0   0  0  0  0
-C   0  0  S2   0   0  0  0  0
-D   0  0   0  R1   0  0  0  0
-E   0  0   0   0   0  0  0  0
-F   0  0   0   0  S1  0  0  0
-G   0  0   0   0   0  0  0  0
-H   0  0   0   0   0  0  0  0
------------------------------
-S1 ----> R1 (Min cost = 3) (Costs: [['R1', 3], ['R2', 6], ['R3', 9]])
-S2 ----> R2 (Min cost = 3) (Costs: [['R1', 2], ['R2', 3], ['R3', 4]])
-"""
+        
+        self.logger.log(f'Control : move : {time.time()-start_time} -->')
